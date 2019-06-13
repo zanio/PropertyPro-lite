@@ -133,8 +133,14 @@ body{
     .btn-orange{
         background: #DC5B12;
     }
+    .btn-orange:active{
+        background: rgba(220, 92, 18, 0.548);
+    }
     .btn-blue{
         background: #15254F
+    }
+    .btn-blue:active{
+        background: rgba(21, 37, 79, 0.486)
     }
     .btn-gray{
         background: #999999;
@@ -143,7 +149,6 @@ body{
         border: 1px solid rgba(48, 61, 95, 0.81);
         box-sizing: border-box;
         box-shadow: -5px 4px 7px rgba(0, 0, 0, 0.3);
-        outline: none;
         padding: 1rem 2rem;
     }
     .btn:focus{
@@ -166,12 +171,6 @@ body{
         --secondary-color:#1081E0;
         --btn-bg:#DC5B12;
     }
-    .cs-sm{
-        height: 25px;
-        border-radius: 27px;
-        width: 24px;
-        margin-top: -4px;
-    }
     .inline{
         display: inline;
     }
@@ -190,8 +189,19 @@ body{
     .flex-row{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: flex-end;
+    }
+    .space-between{
+        justify-content: space-between;
+    }
+    .space-around{
+        justify-content: space-around;
+    }
+    .space-evenly{
+        justify-content: space-evenly;
+    }
+    .heading{
+        font-size: 2rem;  
     }
     .width-50{
         width: 48%;
@@ -248,6 +258,12 @@ body{
     font-weight: normal;
     font-size: 1.375em;
     letter-spacing: 0.05em;
+    text-decoration: none;
     color: #1081E0;
 }
 
+.card-bg-white{
+    background: #FFFFFF;
+    border: 1px solid #999999;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
