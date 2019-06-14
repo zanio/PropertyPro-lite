@@ -16,51 +16,54 @@
     </header>
     <main>
         <!-- sign up title -->
-        <section class="container">
-            <div class="signup-title">
+        <section class="container ">
+            <div class="center width-70 text-center pt-3 ">
                 <img src="icons/signup-icon.png" alt="sign up icon">
-                <p>Welcome To PropertyPro-lite, signUp to start posting advert on your property</p>
+                <p class="title-head -light-blue mb-2">Welcome, signUp to start posting advert on your property</p>
             </div>
 
         </section>
-       <section>
+       <section class="container">
            <!-- signup form body -->
-           <div>
-               <form action="/signup">
-                <div>
+           <div class="signup-80 center">
+               <form class="flex-cloumn" action="/signup">
+                <div class="flex-row space-evenly flex-cloumn">
                     <div>
-                        <label for="email">Email</label>
-                        <input type="text" name="email">
+                        <label class="-blue" for="email">Email</label><br>
+                        <input class="width-100 -blue" type="text" name="email">
                     </div>
                     <div>
-                        <label for="password">Password</label>
-                        <input type="password" name="password">
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label for="frst_name">First Name</label>
-                        <input type="text" name="first_name">
-                    </div>
-                    <div>
-                        <label for="last_name">Last Name</label>
-                        <input type="text" name="last_name">
+                        <label class="-blue" for="password">Password</label><br>
+                        <input class="width-100  -blue" type="password" name="password">
                     </div>
                 </div>
-                <div>
+                <div class="flex-row space-evenly flex-cloumn">
                     <div>
-                        <label for="phoneNumber">Phone Number</label>
-                        <input type="text" name="phoneNumber">
+                        <label class="-blue" for="first_name">First Name</label><br>
+                        <input class="width-100 -blue" type="text" name="first_name">
                     </div>
                     <div>
-                        <label for="address">Adress</label>
-                        <input type="text" name="address">
+                        <label class="-blue" for="last_name">Last Name</label><br>
+                        <input class="width-100 -blue"  type="text" name="last_name">
                     </div>
                 </div>
-
+                <div class="flex-row space-evenly flex-cloumn">
+                    <div>
+                        <label class="-blue" for="phoneNumber">Phone Number</label><br>
+                        <input class="width-100 -blue"  type="text" name="phoneNumber">
+                    </div>
+                    <div>
+                        <label class="-blue" for="address">Adress</label><br>
+                        <input class="width-100" type="text" name="address">
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                        <button class="btn btn-bg btn-blue ft-1 white" type="submit">Create Account</button>
+                </div>
+                
                 </form>
-                <div>
-                    <p>Already have an account ? <a href="">Login</a>here</p>
+                <div class="text-center mt-3">
+                    <p class="title-head ft-1">Already have an account ? <a class="blue-link -light-blue" href="">Login</a> here</p>
                 </div>
            </div>
 

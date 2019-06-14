@@ -155,6 +155,9 @@ body{
     .-light-blue{
     color: #1081E0 !important;
     }
+    .-blue{
+    color: #15254F !important;
+    }
     .border-bottom{
         border-bottom: solid 3px #1081E0 !important;
     }
@@ -707,7 +710,15 @@ display: inline-block;
 }
 
 /* sign up page intergration */
-.signup-title{
-    
+.center{
+    margin: 0 auto !important;
+}
+.signup-80{
+    width: 80%;
+}
+@media(min-width:1000px) and (max-width:1200px){
+    .width-100{
+        width: 90%
+    }
 }
 
