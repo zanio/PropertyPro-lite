@@ -142,6 +142,12 @@ body{
 .ft-3{
     font-size: 3rem !important;
 }
+.hide{
+    display:none;
+}
+.block{
+    display:block;
+}
     /*  */
     .ft-weight{
         font-weight:bold
@@ -161,6 +167,9 @@ body{
     .border-bottom{
         border-bottom: solid 3px #1081E0 !important;
     }
+    .color-999{
+        color: #999999 !important;
+    }
     .white{
         color: white !important;
     }
@@ -169,6 +178,9 @@ body{
     }
     .bg-trans{
         background: transparent !important;
+    }
+    .bg-account{
+        background: rgba(196, 196, 196, 0.65)!important;
     }
     .btn-orange{
         background: #DC5B12;
@@ -319,7 +331,12 @@ body{
         color: #E5E5E5;
     }
 
+
 @media(min-width:1000px){
+    .ul-link li a,.property {
+        padding: 0 1rem;
+    }
+    
     .flex-row{
     display: flex;
     flex-direction: row;
@@ -395,7 +412,7 @@ body{
 
 
 .roboto{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif !important;
 }
 .card-title{
     font-size: 1.6875rem !important; 
@@ -458,15 +475,15 @@ body{
 .ul-link li {
     display: inline-block;
     position:relative;
-
 }
+
 .ul-link li a,.property {
     text-decoration: none;
     font-family: 'Righteous';
     font-weight: normal;
     font-size: .9rem;
     letter-spacing: 0.03em;
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
     color: #E5E5E5;
     cursor: pointer;
 }
@@ -668,7 +685,7 @@ font-size: .85rem !important;
     background-repeat: no-repeat;
     background-size: 100%;
     min-height: auto;
-    margin-top: 6rem !important;
+   /* // margin-top: 6rem !important; */
   }
   .flex-column-reverse{
       flex-direction: column-reverse !important;
@@ -716,9 +733,63 @@ display: inline-block;
 .signup-80{
     width: 80%;
 }
+.no-advert-80{
+    width: 80%;
+    padding: 4rem 0;
+}
+    @media(max-width:768px){
+    .no-advert-80{
+        width: 100%;
+        padding: 2rem 0;
+    }
+}
 @media(min-width:1000px) and (max-width:1200px){
     .width-100{
         width: 90%
     }
 }
+.user-dp{
+    vertical-align: -webkit-baseline-middle;
+    cursor: pointer;
+
+}
+.user-li:hover ul{
+    display: none !important;
+}
+.user-setting{
+    display:none !important;
+}
+@media(min-width:1000px){
+    .user-li{
+        
+        position: relative
+    }
+    .user-setting li{
+        
+        padding: 1rem 0;
+    }
+    .user-setting{
+        margin-left:4rem;
+        position: absolute  !important;
+        left: -11rem !important;
+        top: 2.24rem !important;
+        min-width:auto !important;
+        padding:2rem;
+        z-index:100 !important;
+        background: rgba(236, 236, 236, 0.99);
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    }
+    .up-arrow {
+        margin-top: -40px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        border-color: rgba(236, 236, 236, 0.99) transparent;
+        border-style: solid;
+        border-width: 0px 22px 22px 18px;
+        height: 0px;
+        margin-left: 25px;
+        width: 0px;
+    }
+}
+
 
