@@ -1,5 +1,12 @@
 window.addEventListener('load', ()=>{
 const barEl = document.querySelector('.bars');
+const userDp = document.querySelector('.user-setting');
+
+const removeDomElement = (cls)=>{
+    const elem = document.querySelector(cls);
+    return  elem.parentNode.removeChild(elem);
+}
+
 
 
 barEl.addEventListener('click',function (){
@@ -15,4 +22,19 @@ barEl.addEventListener('click',function (){
         })
       
 });
+
+document.querySelector('body').addEventListener('click',(e)=>{
+    const id = e.target.classList.value;
+    
+    if(id === 'user-dp'){
+        userDp.style.display = "block !important"
+        console.log(id)
+        //userDp.classList.add('displ')
+    }
+    else{
+        userDp.style.display = "none !important"
+        console.log(id)
+        //userDp.classList.remove('display')
+    }
+})
 })
