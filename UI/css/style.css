@@ -182,6 +182,9 @@ body{
     .bg-account{
         background: rgba(196, 196, 196, 0.65)!important;
     }
+    .bg-c4{
+        background: #C4C4C4;
+        }
     .btn-orange{
         background: #DC5B12;
     }
@@ -790,6 +793,50 @@ display: inline-block;
         margin-left: 25px;
         width: 0px;
     }
+}
+/* post page section */
+.inactive-circle{
+    color:transparent !important;
+    border: 1px solid #1081E0 !important;
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+ }
+ .line{
+    display: inline-block;
+    width: 40%;
+    vertical-align: text-top;
+    height: 30px;
+    margin-top: 9px;
+    border-top: 2px solid #C4C4C4;
+}
+    @media(max-width:1000px){
+    .line{
+        width: 25%;
+        
+    }
+    .mobile-width-20{
+        width: 90% !important;
+        
+    }
+
+}
+@media(min-width:1000px){
+    .width-40{
+        width: 40%;
+        
+    }
+}
+.circle-bg span i{
+    color:#1081E0; 
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 
