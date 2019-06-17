@@ -1,45 +1,88 @@
-const footerURL = './navigation/footer.html';
-const headerURL = './navigation/header.html';
-const authHeader = './navigation/authheader.html';
-const formURL = './form/form-1.html';
-const updateURL = './form/update/form-1.html';
+const page = {
+    footer:{
+        url: "./navigation/footer.html",
+        element: ".insertFooter"
+    },
+
+    header:{
+        url: "./navigation/header.html",
+        element: ".insertHeader"
+    },
+
+    authHeader:{
+        url: "./navigation/authheader.html",
+        element: ".insertauthHeader"
+    },
+
+    form:{
+        url: "./form/form-1.html",
+        element: ".insertForm"
+    },
+
+    update:{
+        url: "./form/update/form-1.html",
+        element: ".insertUpdate"
+    }
+    
+}
+
+
+let getPage = function(){
+    return location.pathname.split('/')[2]
+}
 
 const getPageContent = (url)=>{
-return new Promise((resolve, reject)=>{
-        if(window.fetch){
-        resolve(fetch(url))
-        reject(err)
-        } else{
-            reject(err)
-        }
-    });
+    return new Promise((resolve, reject)=>{
+            if(typeof window.fetch !== 'undefined'){
+                fetch(url)
+                .then(res => {
+                    resolve(res)                
+                }).catch(err =>{
+                    reject(err)
+                })
+
+            } else{
+                reject(err)
+            }
+        });
 };
 
-(function(){
-    getPageContent(headerURL)
-    .then(res=>res.text())
-   .then(res=> document.querySelector('.insertHeader').insertAdjacentHTML('beforeend',res))
-   .catch(err=>{console.log(err)})
 
-    getPageContent(authHeader)
-    .then(res=>res.text())
-   .then(res=> document.querySelector('.insertauthHeader').insertAdjacentHTML('beforeend',res))
-   .catch(err=>{console.log(err)})
-   
-    getPageContent(formURL)
-    .then(res=>res.text())
-   .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
-   .catch(err=>{console.log(err)})
+const loadPage = function(url , element){
 
-    getPageContent(updateURL)
+    getPageContent(url)
     .then(res=>res.text())
-   .then(res=> document.querySelector('.insertUpdate').insertAdjacentHTML('beforeend',res))
-   .catch(err=>{console.log(err)})
-   
-   getPageContent(footerURL)
-    .then(res=>res.text())
-   .then(res=> document.querySelector('.insertFooter').insertAdjacentHTML('beforeend',res))
-   .catch(err=>{console.log(err)})
-   
-   })()
+    .then(res=> document.querySelector(element).insertAdjacentHTML('beforeend' , res))
+    .catch(err=>{console.log(err)})
+}
+
+
+//load footer on all pages
+if(getPage() !== null)
+    loadPage(page.footer.url , page.footer.element)
+
+
+
+
+if( getPage() === "home.html" ||
+    getPage() === "Signup.html" ||
+    getPage() === "login.html" )
+    loadPage(page.header.url , page.header.element)   
+
+
+    
+if( getPage() ==='dashboard.html' ||
+    getPage() ==='update.html' ||
+    getPage() ==='post.html' 
+    )
+    loadPage(page.authHeader.url , page.authHeader.element) 
+
+if( getPage() ==='update.html')
+    loadPage(page.update.url , page.update.element) 
+    
+
+
+if( getPage() ==='post.html')
+    loadPage(page.form.url , page.form.element)
+
 
