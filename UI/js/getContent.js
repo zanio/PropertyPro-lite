@@ -25,6 +25,11 @@ return new Promise((resolve, reject)=>{
    .then(res=> document.querySelector('.insertauthHeader').insertAdjacentHTML('beforeend',res))
    .catch(err=>{console.log(err)})
    
+    getPageContent(formURL)
+    .then(res=>res.text())
+   .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
+   .catch(err=>{console.log(err)})
+   
    getPageContent(footerURL)
     .then(res=>res.text())
    .then(res=> document.querySelector('.insertFooter').insertAdjacentHTML('beforeend',res))
