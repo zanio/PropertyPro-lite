@@ -4,22 +4,6 @@ const bars = document.querySelector('.bars');
 const deletedom = document.querySelector('.delete');
 const userDp = document.querySelector('.user-setting');
 
-// const getPageContent = (url)=>{
-//     return new Promise((resolve, reject)=>{
-//             if(typeof window.fetch !== 'undefined'){
-//                 fetch(url)
-//                 .then(res => {
-//                     resolve(res)                
-//                 }).catch(err =>{
-//                     reject(err)
-//                 })
-
-//             } else{
-//                 reject(err)
-//             }
-//         });
-// };
-
 const removeDomElement = (cls)=>{
     const elem = document.querySelector(cls);
     return  elem.parentNode.removeChild(elem);
@@ -55,19 +39,7 @@ document.querySelector('body').addEventListener('click',(e)=>{
 
     
     const classList = e.target.classList.value;
-    
-    if(userDp !== null){
 
-        if(classList === 'user-dp'){
-            userDp.style.display = "block !important"
-        }
-        else{
-            userDp.style.display = "none !important"
-            console.log(id)
-        }
-
-        return
-    }
 
     if(classList === "bars"){
         barss()
@@ -132,7 +104,7 @@ document.querySelector('body').addEventListener('click',(e)=>{
         //    } else{
         document.querySelector('.inactive-circle').classList.remove('inactive-circle')
         removeDomElement('.form-bg');
-        const formURL = '/form/update/feedback.html';
+        const formURL = './form/update/feedback.html';
         loadPage(formURL , '.insertUpdate')
         return
   
