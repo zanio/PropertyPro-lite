@@ -46,7 +46,7 @@ document.querySelector('body').addEventListener('click',(e)=>{
 });
 
 document.querySelector('body').addEventListener('click',(e)=>{
-    e.preventDefault();
+    
     const id = e.target.id;
     if(id === 'next-1' ){
        
@@ -61,7 +61,6 @@ document.querySelector('body').addEventListener('click',(e)=>{
 
 }) 
 
-/* it controls the fetching and displaying of details*/
 
 document.querySelector('body').addEventListener('click',(e)=>{
     const id = e.target.id;
@@ -82,6 +81,47 @@ document.querySelector('body').addEventListener('click',(e)=>{
         getPageContent(formURL)
         .then(res=>res.text())
         .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
+        .catch(err=>{console.log(err)})
+    }
+
+});
+document.querySelector('body').addEventListener('click',(e)=>{
+    
+    const id = e.target.id;
+    if(id === 'update-1' ){
+       
+        document.querySelector('.inactive-circle').classList.remove('inactive-circle')
+        removeDomElement('.form-bg');
+        const formURL = './form/update/form-2.html';
+        getPageContent(formURL)
+        .then(res=>res.text())
+        .then(res=> document.querySelector('.insertUpdate').insertAdjacentHTML('beforeend',res))
+        .catch(err=>{console.log(err)})
+    }
+
+}) 
+
+/* it controls the fetching and displaying of details for update advert page*/
+
+document.querySelector('body').addEventListener('click',(e)=>{
+    const id = e.target.id;
+    
+    if(id === 'update-2' ){
+        if(id === 'cirUpdate-1'){
+            const formURL = './form/update/form-1.html';
+            removeDomElement('.form-bg');
+            getPageContent(formURL)
+            .then(res=>res.text())
+            .then(res=> document.querySelector('.insertUpdate').insertAdjacentHTML('beforeend',res))
+            .catch(err=>{console.log(err)})
+           }
+
+        document.querySelector('.inactive-circle').classList.remove('inactive-circle')
+        removeDomElement('.form-bg');
+        const formURL = './form/update/feedback.html';
+        getPageContent(formURL)
+        .then(res=>res.text())
+        .then(res=> document.querySelector('.insertUpdate').insertAdjacentHTML('beforeend',res))
         .catch(err=>{console.log(err)})
     }
 
