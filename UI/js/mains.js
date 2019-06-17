@@ -127,23 +127,25 @@ document.querySelector('body').addEventListener('click',(e)=>{
 
 });
 
-// Multiple file handling
-//get the input and UL list
-var input = document.getElementById('filesToUpload');
-var list = document.getElementById('fileList');
+document.querySelector('.delete').addEventListener('click',()=>{
+    const modalURL = './modal/modal.html';
+    getPageContent(modalURL)
+    .then(res=>res.text())
+    .then(res=> document.querySelector('body').insertAdjacentHTML('beforeend',res))
+    .then(()=>{
+        if(document.querySelector('#modal')){
+            document.querySelector('#modal').addEventListener('click', ()=>{
+               location.href="dashboard.html"
+            })
+        }
+    })
+        
+    .catch(err=>{console.log(err)})
+    
+});
 
-//empty list for now...
-while (list.hasChildNodes()) {
-	list.removeChild(ul.firstChild);
-}
-
-//for every file...
-for (var x = 0; x < input.files.length; x++) {
-	//add to list
-	var li = document.createElement('li');
-	li.innerHTML = 'File ' + (x + 1) + ':  ' + input.files[x].name;
-	list.append(li);
-}
-console.log(list)
+// document.querySelector('.modal').addEventListener('click', ()=>{
+//     console.log('asasasss')
+// })
 
 });
