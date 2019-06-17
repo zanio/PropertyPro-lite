@@ -2,6 +2,7 @@ const footerURL = './navigation/footer.html';
 const headerURL = './navigation/header.html';
 const authHeader = './navigation/authheader.html';
 const formURL = './form/form-1.html';
+const updateURL = './form/update/form-1.html';
 
 const getPageContent = (url)=>{
 return new Promise((resolve, reject)=>{
@@ -28,6 +29,11 @@ return new Promise((resolve, reject)=>{
     getPageContent(formURL)
     .then(res=>res.text())
    .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
+   .catch(err=>{console.log(err)})
+
+    getPageContent(updateURL)
+    .then(res=>res.text())
+   .then(res=> document.querySelector('.insertUpdate').insertAdjacentHTML('beforeend',res))
    .catch(err=>{console.log(err)})
    
    getPageContent(footerURL)
