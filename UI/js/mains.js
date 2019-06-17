@@ -1,6 +1,17 @@
 window.addEventListener('load', ()=>{
-const barEl = document.querySelector('.bars');
+const bars = document.querySelector('.bars');
 const userDp = document.querySelector('.user-setting');
+
+const getPageContent = (url)=>{
+    return new Promise((resolve, reject)=>{
+            if(window.fetch){
+            resolve(fetch(url))
+            reject(err)
+            } else{
+                reject(err)
+            }
+        });
+};
 
 const removeDomElement = (cls)=>{
     const elem = document.querySelector(cls);
@@ -8,8 +19,7 @@ const removeDomElement = (cls)=>{
 }
 
 
-
-barEl.addEventListener('click',function (){
+bars.addEventListener('click',function (){
     
         document.querySelector('.mobile').style.display = "block";
         document.querySelector('body')
@@ -28,13 +38,72 @@ document.querySelector('body').addEventListener('click',(e)=>{
     
     if(id === 'user-dp'){
         userDp.style.display = "block !important"
-        console.log(id)
-        //userDp.classList.add('displ')
     }
     else{
         userDp.style.display = "none !important"
         console.log(id)
-        //userDp.classList.remove('display')
     }
-})
-})
+});
+
+document.querySelector('body').addEventListener('click',(e)=>{
+    e.preventDefault();
+    const id = e.target.id;
+    if(id === 'next-1' ){
+       
+        document.querySelector('.inactive-circle').classList.remove('inactive-circle')
+        removeDomElement('.form-bg');
+        const formURL = './form/form-2.html';
+        getPageContent(formURL)
+        .then(res=>res.text())
+        .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
+        .catch(err=>{console.log(err)})
+    }
+
+}) 
+
+/* it controls the fetching and displaying of details*/
+
+document.querySelector('body').addEventListener('click',(e)=>{
+    const id = e.target.id;
+    
+    if(id === 'next-2' ){
+        if(id === 'cir-1'){
+            const formURL = './form/form-1.html';
+            removeDomElement('.form-bg');
+            getPageContent(formURL)
+            .then(res=>res.text())
+            .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
+            .catch(err=>{console.log(err)})
+           }
+
+        document.querySelector('.inactive-circle').classList.remove('inactive-circle')
+        removeDomElement('.form-bg');
+        const formURL = './form/feedback.html';
+        getPageContent(formURL)
+        .then(res=>res.text())
+        .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
+        .catch(err=>{console.log(err)})
+    }
+
+});
+
+// Multiple file handling
+//get the input and UL list
+var input = document.getElementById('filesToUpload');
+var list = document.getElementById('fileList');
+
+//empty list for now...
+while (list.hasChildNodes()) {
+	list.removeChild(ul.firstChild);
+}
+
+//for every file...
+for (var x = 0; x < input.files.length; x++) {
+	//add to list
+	var li = document.createElement('li');
+	li.innerHTML = 'File ' + (x + 1) + ':  ' + input.files[x].name;
+	list.append(li);
+}
+console.log(list)
+
+});
