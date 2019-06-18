@@ -1,7 +1,16 @@
 window.addEventListener('load', ()=>{
     
 const bars = document.querySelector('.bars');
-const deletedom = document.querySelector('.delete');
+
+const btnarr = ()=>{
+    const deletedom = document.querySelectorAll('.delete');
+    let deleteclasses =[];
+    for(let i =0; i < deletedom.length; i++){
+    deleteclasses.push(deletedom[i])
+    }
+    return deleteclasses
+}
+
 const userDp = document.querySelector('.user-setting');
 
 const removeDomElement = (cls)=>{
@@ -25,40 +34,20 @@ function barss(){
     return;
 }
 
-// (bars !== null) ?
-// bars.addEventListener('click',function (){
-    
-      
-// }): null 
-
 
 
 document.querySelector('body').addEventListener('click',(e)=>{
-
-    const id = e.target.id;
-
-    
+    const id = e.target.id
     const classList = e.target.classList.value;
-
-
     if(classList === "bars"){
         barss()
     }
-
-
-    /**
-     * Next
-     *  */    
+   
     if(id === 'next-1' ){
-       
         document.querySelector('.inactive-circle').classList.remove('inactive-circle')
         removeDomElement('.form-bg');
         const formURL = './form/form-2.html';
-        getPageContent(formURL)
-        .then(res=>res.text())
-        .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
-        .catch(err=>{console.log(err)})
-        
+        loadPage(formURL , '.insertForm')
         return
     }
 
@@ -66,26 +55,17 @@ document.querySelector('body').addEventListener('click',(e)=>{
         if(id === 'cir-1'){
             const formURL = './form/form-1.html';
             removeDomElement('.form-bg');
-            getPageContent(formURL)
-            .then(res=>res.text())
-            .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
-            .catch(err=>{console.log(err)})
+            loadPage(formURL , '.insertForm')
+            return
            }
 
         document.querySelector('.inactive-circle').classList.remove('inactive-circle')
         removeDomElement('.form-bg');
         const formURL = './form/feedback.html';
-        getPageContent(formURL)
-        .then(res=>res.text())
-        .then(res=> document.querySelector('.insertForm').insertAdjacentHTML('beforeend',res))
-        .catch(err=>{console.log(err)})
+        loadPage(formURL , '.insertForm')
         return
     }
 
-
-    /**
-     * Updates 
-     */
     if(id === 'update-1' ){
        
         document.querySelector('.inactive-circle').classList.remove('inactive-circle')
@@ -96,12 +76,6 @@ document.querySelector('body').addEventListener('click',(e)=>{
         
     }
     if(id === 'update-2' ){
-        // if(id === 'cirUpdate-1'){
-        //     const formURL = './form/update/form-1.html';
-        //     removeDomElement('.form-bg');
-        //     loadPage(formURL , '.insertUpdate')
-        //     return
-        //    } else{
         document.querySelector('.inactive-circle').classList.remove('inactive-circle')
         removeDomElement('.form-bg');
         const formURL = './form/update/feedback.html';
@@ -114,23 +88,26 @@ document.querySelector('body').addEventListener('click',(e)=>{
 }) 
 
 
-// (deletedom !== null) ?
-// deletedom.addEventListener('click',()=>{
-//     const modalURL = './modal/modal.html';
-//     getPageContent(modalURL)
-//     .then(res=>res.text())
-//     .then(res=> document.querySelector('body').insertAdjacentHTML('beforeend',res))
-//     .then(()=>{
-//         if(document.querySelector('#modal')){
-//             document.querySelector('#modal').addEventListener('click', ()=>{
-//                location.href="dashboard.html"
-//             })
-//         }
-//     })
+btnarr() !== null ?
+btnarr().map(el=>{
+    el.addEventListener('click',()=>{
+        const modalURL = './modal/modal.html';
+        getPageContent(modalURL)
+        .then(res=>res.text())
+        .then(res=> document.querySelector('body').insertAdjacentHTML('beforeend',res))
+        .then(()=>{
+            if(document.querySelector('#modal')){
+                document.querySelector('#modal').addEventListener('click', ()=>{
+                   location.href="dashboard.html"
+                })
+            }
+        })
+            
+        .catch(err=>{console.log(err)})
         
-//     .catch(err=>{console.log(err)})
-    
-// }): null;
+    }) 
+})
+: null;
 
 
 });
