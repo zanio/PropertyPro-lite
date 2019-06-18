@@ -913,6 +913,11 @@ cursor: pointer;
         margin:0 auto;
         justify-content: space-around;
     }
+    .mobile-modal{
+        width:60%;
+        margin-top:35vh !important;
+    }
+    
 }
 
 

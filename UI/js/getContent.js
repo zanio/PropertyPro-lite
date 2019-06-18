@@ -24,6 +24,7 @@ const page = {
         element: ".insertUpdate"
     }
     
+    
 }
 
 
@@ -73,6 +74,7 @@ if( getPage() === "home.html" ||
     
 if( getPage() ==='dashboard.html' ||
     getPage() ==='update.html' ||
+    getPage() ==='no-advert.html' ||
     getPage() ==='post.html' 
     )
     loadPage(page.authHeader.url , page.authHeader.element) 
