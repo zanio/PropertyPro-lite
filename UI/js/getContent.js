@@ -67,6 +67,10 @@ if(getPage() !== null)
 
 if( getPage() === "home.html" ||
     getPage() === "Signup.html" ||
+    getPage() === "flat.html" ||
+    getPage() === "miniflat.html" ||
+    getPage() === "land.html" ||
+    getPage() === "real-estate.html" ||
     getPage() === "login.html" )
     loadPage(page.header.url , page.header.element)   
 
@@ -76,6 +80,11 @@ if( getPage() ==='dashboard.html' ||
     getPage() ==='update.html' ||
     getPage() ==='no-advert.html' ||
     getPage() ==='post.html' 
+    )
+    loadPage(page.authHeader.url , page.authHeader.element) 
+
+if( getPage() ==='dashboard.html' &&
+    getPage() ==='flat.html'
     )
     loadPage(page.authHeader.url , page.authHeader.element) 
 

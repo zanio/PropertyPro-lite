@@ -902,6 +902,10 @@ background-color:#C4C4C4;
 cursor: pointer;
 
 }
+.pagination-circle:active{
+background-color: rgb(10, 47, 78) !important
+
+}
 .pagination-trans{
     border: 2px solid #15254F;
     background-color:transparent !important;
@@ -915,7 +919,7 @@ cursor: pointer;
     }
     .mobile-modal{
         width:60%;
-        margin-top:35vh !important;
+        margin-top:30vh !important;
     }
     
 }
