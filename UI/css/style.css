@@ -133,6 +133,12 @@ body{
     .ht-4{
         height: 4rem;
     }
+    @media(min-width:1200px){
+        .ht-50{
+            height: 20rem;
+        }
+    }
+    
 .ft-1{
     font-size: 1rem !important;
 }
@@ -240,6 +246,11 @@ body{
     .shadow{
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
+    @media(max-width:768px){
+        .shadow{
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075);
+        }
+    }
     .btn{
         font-family:'Righteous';
         letter-spacing: 0.7px;
@@ -257,6 +268,9 @@ body{
     }
 .block{
     display: block;
+}
+.border-around{
+    border: 1px solid #999;
 }
     /* positioning */
     .text-center{
@@ -289,6 +303,9 @@ body{
     }
     .width-100{
         width: 100% !important;
+    }
+    .width-70{
+        width: 80% !important;
     }
     .title-head{
         font-family: 'Righteous';
@@ -380,6 +397,9 @@ body{
     }
     .width-50{
         width: 48% !important;;
+    }
+    .width-60{
+        width: 55% !important;;
     }
     
     .width-100{
@@ -581,6 +601,10 @@ body{
         width:82%;
         height:auto;
     }
+    .single-res{
+        width:94% !important;
+        height:auto;
+    }
     .backdrop{
         content: "";
         height: 100%;
@@ -743,6 +767,10 @@ font-size: .85rem !important;
 .btn-white-border{
 border-bottom: solid 2px rgba(192, 192, 192, 0.295);
 display: inline-block;
+}
+.white-border{
+border-bottom: solid 2px rgba(192, 192, 192, 0.295);
+
 }
 .footer-auto{
     height: auto !important;
@@ -922,6 +950,44 @@ background-color: rgb(10, 47, 78) !important
         margin-top:30vh !important;
     }
     
+}
+
+/* single.html */
+.no-padding{
+padding: 0 !important;
+}
+.sm-padding{
+    padding:.2rem .3rem !important;
+}
+@media(min-width:1024px){
+    .map-width{
+        width: 30%
+        }
+        .property-width{
+        width: 60%
+        }
+}
+@media(max-width:1024px){
+    .map-width{
+        width: 94%;
+        }
+        .property-width{
+        width: 94%;
+        }
+}
+@media(min-width:1200px){
+    .ht-50{
+        height: 40rem;
+    }
+}
+@media(min-width:1000px) and (max-width:1200px){
+    .flex-row {
+        display: unset !important;
+        
+    }
+}
+.vertical-align{
+    vertical-align: middle;
 }
 
 
