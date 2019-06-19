@@ -16,7 +16,7 @@ I designed the UI of PropertyPro-lite  on **figma** and you can check the url fo
 ### GitHub Pages link for UI Frontend
 [PropertyPro-lite/UI link](https://zanio.github.io/PropertyPro-lite/)
 
-**Note:** Database is yet to be implemented as of **6 -09 -2019**
+**Note:** Database is yet to be implemented as of **6 -19 -2019**
 
 ### Project management information on pivatal tracker
 
