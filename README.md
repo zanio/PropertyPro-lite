@@ -3,7 +3,7 @@ This a project titled PropertyPro-lite. It is an online platform that allow user
 
 ## UI Design
 The UI of PropertyPro-lite was designed on **figma** and you can check the url for prototyping reason:
-[Figma](https://www.figma.com/file/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=0%3A1)
+[Figma](https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%3A2&scaling=scale-down)
 
 ## User Interface (UI) Tech Stack (Frontend)
 * HTML
@@ -13,4 +13,8 @@ The UI of PropertyPro-lite was designed on **figma** and you can check the url f
 ### GitHub Pages link for UI Frontend
 [PropertyPro-lite/UI link](https://zanio.github.io/PropertyPro-lite/)
 
-**Note:** Database is yoe to be implemented.
+**Note:** Database is yet to be implemented as of **6 -09 -2019**
+
+### Project management information on pivatal tracker
+
+* See the project stories [here](https://www.pivotaltracker.com/n/projects/2354433).
