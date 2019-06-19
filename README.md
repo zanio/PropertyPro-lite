@@ -2,7 +2,7 @@
 This a project titled PropertyPro-lite. It is an online platform that allow users (Agent or Customer ) to see posted property advert which may be in form of Housing, personal property and mcuh more
 
 ## UI Design
-The UI of PropertyPro-lite was designed on **figma** and you can check the url for prototyping reason:
+I designed the UI of PropertyPro-lite  on **figma** and you can check the url for prototyping reason:
 [Figma](https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%3A2&scaling=scale-down)
 ![PropertyPro-lite screenshot](/UI/images/home.png?raw=true "Home page screenshot")
 
