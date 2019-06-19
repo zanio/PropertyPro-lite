@@ -2,14 +2,23 @@ window.addEventListener('load', ()=>{
     
 const bars = document.querySelector('.bars');
 
-const btnarr = ()=>{
-    const deletedom = document.querySelectorAll('.delete');
-    let deleteclasses =[];
-    for(let i =0; i < deletedom.length; i++){
-    deleteclasses.push(deletedom[i])
+const btnarr = (btn)=>{
+    const updatedom = document.querySelectorAll(btn);
+    let actionclasses =[];
+    for(let i =0; i < updatedom.length; i++){
+        actionclasses.push(updatedom[i])
     }
-    return deleteclasses
+    return actionclasses
 }
+
+const updateOrder = (id)=>{
+    document.querySelector(id).addEventListener('click', ()=>{
+        location.href="dashboard.html"
+     })
+    return 
+}
+
+
 
 const userDp = document.querySelector('.user-setting');
 
@@ -88,8 +97,8 @@ document.querySelector('body').addEventListener('click',(e)=>{
 }) 
 
 
-btnarr() !== null ?
-btnarr().map(el=>{
+btnarr('.delete') !== null ?
+btnarr('.delete').map(el=>{
     el.addEventListener('click',()=>{
         const modalURL = './modal/modal.html';
         getPageContent(modalURL)
@@ -97,9 +106,26 @@ btnarr().map(el=>{
         .then(res=> document.querySelector('body').insertAdjacentHTML('beforeend',res))
         .then(()=>{
             if(document.querySelector('#modal')){
-                document.querySelector('#modal').addEventListener('click', ()=>{
-                   location.href="dashboard.html"
-                })
+               updateOrder('#modal')
+            }
+        })
+            
+        .catch(err=>{console.log(err)})
+        
+    }) 
+})
+: null;
+
+btnarr('.mark-advert') !== null ?
+btnarr('.mark-advert').map(el=>{
+    el.addEventListener('click',()=>{
+        const modalURL = './modal/modal-update.html';
+        getPageContent(modalURL)
+        .then(res=>res.text())
+        .then(res=> document.querySelector('body').insertAdjacentHTML('beforeend',res))
+        .then(()=>{
+            if(document.querySelector('#modal-update')){
+               updateOrder('#modal-update')
             }
         })
             
