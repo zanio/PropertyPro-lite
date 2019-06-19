@@ -4,6 +4,7 @@ This a project titled PropertyPro-lite. It is an online platform that allow user
 ## UI Design
 The UI of PropertyPro-lite was designed on **figma** and you can check the url for prototyping reason:
 [Figma](https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%3A2&scaling=scale-down)
+![PropertyPro-lite screenshot](/UI/images/home.png?raw=true "Home page screenshot")
 
 ## User Interface (UI) Tech Stack (Frontend)
 * HTML
