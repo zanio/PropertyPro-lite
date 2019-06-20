@@ -67,6 +67,7 @@ if(getPage() !== null)
 
 if( getPage() === "home.html" ||
     getPage() === "signup.html" ||
+    getPage() === "all-property.html" ||
     getPage() === "single-property.html" ||
     getPage() === "flat.html" ||
     getPage() === "miniflat.html" ||
