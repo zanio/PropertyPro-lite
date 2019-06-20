@@ -135,5 +135,17 @@ btnarr('.mark-advert').map(el=>{
 })
 : null;
 
+document.querySelector('.user-dp') !== null ?
+document.querySelector('body').addEventListener('click',(e)=>{
+    if(e.target.classList.value === 'user-dp'){
+        document.querySelector('.user-setting').style.cssText = 'display:block !important';
+    }
+    else{
+    document.querySelector('.user-setting').style.cssText = 'display:none !important';
+    }
+    
+})
+: null;
 
 });
+
