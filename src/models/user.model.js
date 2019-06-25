@@ -5,7 +5,7 @@ let {users} = require(dbPath.userFileName);
 import {getNewId,mustBeInArray,newDate,} from '../helpers/helper';
 
 
-function getUsers() {
+const getUsers = ()=> {
 	return new Promise((resolve, reject) => {
 		if (users.length === 0) {
 			reject({
@@ -15,31 +15,30 @@ function getUsers() {
 		}
 		resolve(users);
 	});
-}
+};
 
-function getUser(id) {
+const getUser = (id) => {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(users, id)
 			.then(user => resolve(user))
 			.catch(err => reject(err));
 	});
-}
+};
 
-function insertUser(newUser) {
+const insertUser =(newUser) => {
 	// eslint-disable-next-line no-unused-vars
 	return new Promise((resolve, reject) => {
 		const id = { id: getNewId(users) };
 		const date = { 
-			createdAt: newDate(),
-			updatedAt: newDate()
+			createdAt: newDate()
 		}; 
 		newUser = { ...id, ...date, ...newUser };
 		users.push(newUser);
 		resolve(newUser);
 	});
-}
+};
 
-function updateUser(id, newPost) {
+const updateUser = (id, newPost) => {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(users, id)
 			.then(post => {
@@ -54,9 +53,9 @@ function updateUser(id, newPost) {
 			})
 			.catch(err => reject(err));
 	});
-}
+};
 
-function deleteUser(id) {
+const deleteUser = (id) => {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(users, id)
 			.then(() => {
@@ -65,7 +64,7 @@ function deleteUser(id) {
 			})
 			.catch(err => reject(err));
 	});
-}
+};
 
 module.exports = {
 	insertUser,

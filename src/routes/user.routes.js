@@ -8,7 +8,7 @@ import {checkFieldsUser,emailValidation} from '../middlewares/field/inputfield';
 
 
 /* register a new User */
-Userrouter.post('/register', checkFieldsUser,emailValidation,uniqueValue,
+Userrouter.post('/auth/register', checkFieldsUser,emailValidation,uniqueValue,
 	async (req, res) => {
 		await user.insertUser(req.newUser)
 			.then(user => res.status(200).json({
@@ -21,13 +21,13 @@ Userrouter.post('/register', checkFieldsUser,emailValidation,uniqueValue,
 	});
 
 /* Login User */
-Userrouter.post('/login',emailValidation, isSignUp, jwtsign, (req, res)=>{
+Userrouter.post('/auth/login',emailValidation, isSignUp, jwtsign, (req, res)=>{
 	const {_user} = req;
 	res.status(200).json(_user);
 });
 
 /* my account section */
-Userrouter.get('/my-account/*', authorization, jwtVerify, async(req, res)=>{
+Userrouter.get('/auth/my-account/*', authorization, jwtVerify, async(req, res)=>{
 	const {result} = req;
 	res.status(200).json(result);
   
