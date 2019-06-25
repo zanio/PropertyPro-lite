@@ -10,7 +10,7 @@ import {checkPropertyEmpty,checkPropertyField} from '../middlewares/field/inputf
 propertyrouter.post('/property-advert', authorization, 
 	jwtVerify,checkPropertyEmpty,checkPropertyField,getId, async(req, res)=>{
 		const {carData} = req;
-		propertyadvert.insertcar(carData)
+		propertyadvert.insertPropertyAdvert(carData)
 			.then(response=>{
 				//console.log(response);
 				res.status(200).json({status:200,data:response});
