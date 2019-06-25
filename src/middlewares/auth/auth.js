@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import {bcrypt} from 'bcrypt';
+import bcrypt from 'bcrypt';
 import {getSubId,newDate,} from '../../helpers/helper';
 
 
@@ -34,15 +34,15 @@ const mustBeInteger = (req, res, next) => {
 
 const uniqueValue = (req, res, next) => {
 	const {email} = req.body;
-	let {user} = require('../data/users.js.js');
-	user = user.find(r=>r.email === email);
-	console.log(user);
-	if (!user){
+	let {users} = require('../../data/users.js');
+	users = users.find(r=>r.email === email);
+	console.log(users);
+	if (!users){
 		next();
 	} 
 	else{
 
-		console.log('email already in use %s',user.email);
+		console.log('email already in use %s',users.email);
 		res.status(403).json({ status:403, error: `${email} already in use` });
 	}
    
@@ -51,27 +51,27 @@ const uniqueValue = (req, res, next) => {
 
 
 const isSignUp = (req, res, next) => {
-	let {user} = require('../data/users.js.js');
+	let {users} = require('../../data/users.js');
 	const {email,password} = req.body;
 	// eslint-disable-next-line no-unused-vars
 	let id;
-	user = user.find(r=>r.email === email);
+	users = users.find(r=>r.email === email);
 
-	if(user){
-		bcrypt.compare(password, user.password, function(err, result) {
+	if(users){
+		bcrypt.compare(password, users.password, function(err, result) {
 			const  checkpassword = result;
 
 			if(checkpassword){
-				id = user.id;       
+				id = users.id;       
 				const singleUser = {
 					status:200,
-					data:user
+					data:users
 				};
 				req.user = singleUser;
 				next();
 			}
 			else{
-				console.log(email, user, checkpassword);
+				console.log(email, users, checkpassword);
 				res.status(403).json({ status:403, error: 'please check your email or password' });
 			}
 
@@ -86,17 +86,17 @@ const isSignUp = (req, res, next) => {
 
 const getId = (req, res, next)=>{
 	const {result} = req;
-	let {user,car} = require('../data/users.js.js');
+	let {users,dbAdvert} = require('../../data/users.js');
 	const owner = {owner:result.payload};
 	const date = { createdAt: newDate()}; 
-	user = user.find(r=>r.id === owner.owner);
+	users = users.find(r=>r.id === owner.owner);
 	const { carObj,price } = req;
-	const existingUser = user? {
-		first_name:user['first_name'],
-		last_name:user['last_name'],
-		address:user['address'],
+	const existingUser = users? {
+		first_name:users['first_name'],
+		last_name:users['last_name'],
+		address:users['address'],
 	}:null;
-	const data = {id:getSubId(car), ...owner,
+	const data = {id:getSubId(dbAdvert), ...owner,
 		email:result['user']['data']['email'], 
 		...carObj,
 		price,

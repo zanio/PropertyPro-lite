@@ -1,6 +1,7 @@
-const express = require('express') ;
+import express from 'express' ;
 const Userrouter = express.Router();
 const user = require('../models/user.model');
+let {users} = require('../data/users');
 import {authorization,uniqueValue,isSignUp} from '../middlewares/auth/auth';
 import {jwtVerify,jwtsign} from '../middlewares/auth/jsonweb';
 import {checkFieldsUser,emailValidation} from '../middlewares/field/inputfield';
@@ -15,6 +16,8 @@ Userrouter.post('/register', checkFieldsUser,emailValidation,uniqueValue,
 				data: user
 			}))
 			.catch(err => res.status(500).json({ message: err.message }));
+		// eslint-disable-next-line no-console
+		console.log(users);
 	});
 
 /* Login User */
@@ -32,4 +35,4 @@ Userrouter.get('/my-account/*', authorization, jwtVerify, async(req, res)=>{
 
 
 
-module.exports = Userrouter;
+export {Userrouter};

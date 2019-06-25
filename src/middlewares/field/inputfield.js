@@ -2,10 +2,10 @@
 import { checkLetter, Arr } from '../../utils/string';
 import checkFloat from '../../utils/checkfloat';
 //import {stringRegex}  from '../utils/string';
-import {helper}  from '../../helpers/helper';
+import {harshPassword}  from '../../helpers/helper';
 import {validateEmail} from '../../utils/email';
 
-import {jwt}  from 'jsonwebtoken';
+import jwt  from 'jsonwebtoken';
 import dotenv  from 'dotenv';
 dotenv.config();
 
@@ -35,7 +35,7 @@ const checkFieldsUser = async (req, res, next) => {
 	if (first_name && last_name && password && address && email) {
 		if(is_Admin){
         
-			const res = await  helper.harshPassword(password);
+			const res = await  harshPassword(password);
 			newPassword = res;
 			const token = jwt.sign({ code: newPassword }, process.env.secretKey);
 			const newUser = {
