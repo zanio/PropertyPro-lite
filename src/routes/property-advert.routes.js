@@ -20,4 +20,4 @@ propertyrouter.post('/property-advert', authorization,
 
 
 
-module.exports=propertyrouter;
+export {propertyrouter};
