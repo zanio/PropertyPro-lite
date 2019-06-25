@@ -35,6 +35,7 @@ const insertUser =(newUser) => {
 		newUser = { ...id, ...date, ...newUser };
 		users.push(newUser);
 		resolve(newUser);
+		reject(err);
 	});
 };
 
@@ -66,10 +67,12 @@ const deleteUser = (id) => {
 	});
 };
 
+
 module.exports = {
 	insertUser,
 	getUsers,
 	getUser, 
 	updateUser,
-	deleteUser
+	deleteUser,
+	
 };

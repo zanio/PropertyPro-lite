@@ -2,13 +2,13 @@ import express from 'express' ;
 const Userrouter = express.Router();
 const user = require('../models/user.model');
 let {users} = require('../data/users');
-import {authorization,uniqueValue,isSignUp} from '../middlewares/auth/auth';
+import {authorization,uniqueValue,isSignUp,AdminCheck} from '../middlewares/auth/auth';
 import {jwtVerify,jwtsign} from '../middlewares/auth/jsonweb';
-import {checkFieldsUser,emailValidation} from '../middlewares/field/inputfield';
+import {checkFieldsUser,emailValidation,regCharCheck} from '../middlewares/field/inputfield';
 
 
 /* register a new User */
-Userrouter.post('/auth/register', checkFieldsUser,emailValidation,uniqueValue,
+Userrouter.post('/auth/register', AdminCheck, checkFieldsUser,regCharCheck, emailValidation,uniqueValue,
 	async (req, res) => {
 		await user.insertUser(req.newUser)
 			.then(user => res.status(200).json({
