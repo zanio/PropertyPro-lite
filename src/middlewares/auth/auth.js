@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import bcrypt from 'bcrypt';
-import {getSubId,newDate,} from '../../helpers/helper';
+import {admins} from '../../data/admin';
+import {getSubId,newDate,adminDb} from '../../helpers/helper';
 
 
 const authorization = (req, res, next)=>{
@@ -36,7 +37,6 @@ const uniqueValue = (req, res, next) => {
 	const {email} = req.body;
 	let {users} = require('../../data/users.js');
 	users = users.find(r=>r.email === email);
-	console.log(users);
 	if (!users){
 		next();
 	} 
@@ -44,6 +44,7 @@ const uniqueValue = (req, res, next) => {
 
 		console.log('email already in use %s',users.email);
 		res.status(403).json({ status:403, error: `${email} already in use` });
+		return;
 	}
    
 };
@@ -61,7 +62,7 @@ const isSignUp = (req, res, next) => {
 		bcrypt.compare(password, users.password, function(err, result) {
 			const  checkpassword = result;
 
-			if(checkpassword){
+			if(!checkpassword){
 				id = users.id;       
 				const singleUser = {
 					status:200,
@@ -78,6 +79,7 @@ const isSignUp = (req, res, next) => {
 		});
 	} else{
 		res.status(403).json({ status:403, error: 'please register a new account, that email is not registered' });
+		return;
 	}
     
     
@@ -114,4 +116,19 @@ const getId = (req, res, next)=>{
 	}
 };
 
-export {mustBeInteger,authorization,getId,isSignUp,uniqueValue};
+const AdminCheck = (req, res, next)=>{
+	const {email} = req.body;
+	adminDb(admins, email).then(result=>{
+		if(result){
+			req.is_Admin = result.is_Admin;
+			next();
+		} else{
+			next();
+		}
+	});
+
+
+
+};
+
+export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck};

@@ -53,4 +53,14 @@ const harshPassword = (password)=>{
            
 };
 
-export {getNewId,newDate,mustBeInArray,harshPassword,getSubId};
+
+const adminDb = (array, email) =>{
+	// eslint-disable-next-line no-unused-vars
+	return new Promise((resolve, reject) => {
+		const db = array.find(r => r.email === email);
+		resolve(db);
+	});
+};
+
+
+export {getNewId,newDate,mustBeInArray,harshPassword,getSubId,adminDb};
