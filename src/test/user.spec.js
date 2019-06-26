@@ -22,7 +22,7 @@ describe('/POST SIGNUP ROUTES', () => {
 			password: 'jhfdcthjk24r44',
 			address: '12, ifelodun',
 			gender: 'male',
-			is_admin: '1',
+			phone_number:'09012343212'
 		};
   
 		chai.request(app)

@@ -2,8 +2,9 @@
 import { checkLetter, Arr } from '../../utils/string';
 import { numRegex , phoneLength} from '../../utils/numRegex';
 import checkFloat from '../../utils/checkfloat';
+let {users} = require('../../data/users');
 //import {stringRegex}  from '../utils/string';
-import {harshPassword}  from '../../helpers/helper';
+import {harshPassword,getNewId}  from '../../helpers/helper';
 import {validateEmail} from '../../utils/email';
 
 import jwt  from 'jsonwebtoken';
@@ -33,20 +34,20 @@ const checkFieldsUser = async (req, res, next) => {
 	const {is_Admin} = req;
 	const checkAdmin =  is_Admin ? true : false;
 	const genderCheck = gender === 'male' || gender === 'female' ? true : false;
+	const id = { id: getNewId(users) };
 	
 	let newPassword;
 
 	if (first_name && last_name && password && address && email && phone_number && gender && genderCheck ) {
 		const res = await  harshPassword(password);
 		newPassword = res;
-		const token = jwt.sign({ code: newPassword }, process.env.secretKey);
+		
 		const namedata = {
 			first_name,
 			last_name
 			
 		};
-		const newUser = {
-			token,
+		const newUserNotoken = {
 			...namedata,
 			email,
 			password:newPassword,
@@ -56,6 +57,14 @@ const checkFieldsUser = async (req, res, next) => {
 			is_Admin:checkAdmin,
 			
 		};
+
+		const token = jwt.sign({ code: newPassword,...id, newUserNotoken }, process.env.secretKey);
+		const newUser = {
+			token,
+			...newUserNotoken
+			
+		};
+		
 		
 		
 		req.newUser = newUser;
