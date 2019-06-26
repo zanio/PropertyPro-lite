@@ -54,15 +54,18 @@ const uniqueValue = (req, res, next) => {
 const isSignUp = (req, res, next) => {
 	let {users} = require('../../data/users.js');
 	const {email,password} = req.body;
+	const {is_Admin} = req;
+	const checkAdmin =  is_Admin  ? true :false;
 	// eslint-disable-next-line no-unused-vars
 	let id;
 	users = users.find(r=>r.email === email);
+	users ? users.is_Admin = checkAdmin :null;
 
 	if(users){
 		bcrypt.compare(password, users.password, function(err, result) {
 			const  checkpassword = result;
 
-			if(!checkpassword){
+			if(checkpassword){
 				id = users.id;       
 				const singleUser = {
 					status:200,
