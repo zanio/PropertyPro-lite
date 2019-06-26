@@ -109,7 +109,7 @@ const regCharCheck = (req, res, next)=>{
 	} 
 	else
 	{
-		res.status(403).json({status:403 , error: 'first name and last name can only be string' });
+		res.status(404).json({status:404 , error: 'first name and last name can only be string with letter characters' });
 		return;
 	}
 };
