@@ -26,7 +26,7 @@ describe('/POST SIGNUP ROUTES', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/register')
+			.post('/api/v1/auth/register')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.status).to.equal(200);
