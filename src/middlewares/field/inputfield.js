@@ -2,18 +2,20 @@
 import { checkLetter, Arr } from '../../utils/string';
 import { numRegex , phoneLength} from '../../utils/numRegex';
 import checkFloat from '../../utils/checkfloat';
+import {dataUri} from '../multer';
 let {users} = require('../../data/users');
 //import {stringRegex}  from '../utils/string';
 import {harshPassword,getNewId}  from '../../helpers/helper';
 import {validateEmail} from '../../utils/email';
+
 
 import jwt  from 'jsonwebtoken';
 import dotenv  from 'dotenv';
 dotenv.config();
 
 const checkPropertyField = (req, res, next) =>{
-	const {carObj,letterChar,float}  = req;
-	const boolArray = Arr(letterChar);
+	const {image_url,property,float}  = req;
+	const boolArray = Arr(property);
 	const letterBolean = checkLetter(boolArray);
 	const floatBoolean = checkFloat(float.price);
 	if(!letterBolean){
@@ -23,7 +25,8 @@ const checkPropertyField = (req, res, next) =>{
 	}
 	else{
 		req.price = parseFloat(float.price);
-		req.carObj = carObj;
+		req.property = property;
+		req.image_url = image_url;
 		next();
 	}
     
@@ -81,18 +84,30 @@ const checkFieldsUser = async (req, res, next) => {
 };
 
 const checkPropertyEmpty = (req, res, next) =>{
-	const { model,manufacturer,state,price,body_type,color} = req.body;
-	if(!model && !manufacturer && !state && !price && !body_type && !color){
-		res.status(403).json({status:403,err:'empty field'});
-	} else{
-		const cars = {model,manufacturer,state,body_type,color};
-		const letterChar = {model,manufacturer,state,body_type,color};
-		const float = {price};
-		req.carObj = cars;
-		req.letterChar = letterChar;
-		req.float = float;
-		next();
+	
+	try {
+		dataUri(req);
+		const {property_name, status,price,state,city,type,contact_person_number,contact_person_address,proof,note} = req.body;
+		const image = req.file;
+		if(status && city && state  && property_name && price && image && type && contact_person_number && contact_person_address ){
+			const property = {status,state,type};
+			const image_url = {image};
+			const float = {price};
+			const other_details = {contact_person_number,city,contact_person_address,proof,note,property_name};
+			req.property = property;
+			req.image_url = image_url;
+			req.float = float;
+			req.other_details = other_details;
+			next();
+		} else{
+			res.status(403).json({status:403,err:'empty field'});
+		}
+	} 
+	catch(error){
+		res.status(403).json({status:403,err:'please fill all input and upload an image'});
+		
 	}
+	
 };
 
 const emailValidation = (req, res, next)=>{
