@@ -59,6 +59,7 @@ const checkFieldsUser = async (req, res, next) => {
 		};
 
 		const token = jwt.sign({ code: newPassword,...id, newUserNotoken }, process.env.SECRET_KEY);
+
 		const newUser = {
 			token,
 			...newUserNotoken

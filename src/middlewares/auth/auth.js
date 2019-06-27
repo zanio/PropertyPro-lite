@@ -75,7 +75,6 @@ const isSignUp = (req, res, next) => {
 				next();
 			}
 			else{
-				console.log(email, users, checkpassword);
 				res.status(403).json({ status:403, error: 'please check your email or password' });
 			}
 
