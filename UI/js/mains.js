@@ -56,7 +56,9 @@ document.querySelector('body').addEventListener('click',(e)=>{
         document.querySelector('.inactive-circle').classList.remove('inactive-circle')
         removeDomElement('.form-bg');
         const formURL = './form/form-2.html';
-        loadPage(formURL , '.insertForm')
+        loadPage(formURL , '.insertForm',function(){
+            location.hash = 'example';
+        })
         return
     }
 
@@ -71,7 +73,9 @@ document.querySelector('body').addEventListener('click',(e)=>{
         document.querySelector('.inactive-circle').classList.remove('inactive-circle')
         removeDomElement('.form-bg');
         const formURL = './form/feedback.html';
-        loadPage(formURL , '.insertForm')
+        loadPage(formURL , '.insertForm',function(){
+            location.hash = 'example';
+        })
         return
     }
 
