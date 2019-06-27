@@ -154,6 +154,22 @@ const getPreviousId = (req, res, next)=>{
 	}
 };
 
+const toDeleteId = (req, res, next)=>{
+	let {dbAdvert} = require('../../data/users.js');
+	const {result} = req;
+	const owner = {owner:result.id};
+	//const date = { Updat: newDate()}; 
+	dbAdvert = dbAdvert.find(r=>r.id == req.params.id);
+	if(owner && dbAdvert){
+		next();
+	} else{
+		res.status(404).json({
+			status:404,
+			error:'no advert to delete'
+		});
+	}
+};
+
 const AdminCheck = (req, res, next)=>{
 	const {email} = req.body;
 	adminDb(admins, email).then(result=>{
@@ -165,6 +181,7 @@ const AdminCheck = (req, res, next)=>{
 		}
 	});
 };
+
 const idCheck = (req, res, next)=>{
 	const id = req.params.id;
 	if(numRegex(id)){
@@ -178,4 +195,4 @@ const idCheck = (req, res, next)=>{
 
 };
 
-export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck};
+export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId};
