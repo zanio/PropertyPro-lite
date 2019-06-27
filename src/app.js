@@ -10,13 +10,14 @@ app.use(morgan('tiny'));
 // First route
 import router from './routes/index.routes';
 app.use(express.json());
+app.use('*', cloudinaryConfig);
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 app.use('*', (req, res) => {
 	res.status(404).json({status:404,err:'That routes is not a known route'});
 });
-app.use('*', cloudinaryConfig);
+
 
 
 // Starting server
