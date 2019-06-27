@@ -5,7 +5,7 @@ dotenv.config();
 
 const jwtsign = (req, res,next)=>{
 	const {user} = req;
-	const decoded = jwt.verify(user.data.token, process.env.secretKey);
+	const decoded = jwt.verify(user.data.token, process.env.SECRET_KEY);
 	const valid = decoded.code;
 	if(valid){
 		const _user = {
