@@ -1,9 +1,10 @@
 const express = require('express');
 const propertyrouter = express.Router();
 import {multerUploads} from '../middlewares/multer';
+
 import {cloudinaryHandler} from '../middlewares/cloudinary';
 const propertyadvert = require('../models/property-advert.model');
-import {authorization,getId} from '../middlewares/auth/auth';
+import {authorization,getId,getPreviousId,idCheck} from '../middlewares/auth/auth';
 import {jwtVerify} from '../middlewares/auth/jsonweb';
 import {checkPropertyEmpty,checkPropertyField} from '../middlewares/field/inputfield';
 
@@ -11,13 +12,24 @@ import {checkPropertyEmpty,checkPropertyField} from '../middlewares/field/inputf
 
 /* create propertyadvert advert  */
 propertyrouter.post('/property-advert', authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,getId,cloudinaryHandler, async(req, res)=>{
+	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getId,async(req, res)=>{
 		const {data} = req;
 		propertyadvert.insertPropertyAdvert(data)
 			.then(response=>{
 				res.status(200).json({status:200,data:response});
 			});
   
+	});
+
+propertyrouter.patch('/property-advert/:id', idCheck, authorization, 
+	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getPreviousId,async(req, res)=>{
+		const {data} = req;
+		const id = req.params.id;	
+		propertyadvert.updatePropertyAdvert(id,data)
+			.then(response=>{
+				res.status(200).json({status:200,data:response});
+			}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+			
 	});
 
 
