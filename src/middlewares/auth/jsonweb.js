@@ -24,7 +24,7 @@ const jwtsign = (req, res,next)=>{
 
 const jwtVerify = (req, res, next)=>{
 	const {token} = req;
-	jwt.verify(token, process.env.secretKey, (err, result)=>{
+	jwt.verify(token, process.env.SECRET_KEY, (err, result)=>{
 		if(err){
 			res.status(403).json({
 				err,
