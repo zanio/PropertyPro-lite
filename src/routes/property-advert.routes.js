@@ -51,6 +51,14 @@ propertyrouter.get('/property-advert/',async(req, res)=>{
 			
 });
 
+propertyrouter.get('/property-advert/?q',async(req, res)=>{
+	propertyadvert.getPropertyAdverts()
+		.then(response=>{
+			res.status(201).json({status:200,data:response});
+		}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+			
+});
+
 
 
 export {propertyrouter};
