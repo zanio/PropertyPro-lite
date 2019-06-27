@@ -29,9 +29,16 @@ describe('/POST SIGNUP ROUTES', () => {
 			.post('/api/v1/auth/register')
 			.send(body)
 			.end((err, res) => {
+				expect(res.body.data).to.have.property('email');
+				expect(res.body.data).to.have.property('first_name');
+				expect(res.body.data).to.have.property('last_name');
+				expect(res.body.data).to.have.property('password');
+				expect(res.body.data).to.have.property('id');
+				expect(res.body.data).to.have.property('address');
+				expect(res.body.data).to.have.property('gender');
+				expect(res.body.data).to.have.property('phone_number');
 				expect(res.body.status).to.equal(200);
 				expect(res.body).to.be.a('object');
-				expect(res.body.data).to.have.property('id');
 				done();
 			});
 	});
