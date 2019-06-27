@@ -8,9 +8,10 @@ const cloudinaryHandler = (req, res,next) => {
 		const file = dataUri(req).content;
 		return uploader.upload(file)
 			.then((result) => {
-				//const image = result.url;
+				const image = result.url;
 				result.tags.push('screenshot');
 				result.public_id = 'api/screen';
+				req.Image_url = image;
 				next();
 			}).catch((err) => res.status(400).json({
 				messge: 'someting went wrong while processing your request',
