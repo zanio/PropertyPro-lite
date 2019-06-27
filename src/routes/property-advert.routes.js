@@ -44,12 +44,12 @@ propertyrouter.delete('/property-advert/:id', idCheck, authorization,
 	});
 
 propertyrouter.get('/property-advert/',async(req, res)=>{
-		propertyadvert.getPropertyAdverts()
-			.then(response=>{
-				res.status(201).json({status:200,data:response});
-			}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+	propertyadvert.getPropertyAdverts()
+		.then(response=>{
+			res.status(201).json({status:200,data:response});
+		}).catch(err=>res.status(404).json({status: 404, err: err.message}));
 			
-	});
+});
 
 
 

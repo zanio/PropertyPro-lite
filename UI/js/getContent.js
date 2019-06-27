@@ -49,11 +49,14 @@ const getPageContent = (url)=>{
 };
 
 
-const loadPage = function(url , element){
+const loadPage = function(url , element,cb){
 
     getPageContent(url)
     .then(res=>res.text())
-    .then(res=> document.querySelector(element).insertAdjacentHTML('beforeend' , res))
+    .then(res=>{
+        document.querySelector(element).insertAdjacentHTML('beforeend' , res)
+        cb ?cb():null;
+    } )
     .catch(err=>{console.log(err)})
 }
 
