@@ -90,25 +90,27 @@ const isSignUp = (req, res, next) => {
 
 const getId = (req, res, next)=>{
 	const {result} = req;
+	console.log(result);
 	let {users,dbAdvert} = require('../../data/users.js');
-	const owner = {owner:result.payload};
+	const owner = {owner:result.id};
 	const date = { createdAt: newDate()}; 
-	users = users.find(r=>r.id === owner.owner);
-	const { carObj,price } = req;
+	users = users.find(r=>r.id === users.id);
+	const { property,price,other_details,image_url } = req;
 	const existingUser = users? {
 		first_name:users['first_name'],
 		last_name:users['last_name'],
 		address:users['address'],
 	}:null;
-	const data = {id:getSubId(dbAdvert), ...owner,
-		email:result['user']['data']['email'], 
-		...carObj,
+	const data = {id:getSubId(dbAdvert), ...owner, 
+		...property,
 		price,
 		...date,
+		...other_details,
+		...image_url,
 		...existingUser
 	};
 	if(owner){
-		req.carData= data;
+		req.data= data;
 		next();
 	} else{
 		res.status(403).json({
