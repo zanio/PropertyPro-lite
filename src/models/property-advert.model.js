@@ -9,7 +9,7 @@ function getPropertyAdverts() {
 	return new Promise((resolve, reject) => {
 		if (dbAdvert.length === 0) {
 			reject({
-				message: 'no car available',
+				message: 'no advert available',
 				status: 202
 			});
 		}
@@ -55,7 +55,7 @@ function deletePropertyAdvert(id) {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(dbAdvert, id)
 			.then(() => {
-				dbAdvert = dbAdvert.filter(p => p.id !== id);
+				dbAdvert = dbAdvert.filter(p => p.id != id);
 				resolve(dbAdvert);
 			})
 			.catch(err => reject(err));
