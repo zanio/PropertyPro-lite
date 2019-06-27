@@ -38,7 +38,7 @@ propertyrouter.delete('/property-advert/:id', idCheck, authorization,
 		propertyadvert.deletePropertyAdvert(id)
 			// eslint-disable-next-line no-unused-vars
 			.then(response=>{
-				res.status(201).json({status:200,data:{message:`advert with the ${id} id has been successfully`}});
+				res.status(201).json({status:200,data:{message:`advert with the ${id} id has been successfully deleted`}});
 			}).catch(err=>res.status(404).json({status: 404, err: err.message}));
 			
 	});
