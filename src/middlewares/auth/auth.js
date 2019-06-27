@@ -2,7 +2,7 @@
 import bcrypt from 'bcrypt';
 import {admins} from '../../data/admin';
 import {getSubId,newDate,adminDb} from '../../helpers/helper';
-
+import {numRegex} from '../../utils/numRegex';
 
 const authorization = (req, res, next)=>{
 	const header = req.headers['authorization'];
@@ -90,25 +90,61 @@ const isSignUp = (req, res, next) => {
 
 const getId = (req, res, next)=>{
 	const {result} = req;
+	console.log(result);
 	let {users,dbAdvert} = require('../../data/users.js');
-	const owner = {owner:result.payload};
+	const owner = {owner:result.id};
 	const date = { createdAt: newDate()}; 
-	users = users.find(r=>r.id === owner.owner);
-	const { carObj,price } = req;
+	users = users.find(r=>r.id === users.id);
+	const { property,price,other_details,Image_url } = req;
 	const existingUser = users? {
 		first_name:users['first_name'],
 		last_name:users['last_name'],
 		address:users['address'],
 	}:null;
-	const data = {id:getSubId(dbAdvert), ...owner,
-		email:result['user']['data']['email'], 
-		...carObj,
+	const data = {id:getSubId(dbAdvert), ...owner, 
+		...property,
 		price,
 		...date,
+		...other_details,
+		Image_url,
 		...existingUser
 	};
 	if(owner){
-		req.carData= data;
+		req.data = data;
+		next();
+	} else{
+		res.status(403).json({
+			status:403,
+			error:'unauthorized posting'
+		});
+	}
+};
+const getPreviousId = (req, res, next)=>{
+	let {dbAdvert} = require('../../data/users.js');
+	const {result} = req;
+	const owner = {owner:result.id};
+	//const date = { Updat: newDate()}; 
+	dbAdvert = dbAdvert.find(r=>r.id == req.params.id);
+	const { property,price,other_details,Image_url } = req;
+	dbAdvert  = dbAdvert? {
+		status:dbAdvert['status'] = property.status,
+		state:dbAdvert['state'] = property.state,
+		type:dbAdvert['type'] = property.type,
+		contact_person_number:dbAdvert['contact_person_number'] = other_details.contact_person_number,
+		city:dbAdvert['city'] = other_details.city,
+		contact_person_address:dbAdvert['contact_person_address'] = other_details.contact_person_address,
+		proof:dbAdvert['proof'] = other_details.proof,
+		note:dbAdvert['note'] = other_details.note,
+		property_name:dbAdvert['property_name'] = other_details.property_name,
+		price:dbAdvert['price'] = price,
+		Image_url:dbAdvert['Image_url'] = Image_url
+		
+	}:null;
+	const data = { 
+		...dbAdvert
+	};
+	if(owner && dbAdvert){
+		req.data = data;
 		next();
 	} else{
 		res.status(403).json({
@@ -128,9 +164,18 @@ const AdminCheck = (req, res, next)=>{
 			next();
 		}
 	});
-
-
+};
+const idCheck = (req, res, next)=>{
+	const id = req.params.id;
+	if(numRegex(id)){
+		next();
+	} else{
+		res.status(404).json({
+			status:404,
+			error:'Id must be number'
+		});
+	}
 
 };
 
-export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck};
+export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck};
