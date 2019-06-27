@@ -5,7 +5,7 @@ function stringCheck(el) {
 
 const Arr = obj =>{
     const values = Object.values(obj);
-    const regex = /^[a-zA-Z]+$/;
+    const regex = /^[a-zA-Z\s-]+$/;
     let arr =[];
     values.map(val => arr.push(regex.test(val)));
   //  console.log(values)
