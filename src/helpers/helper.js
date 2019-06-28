@@ -62,5 +62,18 @@ const adminDb = (array, email) =>{
 	});
 };
 
+const typeSearch = (array, type) =>{
+	return new Promise((resolve, reject) => {
+		const db = array.filter(r => r.type === type);
+		if(!db){
+			reject({
+				status:404,
+				err:'That property type do not exist'
+			});
+		}
+		resolve(db);
+	});
+};
 
-export {getNewId,newDate,mustBeInArray,harshPassword,getSubId,adminDb};
+
+export {getNewId,newDate,mustBeInArray,harshPassword,getSubId,adminDb,typeSearch};
