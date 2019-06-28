@@ -46,8 +46,6 @@ propertyrouter.patch('/property-advert/:id/sold', idCheck, authorization, jwtVer
 });
 
 
-	
-
 propertyrouter.delete('/property-advert/:id', idCheck, authorization, 
 	jwtVerify, toDeleteId,async(req, res)=>{
 		const id = req.params.id;	

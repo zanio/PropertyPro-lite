@@ -119,6 +119,7 @@ const getId = (req, res, next)=>{
 		});
 	}
 };
+
 const getPreviousId = (req, res, next)=>{
 	let {dbAdvert} = require('../../data/users.js');
 	const {result} = req;
@@ -140,6 +141,28 @@ const getPreviousId = (req, res, next)=>{
 		Image_url:dbAdvert['Image_url'] = Image_url
 		
 	}:null;
+	const data = { 
+		...dbAdvert
+	};
+	if(owner && dbAdvert){
+		req.data = data;
+		next();
+	} else{
+		res.status(403).json({
+			status:403,
+			error:'unauthorized posting'
+		});
+	}
+};
+
+const getSingleIdProperty = (req, res, next)=>{
+	let {dbAdvert} = require('../../data/users.js');
+	const {result} = req;
+	const owner = {owner:result.id};
+
+	dbAdvert = dbAdvert.find(r=>r.id == req.params.id);
+	const {status} = req.body;
+	dbAdvert['status'] = status;
 	const data = { 
 		...dbAdvert
 	};
@@ -195,4 +218,4 @@ const idCheck = (req, res, next)=>{
 
 };
 
-export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId};
+export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId,getSingleIdProperty};
