@@ -30,7 +30,7 @@ propertyrouter.patch('/property-advert/:id', idCheck, authorization,
 		updatePropertyAdvert(id,data)
 			.then(response=>{
 				res.status(200).json({status:200,data:response});
-			}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+			}).catch(err=>res.status(404).json(err));
 			
 	});
 
@@ -41,7 +41,7 @@ propertyrouter.patch('/property-advert/:id/sold', idCheck, authorization, jwtVer
 	updatePropertyAdvert(id,data)
 		.then(response=>{
 			res.status(200).json({status:200,data:response});
-		}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+		}).catch(err=>res.status(404).json(err));
 			
 });
 
@@ -53,7 +53,7 @@ propertyrouter.delete('/property-advert/:id', idCheck, authorization,
 			// eslint-disable-next-line no-unused-vars
 			.then(response=>{
 				res.status(201).json({status:200,data:{message:`advert with the ${id} id has been successfully deleted`}});
-			}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+			}).catch(err=>res.status(404).json(err));
 			
 	});
 
@@ -63,7 +63,7 @@ propertyrouter.get('/property-advert/',async(req, res)=>{
 	getPropertyAdverts()
 		.then(response=>{
 			res.status(201).json({status:200,data:response});
-		}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+		}).catch(err=>res.status(404).json(err));
 			
 });
 
@@ -72,7 +72,7 @@ propertyrouter.get('/property-advert/search',async(req, res)=>{
 	getTypeProperty(url_parts.type)
 		.then(response=>{
 			res.status(201).json({status:200,data:response});
-		}).catch(err=>res.status(404).json({status: 404, err: err.err}));
+		}).catch(err=>res.status(404).json(err));
 		
 			
 });
@@ -81,7 +81,7 @@ propertyrouter.get('/property-advert/:id',async(req, res)=>{
 	getPropertyAdvert(req.params.id)
 		.then(response=>{
 			res.status(201).json({status:200,data:response});
-		}).catch(err=>res.status(404).json({status: 404, err: err.message}));
+		}).catch(err=>res.status(404).json(err));
 		
 			
 });

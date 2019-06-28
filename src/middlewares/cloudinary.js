@@ -1,5 +1,6 @@
 import { uploader} from '../config/cloudinaryConfig';
 import { dataUri } from './multer';
+import {error} from '../data/error';
 
 
 const cloudinaryHandler = (req, res,next) => {
@@ -13,12 +14,8 @@ const cloudinaryHandler = (req, res,next) => {
 				result.public_id = 'api/screen';
 				req.Image_url = image;
 				next();
-			}).catch((err) => res.status(400).json({
-				messge: 'someting went wrong while processing your request',
-				data: {
-					err
-				}
-			}));
+			// eslint-disable-next-line no-unused-vars
+			}).catch((err) => res.status(400).json(error.network_err_400));
 	}
 };
 
