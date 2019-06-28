@@ -2,10 +2,10 @@
 const dbPath = require('./dbPath');
 
 let {dbAdvert} = require('../data/users');
-import {getSubId,mustBeInArray,newDate,} from '../helpers/helper';
+import {getSubId,mustBeInArray,newDate,typeSearch} from '../helpers/helper';
 
 
-function getPropertyAdverts() {
+const getPropertyAdverts = () => {
 	return new Promise((resolve, reject) => {
 		if (dbAdvert.length === 0) {
 			reject({
@@ -15,26 +15,34 @@ function getPropertyAdverts() {
 		}
 		resolve(dbAdvert);
 	});
-}
+};
 
-function getPropertyAdvert(id) {
+const getPropertyAdvert = id => {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(dbAdvert, id)
 			.then(dbAdvert => resolve(dbAdvert))
 			.catch(err => reject(err));
 	});
-}
+};
 
-function insertPropertyAdvert(newcar) {
+const getTypeProperty = q => {
+	return new Promise((resolve, reject) => {
+		typeSearch(dbAdvert, q)
+			.then(dbAdvert => resolve(dbAdvert))
+			.catch(err => reject(err));
+	});
+};
+
+const insertPropertyAdvert = newcar => {
 	return new Promise((resolve, reject) => {
 		const id = {id:getSubId(dbAdvert)};
 		newcar = {...id, ...newcar };
 		dbAdvert.push(newcar);
 		resolve(newcar);
 	});
-}
+};
 
-function updatePropertyAdvert(id, newPost) {
+const updatePropertyAdvert = (id, newPost) => {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(dbAdvert, id)
 			.then(post => {
@@ -49,9 +57,9 @@ function updatePropertyAdvert(id, newPost) {
 			})
 			.catch(err => reject(err));
 	});
-}
+};
 
-function deletePropertyAdvert(id) {
+const deletePropertyAdvert = id => {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(dbAdvert, id)
 			.then(() => {
@@ -60,12 +68,8 @@ function deletePropertyAdvert(id) {
 			})
 			.catch(err => reject(err));
 	});
-}
+};
 
-module.exports = {
-	getPropertyAdvert,
-	getPropertyAdverts,
-	updatePropertyAdvert,
-	deletePropertyAdvert,
-	insertPropertyAdvert
+export {getPropertyAdvert,getPropertyAdverts,updatePropertyAdvert,deletePropertyAdvert,insertPropertyAdvert,
+	getTypeProperty
 };
