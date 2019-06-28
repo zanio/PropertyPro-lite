@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import {error} from '../../data/error';
+
 dotenv.config();
 
 const jwtsign = (req, res,next)=>{
@@ -16,7 +18,7 @@ const jwtsign = (req, res,next)=>{
 		req._user = _user;
 		next();
 	} else{
-		res.status(403).json({ status:402, error: 'failed authentication' });
+		res.status(402).json(error.failed_auth_402);
 	}
     
 };
@@ -26,10 +28,7 @@ const jwtVerify = (req, res, next)=>{
 	jwt.verify(token, process.env.SECRET_KEY, (err, result)=>{
 		if(err){
 			
-			res.status(403).json({
-				err,
-				data:'This is a protected routes, you have to be logged in'
-			});
+			res.status(401).json(error.autthorization_401);
 		} else{
 			req.result = result;
 			next();

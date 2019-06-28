@@ -3,15 +3,13 @@ const dbPath = require('./dbPath');
 
 let {dbAdvert} = require('../data/users');
 import {getSubId,mustBeInArray,newDate,typeSearch} from '../helpers/helper';
+import {error} from '../data/error';
 
 
 const getPropertyAdverts = () => {
 	return new Promise((resolve, reject) => {
 		if (dbAdvert.length === 0) {
-			reject({
-				message: 'no advert available',
-				status: 202
-			});
+			reject(error.no_ads_err_202);
 		}
 		resolve(dbAdvert);
 	});
