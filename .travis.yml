@@ -12,5 +12,6 @@ after_success: npm run coverage
 branches:
   only:
     - develop
+    - ch-test-endpoint-166994978
     
     
