@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import {admins} from '../../data/admin';
 import {getSubId,newDate,adminDb} from '../../helpers/helper';
 import {numRegex} from '../../utils/numRegex';
+import {error} from '../../data/error';
 
 const authorization = (req, res, next)=>{
 	const header = req.headers['authorization'];
@@ -14,10 +15,7 @@ const authorization = (req, res, next)=>{
 		req.token = token;
 		next();
 	} else {
-		res.status(401).json({
-			err:401,
-			data:'This is a protected routes, you have to be logged in'
-		});
+		res.status(401).json(error.autthorization_401);
 	}
 };
 
@@ -25,10 +23,8 @@ const mustBeInteger = (req, res, next) => {
 
 	const id = req.params.id;
 	if (!Number.isInteger(parseInt(id))) {
-		console.log(Number.isInteger(parseInt(id)));
 		res.status(400).json({ message: 'ID must be an integer' });
 	} else {
-		console.log(Number.isInteger(parseInt(id)));
 		next();
 	}
 };
@@ -41,9 +37,7 @@ const uniqueValue = (req, res, next) => {
 		next();
 	} 
 	else{
-
-		console.log('email already in use %s',users.email);
-		res.status(403).json({ status:403, error: `${email} already in use` });
+		res.status(403).json(error.uniquevalue_403);
 		return;
 	}
    
@@ -75,12 +69,12 @@ const isSignUp = (req, res, next) => {
 				next();
 			}
 			else{
-				res.status(403).json({ status:403, error: 'please check your email or password' });
+				res.status(403).json(error.email_password_403);
 			}
 
 		});
 	} else{
-		res.status(403).json({ status:403, error: 'please register a new account, that email is not registered' });
+		res.status(403).json(error.reg_new_403);
 		return;
 	}
     
@@ -90,7 +84,6 @@ const isSignUp = (req, res, next) => {
 
 const getId = (req, res, next)=>{
 	const {result} = req;
-	console.log(result);
 	let {users,dbAdvert} = require('../../data/users.js');
 	const owner = {owner:result.id};
 	const date = { createdAt: newDate()}; 
@@ -113,12 +106,10 @@ const getId = (req, res, next)=>{
 		req.data = data;
 		next();
 	} else{
-		res.status(403).json({
-			status:403,
-			error:'unauthorized posting'
-		});
+		res.status(403).json(error.unauthorized_post_403);
 	}
 };
+
 const getPreviousId = (req, res, next)=>{
 	let {dbAdvert} = require('../../data/users.js');
 	const {result} = req;
@@ -147,10 +138,26 @@ const getPreviousId = (req, res, next)=>{
 		req.data = data;
 		next();
 	} else{
-		res.status(403).json({
-			status:403,
-			error:'unauthorized posting'
-		});
+		res.status(403).json(error.unauthorized_post_403);
+	}
+};
+
+const getSingleIdProperty = (req, res, next)=>{
+	let {dbAdvert} = require('../../data/users.js');
+	const {result} = req;
+	const owner = {owner:result.id};
+
+	dbAdvert = dbAdvert.find(r=>r.id == req.params.id);
+	const {status} = req.body;
+	dbAdvert['status'] = status;
+	const data = { 
+		...dbAdvert
+	};
+	if(owner && dbAdvert){
+		req.data = data;
+		next();
+	} else{
+		res.status(403).json(error.unauthorized_post_403);
 	}
 };
 
@@ -163,10 +170,7 @@ const toDeleteId = (req, res, next)=>{
 	if(owner && dbAdvert){
 		next();
 	} else{
-		res.status(404).json({
-			status:404,
-			error:'no advert to delete'
-		});
+		res.status(404).json(error.no_advert_delete_404);
 	}
 };
 
@@ -187,12 +191,9 @@ const idCheck = (req, res, next)=>{
 	if(numRegex(id)){
 		next();
 	} else{
-		res.status(404).json({
-			status:404,
-			error:'Id must be number'
-		});
+		res.status(404).json(error.id_number_404);
 	}
 
 };
 
-export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId};
+export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId,getSingleIdProperty};
