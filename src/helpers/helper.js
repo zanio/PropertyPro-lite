@@ -1,4 +1,4 @@
-
+import {error} from '../data/error';
 const getNewId = (array) => {
    
 	if (array.length > 0) {
@@ -32,10 +32,7 @@ const mustBeInArray = (array, id) =>{
 	return new Promise((resolve, reject) => {
 		const row = array.find(r => r.id == id);
 		if (!row) {
-			reject({
-				message: 'user does not exits',
-				status: 404
-			});
+			reject(error.user_404);
 		}
 		resolve(row);
 	});
@@ -62,5 +59,15 @@ const adminDb = (array, email) =>{
 	});
 };
 
+const typeSearch = (array, type) =>{
+	return new Promise((resolve, reject) => {
+		const db = array.filter(r => r.type === type);
+		if(!db){
+			reject(error.property_404);
+		}
+		resolve(db);
+	});
+};
 
-export {getNewId,newDate,mustBeInArray,harshPassword,getSubId,adminDb};
+
+export {getNewId,newDate,mustBeInArray,harshPassword,getSubId,adminDb,typeSearch};

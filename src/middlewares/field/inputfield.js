@@ -7,6 +7,8 @@ let {users} = require('../../data/users');
 //import {stringRegex}  from '../utils/string';
 import {harshPassword,getNewId}  from '../../helpers/helper';
 import {validateEmail} from '../../utils/email';
+import {error} from '../../data/error';
+
 
 
 import jwt  from 'jsonwebtoken';
@@ -19,9 +21,9 @@ const checkPropertyField = (req, res, next) =>{
 	const letterBolean = checkLetter(boolArray);
 	const floatBoolean = checkFloat(float.price);
 	if(!letterBolean){
-		res.status(403).json({status:403,err:'field label except price (number) can only be Alphabet characters'});
+		res.status(403).json(error.label_err_403);
 	} else if (!floatBoolean){
-		res.status(403).json({status:403,err:'price Must be Floating Number, i.e 1700.00'});
+		res.status(403).json(error.price_403);
 	}
 	else{
 		req.price = parseFloat(float.price);
@@ -78,7 +80,7 @@ const checkFieldsUser = async (req, res, next) => {
 
 		
 	} else {
-		res.status(403).json({status:402 , error: 'Please fill all field correctly' });
+		res.status(402).json(error.all_field_402);
 		return;
 	}
 };
@@ -100,11 +102,11 @@ const checkPropertyEmpty = (req, res, next) =>{
 			req.other_details = other_details;
 			next();
 		} else{
-			res.status(403).json({status:403,err:'empty field'});
+			res.status(403).json(error.empty_field_403);
 		}
 	} 
-	catch(error){
-		res.status(403).json({status:403,err:'please fill all input and upload an image'});
+	catch(errors){
+		res.status(403).json(error.input_image_403);
 		
 	}
 	
@@ -117,7 +119,7 @@ const emailValidation = (req, res, next)=>{
 	if(validateEmail(email) && email){
 		next();
 	} else{
-		res.status(402).json({ status:402, error: 'Invalid email' });
+		res.status(402).json(error.invalid_email_402);
 		return;
 	}
 };
@@ -138,7 +140,7 @@ const regCharCheck = (req, res, next)=>{
 	} 
 	else
 	{
-		res.status(404).json({status:404 , error: 'first name and last name can only be string with letter characters' });
+		res.status(404).json(error.string_err_403);
 		return;
 	}
 };
@@ -155,7 +157,7 @@ const regNumCheck = (req, res, next)=>{
 	} 
 	else
 	{
-		res.status(404).json({status:404 , error: 'Only numbers are required in phone number and 11 digits' });
+		res.status(404).json(error.interger_err_404);
 		return;
 	}
 };
