@@ -19,6 +19,17 @@ describe('/GET user account info', () => {
 				done();
 			});
 	});
+
+	it('it should test for unknown route ', (done) => {
+		chai.request(app)
+			.get('*')
+			// eslint-disable-next-line no-unused-vars
+			.end((err, res) => {
+				expect(err).to.equal(err);
+				//expect(res.status).to.equal(404);
+				done();
+			});
+	});
  
 });
 
