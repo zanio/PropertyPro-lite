@@ -50,6 +50,7 @@ describe(' PATCH AD ROUTES', () => {
 			});
 	});
 
+
 	it('it should update property of a given id ', function (done) {
     
 		this.timeout(10000);
@@ -77,6 +78,69 @@ describe(' PATCH AD ROUTES', () => {
 			.end((err, res) => {
 				expect(err).to.equal(null);
 				expect(res.status).to.equal(200);
+				expect(res.body).to.be.a('object');
+				done();
+			});
+	});
+
+	it('it should return failed jwt verification ', function (done) {
+    
+		this.timeout(10000);
+    
+		const  body = {
+			status:'available',
+			price:'12443.44',
+			state:'benin',
+			city:'vi',
+			address:'block 188',
+			type:'mini-flat',
+			contact_person_number:'098123456732',
+			property_name:'adewale',
+			contact_person_address:'block 199 flat 4',
+			proof:'yes i do',
+			note:'just be a good buyer'
+		};
+    
+  
+		chai.request(app)
+			.patch('/api/v1/property-advert/43501')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhk2RlIjoiJDJiJDEwJFZBa01LVXVtaEdLWUxkbEZkc0lwVS54aS5mMGdSbnNwMTY1WXJCVUd4SUZsUmQvR1VpTFhLIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6Im11c2EiLCJsYXN0X25hbWUiOiJmZWtsZ2dpeCIsImVtYWlsIjoiZGFiY2JnZHlAYWhvby5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRWQWtNS1V1bWhHS1lMZGxGZHNJcFUueGkuZjBnUm5zcDE2NVlyQlVHeElGbFJkL0dVaUxYSyIsImFkZHJlc3MiOiJibG9jayAxOTkgZmxhdCA0IiwicGhvbmVfbnVtYmVyIjoiMDkwODc4NTY3ODQiLCJnZW5kZXIiOiJtYWxlIiwiaXNfQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTYxNzc3NTQ1fQ.2rYG5nfwuB5FWXeq1cfu_DJKIfiDWx8B4LjjrlrCtkg')
+			.attach('image','src/test/Screenshot (24).png')
+			.field(body)
+			.end((err, res) => {
+				expect(err).to.equal(null);
+				expect(res.status).to.equal(401);
+				expect(res.body).to.be.a('object');
+				done();
+			});
+	});
+
+
+	it('it should return no token to validate ', function (done) {
+    
+    
+		const  body = {
+			status:'available',
+			price:'12443.44',
+			state:'benin',
+			city:'vi',
+			address:'block 188',
+			type:'mini-flat',
+			contact_person_number:'098123456732',
+			property_name:'adewale',
+			contact_person_address:'block 199 flat 4',
+			proof:'yes i do',
+			note:'just be a good buyer'
+		};
+    
+  
+		chai.request(app)
+			.patch('/api/v1/property-advert/43501')
+			.attach('image','src/test/Screenshot (24).png')
+			.field(body)
+			.end((err, res) => {
+				expect(err).to.equal(null);
+				expect(res.status).to.equal(401);
 				expect(res.body).to.be.a('object');
 				done();
 			});
