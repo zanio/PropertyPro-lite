@@ -5,7 +5,6 @@ import chaiHttp from 'chai-http';
 import app from '../app';
 
 
-
 //https://dev.to/asciidev/testing-a-nodeexpress-application-with-mocha--chai-4lho
 chai.use(chaiHttp);
 //Our parent block
@@ -17,8 +16,8 @@ chai.use(chaiHttp);
 
 
 describe(' PATCH AD ROUTES', () => {
-	
 
+		
 	it('it should post property advert ', function (done) {
     
 		this.timeout(10000);
@@ -61,7 +60,7 @@ describe(' PATCH AD ROUTES', () => {
 			state:'benin',
 			city:'vi',
 			address:'block 188',
-			type:'flat',
+			type:'mini-flat',
 			contact_person_number:'098123456732',
 			property_name:'adewale',
 			contact_person_address:'block 199 flat 4',
@@ -82,6 +81,8 @@ describe(' PATCH AD ROUTES', () => {
 				done();
 			});
 	});
+
+
 	it('it should return 404 because patch id was not found ', function (done) {
     
 		this.timeout(10000);
@@ -115,7 +116,14 @@ describe(' PATCH AD ROUTES', () => {
 	});
 
 	
+});
+	
+
+
+
+	
+	
     
      
-});
+
 
