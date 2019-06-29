@@ -136,8 +136,10 @@ const getPreviousId = (req, res, next)=>{
 	};
 	if(owner && dbAdvert){
 		req.data = data;
+		console.log(owner,dbAdvert);
 		next();
 	} else{
+		
 		res.status(403).json(error.unauthorized_post_403);
 	}
 };
