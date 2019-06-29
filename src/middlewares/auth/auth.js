@@ -136,7 +136,6 @@ const getPreviousId = (req, res, next)=>{
 	};
 	if(owner && dbAdvert){
 		req.data = data;
-		console.log(owner,dbAdvert);
 		next();
 	} else{
 		
