@@ -54,6 +54,26 @@ describe('GET and POST AD  ROUTES', () => {
 			});
 	});
 
+	it('it should get all property advert ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert')
+			.end((err, res) => {
+				console.log(err, res)
+				expect(res.status).to.equal(200);
+				done();
+			});
+	});
+
+	it('it should get all property advert matching the search query ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert/search?type=flat')
+			.end((err, res) => {
+				console.log(err, res)
+				expect(res.status).to.equal(201);
+				done();
+			});
+	});
+
 	it('it should return 403 with state can not contain number ', function (done) {
     
     
@@ -187,23 +207,7 @@ describe('GET and POST AD  ROUTES', () => {
 			});
 	});
 
-	it('it should get all property advert ', (done) => {
-		chai.request(app)
-			.get('/property-advert')
-			.end((err, res) => {
-				expect(res.status).to.equal(200);
-				done();
-			});
-	});
-
-	it('it should get all property advert matching the search query ', (done) => {
-		chai.request(app)
-			.get('/property-advert/search?type=flat')
-			.end((err, res) => {
-				expect(res.status).to.equal(200);
-				done();
-			});
-	});
+	
 
 	it('it should return not found advert because search query value does not exist ', (done) => {
 		chai.request(app)

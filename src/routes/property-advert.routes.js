@@ -58,7 +58,7 @@ propertyrouter.delete('/property-advert/:id', idCheck, authorization,
 	});
 
 	
-propertyrouter.get('/property-advert/',async(req, res)=>{
+propertyrouter.get('/property-advert',async(req, res)=>{
 	
 	getPropertyAdverts()
 		.then(response=>{
