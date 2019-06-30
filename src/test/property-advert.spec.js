@@ -17,17 +17,6 @@ chai.use(chaiHttp);
 
 describe('GET and POST AD  ROUTES', () => {
 
-	
-	it('it should return no property advert created yet ', (done) => {
-		chai.request(app)
-			.get('/api/v1/property-advert')
-			.end((err, res) => {
-				expect(res.status).to.equal(404);
-				done();
-			});
-	});
-
-
 
 
 	it('it should create new property advert ', function (done) {
