@@ -206,7 +206,24 @@ describe('GET and POST AD  ROUTES', () => {
 
 	it('it should return not found advert because search query value does not exist ', (done) => {
 		chai.request(app)
-			.get('/property-advert/search?type=flagft')
+			.get('/api/v1/property-advert/search?type=flagft')
+			.end((err, res) => {
+				expect(res.status).to.equal(404);
+				done();
+			});
+	});
+
+	it('it should return not found advert because params value does not exist ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert/43501')
+			.end((err, res) => {
+				expect(res.status).to.equal(201);
+				done();
+			});
+	});
+	it('it should return not found advert because params value does not exist ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert/4350')
 			.end((err, res) => {
 				expect(res.status).to.equal(404);
 				done();

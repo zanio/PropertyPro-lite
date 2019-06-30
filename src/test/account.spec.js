@@ -19,7 +19,7 @@ describe('/GET user account info', () => {
 		chai.request(app)
 			.get('/api/v1/property-advert')
 			.end((err, res) => {
-				console.log(res.status)
+				
 				expect(res.status).to.equal(404);
 				done();
 			});
