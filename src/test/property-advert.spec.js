@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import chai from 'chai';
 import {expect} from 'chai';
@@ -13,7 +14,21 @@ chai.use(chaiHttp);
 /*
   * Test the Car /POST route
   */
-describe(' POST AD ROUTES', () => {
+
+describe('GET and POST AD  ROUTES', () => {
+
+	it('it should return no property advert created yet ', (done) => {
+		chai.request(app)
+			.get('/property-advert')
+			.end((err, res) => {
+				expect(err).to.equal(404);
+				done();
+			});
+	});
+
+
+
+
 	it('it should create new property advert ', function (done) {
     
 		this.timeout(10000);
@@ -179,7 +194,36 @@ describe(' POST AD ROUTES', () => {
 			});
 	});
 
+	it('it should get all property advert ', (done) => {
+		chai.request(app)
+			.get('/property-advert')
+			.end((err, res) => {
+				expect(res.status).to.equal(200);
+				done();
+			});
+	});
+
+	it('it should get all property advert matching the search query ', (done) => {
+		chai.request(app)
+			.get('/property-advert/search?type=flat')
+			.end((err, res) => {
+				expect(res.status).to.equal(200);
+				done();
+			});
+	});
+
+	it('it should return not found advert because search query value does not exist ', (done) => {
+		chai.request(app)
+			.get('/property-advert/search?type=flagft')
+			.end((err, res) => {
+				expect(res.status).to.equal(404);
+				done();
+			});
+	});
+
     
      
 });
+
+
 
