@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import chai from 'chai';
 import {expect} from 'chai';
@@ -11,11 +12,14 @@ chai.use(chaiHttp);
 
 /*
   * Test the Car /POST route
+
+
   */
 
 
 
 describe(' PATCH AD ROUTES', () => {
+
 
 		
 	it('it should post property advert ', function (done) {
@@ -180,7 +184,11 @@ describe(' PATCH AD ROUTES', () => {
 	});
 
 	
+
+	
 });
+
+
 	
 
 
