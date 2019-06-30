@@ -18,6 +18,14 @@ chai.use(chaiHttp);
 describe('GET and POST AD  ROUTES', () => {
 
 	
+	it('it should return no property advert created yet ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert')
+			.end((err, res) => {
+				expect(res.body.status).to.equal(404);
+				done();
+			});
+	});
 
 
 
@@ -58,8 +66,7 @@ describe('GET and POST AD  ROUTES', () => {
 		chai.request(app)
 			.get('/api/v1/property-advert')
 			.end((err, res) => {
-				console.log(err, res)
-				expect(res.status).to.equal(200);
+				expect(res.status).to.equal(201);
 				done();
 			});
 	});
@@ -68,7 +75,6 @@ describe('GET and POST AD  ROUTES', () => {
 		chai.request(app)
 			.get('/api/v1/property-advert/search?type=flat')
 			.end((err, res) => {
-				console.log(err, res)
 				expect(res.status).to.equal(201);
 				done();
 			});
