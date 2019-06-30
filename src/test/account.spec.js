@@ -15,7 +15,14 @@ chai.use(chaiHttp);
   */
 describe('/GET user account info', () => {
 
-	
+	it('it should return no property advert created yet ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert')
+			.end((err, res) => {
+				expect(res.body.status).to.equal(404);
+				done();
+			});
+	});
 
 	it('it should GET unauthenticated user ', (done) => {
 		chai.request(app)
