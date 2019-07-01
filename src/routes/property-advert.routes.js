@@ -52,13 +52,13 @@ propertyrouter.delete('/property-advert/:id', idCheck, authorization,
 		deletePropertyAdvert(id)
 			// eslint-disable-next-line no-unused-vars
 			.then(response=>{
-				res.status(201).json({status:200,data:{message:`advert with the ${id} id has been successfully deleted`}});
+				res.status(201).json({status:201,data:{message:`advert with the ${id} id has been successfully deleted`}});
 			}).catch(err=>res.status(404).json(err));
 			
 	});
 
 	
-propertyrouter.get('/property-advert/',async(req, res)=>{
+propertyrouter.get('/property-advert',async(req, res)=>{
 	
 	getPropertyAdverts()
 		.then(response=>{

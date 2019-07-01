@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 import chai from 'chai';
 import {expect} from 'chai';
@@ -13,7 +14,11 @@ chai.use(chaiHttp);
 /*
   * Test the Car /POST route
   */
-describe(' POST AD ROUTES', () => {
+
+describe('GET and POST AD  ROUTES', () => {
+
+
+
 	it('it should create new property advert ', function (done) {
     
 		this.timeout(10000);
@@ -35,13 +40,31 @@ describe(' POST AD ROUTES', () => {
   
 		chai.request(app)
 			.post('/api/v1/property-advert')
-			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJFZBa01LVXVtaEdLWUxkbEZkc0lwVS54aS5mMGdSbnNwMTY1WXJCVUd4SUZsUmQvR1VpTFhLIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6Im11c2EiLCJsYXN0X25hbWUiOiJmZWtsZ2dpeCIsImVtYWlsIjoiZGFiY2JnZHlAYWhvby5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRWQWtNS1V1bWhHS1lMZGxGZHNJcFUueGkuZjBnUm5zcDE2NVlyQlVHeElGbFJkL0dVaUxYSyIsImFkZHJlc3MiOiJibG9jayAxOTkgZmxhdCA0IiwicGhvbmVfbnVtYmVyIjoiMDkwODc4NTY3ODQiLCJnZW5kZXIiOiJtYWxlIiwiaXNfQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTYxNzc3NTQ1fQ.2rYG5nfwuB5FWXeq1cfu_DJKIfiDWx8B4LjjrlrCtkg')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
 			.attach('image','src/test/Screenshot (24).png')
 			.field(body)
 			.end((err, res) => {
 				expect(err).to.equal(null);
 				expect(res.status).to.equal(200);
 				expect(res.body).to.be.a('object');
+				done();
+			});
+	});
+
+	it('it should get all property advert ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert')
+			.end((err, res) => {
+				expect(res.status).to.equal(201);
+				done();
+			});
+	});
+
+	it('it should get all property advert matching the search query ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert/search?type=flat')
+			.end((err, res) => {
+				expect(res.status).to.equal(201);
 				done();
 			});
 	});
@@ -66,7 +89,7 @@ describe(' POST AD ROUTES', () => {
   
 		chai.request(app)
 			.post('/api/v1/property-advert')
-			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJFZBa01LVXVtaEdLWUxkbEZkc0lwVS54aS5mMGdSbnNwMTY1WXJCVUd4SUZsUmQvR1VpTFhLIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6Im11c2EiLCJsYXN0X25hbWUiOiJmZWtsZ2dpeCIsImVtYWlsIjoiZGFiY2JnZHlAYWhvby5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRWQWtNS1V1bWhHS1lMZGxGZHNJcFUueGkuZjBnUm5zcDE2NVlyQlVHeElGbFJkL0dVaUxYSyIsImFkZHJlc3MiOiJibG9jayAxOTkgZmxhdCA0IiwicGhvbmVfbnVtYmVyIjoiMDkwODc4NTY3ODQiLCJnZW5kZXIiOiJtYWxlIiwiaXNfQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTYxNzc3NTQ1fQ.2rYG5nfwuB5FWXeq1cfu_DJKIfiDWx8B4LjjrlrCtkg')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
 			.attach('image','src/test/Screenshot (24).png')
 			.field(body)
 			.end((err, res) => {
@@ -93,7 +116,7 @@ describe(' POST AD ROUTES', () => {
   
 		chai.request(app)
 			.post('/api/v1/property-advert')
-			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJFZBa01LVXVtaEdLWUxkbEZkc0lwVS54aS5mMGdSbnNwMTY1WXJCVUd4SUZsUmQvR1VpTFhLIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6Im11c2EiLCJsYXN0X25hbWUiOiJmZWtsZ2dpeCIsImVtYWlsIjoiZGFiY2JnZHlAYWhvby5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRWQWtNS1V1bWhHS1lMZGxGZHNJcFUueGkuZjBnUm5zcDE2NVlyQlVHeElGbFJkL0dVaUxYSyIsImFkZHJlc3MiOiJibG9jayAxOTkgZmxhdCA0IiwicGhvbmVfbnVtYmVyIjoiMDkwODc4NTY3ODQiLCJnZW5kZXIiOiJtYWxlIiwiaXNfQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTYxNzc3NTQ1fQ.2rYG5nfwuB5FWXeq1cfu_DJKIfiDWx8B4LjjrlrCtkg')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
 			.attach('image','src/test/Screenshot (24).png')
 			.field(body)
 			.end((err, res) => {
@@ -123,7 +146,7 @@ describe(' POST AD ROUTES', () => {
   
 		chai.request(app)
 			.post('/api/v1/property-advert')
-			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJFZBa01LVXVtaEdLWUxkbEZkc0lwVS54aS5mMGdSbnNwMTY1WXJCVUd4SUZsUmQvR1VpTFhLIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6Im11c2EiLCJsYXN0X25hbWUiOiJmZWtsZ2dpeCIsImVtYWlsIjoiZGFiY2JnZHlAYWhvby5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRWQWtNS1V1bWhHS1lMZGxGZHNJcFUueGkuZjBnUm5zcDE2NVlyQlVHeElGbFJkL0dVaUxYSyIsImFkZHJlc3MiOiJibG9jayAxOTkgZmxhdCA0IiwicGhvbmVfbnVtYmVyIjoiMDkwODc4NTY3ODQiLCJnZW5kZXIiOiJtYWxlIiwiaXNfQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTYxNzc3NTQ1fQ.2rYG5nfwuB5FWXeq1cfu_DJKIfiDWx8B4LjjrlrCtkg')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
 			.field(body)
 			.end((err, res) => {
 				expect(res.status).to.equal(403);
@@ -147,7 +170,7 @@ describe(' POST AD ROUTES', () => {
   
 		chai.request(app)
 			.post('/api/v1/property-advert')
-			.set('Authorization','Bearer eyJhbGciOiJIUzI1biIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJFZBa01LVXVtaEdLWUxkbEZkc0lwVS54aS5mMGdSbnNwMTY1WXJCVUd4SUZsUmQvR1VpTFhLIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6Im11c2EiLCJsYXN0X25hbWUiOiJmZWtsZ2dpeCIsImVtYWlsIjoiZGFiY2JnZHlAYWhvby5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRWQWtNS1V1bWhHS1lMZGxGZHNJcFUueGkuZjBnUm5zcDE2NVlyQlVHeElGbFJkL0dVaUxYSyIsImFkZHJlc3MiOiJibG9jayAxOTkgZmxhdCA0IiwicGhvbmVfbnVtYmVyIjoiMDkwODc4NTY3ODQiLCJnZW5kZXIiOiJtYWxlIiwiaXNfQWRtaW4iOmZhbHNlfSwiaWF0IjoxNTYxNzc3NTQ1fQ.2rYG5nfwuB5FWXeq1cfu_DJKIfiDWx8B4LjjrlrCtkg')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXu5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
 			.field(body)
 			.end((err, res) => {
 				expect(res.status).to.equal(401);
@@ -179,7 +202,95 @@ describe(' POST AD ROUTES', () => {
 			});
 	});
 
+	
+
+	it('it should return not found advert because params value does not exist ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert/43501')
+			.end((err, res) => {
+				expect(res.status).to.equal(201);
+				done();
+			});
+	});
+
+	it('it should return not found advert because params value does not exist ', (done) => {
+		chai.request(app)
+			.get('/api/v1/property-advert/4350')
+			.end((err, res) => {
+				expect(res.status).to.equal(404);
+				done();
+			});
+	});
+
+	it('it should return id not found because id does not match to update property status', function (done) {
+    
+		this.timeout(10000);
+    
+		const  body = {
+			status:'sold'
+			
+		};
+    
+  
+		chai.request(app)
+			.patch('/api/v1/property-advert/4351/sold')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
+			.attach('image','src/test/Screenshot (24).png')
+			.field(body)
+			.end((err, res) => {
+				expect(res.status).to.equal(500);
+				done();
+			});
+	});
+
+	it('it should update a single property my changing the status from available to sold', function (done) {
+    
+		this.timeout(10000);
+    
+		const  body = {
+			status:'sold'
+			
+		};
+    
+  
+		chai.request(app)
+			.patch('/api/v1/property-advert/43501/sold')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
+			.attach('image','src/test/Screenshot (24).png')
+			.field(body)
+			.end((err, res) => {
+				expect(err).to.equal(null);
+				expect(res.body.status).to.equal(200);
+				expect(res.body).to.be.a('object');
+				done();
+			});
+	});
+
+
+	it('it should delete property match the followng routes ', (done) => {
+		chai.request(app)
+			.delete('/api/v1/property-advert/43501')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
+			.end((err, res) => {
+				expect(res.status).to.equal(201);
+				done();
+			});
+	});
+
+
+it('it should delete property match the followng routes ', (done) => {
+		chai.request(app)
+			.delete('/api/v1/property-advert/4350')
+			.set('Authorization','Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2RlIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiaWQiOjIzNDAxMzAwNTAwMSwibmV3VXNlck5vdG9rZW4iOnsiZmlyc3RfbmFtZSI6ImhmZmZkZmRmIiwibGFzdF9uYW1lIjoiZmVrbGl4IiwiZW1haWwiOiJjbGluZ3RvbmV5aXR1b3lvQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJE1EQk9PZXQ5QWVMQ3NVQURZTk5NWU8wVmF1d2QueXJJVGNTeUJKWFIuYVR5dzFlYmsuLmNhIiwiYWRkcmVzcyI6ImJsb2NrIDE5OSBmbGF0IDQiLCJwaG9uZV9udW1iZXIiOiIwODAxMjM0MjQ1OSIsImdlbmRlciI6Im1hbGUiLCJpc19BZG1pbiI6dHJ1ZX0sImlhdCI6MTU2MTk3NjY0MH0.P5L7HTKcofHiElkLA86hNSPMl0yxRgEllyJgrYaIphk')
+			.end((err, res) => {
+				expect(res.status).to.equal(404);
+				done();
+			});
+	});
+
     
      
 });
+
+
 
