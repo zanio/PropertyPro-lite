@@ -14,7 +14,8 @@ Userrouter.post('/auth/register', AdminCheck, checkFieldsUser,regCharCheck,regNu
 			.then(user => res.status(200).json({
 				status: 200,
 				data: user
-			}));
+			}))
+			.catch(err=>res.status(500).json(err));
 			
 		// eslint-disable-next-line no-console
 		//console.log(users);
