@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0",
     "title": "Propertypro Lite",
-    "description": "Property Pro Lite is a platform where people can create and/or search properties for sale or rent."
+    "description": "This a project titled PropertyPro-lite. It is an online platform that allow users (Agent or Customer ) to see posted property advert which may be in form of Housing, personal property and mcuh more"
   },
   "servers": [
     {
@@ -35,8 +35,8 @@
         ],
         "summary": "Test get request",
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "successful",
             "content": {
               "application/json": {
                 "schema": {
@@ -48,7 +48,7 @@
         }
       }
     },
-    "/auth/signup": {
+    "/auth/register": {
       "post": {
         "tags": [
           "Users"
@@ -73,13 +73,16 @@
                   "password": {
                     "type": "string"
                   },
-                  "phoneNumber": {
+                  "phone_number": {
                     "type": "string"
                   },
-                  "accountType": {
-                    "type": "string"
+                  "is_Admin": {
+                    "type": "boolean"
                   },
                   "address": {
+                    "type": "string"
+                  },
+                  "gender": {
                     "type": "string"
                   }
                 }
@@ -111,7 +114,7 @@
         }
       }
     },
-    "/auth/signin": {
+    "/auth/login": {
       "post": {
         "tags": [
           "Users"
@@ -159,7 +162,7 @@
         }
       }
     },
-    "/property": {
+    "/property-advert": {
       "get": {
         "tags": [
           "Properties"
@@ -188,7 +191,7 @@
           }
         }
       },
-      "post":{
+      "post": {
         "tags": [
           "Properties"
         ],
@@ -212,11 +215,23 @@
                   "address": {
                     "type": "string"
                   },
-                  "amount": {
-                    "type": "number"
+                  "contact_person_number": {
+                    "type": "string"
+                  },
+                  "contact_person_address": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "float"
+                  },
+                  "proof": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "type": "string"
                   },
                   "image": {
-                    "type": "file",
+                    "type": "string",
                     "format": "binary"
                   }
                 }
@@ -263,7 +278,7 @@
         }
       }
     },
-    "/property/{propertyId}": {
+    "/property-advert/{propertyId}": {
       "get": {
         "tags": [
           "Properties"
@@ -331,7 +346,7 @@
                     "type": "number"
                   },
                   "image": {
-                    "type": "file",
+                    "type": "string",
                     "format": "binary"
                   }
                 }
@@ -443,7 +458,7 @@
         }
       }
     },
-    "/property/{propertyId}/sold": {
+    "/property-advert/{propertyId}/sold": {
       "patch": {
         "tags": [
           "Properties"
@@ -499,7 +514,7 @@
         }
       }
     },
-    "/property/?type={propertyType}": {
+    "/property-advert/search/": {
       "get": {
         "tags": [
           "Properties"
@@ -507,10 +522,10 @@
         "summary": "Get specific types of a properties",
         "parameters": [
           {
-            "name": "propertyType",
+            "name": "type",
             "in": "path",
             "required": true,
-            "description": "property",
+            "description": "property type. e.g flat,mini-flat",
             "schema": {
               "type": "string"
             }
@@ -603,13 +618,13 @@
           "email": {
             "type": "string"
           },
-          "phoneNumber": {
+          "phone_number": {
             "type": "string"
           },
           "address": {
             "type": "string"
           },
-          "is_admin": {
+          "is_Admin": {
             "type": "boolean"
           }
         }

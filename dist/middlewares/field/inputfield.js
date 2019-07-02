@@ -78,7 +78,6 @@ var checkFieldsUser = function checkFieldsUser(req, res, next) {
     (0, _helper.harshPassword)(password).then(function (result) {
       if (result) {
         newPassword = result;
-        console.log(newPassword);
         var namedata = {
           first_name: first_name,
           last_name: last_name
