@@ -1,17 +1,21 @@
 language: node_js
 node_js:
-  - "10.15.3"
+- 10.15.3
 install:
-  - "npm install"
+- npm install
 cache:
   directories:
-  - "node_modules"
+  - node_modules
+deploy:
+  provider: heroku
+  api_key:
+    secure: MyP6UjkW5TxKgYj9Uv4ppzv4Lk60rl9ZjdGrpP6Sjd7tSEiZ3dEjGuTGF+q3Gwe8SHa8UxJH2jVxf1Tix8/kBC4h+7WQXF2HBFQBN9cA16Rju7bShg+C0p2gN5a1VeGaGoAM0mV2U7ECOko2I1yenslhdiwlaIBQVMqV8eHETvMyQL6e25z4hd+boj9EUTSATEYKFmY/WX67GngSrKeKT1LAH/5mzDdYvyDnyUbdioD772A6dN/2HDWA/UZQoGYmbiKq3uGLOCvY7AMxGrJK4j+s+4GHKplZ9xlPr48YHAmC8ja4J4ntcjqKND9AqTCKAtgEp4osTtmm+i9wX4pRg4ZUaVoTx1tyFJ6zUSyHdEXGFH8RCOPqYNOq/5Eq6BozRTme6rCgUDKjOahW8SjQ1W3RJnsd1QrXRFzqV3DSq2jPOzQ6Kf10qr0YJMrtS4QHjf5BjQKEiXmuLkNSXvwGL+qbhEz/T6mXCZF3gDtdR98mJDSmp3sQz1hRrVrvrqZMXBd1I8Aol0zH6ZEVs8EdhtvbKEVyjEYD0tF6jeANlsKIrLEeLiDe1+CTxbSFaofgtAT2LTvdG8EozHHB9JkztVQgwcQIulXj+y38nkEsfcl2nzCjnOS7uNdsEF0CpFdvhdbSB40UBsmpY05HmdPbvaCp6z/Zl+U9/dIdlGEHQ8M=
+  app: propertpro-lite
+  on: develop
 script:
-  - "npm run test"
+- npm run test
 after_success: npm run coverage
 branches:
   only:
-    - develop
-    - ch-test-endpoint-166994978
-    
-    
+  - develop
+  - ch-test-endpoint-166994978
