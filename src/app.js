@@ -2,14 +2,18 @@
 import express from 'express';
 import morgan from 'morgan';
 import { cloudinaryConfig } from './config/cloudinaryConfig';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './docs/swagger.json';
 
 // App
 const app = express();
+
 // Morgan
 app.use(morgan('tiny'));
 // First route
 import router from './routes/index.routes';
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('*', cloudinaryConfig);
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
@@ -17,6 +21,8 @@ app.use(router);
 app.use('*', (req, res) => {
 	res.status(404).json({status:404,err:'That routes is not a known route'});
 });
+
+
 
 
 
