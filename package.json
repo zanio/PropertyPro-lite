@@ -6,10 +6,10 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill src/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "start": "nodemon --exec babel-node src/app.js",
+    "dev": "nodemon --exec babel-node src/app.js",
     "clean": "rm -rf dist && mkdir dist",
     "build-babel": "babel src --out-dir dist",
-    "build":"npm run clean && npm run build-babel && npm run serve",
+    "start":"npm run clean && npm run build-babel && npm run serve",
     "serve": "node dist/app.js"
   },
   "babel": {
