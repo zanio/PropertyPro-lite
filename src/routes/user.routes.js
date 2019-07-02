@@ -9,8 +9,8 @@ import {checkFieldsUser,emailValidation,regCharCheck,regNumCheck} from '../middl
 
 /* register a new User */
 Userrouter.post('/auth/register', AdminCheck, checkFieldsUser,regCharCheck,regNumCheck,emailValidation,uniqueValue,
-	async (req, res) => {
-		await user.insertUser(req.newUser)
+	 (req, res) => {
+	 user.insertUser(req.newUser)
 			.then(user => res.status(200).json({
 				status: 200,
 				data: user
@@ -28,7 +28,7 @@ Userrouter.post('/auth/login',AdminCheck,emailValidation, isSignUp, jwtsign, (re
 });
 
 /* my account section */
-Userrouter.get('/auth/my-account/*', authorization, jwtVerify, async(req, res)=>{
+Userrouter.get('/auth/my-account/*', authorization, jwtVerify, (req, res)=>{
 	const {result} = req;
 	res.status(200).json(result);
   

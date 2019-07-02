@@ -13,7 +13,7 @@ import {checkPropertyEmpty,checkPropertyField} from '../middlewares/field/inputf
 
 /* create propertyadvert advert  */
 propertyrouter.post('/property-advert', authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getId,async(req, res)=>{
+	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getId,(req, res)=>{
 		const {data} = req;
 		insertPropertyAdvert(data)
 			.then(response=>{
@@ -24,7 +24,7 @@ propertyrouter.post('/property-advert', authorization,
 
 
 propertyrouter.patch('/property-advert/:id', idCheck, authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getPreviousId,async(req, res)=>{
+	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getPreviousId,(req, res)=>{
 		const {data} = req;
 		const id = req.params.id;	
 		updatePropertyAdvert(id,data)
@@ -35,7 +35,7 @@ propertyrouter.patch('/property-advert/:id', idCheck, authorization,
 	});
 
 
-propertyrouter.patch('/property-advert/:id/sold', idCheck, authorization, jwtVerify, getSingleIdProperty,async(req, res)=>{	
+propertyrouter.patch('/property-advert/:id/sold', idCheck, authorization, jwtVerify, getSingleIdProperty,(req, res)=>{	
 	const {data} = req;
 	const id = req.params.id;	
 	updatePropertyAdvert(id,data)
@@ -47,7 +47,7 @@ propertyrouter.patch('/property-advert/:id/sold', idCheck, authorization, jwtVer
 
 
 propertyrouter.delete('/property-advert/:id', idCheck, authorization, 
-	jwtVerify, toDeleteId,async(req, res)=>{
+	jwtVerify, toDeleteId,(req, res)=>{
 		const id = req.params.id;	
 		deletePropertyAdvert(id)
 			// eslint-disable-next-line no-unused-vars
@@ -58,7 +58,7 @@ propertyrouter.delete('/property-advert/:id', idCheck, authorization,
 	});
 
 	
-propertyrouter.get('/property-advert',async(req, res)=>{
+propertyrouter.get('/property-advert',(req, res)=>{
 	
 	getPropertyAdverts()
 		.then(response=>{
@@ -67,7 +67,7 @@ propertyrouter.get('/property-advert',async(req, res)=>{
 			
 });
 
-propertyrouter.get('/property-advert/search',async(req, res)=>{
+propertyrouter.get('/property-advert/search',(req, res)=>{
 	const url_parts = url.parse(req.url,true).query;
 	getTypeProperty(url_parts.type)
 		.then(response=>{
@@ -77,7 +77,7 @@ propertyrouter.get('/property-advert/search',async(req, res)=>{
 			
 });
 
-propertyrouter.get('/property-advert/:id',async(req, res)=>{
+propertyrouter.get('/property-advert/:id',(req, res)=>{
 	getPropertyAdvert(req.params.id)
 		.then(response=>{
 			res.status(201).json({status:200,data:response});
