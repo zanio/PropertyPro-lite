@@ -8,8 +8,8 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "dev": "nodemon --exec babel-node src/app.js",
     "clean": "rm -rf dist && mkdir dist",
-    "build-babel": "babel src --out-dir dist",
-    "start":"npm run clean && npm run build-babel && npm run serve",
+    "build-babel": "npm run clean && babel src --out-dir dist",
+    "start":"npm run serve",
     "serve": "node dist/app.js"
   },
   "babel": {
