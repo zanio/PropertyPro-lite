@@ -9,8 +9,8 @@
     "start": "nodemon --exec babel-node src/app.js",
     "clean": "rm -rf dist && mkdir dist",
     "build-babel": "babel src --out-dir dist",
-    "build":"npm run clean && npm run build-babel",
-    "serve": "node dist/server.js"
+    "build":"npm run clean && npm run build-babel && npm run serve",
+    "serve": "node dist/app.js"
   },
   "babel": {
     "presets": [
