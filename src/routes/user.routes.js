@@ -9,8 +9,8 @@ import {checkFieldsUser,emailValidation,regCharCheck,regNumCheck} from '../middl
 
 /* register a new User */
 Userrouter.post('/auth/register', AdminCheck, checkFieldsUser,regCharCheck,regNumCheck,emailValidation,uniqueValue,
-	 (req, res) => {
-	 user.insertUser(req.newUser)
+	(req, res) => {
+		user.insertUser(req.newUser)
 			.then(user => res.status(200).json({
 				status: 200,
 				data: user
