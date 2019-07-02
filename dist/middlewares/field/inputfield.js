@@ -29,10 +29,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 var _require = require('../../data/users'),
     users = _require.users; //import {stringRegex}  from '../utils/string';
 
@@ -61,78 +57,61 @@ var checkPropertyField = function checkPropertyField(req, res, next) {
 
 exports.checkPropertyField = checkPropertyField;
 
-var checkFieldsUser =
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(req, res, next) {
-    var _req$body, first_name, last_name, password, address, email, phone_number, gender, is_Admin, checkAdmin, genderCheck, id, newPassword, _res, namedata, newUserNotoken, token, newUser;
-
-    return regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _req$body = req.body, first_name = _req$body.first_name, last_name = _req$body.last_name, password = _req$body.password, address = _req$body.address, email = _req$body.email, phone_number = _req$body.phone_number, gender = _req$body.gender;
-            is_Admin = req.is_Admin;
-            checkAdmin = is_Admin ? true : false;
-            genderCheck = gender === 'male' || gender === 'female' ? true : false;
-            id = {
-              id: (0, _helper.getNewId)(users)
-            };
-
-            if (!(first_name && last_name && password && address && email && phone_number && gender && genderCheck)) {
-              _context.next = 18;
-              break;
-            }
-
-            _context.next = 8;
-            return (0, _helper.harshPassword)(password);
-
-          case 8:
-            _res = _context.sent;
-            newPassword = _res;
-            namedata = {
-              first_name: first_name,
-              last_name: last_name
-            };
-            newUserNotoken = _objectSpread({}, namedata, {
-              email: email,
-              password: newPassword,
-              address: address,
-              phone_number: phone_number,
-              gender: gender,
-              is_Admin: checkAdmin
-            });
-            token = _jsonwebtoken["default"].sign(_objectSpread({
-              code: newPassword
-            }, id, {
-              newUserNotoken: newUserNotoken
-            }), process.env.SECRET_KEY);
-            newUser = _objectSpread({
-              token: token
-            }, newUserNotoken);
-            req.newUser = newUser;
-            next();
-            _context.next = 20;
-            break;
-
-          case 18:
-            res.status(402).json(_error.error.all_field_402);
-            return _context.abrupt("return");
-
-          case 20:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function checkFieldsUser(_x, _x2, _x3) {
-    return _ref.apply(this, arguments);
+var checkFieldsUser = function checkFieldsUser(req, res, next) {
+  var _req$body = req.body,
+      first_name = _req$body.first_name,
+      last_name = _req$body.last_name,
+      password = _req$body.password,
+      address = _req$body.address,
+      email = _req$body.email,
+      phone_number = _req$body.phone_number,
+      gender = _req$body.gender;
+  var is_Admin = req.is_Admin;
+  var checkAdmin = is_Admin ? true : false;
+  var genderCheck = gender === 'male' || gender === 'female' ? true : false;
+  var id = {
+    id: (0, _helper.getNewId)(users)
   };
-}();
+
+  if (first_name && last_name && password && address && email && phone_number && gender && genderCheck) {
+    var newPassword = null;
+    (0, _helper.harshPassword)(password).then(function (result) {
+      if (result) {
+        newPassword = result;
+        console.log(newPassword);
+        var namedata = {
+          first_name: first_name,
+          last_name: last_name
+        };
+
+        var newUserNotoken = _objectSpread({}, namedata, {
+          email: email,
+          password: newPassword,
+          address: address,
+          phone_number: phone_number,
+          gender: gender,
+          is_Admin: checkAdmin
+        });
+
+        var token = _jsonwebtoken["default"].sign(_objectSpread({
+          code: newPassword
+        }, id, {
+          newUserNotoken: newUserNotoken
+        }), process.env.SECRET_KEY);
+
+        var newUser = _objectSpread({
+          token: token
+        }, newUserNotoken);
+
+        req.newUser = newUser;
+        next();
+      }
+    });
+  } else {
+    res.status(402).json(_error.error.all_field_402);
+    return;
+  }
+};
 
 exports.checkFieldsUser = checkFieldsUser;
 

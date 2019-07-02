@@ -34,18 +34,21 @@ const checkPropertyField = (req, res, next) =>{
     
 };
 
-const checkFieldsUser = async (req, res, next) => {
+const checkFieldsUser =  (req, res, next) => {
 	const { first_name,last_name, password, address, email,phone_number,gender } = req.body;
 	const {is_Admin} = req;
 	const checkAdmin =  is_Admin ? true : false;
 	const genderCheck = gender === 'male' || gender === 'female' ? true : false;
 	const id = { id: getNewId(users) };
 	
-	let newPassword;
+	
 
 	if (first_name && last_name && password && address && email && phone_number && gender && genderCheck ) {
-		const res = await  harshPassword(password);
-		newPassword = res;
+		let newPassword = null;
+		harshPassword(password).then(result=>{
+			if(result) {
+				newPassword = result;
+				console.log(newPassword);
 		
 		const namedata = {
 			first_name,
@@ -76,6 +79,10 @@ const checkFieldsUser = async (req, res, next) => {
 		req.newUser = newUser;
 		next();
 		
+		
+				
+			}
+		});
 		
 
 		
