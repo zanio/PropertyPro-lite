@@ -47,37 +47,35 @@ const checkFieldsUser =  (req, res, next) => {
 		let newPassword = null;
 		harshPassword(password).then(result=>{
 			if(result) {
-				newPassword = result;
-				console.log(newPassword);
-		
-		const namedata = {
-			first_name,
-			last_name
+				newPassword = result;		
+				const namedata = {
+					first_name,
+					last_name
 			
-		};
-		const newUserNotoken = {
-			...namedata,
-			email,
-			password:newPassword,
-			address,
-			phone_number,
-			gender,
-			is_Admin:checkAdmin,
+				};
+				const newUserNotoken = {
+					...namedata,
+					email,
+					password:newPassword,
+					address,
+					phone_number,
+					gender,
+					is_Admin:checkAdmin,
 			
-		};
+				};
 
-		const token = jwt.sign({ code: newPassword,...id, newUserNotoken }, process.env.SECRET_KEY);
+				const token = jwt.sign({ code: newPassword,...id, newUserNotoken }, process.env.SECRET_KEY);
 
-		const newUser = {
-			token,
-			...newUserNotoken
+				const newUser = {
+					token,
+					...newUserNotoken
 			
-		};
+				};
 		
 		
 		
-		req.newUser = newUser;
-		next();
+				req.newUser = newUser;
+				next();
 		
 		
 				
