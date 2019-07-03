@@ -29,7 +29,7 @@ describe('/GET user account info', () => {
 		chai.request(app)
 			.get('/api/v1/property-advert/search?type=fhfd')
 			.end((err, res) => {
-					expect(res.body.data.length).to.equal(0);
+				expect(res.body.data.length).to.equal(0);
 				done();
 			});
 	});

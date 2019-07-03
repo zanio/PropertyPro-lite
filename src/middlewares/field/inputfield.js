@@ -38,12 +38,11 @@ const checkFieldsUser =  (req, res, next) => {
 	const { first_name,last_name, password, address, email,phone_number,gender } = req.body;
 	const {is_Admin} = req;
 	const checkAdmin =  is_Admin ? true : false;
-	const genderCheck = gender === 'male' || gender === 'female' ? true : false;
 	const id = { id: getNewId(users) };
 	
 	
 
-	if (first_name && last_name && password && address && email && phone_number && gender && genderCheck ) {
+	if (first_name && last_name && password && address && email && phone_number && gender  ) {
 		let newPassword = null;
 		harshPassword(password).then(result=>{
 			if(result) {
@@ -72,11 +71,8 @@ const checkFieldsUser =  (req, res, next) => {
 			
 				};
 		
-		
-		
 				req.newUser = newUser;
 				next();
-		
 		
 				
 			}
@@ -85,10 +81,25 @@ const checkFieldsUser =  (req, res, next) => {
 
 		
 	} else {
-		res.status(402).json(error.all_field_402);
+		res.status(403).json(error.all_field_403);
 		return;
 	}
 };
+
+
+const genderCheck =  (req, res, next) => {
+	const { gender } = req.body;
+	const genderCheck = gender === 'male' || gender === 'female' ? true : false;
+	
+	if (genderCheck ) {
+		next();
+		
+	} else {
+		res.status(403).json(error.gender_error_403);
+		return;
+	}
+};
+
 
 const checkPropertyEmpty = (req, res, next) =>{
 	
@@ -107,7 +118,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 			req.other_details = other_details;
 			next();
 		} else{
-			res.status(403).json(error.empty_field_403);
+			res.status(403).json(error.all_field_403);
 		}
 	} 
 	catch(errors){
@@ -169,4 +180,4 @@ const regNumCheck = (req, res, next)=>{
 
 
 
-export {checkPropertyField,checkFieldsUser,checkPropertyEmpty,emailValidation,regCharCheck,regNumCheck};
+export {checkPropertyField,checkFieldsUser,genderCheck,checkPropertyEmpty,emailValidation,regCharCheck,regNumCheck};

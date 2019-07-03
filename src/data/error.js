@@ -20,6 +20,9 @@ export let error = {
 	email_password_403:
     { status:403, error: 'please check your email or password' },
 
+	gender_error_403:
+    { status:403, error: 'Gender field can only be male or female' },
+
 
 	reg_new_403:
     { status:403, error: 'please register a new account, that email is not registered' },
@@ -49,8 +52,8 @@ export let error = {
     {status:403,err:'price Must be Floating Number, i.e 1700.00'},
 
 
-	all_field_402:
-    {status:402 , error: 'Please fill all field correctly' },
+	all_field_403:
+    {status:403 , error: 'Please fill in all required field' },
 
 
 	empty_field_403:
@@ -77,8 +80,8 @@ export let error = {
     {status:400,error: { message: 'someting went wrong while processing your request'}},
 
 
-	no_ads_err_202:
-    {status: 202, error: 'no advert available'},
+	no_ads_err_404:
+    {status: 404, error: 'no advert available'},
     
 
 };
