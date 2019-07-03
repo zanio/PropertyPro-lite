@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.regNumCheck = exports.regCharCheck = exports.emailValidation = exports.checkPropertyEmpty = exports.checkFieldsUser = exports.checkPropertyField = void 0;
+exports.regNumCheck = exports.regCharCheck = exports.emailValidation = exports.checkPropertyEmpty = exports.genderCheck = exports.checkFieldsUser = exports.checkPropertyField = void 0;
 
 var _string = require("../../utils/string");
 
@@ -68,12 +68,11 @@ var checkFieldsUser = function checkFieldsUser(req, res, next) {
       gender = _req$body.gender;
   var is_Admin = req.is_Admin;
   var checkAdmin = is_Admin ? true : false;
-  var genderCheck = gender === 'male' || gender === 'female' ? true : false;
   var id = {
     id: (0, _helper.getNewId)(users)
   };
 
-  if (first_name && last_name && password && address && email && phone_number && gender && genderCheck) {
+  if (first_name && last_name && password && address && email && phone_number && gender) {
     var newPassword = null;
     (0, _helper.harshPassword)(password).then(function (result) {
       if (result) {
@@ -107,12 +106,26 @@ var checkFieldsUser = function checkFieldsUser(req, res, next) {
       }
     });
   } else {
-    res.status(402).json(_error.error.all_field_402);
+    res.status(403).json(_error.error.all_field_403);
     return;
   }
 };
 
 exports.checkFieldsUser = checkFieldsUser;
+
+var genderCheck = function genderCheck(req, res, next) {
+  var gender = req.body.gender;
+  var genderCheck = gender === 'male' || gender === 'female' ? true : false;
+
+  if (genderCheck) {
+    next();
+  } else {
+    res.status(403).json(_error.error.gender_error_403);
+    return;
+  }
+};
+
+exports.genderCheck = genderCheck;
 
 var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
   try {
@@ -156,7 +169,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
       req.other_details = other_details;
       next();
     } else {
-      res.status(403).json(_error.error.empty_field_403);
+      res.status(403).json(_error.error.all_field_403);
     }
   } catch (errors) {
     res.status(403).json(_error.error.input_image_403);

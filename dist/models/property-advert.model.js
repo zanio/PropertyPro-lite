@@ -22,7 +22,7 @@ var _require = require('../data/users'),
 var getPropertyAdverts = function getPropertyAdverts() {
   return new Promise(function (resolve, reject) {
     if (dbAdvert.length === 0) {
-      reject(_error.error.no_ads_err_202);
+      reject(_error.error.no_ads_err_404);
     }
 
     resolve(dbAdvert);
@@ -36,7 +36,7 @@ var getPropertyAdvert = function getPropertyAdvert(id) {
     (0, _helper.mustBeInArray)(dbAdvert, id).then(function (dbAdvert) {
       return resolve(dbAdvert);
     })["catch"](function (err) {
-      return reject(err);
+      return reject(_error.error.no_ads_err_404);
     });
   });
 };
@@ -84,7 +84,7 @@ var updatePropertyAdvert = function updatePropertyAdvert(id, newPost) {
       dbAdvert[index] = _objectSpread({}, id, date, newPost);
       resolve(dbAdvert[index]);
     })["catch"](function (err) {
-      return reject(err);
+      return reject(_error.error.no_ads_err_404);
     });
   });
 };
@@ -99,7 +99,7 @@ var deletePropertyAdvert = function deletePropertyAdvert(id) {
       });
       resolve(dbAdvert);
     })["catch"](function (err) {
-      return reject(err);
+      return reject(_error.error.no_ads_err_404);
     });
   });
 };
