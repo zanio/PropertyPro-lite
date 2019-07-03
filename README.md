@@ -28,8 +28,7 @@ I designed the UI of PropertyPro-lite  on **figma** and you can check the url fo
 [PropertyPro-lite/ REST Endpoint](https://propertpro-lite.herokuapp.com/api-docs/)
 
 ### Required Features
-```
-User can sign up.
+```User can sign up.
 User can sign in.
 User (agent) can post a property advert
 User (agent) can update detail of a property advert.
