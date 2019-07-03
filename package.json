@@ -9,7 +9,7 @@
     "dev": "nodemon --exec babel-node src/app.js",
     "clean": "rm -rf dist && mkdir dist",
     "build-babel": "npm run clean && babel src --out-dir dist",
-    "start":"npm run serve",
+    "start": "npm run serve",
     "serve": "node dist/app.js"
   },
   "babel": {
@@ -37,11 +37,11 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.1.4",
+    "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "nyc": "^14.1.1",
     "swagger-editor": "^3.6.31",
-    "swagger-ui-express": "^4.0.6",
-    "morgan": "^1.9.1"
+    "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.4.4",

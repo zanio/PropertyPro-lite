@@ -9,7 +9,7 @@ import {error} from '../data/error';
 const getPropertyAdverts = () => {
 	return new Promise((resolve, reject) => {
 		if (dbAdvert.length === 0) {
-			reject(error.no_ads_err_202);
+			reject(error.no_ads_err_404);
 		}
 		resolve(dbAdvert);
 	});
@@ -19,7 +19,7 @@ const getPropertyAdvert = id => {
 	return new Promise((resolve, reject) => {
 		mustBeInArray(dbAdvert, id)
 			.then(dbAdvert => resolve(dbAdvert))
-			.catch(err => reject(err));
+			.catch(err => reject(error.no_ads_err_404));
 	});
 };
 
@@ -53,7 +53,7 @@ const updatePropertyAdvert = (id, newPost) => {
 				dbAdvert[index] = { ...id, ...date, ...newPost };
 				resolve(dbAdvert[index]);
 			})
-			.catch(err => reject(err));
+			.catch(err => reject(error.no_ads_err_404));
 	});
 };
 
@@ -64,7 +64,7 @@ const deletePropertyAdvert = id => {
 				dbAdvert = dbAdvert.filter(p => p.id != id);
 				resolve(dbAdvert);
 			})
-			.catch(err => reject(err));
+			.catch(err => reject(error.no_ads_err_404));
 	});
 };
 
