@@ -145,7 +145,7 @@ describe('/POST User', () => {
 			.post('/api/v1/auth/register')
 			.send(body)
 			.end((err, res) => {
-				expect(res.body.status).to.equal(402);
+				expect(res.body.status).to.equal(403);
 				expect(res.body).to.be.a('object');
 				done();
 			});

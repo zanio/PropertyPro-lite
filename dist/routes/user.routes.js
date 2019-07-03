@@ -23,7 +23,7 @@ var user = require('../models/user.model'); //let {users} = require('../data/use
 
 
 /* register a new User */
-Userrouter.post('/auth/register', _auth.AdminCheck, _inputfield.checkFieldsUser, _inputfield.regCharCheck, _inputfield.regNumCheck, _inputfield.emailValidation, _auth.uniqueValue, function (req, res) {
+Userrouter.post('/auth/register', _auth.AdminCheck, _inputfield.checkFieldsUser, _inputfield.regCharCheck, _inputfield.regNumCheck, _inputfield.emailValidation, _auth.uniqueValue, _inputfield.genderCheck, function (req, res) {
   user.insertUser(req.newUser).then(function (user) {
     return res.status(200).json({
       status: 200,
