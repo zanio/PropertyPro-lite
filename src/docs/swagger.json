@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "version": "1.0",
-    "title": "Propertypro Lite",
+    "title": "PropertyPro-Lite",
     "description": "This a project titled PropertyPro-lite. It is an online platform that allow users (Agent or Customer ) to see posted property advert which may be in form of Housing, personal property and mcuh more"
   },
   "servers": [
