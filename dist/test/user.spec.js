@@ -120,7 +120,7 @@ describe('/POST User', function () {
     };
 
     _chai["default"].request(_app["default"]).post('/api/v1/auth/register').send(body).end(function (err, res) {
-      (0, _chai.expect)(res.body.status).to.equal(402);
+      (0, _chai.expect)(res.body.status).to.equal(403);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
     });
