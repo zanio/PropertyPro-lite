@@ -10,6 +10,12 @@ const app = express();
 
 // Morgan
 app.use(morgan('tiny'));
+
+app.use( (request, response, next) => {
+	response.header('Access-Control-Allow-Origin', '*');
+	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
+});
 // First route
 import router from './routes/index.routes';
 app.use(express.json());
