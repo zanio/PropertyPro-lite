@@ -79,7 +79,7 @@
                   "address": {
                     "type": "string"
                   },
-                  "gender (male or female)": {
+                  "gender": {
                     "type": "string"
                   }
                 }
