@@ -213,6 +213,11 @@
           "Properties"
         ],
         "summary": "Post a property",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -262,13 +267,6 @@
             }
           }
         },
-        "security": [
-          {
-            "ApiKeyAuth": [
-              "bearer"
-            ]
-          }
-        ],
         "responses": {
           "201": {
             "description": "success",
@@ -358,6 +356,11 @@
           "Properties"
         ],
         "summary": "Update a specific property",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -407,13 +410,6 @@
             }
           }
         },
-        "security": [
-          {
-            "ApiKeyAuth": [
-              "bearer token"
-            ]
-          }
-        ],
         "parameters": [
           {
             "name": "propertyId",
@@ -465,9 +461,7 @@
         "summary": "Deletes a specific property",
         "security": [
           {
-            "ApiKeyAuth": [
-              "bearer token"
-            ]
+            "bearerAuth": []
           }
         ],
         "parameters": [
@@ -523,7 +517,7 @@
         "summary": "Change the status of a property",
         "security": [
           {
-            "ApiKeyAuth": []
+            "bearerAuth": []
           }
         ],
         "parameters": [
@@ -650,10 +644,10 @@
   },
   "components": {
     "securitySchemes": {
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "Authorization"
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     },
     "schemas": {
