@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://propertpro-lite.herokuapp.com/api/v1"
+      "url": "https://propertpro-lite.herokuapp.com/"
     },
     {
       "url": "http://localhost:3300/api/v1"
@@ -48,7 +48,7 @@
         }
       }
     },
-    "/auth/register": {
+    "/api/v1/auth/register": {
       "post": {
         "tags": [
           "Users"
@@ -57,7 +57,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -121,7 +121,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/v1/auth/login": {
       "post": {
         "tags": [
           "Users"
@@ -130,7 +130,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -179,7 +179,7 @@
         }
       }
     },
-    "/property-advert": {
+    "/api/v1/property-advert": {
       "get": {
         "tags": [
           "Properties"
@@ -303,7 +303,7 @@
         }
       }
     },
-    "/property-advert/{propertyId}": {
+    "/api/v1/property-advert/{propertyId}": {
       "get": {
         "tags": [
           "Properties"
@@ -515,7 +515,7 @@
         }
       }
     },
-    "/property-advert/{propertyId}/sold": {
+    "/api/v1/property-advert/{propertyId}/sold": {
       "patch": {
         "tags": [
           "Properties"
@@ -540,7 +540,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -596,7 +596,7 @@
         }
       }
     },
-    "/property-advert/search/": {
+    "/api/v1/property-advert/search/": {
       "get": {
         "tags": [
           "Properties"

@@ -23,7 +23,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // App
 var app = (0, _express["default"])(); // Morgan
 
-app.use((0, _morgan["default"])('tiny')); // First route
+app.use((0, _morgan["default"])('tiny'));
+app.use(function (request, response, next) {
+  response.header('Access-Control-Allow-Origin', '*');
+  response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+}); // First route
 
 app.use(_express["default"].json());
 app.use('/api-docs', _swaggerUiExpress["default"].serve, _swaggerUiExpress["default"].setup(_swagger["default"]));
