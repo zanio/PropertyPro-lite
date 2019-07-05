@@ -61,11 +61,8 @@ const isSignUp = (req, res, next) => {
 
 			if(checkpassword){
 				id = users.id;       
-				const singleUser = {
-					status:200,
-					data:users
-				};
-				req.user = singleUser;
+				
+				req.user = users;
 				next();
 			}
 			else{

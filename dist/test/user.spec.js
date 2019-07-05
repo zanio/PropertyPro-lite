@@ -41,7 +41,7 @@ describe('/POST User', function () {
       (0, _chai.expect)(res.body.data).to.have.property('gender');
       (0, _chai.expect)(res.body.data).to.have.property('phone_number');
       (0, _chai.expect)(res.body.data).to.have.property('is_Admin').equal(false);
-      (0, _chai.expect)(res.body.status).to.equal(200);
+      (0, _chai.expect)(res.body.status).to.equal(201);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
     });
@@ -175,7 +175,7 @@ describe('/POST User', function () {
       (0, _chai.expect)(res.body.data).to.have.property('gender');
       (0, _chai.expect)(res.body.data).to.have.property('phone_number');
       (0, _chai.expect)(res.body.data).to.have.property('is_Admin').equal(true);
-      (0, _chai.expect)(res.body.status).to.equal(200);
+      (0, _chai.expect)(res.body.status).to.equal(201);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
     });

@@ -65,8 +65,8 @@ propertyrouter["delete"]('/property-advert/:id', _auth.idCheck, _auth.authorizat
   var id = req.params.id;
   (0, _propertyAdvert.deletePropertyAdvert)(id) // eslint-disable-next-line no-unused-vars
   .then(function (response) {
-    res.status(201).json({
-      status: 201,
+    res.status(204).json({
+      status: 204,
       data: {
         message: "advert with the ".concat(id, " id has been successfully deleted")
       }

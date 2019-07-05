@@ -39,7 +39,7 @@ describe('/POST User', () => {
 				expect(res.body.data).to.have.property('gender');
 				expect(res.body.data).to.have.property('phone_number');
 				expect(res.body.data).to.have.property('is_Admin').equal(false);
-				expect(res.body.status).to.equal(200);
+				expect(res.body.status).to.equal(201);
 
 				expect(res.body).to.be.a('object');
 				done();
@@ -214,7 +214,7 @@ describe('/POST User', () => {
 				expect(res.body.data).to.have.property('gender');
 				expect(res.body.data).to.have.property('phone_number');
 				expect(res.body.data).to.have.property('is_Admin').equal(true);
-				expect(res.body.status).to.equal(200);
+				expect(res.body.status).to.equal(201);
 				expect(res.body).to.be.a('object');
 				done();
 			});

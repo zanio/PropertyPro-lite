@@ -10,7 +10,7 @@
       "url": "https://propertpro-lite.herokuapp.com/"
     },
     {
-      "url": "http://localhost:3300/api/v1"
+      "url": "http://localhost:3300/"
     }
   ],
   "tags": [
@@ -599,7 +599,7 @@
         "parameters": [
           {
             "name": "type",
-            "in": "path",
+            "in": "query",
             "required": true,
             "description": "property type. e.g flat,mini-flat",
             "schema": {

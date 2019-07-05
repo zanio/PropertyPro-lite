@@ -92,11 +92,7 @@ var isSignUp = function isSignUp(req, res, next) {
 
       if (checkpassword) {
         id = users.id;
-        var singleUser = {
-          status: 200,
-          data: users
-        };
-        req.user = singleUser;
+        req.user = users;
         next();
       } else {
         res.status(403).json(_error.error.email_password_403);

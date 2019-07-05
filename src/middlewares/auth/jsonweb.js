@@ -7,15 +7,9 @@ dotenv.config();
 
 const jwtsign = (req, res,next)=>{
 	const {user} = req;
-	const decoded = jwt.verify(user.data.token, process.env.SECRET_KEY);
+	const decoded = jwt.verify(user.token, process.env.SECRET_KEY);
 	const valid = decoded.code;
 	if(valid){
-		const _user = {
-			status:200,
-			...user
-		};
-
-		req._user = _user;
 		next();
 	} else{
 		res.status(402).json(error.failed_auth_402);
