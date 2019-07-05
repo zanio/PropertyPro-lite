@@ -33,7 +33,6 @@ describe('/POST User', () => {
 				expect(res.body.data).to.have.property('email');
 				expect(res.body.data).to.have.property('first_name');
 				expect(res.body.data).to.have.property('last_name');
-				expect(res.body.data).to.have.property('password');
 				expect(res.body.data).to.have.property('id');
 				expect(res.body.data).to.have.property('address');
 				expect(res.body.data).to.have.property('gender');
@@ -105,7 +104,6 @@ describe('/POST User', () => {
 				expect(res.body.data).to.have.property('email');
 				expect(res.body.data).to.have.property('first_name');
 				expect(res.body.data).to.have.property('last_name');
-				expect(res.body.data).to.have.property('password');
 				expect(res.body.data).to.have.property('id');
 				expect(res.body.data).to.have.property('address');
 				expect(res.body.data).to.have.property('gender');
@@ -208,7 +206,6 @@ describe('/POST User', () => {
 				expect(res.body.data).to.have.property('email');
 				expect(res.body.data).to.have.property('first_name');
 				expect(res.body.data).to.have.property('last_name');
-				expect(res.body.data).to.have.property('password');
 				expect(res.body.data).to.have.property('id');
 				expect(res.body.data).to.have.property('address');
 				expect(res.body.data).to.have.property('gender');
