@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
-import bcrypt from 'bcrypt';
-import {admins} from '../../data/admin';
-import {getSubId,newDate,adminDb} from '../../helpers/helper';
+import {admins} from '../../usingJSObject/data/admin';
+import {getSubId,newDate,adminDb,comparePassword} from '../../helpers/helper';
 import {numRegex} from '../../utils/numRegex';
-import {error} from '../../data/error';
+import {error} from '../../usingJSObject/data/error';
+import {query} from '../../usingDb/db';
 
 const authorization = (req, res, next)=>{
 	const header = req.headers['authorization'];
@@ -31,7 +31,7 @@ const mustBeInteger = (req, res, next) => {
 
 const uniqueValue = (req, res, next) => {
 	const {email} = req.body;
-	let {users} = require('../../data/users.js');
+	let {users} = require('../../usingJSObject/data/users.js');
 	users = users.find(r=>r.email === email);
 	if (!users){
 		next();
@@ -46,7 +46,7 @@ const uniqueValue = (req, res, next) => {
 
 
 const isSignUp = (req, res, next) => {
-	let {users} = require('../../data/users.js');
+	let {users} = require('../../usingJSObject/data/users.js');
 	const {email,password} = req.body;
 	const {is_Admin} = req;
 	const checkAdmin =  is_Admin  ? true :false;
@@ -56,20 +56,22 @@ const isSignUp = (req, res, next) => {
 	users ? users.is_Admin = checkAdmin :null;
 
 	if(users){
-		bcrypt.compare(password, users.password, function(err, result) {
-			const  checkpassword = result;
-
-			if(checkpassword){
+		
+		comparePassword(users.password,password).then(bool=>{
+			if(bool){
 				id = users.id;       
-				
+					
 				req.user = users;
 				next();
 			}
 			else{
 				res.status(403).json(error.email_password_403);
 			}
-
+	
 		});
+
+			
+		
 	} else{
 		res.status(403).json(error.reg_new_403);
 		return;
@@ -81,7 +83,7 @@ const isSignUp = (req, res, next) => {
 
 const getId = (req, res, next)=>{
 	const {result} = req;
-	let {users,dbAdvert} = require('../../data/users.js');
+	let {users,dbAdvert} = require('../../usingJSObject/data/users.js');
 	const owner = {owner:result.id};
 	const date = { createdAt: newDate()}; 
 	users = users.find(r=>r.id === users.id);
@@ -108,7 +110,7 @@ const getId = (req, res, next)=>{
 };
 
 const getPreviousId = (req, res, next)=>{
-	let {dbAdvert} = require('../../data/users.js');
+	let {dbAdvert} = require('../../usingJSObject/data/users.js');
 	const {result} = req;
 	const owner = {owner:result.id};
 	//const date = { Updat: newDate()}; 
@@ -141,7 +143,7 @@ const getPreviousId = (req, res, next)=>{
 };
 
 const getSingleIdProperty = (req, res, next)=>{
-	let {dbAdvert} = require('../../data/users.js');
+	let {dbAdvert} = require('../../usingJSObject/data/users.js');
 	const {result} = req;
 	const owner = {owner:result.id};
 
@@ -160,7 +162,7 @@ const getSingleIdProperty = (req, res, next)=>{
 };
 
 const toDeleteId = (req, res, next)=>{
-	let {dbAdvert} = require('../../data/users.js');
+	let {dbAdvert} = require('../../usingJSObject/data/users.js');
 	const {result} = req;
 	const owner = {owner:result.id};
 	//const date = { Updat: newDate()}; 
@@ -184,6 +186,21 @@ const AdminCheck = (req, res, next)=>{
 	});
 };
 
+const AdminCheckDb = async (req, res, next)=>{
+	const adminSelectQuery = 'SELECT * FROM admins WHERE email = $1';
+	const adminUpdateQuery = 'UPDATE users SET is_admin=$1,';
+	const {email} = req.body;
+	const {row} = await query(adminSelectQuery,[email]);
+	if(row){
+		const {row} = await query(adminUpdateQuery,['True']);
+		req.is_admin = row[0].is_admin;
+		next();
+	} else{
+		next();
+	}
+	
+};
+
 const idCheck = (req, res, next)=>{
 	const id = req.params.id;
 	if(numRegex(id)){
@@ -194,4 +211,4 @@ const idCheck = (req, res, next)=>{
 
 };
 
-export {mustBeInteger,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId,getSingleIdProperty};
+export {mustBeInteger,AdminCheckDb,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId,getSingleIdProperty};

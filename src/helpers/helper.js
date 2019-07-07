@@ -1,4 +1,6 @@
-import {error} from '../data/error';
+import {error} from '../usingJSObject/data/error';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 const getNewId = (array) => {
    
 	if (array.length > 0) {
@@ -38,13 +40,21 @@ const mustBeInArray = (array, id) =>{
 	});
 };
 
-const harshPassword = (password)=>{
-	const bcrypt = require('bcrypt');
+const hashPassword = (password)=>{
 	return new Promise((resolve, reject)=>{
 		bcrypt.hash(password, 10,  function(err, hash) {
-			// pass = hash
-			if(hash) resolve(hash);
-			if(err)  reject(err); 
+			resolve(hash);
+			reject(err); 
+		});   
+	});
+           
+};
+
+const comparePassword = (hashpassword , password)=>{
+	return new Promise((resolve, reject)=>{
+		bcrypt.compare(password, hashpassword,  function(err, bool) {
+			resolve(bool);
+			reject(err); 
 		});   
 	});
            
@@ -69,5 +79,31 @@ const typeSearch = (array, type) =>{
 	});
 };
 
+/**
+   * isValidEmail helper method
+   * @param {string} email
+   * @returns {Boolean} True or False
+   */
 
-export {getNewId,newDate,mustBeInArray,harshPassword,getSubId,adminDb,typeSearch};
+const isValidEmail = (email) => {
+	return /\S+@\S+\.\S+/.test(email);
+};
+
+/**
+   * Gnerate Token
+   * @param {string} id
+   * @returns {string} token
+   */
+const generateToken = id => {
+	return new Promise((resolve,reject)=>{
+		const token = jwt.sign({userId: id },process.env.SECRET_KEY, { expiresIn: '7d' });
+		if(token) resolve(token);
+		if(!token) reject({err:'could not assign a token'});
+	});
+    
+};
+
+
+
+
+export {getNewId,newDate,mustBeInArray,hashPassword,getSubId,adminDb,typeSearch,isValidEmail,generateToken,comparePassword};
