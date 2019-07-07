@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import {error} from '../../data/error';
+import {error} from '../../usingJSObject/data/error';
 
 dotenv.config();
 

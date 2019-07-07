@@ -2,14 +2,11 @@
 import { checkLetter, Arr } from '../../utils/string';
 import { numRegex , phoneLength} from '../../utils/numRegex';
 import checkFloat from '../../utils/checkfloat';
-import {dataUri} from '../multer';
-let {users} = require('../../data/users');
-//import {stringRegex}  from '../utils/string';
+import {dataUri} from '../../config/multer';
+let {users} = require('../../usingJSObject/data/users');
 import {harshPassword,getNewId}  from '../../helpers/helper';
 import {validateEmail} from '../../utils/email';
-import {error} from '../../data/error';
-
-
+import {error} from '../../usingJSObject/data/error';
 
 import jwt  from 'jsonwebtoken';
 import dotenv  from 'dotenv';
@@ -141,7 +138,7 @@ const emailValidation = (req, res, next)=>{
 };
 
 const regCharCheck = (req, res, next)=>{
-	const {newUser} = req;
+	const {newUser} = req.body;
 	const namedata = {
 		first_name:newUser.first_name,
 		last_name:newUser.last_name	

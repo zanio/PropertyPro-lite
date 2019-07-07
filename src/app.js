@@ -3,7 +3,12 @@ import express from 'express';
 import morgan from 'morgan';
 import { cloudinaryConfig } from './config/cloudinaryConfig';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './docs/swagger.json';
+import swaggerDocument from '../swagger.json';
+import routerJsObject from './routes/routesjs/index.routes';
+import routerdb from './routes/routesdb/index.routes';
+
+const router = !process.env.type? routerJsObject : routerdb;
+
 
 // App
 const app = express();
@@ -17,7 +22,6 @@ app.use( (request, response, next) => {
 	next();
 });
 // First route
-import router from './routes/index.routes';
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('*', cloudinaryConfig);
@@ -28,15 +32,11 @@ app.use('*', (req, res) => {
 	res.status(404).json({status:404,err:'That routes is not a known route'});
 });
 
-
-
-
-
 // Starting server
 const PORT = process.env.PORT || 3300;
 app.listen(PORT, ()=>{
-	// eslint-disable-next-line no-console
-	console.log('server is listening at port %d', PORT);
+	const debug = require('debug')('http');
+	debug('app is running on '+PORT);
 });
 
 export default app;
