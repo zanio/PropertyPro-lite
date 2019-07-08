@@ -172,7 +172,7 @@ const updateProperty = async (req, res) => {
 };
 
 
-	/**
+/**
    * Update A Reflection
    * @param {object} req 
    * @param {object} res 
@@ -187,7 +187,7 @@ const updatePropertyStatus = async (req, res) => {
 		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
 		
 		if(!rows[0]) {
-			return res.status(404).send({'message': 'reflection not found'});
+			return res.status(404).json({status:404,error:'invalid search query params' });
 		}
 		const values = [
 			req.body.status || rows[0].status,
@@ -216,7 +216,7 @@ const deleteProperty = async (req, res) => {
 		}
 		return res.status(204).json({status:202, message:`The id ${req.params.id} has been succcessufully deleted` });
 	} catch(error) {
-		return res.status(400).send(error);
+		return res.status(400).json(error);
 	}
 };
 
