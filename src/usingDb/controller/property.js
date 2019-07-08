@@ -13,25 +13,27 @@ import uuidv4 from 'uuid/v4';
 
 
 const createProperty = async(req, res) => { 
-	const {property_name, status,state,city, price,contact_person_number,contact_person_address, proof,note,} = req.body;
+	const {property_name, status,state,city, price,contact_person_number,contact_person_address, proof,note,type} = req.body;
 	const createQuery = `INSERT INTO property(owner_id,
-		property_name, status,state,city, price,contact_person_number,
-		contact_person_address, proof,note, created_date, modified_date,image)
-      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13) returning *`;
+		property_name, status,state,city,type, price,contact_person_number,
+		contact_person_address, proof,note,image,created_date, modified_date)
+      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14) returning *`;
 	const values = [
 		req.result.userId,
 		property_name,
 		status,
 		state,
 		city,
+		type,
 		price,
 		contact_person_number,
 		contact_person_address, 
 		proof,
 		note,
-		moment(new Date()),
-		moment(new Date()),
 		req.Image_url,
+		moment(new Date()),
+		moment(new Date()),
+		
 	];
 	
 	try {
@@ -53,7 +55,7 @@ const createProperty = async(req, res) => {
   
 const getAllProperty = async (req, res) => { 
 	const findAllQuery = `SELECT id,property_name,status,state,city,price,
-	contact_person_number,contact_person_address,proof,created_date,image
+	contact_person_number,contact_person_address,proof,type,created_date,image
 	 FROM property`;
 	try {
 		const { rows, rowCount } = await query(findAllQuery);
@@ -91,9 +93,11 @@ const getAllPropertyOfUser = async (req, res) => {
 
 const getOneProperty = async (req, res) => { 
 	
-	const text = 'SELECT * FROM property WHERE id = $1 AND owner_id = $2';
+	const text = `SELECT id,property_name,status,state,city,price,
+	contact_person_number,contact_person_address,proof,type,created_date,image
+	 FROM property WHERE id = $1`;
 	try {
-		const { rows } = await query(text, [req.params.id, req.result.userId]);
+		const { rows } = await query(text, [req.params.id]);
 		if (!rows[0]) {
 			return res.status(404).send({'message': 'reflection not found'});
 		}

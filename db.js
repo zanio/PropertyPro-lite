@@ -25,14 +25,15 @@ const createPropertyTable = () => {
         status TEXT NOT NULL,
         state TEXT NOT NULL,
 		city TEXT NOT NULL,
+		type VARCHAR(120) NOT NULL,
 		price int NOT NULL,
 		contact_person_number VARCHAR(13) NOT NULL,
 		contact_person_address TEXT NOT NULL,
 		proof BOOLEAN NOT NULL,
 		note TEXT NOT NULL,
+		image TEXT NOT NULL,
         created_date TIMESTAMP,
 		modified_date TIMESTAMP,
-		image TEXT NOT NULL,
         FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
 	  )`;
 	pool.query(queryText)
