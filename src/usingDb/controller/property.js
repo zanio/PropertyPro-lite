@@ -52,10 +52,12 @@ const createProperty = async(req, res) => {
 
   
 const getAllProperty = async (req, res) => { 
-	const findAllQuery = 'SELECT * FROM property';
+	const findAllQuery = `SELECT id,property_name,status,state,city,price,
+	contact_person_number,contact_person_address,proof,created_date,image
+	 FROM property`;
 	try {
 		const { rows, rowCount } = await query(findAllQuery);
-		return res.status(200).send({ rows, rowCount });
+		return res.status(200).json({status:200,data:[...rows,{rowCount}] });
 	} catch(error) {
 		return res.status(400).send(error);
 	}
