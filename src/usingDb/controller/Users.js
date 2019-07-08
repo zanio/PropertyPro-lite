@@ -10,30 +10,40 @@ import {isValidEmail,hashPassword,comparePassword,generateToken} from '../../hel
    * @returns {object} reflection object 
    */
 const createUser = async (req, res) => {
-	if (!req.body.email || !req.body.password) {
+	const {email,password,first_name,last_name,phone_number,address,gender} = req.body;
+	if (!email || !password) {
 		return res.status(400).json({'message': 'Some values are missing'});
 	}
 	if (!isValidEmail(req.body.email)) {
 		return res.status(400).json({ 'message': 'Please enter a valid email address' });
 	}
-	const hashPass = await hashPassword(req.body.password);
+	const hashPass = await hashPassword(password);
 
 	const createQuery = `INSERT INTO
-      users(id, email, password, created_date, modified_date)
-      VALUES($1, $2, $3, $4, $5)
-      returning *`;
+      users(id, email, password,first_name,last_name,phone_number,address,gender,is_admin, created_date,modified_date)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11)
+	  returning *`;
+	// const data = {first_name,last_name,phone_number,address,gender,is_admin:req.is_admin};
 	const values = [
 		uuidv4(),
-		req.body.email,
+		email,
 		hashPass,
+		first_name,
+		last_name,
+		phone_number,
+		address,
+		gender,
+		req.is_admin,
 		moment(new Date()),
 		moment(new Date())
 	];
 
 	try {
+		
 		const { rows } = await query(createQuery, values);
-		const token = await generateToken(rows[0].id);
-		return res.status(201).json({ token });
+		const  id = rows[0].id;
+		const token = await generateToken(id);
+		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender} });
 	} catch(error) {
 		if (error.routine === '_bt_check_unique') {
 			return res.status(400).json({ 'message': 'User with that EMAIL already exist' });
@@ -49,24 +59,29 @@ const createUser = async (req, res) => {
    * @returns {object} user object 
    */
 const loginUser = async (req, res) => {
-	if (!req.body.email || !req.body.password) {
+	const { email,password } = req.body;
+	console.log(email);
+	if (!email || !password) {
 		return res.status(400).json({'message': 'Some values are missing'});
 	}
-	if (!isValidEmail(req.body.email)) {
+	if (!isValidEmail(email)) {
 		return res.status(400).json({ 'message': 'Please enter a valid email address' });
 	}
-	const text = 'SELECT * FROM users WHERE email = $1';
+	const text = 'SELECT * FROM users WHERE email=$1';
 	try {
+		
+		
 		const { rows } = await query(text, [req.body.email]);
 		if (!rows[0]) {
 			return res.status(400).json({'message': 'The credentials you provided is incorrect'});
 		}
-		const comparepass = await comparePassword(rows[0].password, req.body.password);
+		const comparepass = await comparePassword(rows[0].password, password);
 		if(!comparepass) {
 			return res.status(400).json({ 'message': 'The credentials you provided is incorrect' });
 		}
-		const token = await generateToken(rows[0].id);
-		return res.status(200).json({ token });
+		const  {id,email,first_name,last_name,phone_number,address,gender,is_admin} = rows[0];
+		const token = await generateToken(id);
+		return res.status(200).json({status:200,data:{id,token,email,first_name,last_name,phone_number,address,gender,is_admin}  });
 	} catch(error) {
 		return res.status(400).json(error);
 	}

@@ -94,7 +94,7 @@ const isValidEmail = (email) => {
    * @param {string} id
    * @returns {string} token
    */
-const generateToken = id => {
+const generateToken = (id) => {
 	return new Promise((resolve,reject)=>{
 		const token = jwt.sign({userId: id },process.env.SECRET_KEY, { expiresIn: '7d' });
 		if(token) resolve(token);

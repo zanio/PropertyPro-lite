@@ -18,9 +18,8 @@ pool.on('connect', () => {
  */
 const createPropertyTable = () => {
 	const queryText =
-    `CREATE TABLE IF NOT EXISTS
-      property(
-		id int NOT NULL AUTO_INCREMENT=43501 PRIMARY KEY,
+    `CREATE TABLE IF NOT EXISTS property (
+		id SERIAL NOT NULL PRIMARY KEY,
 		owner_id UUID NOT NULL,
         property_name TEXT NOT NULL,
         status TEXT NOT NULL,
@@ -30,18 +29,16 @@ const createPropertyTable = () => {
 		contact_person_number VARCHAR(13) NOT NULL,
 		contact_person_address TEXT NOT NULL,
 		proof BOOLEAN NOT NULL DEFAULT 'no',
-		note TEXT NOT NULL ,
+		note TEXT NOT NULL,
         created_date TIMESTAMP,
         modified_date TIMESTAMP,
         FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
-      )`;
-
+	  )`;
 	pool.query(queryText)
 		.then((res) => {
 			pool.end();
 		})
 		.catch((err) => {
-			debug(err);
 			pool.end();
 		});
 };
@@ -83,7 +80,7 @@ const creatAdminTable = () => {
       admins(
         id SERIAL PRIMARY KEY,
         email VARCHAR(128) UNIQUE NOT NULL,
-        created_date TIMESTAMP,
+        created_date TIMESTAMP
       )`;
 
 	pool.query(queryText)
@@ -91,7 +88,6 @@ const creatAdminTable = () => {
 			pool.end();
 		})
 		.catch((err) => {
-			debug(err);
 			pool.end();
 		});
 };
