@@ -142,6 +142,7 @@ const updateProperty = async (req, res) => {
 		return res.status(400).json(err);
 	}
 };
+
 /**
    * Delete A Reflection
    * @param {object} req 
@@ -153,7 +154,7 @@ const deleteProperty = async (req, res) => {
 	try {
 		const { rows } = await query(deleteQuery, [req.params.id, req.result.userId]);
 		if(!rows[0]) {
-			return res.status(404).json({status:404,error:'that id property does not exist or has already been deleted'});
+			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
 		return res.status(204).json({status:202, message:`The id ${req.params.id} has been succcessufully deleted` });
 	} catch(error) {
