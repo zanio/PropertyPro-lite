@@ -5,34 +5,19 @@ import url from 'url';
 
 import {cloudinaryHandler} from '../../config/cloudinary';
 import {getPropertyAdvert,getPropertyAdverts,updatePropertyAdvert,deletePropertyAdvert,insertPropertyAdvert,getTypeProperty} from '../../usingJSObject/models/property-advert.model';
-import {authorization,getId,getPreviousId,idCheck,toDeleteId,getSingleIdProperty} from '../../middlewares/auth/auth';
+import {authorization,getPreviousId,idCheck,toDeleteId,getSingleIdProperty} from '../../middlewares/auth/auth';
 import {jwtVerify} from '../../middlewares/auth/jsonweb';
 import {checkPropertyEmpty,checkPropertyField} from '../../middlewares/field/inputfield';
+import {createProperty,updateProperty} from '../../usingDb/controller/property';
 
-//let {dbAdvert} = require('../data/users');
 
 /* create propertyadvert advert  */
 propertyrouter.post('/property-advert', authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getId,(req, res)=>{
-		const {data} = req;
-		insertPropertyAdvert(data)
-			.then(response=>{
-				res.status(200).json({status:200,data:response});
-			});
-  
-	});
+	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, createProperty);
 
 
 propertyrouter.patch('/property-advert/:id', idCheck, authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler, getPreviousId,(req, res)=>{
-		const {data} = req;
-		const id = req.params.id;	
-		updatePropertyAdvert(id,data)
-			.then(response=>{
-				res.status(200).json({status:200,data:response});
-			}).catch(err=>res.status(404).json(err));
-			
-	});
+	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler,updateProperty);
 
 
 propertyrouter.patch('/property-advert/:id/sold', idCheck, authorization, jwtVerify, getSingleIdProperty,(req, res)=>{	

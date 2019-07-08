@@ -1,6 +1,7 @@
 import moment from 'moment';
-import uuidv4 from 'uuid/v4';
 import {query} from '../db';
+import uuidv4 from 'uuid/v4';
+
 
 
 /**
@@ -12,21 +13,30 @@ import {query} from '../db';
 
 
 const createProperty = async(req, res) => { 
-	const createQuery = `INSERT INTO property(id, success, low_point, take_away,owner_id, created_date, modified_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7) returning *`;
+	const {property_name, status,state,city, price,contact_person_number,contact_person_address, proof,note,} = req.body;
+	const createQuery = `INSERT INTO property(owner_id,
+		property_name, status,state,city, price,contact_person_number,
+		contact_person_address, proof,note, created_date, modified_date,image)
+      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13) returning *`;
 	const values = [
-		uuidv4(),
-		req.body.success,
-		req.body.low_point,
-		req.body.take_away,
-		req.user.id,
+		req.result.userId,
+		property_name,
+		status,
+		state,
+		city,
+		price,
+		contact_person_number,
+		contact_person_address, 
+		proof,
+		note,
 		moment(new Date()),
-		moment(new Date())
+		moment(new Date()),
+		req.Image_url,
 	];
-
+	
 	try {
 		const { rows } = await query(createQuery, values);
-		return res.status(201).send(rows[0]);
+		return res.status(201).json({status:201,data:rows[0]});
 	} catch(error) {
 		return res.status(400).send(error);
 	}
