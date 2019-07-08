@@ -43,10 +43,13 @@ const createUser = async (req, res) => {
 		const { rows } = await query(createQuery, values);
 		const  id = rows[0].id;
 		const token = await generateToken(id);
-		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender} });
+		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender,is_admin:req.is_admin === 'False' ? false:true} });
 	} catch(error) {
 		if (error.routine === '_bt_check_unique') {
-			return res.status(400).json({ 'message': 'User with that EMAIL already exist' });
+			return res.status(409).json({status:409, error: 'User with that EMAIL already exist' });
+		}
+		if(error.routine === 'varchar'){
+			return res.status(422).json({status:422, error: 'Phone Number cannot be more than 13 characters' });
 		}
 		return res.status(400).json(error);
 	}
@@ -60,24 +63,21 @@ const createUser = async (req, res) => {
    */
 const loginUser = async (req, res) => {
 	const { email,password } = req.body;
-	console.log(email);
 	if (!email || !password) {
-		return res.status(400).json({'message': 'Some values are missing'});
+		return res.status(422).json({status:422, error: 'Some values are missing'});
 	}
 	if (!isValidEmail(email)) {
-		return res.status(400).json({ 'message': 'Please enter a valid email address' });
+		return res.status(422 ).json({status:422, error: 'Please enter a valid email address' });
 	}
 	const text = 'SELECT * FROM users WHERE email=$1';
-	try {
-		
-		
+	try {	
 		const { rows } = await query(text, [req.body.email]);
 		if (!rows[0]) {
-			return res.status(400).json({'message': 'The credentials you provided is incorrect'});
+			return res.status(403).json({'message': 'The credentials you provided is incorrect'});
 		}
 		const comparepass = await comparePassword(rows[0].password, password);
 		if(!comparepass) {
-			return res.status(400).json({ 'message': 'The credentials you provided is incorrect' });
+			return res.status(422).json({status:422, error: 'The credentials you provided is incorrect' });
 		}
 		const  {id,email,first_name,last_name,phone_number,address,gender,is_admin} = rows[0];
 		const token = await generateToken(id);

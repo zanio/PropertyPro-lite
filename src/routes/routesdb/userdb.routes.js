@@ -3,11 +3,11 @@ const Userrouter = express.Router();
 import {authorization,AdminCheckDb} from '../../middlewares/auth/auth';
 import {jwtVerify} from '../../middlewares/auth/jsonweb';
 import {createUser,loginUser} from '../../usingDb/controller/Users';
-import {genderCheck} from '../../middlewares/field/inputfield';
+import {genderCheck,regCharCheck} from '../../middlewares/field/inputfield';
 
 
 /* register a new User */
-Userrouter.post('/auth/register', AdminCheckDb,genderCheck,createUser);
+Userrouter.post('/auth/register', AdminCheckDb,genderCheck,regCharCheck, createUser);
 
 /* Login User */
 Userrouter.post('/auth/login',AdminCheckDb,loginUser);
