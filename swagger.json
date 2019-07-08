@@ -398,7 +398,7 @@
                   "proof": {
                     "type": "string"
                   },
-                  "note (optional)": {
+                  "note": {
                     "type": "string"
                   },
                   "image": {

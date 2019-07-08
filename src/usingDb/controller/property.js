@@ -52,15 +52,35 @@ const createProperty = async(req, res) => {
 
   
 const getAllProperty = async (req, res) => { 
-	const findAllQuery = 'SELECT * FROM property where owner_id = $1';
+	const findAllQuery = 'SELECT * FROM property';
 	try {
-		const { rows, rowCount } = await query(findAllQuery, ['35d3853d-49f4-447b-a241-182ead9ab6db']);
+		const { rows, rowCount } = await query(findAllQuery);
 		return res.status(200).send({ rows, rowCount });
 	} catch(error) {
 		return res.status(400).send(error);
 	}
 };
-	/**
+
+/**
+   * Get All user property
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} property array
+   */
+
+  
+const getAllPropertyOfUser = async (req, res) => { 
+	const findAllQuery = 'SELECT * FROM property WHERE owner_id = $1';
+	try {
+		const { rows, rowCount } = await query(findAllQuery,[req.result.userId]);
+		return res.status(200).send({ rows, rowCount });
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
+
+
+/**
    * Get A Reflection
    * @param {object} req 
    * @param {object} res
@@ -71,7 +91,7 @@ const getOneProperty = async (req, res) => {
 	
 	const text = 'SELECT * FROM property WHERE id = $1 AND owner_id = $2';
 	try {
-		const { rows } = await query(text, [req.params.id, req.user.id]);
+		const { rows } = await query(text, [req.params.id, req.result.userId]);
 		if (!rows[0]) {
 			return res.status(404).send({'message': 'reflection not found'});
 		}
@@ -90,25 +110,36 @@ const getOneProperty = async (req, res) => {
 const updateProperty = async (req, res) => { 
 	const findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
 	const updateOneQuery =`UPDATE property
-      SET success=$1,low_point=$2,take_away=$3,modified_date=$4
-      WHERE id=$5 AND owner_id = $6 returning *`;
+	  SET property_name=$1,status=$2,state=$3,
+	  city=$4,price=$5,contact_person_number=$6,
+	  contact_person_address=$7,proof=$8,note=$9,
+	  modified_date=$10, image = $11
+      WHERE id=$12 AND owner_id = $13 returning *`;
 	try {
-		const { rows } = await query(findOneQuery, [req.params.id, req.user.id]);
+		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
+		
 		if(!rows[0]) {
 			return res.status(404).send({'message': 'reflection not found'});
 		}
 		const values = [
-			req.body.success || rows[0].success,
-			req.body.low_point || rows[0].low_point,
-			req.body.take_away || rows[0].take_away,
+			req.body.property_name || rows[0].property_name,
+			req.body.status || rows[0].status,
+			req.body.state || rows[0].state,
+			req.body.city || rows[0].city,
+			req.body.price || rows[0].price,
+			req.body.contact_person_number || rows[0].contact_person_number,
+			req.body.contact_person_address || rows[0].contact_person_address,
+			req.body.proof || rows[0].proof,
+			req.body.note || rows[0].note,
 			moment(new Date()),
+			req.Image_url || rows[0].image,
 			req.params.id,
-			req.user.id
+			req.result.userId
 		];
 		const response = await query(updateOneQuery, values);
-		return res.status(200).send(response.rows[0]);
+		return res.status(200).json({status:200,data:response.rows[0]});
 	} catch(err) {
-		return res.status(400).send(err);
+		return res.status(400).json(err);
 	}
 };
 /**
@@ -118,17 +149,17 @@ const updateProperty = async (req, res) => {
    * @returns {void} return statuc code 204 
    */
 const deleteProperty = async (req, res) => { 
-	const deleteQuery = 'DELETE FROM reflections WHERE id=$1 AND owner_id = $2 returning *';
+	const deleteQuery = 'DELETE FROM property WHERE id=$1 AND owner_id = $2 returning *';
 	try {
-		const { rows } = await query(deleteQuery, [req.params.id, req.user.id]);
+		const { rows } = await query(deleteQuery, [req.params.id, req.result.userId]);
 		if(!rows[0]) {
-			return res.status(404).send({'message': 'reflection not found'});
+			return res.status(404).json({status:404,error:'that id property does not exist or has already been deleted'});
 		}
-		return res.status(204).send({ 'message': 'deleted' });
+		return res.status(204).json({status:202, message:`The id ${req.params.id} has been succcessufully deleted` });
 	} catch(error) {
 		return res.status(400).send(error);
 	}
 };
 
 
-export {deleteProperty,getAllProperty,getOneProperty,updateProperty,createProperty};
+export {deleteProperty,getAllProperty,getOneProperty,updateProperty,createProperty,getAllPropertyOfUser};
