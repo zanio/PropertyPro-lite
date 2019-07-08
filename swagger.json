@@ -7,10 +7,10 @@
   },
   "servers": [
     {
-      "url": "https://propertpro-lite.herokuapp.com/"
+      "url": "https://propertpro-lite.herokuapp.com/api/v1/"
     },
     {
-      "url": "http://localhost:3300/"
+      "url": "http://localhost:3300/api/v1/"
     }
   ],
   "tags": [
@@ -48,7 +48,7 @@
         }
       }
     },
-    "/api/v1/auth/register": {
+    "/auth/register": {
       "post": {
         "tags": [
           "Users"
@@ -121,7 +121,7 @@
         }
       }
     },
-    "/api/v1/auth/login": {
+    "/auth/login": {
       "post": {
         "tags": [
           "Users"
@@ -179,7 +179,7 @@
         }
       }
     },
-    "/api/v1/property-advert": {
+    "/property-advert": {
       "get": {
         "tags": [
           "Properties"
@@ -301,7 +301,7 @@
         }
       }
     },
-    "/api/v1/property-advert/{propertyId}": {
+    "/property-advert/{propertyId}": {
       "get": {
         "tags": [
           "Properties"
@@ -509,7 +509,7 @@
         }
       }
     },
-    "/api/v1/property-advert/{propertyId}/sold": {
+    "/property-advert/{propertyId}/sold": {
       "patch": {
         "tags": [
           "Properties"
@@ -590,7 +590,7 @@
         }
       }
     },
-    "/api/v1/property-advert/search/": {
+    "/property-advert/search/": {
       "get": {
         "tags": [
           "Properties"
