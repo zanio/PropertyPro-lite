@@ -138,11 +138,10 @@ const emailValidation = (req, res, next)=>{
 };
 
 const regCharCheck = (req, res, next)=>{
-	const {newUser} = req.body;
+	const {newUser,first_name,last_name} = req.body;
 	const namedata = {
-		first_name:newUser.first_name,
-		last_name:newUser.last_name	
-		
+		first_name,
+		last_name	
 	};
 	const boolArray = Arr(namedata);
 	const letterBolean = checkLetter(boolArray);
