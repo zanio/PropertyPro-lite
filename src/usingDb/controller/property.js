@@ -12,10 +12,8 @@ import {query} from '../db';
 
 
 const createProperty = async(req, res) => { 
-	const createQuery = `INSERT INTO
-      property(id, success, low_point, take_away,owner_id, created_date, modified_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7)
-      returning *`;
+	const createQuery = `INSERT INTO property(id, success, low_point, take_away,owner_id, created_date, modified_date)
+      VALUES($1, $2, $3, $4, $5, $6, $7) returning *`;
 	const values = [
 		uuidv4(),
 		req.body.success,

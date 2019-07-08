@@ -188,14 +188,13 @@ const AdminCheck = (req, res, next)=>{
 
 const AdminCheckDb = async (req, res, next)=>{
 	const adminSelectQuery = 'SELECT * FROM admins WHERE email = $1';
-	const adminUpdateQuery = 'UPDATE users SET is_admin=$1,';
 	const {email} = req.body;
-	const {row} = await query(adminSelectQuery,[email]);
-	if(row){
-		const {row} = await query(adminUpdateQuery,['True']);
-		req.is_admin = row[0].is_admin;
+	const {rows} = await query(adminSelectQuery,[email]);
+	if(rows.length !== 0){
+		req.is_admin = 'True';
 		next();
 	} else{
+		req.is_admin = 'False';
 		next();
 	}
 	
