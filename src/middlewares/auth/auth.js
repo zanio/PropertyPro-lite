@@ -4,6 +4,8 @@ import {getSubId,newDate,adminDb,comparePassword} from '../../helpers/helper';
 import {numRegex} from '../../utils/numRegex';
 import {error} from '../../usingJSObject/data/error';
 import {query} from '../../usingDb/db';
+import url from 'url';
+
 
 const authorization = (req, res, next)=>{
 	const header = req.headers['authorization'];
@@ -210,4 +212,16 @@ const idCheck = (req, res, next)=>{
 
 };
 
-export {mustBeInteger,AdminCheckDb,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId,getSingleIdProperty};
+const typeAdvert = (req, res, next)=>{
+	const url_parts = url.parse(req.url,true).query;
+
+	if(url_parts.type){
+		req.type = url_parts.type;
+		next();
+	} else{
+		res.status(404).json(error.id_number_404);
+	}
+
+};
+
+export {mustBeInteger,typeAdvert,AdminCheckDb,authorization,getId,isSignUp,uniqueValue,AdminCheck,getPreviousId,idCheck,toDeleteId,getSingleIdProperty};
