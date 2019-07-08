@@ -77,7 +77,7 @@ const getAllPropertyOfUser = async (req, res) => {
 	const findAllQuery = 'SELECT * FROM property WHERE owner_id = $1';
 	try {
 		const { rows, rowCount } = await query(findAllQuery,[req.result.userId]);
-		return res.status(200).send({ rows, rowCount });
+		return res.status(200).json({status:200,data:[...rows,{rowCount}] });
 	} catch(error) {
 		return res.status(400).send(error);
 	}
@@ -101,7 +101,29 @@ const getOneProperty = async (req, res) => {
 		if (!rows[0]) {
 			return res.status(404).send({'message': 'reflection not found'});
 		}
-		return res.status(200).send(rows[0]);
+		return res.status(200).json({status:200,data:rows[0] });
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
+/**
+   * Get A Reflection
+   * @param {object} req 
+   * @param {object} res
+   * @returns {object} reflection object
+   */
+
+const getTypeProperty = async (req, res) => { 
+	
+	const text = `SELECT id,property_name,status,state,city,price,
+	contact_person_number,contact_person_address,proof,type,created_date,image
+	 FROM property WHERE type = $1`;
+	try {
+		const { rows } = await query(text, [req.type]);
+		if (!rows[0]) {
+			return res.status(404).json({status:404,error:'invalid search query params' });
+		}
+		return res.status(200).json({status:200,data:rows });
 	} catch(error) {
 		return res.status(400).send(error);
 	}
@@ -149,6 +171,36 @@ const updateProperty = async (req, res) => {
 	}
 };
 
+
+	/**
+   * Update A Reflection
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {object} updated reflection
+   */
+
+const updatePropertyStatus = async (req, res) => { 
+	const findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
+	const updateOneQuery =`UPDATE property SET status=$1
+      WHERE id=$2 AND owner_id = $3 returning *`;
+	try {
+		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
+		
+		if(!rows[0]) {
+			return res.status(404).send({'message': 'reflection not found'});
+		}
+		const values = [
+			req.body.status || rows[0].status,
+			req.params.id,
+			req.result.userId
+		];
+		const response = await query(updateOneQuery, values);
+		return res.status(200).json({status:200,data:response.rows[0]});
+	} catch(err) {
+		return res.status(400).json(err);
+	}
+};
+
 /**
    * Delete A Reflection
    * @param {object} req 
@@ -169,4 +221,4 @@ const deleteProperty = async (req, res) => {
 };
 
 
-export {deleteProperty,getAllProperty,getOneProperty,updateProperty,createProperty,getAllPropertyOfUser};
+export {deleteProperty,getAllProperty,updatePropertyStatus,getTypeProperty,getOneProperty,updateProperty,createProperty,getAllPropertyOfUser};
