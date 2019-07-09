@@ -108,5 +108,40 @@ const deleteUser = async (req, res) =>{
 	}
 };
 
+/**
+   * Create A Reflection
+   * @param {object} req 
+   * @param {object} res
+   * @returns {object} reflection object 
+   */
 
-export {deleteUser,loginUser,createUser};
+
+const createAdmin = async(req, res) => { 
+	const {email} = req.body;
+	const createQuery = `INSERT INTO admins(
+		email,created_date)
+	  VALUES($1,$2) returning *`;
+	const queryUsers = `SELECT is_admin 
+	FROM users where id = $1`;
+	const { rows } = await query(queryUsers, [req.result.userId]);
+	const values = [
+		email,
+		moment(new Date())
+	];
+	
+	try {
+		if(rows[0].is_admin){
+			const reponse = await query(createQuery, values);
+			return res.status(201).json({status:201,data:reponse.rows[0]});
+		}
+		if(!rows[0].is_admin){
+			return res.status(402).json({status:402,error:'Only an admin can create new admin'});
+		}
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
+
+
+
+export {deleteUser,loginUser,createUser,createAdmin};
