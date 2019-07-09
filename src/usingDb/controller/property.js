@@ -105,7 +105,7 @@ const flaggedProperty = async(req, res) => {
 		return res.status(422).json({status:422,error:'Only an admin can flag a property'});
 		
 	} catch(error) {
-		return res.status(400).send(error);
+		return res.status(400).json(error);
 	}
 };
 

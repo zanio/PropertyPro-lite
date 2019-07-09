@@ -9,7 +9,7 @@ import {createAdmin} from '../../usingDb/controller/Users';
 
 
 /* flag a reported property */
-adminrouter.put('/admin/property-advert/:id/flagged',idCheck,authorization,jwtVerify,flaggedProperty);
+adminrouter.put('/admin/property-advert/:id/flagged', idCheck, authorization, jwtVerify, flaggedProperty);
 
 adminrouter.post('/admin/register',authorization,jwtVerify,createAdmin);
 
