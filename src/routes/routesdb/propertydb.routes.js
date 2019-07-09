@@ -29,7 +29,7 @@ propertyrouter.get('/property-advert', getAllProperty);
 
 propertyrouter.get('/property-advert/user',authorization, jwtVerify, getAllPropertyOfUser);
 
-propertyrouter.post('/property-advert/:id/report',idCheck,authorization, jwtVerify, reportProperty);
+propertyrouter.post('/property-advert/:id/report',idCheck,authorization, jwtVerify,reportProperty);
 
 propertyrouter.get('/property-advert/search',typeAdvert,getTypeProperty);
 
@@ -37,7 +37,7 @@ propertyrouter.get('/property-advert/:id',idCheck,getOneProperty);
 
 propertyrouter.get('/property-advert/flagged/:id',idCheck,getOneFlaggedProperty);
 
-propertyrouter.get('/flagged/',getAllFlaggedProperty);
+propertyrouter.get('/flagged',getAllFlaggedProperty);
 
 
 

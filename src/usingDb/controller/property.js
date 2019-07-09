@@ -71,7 +71,7 @@ const reportProperty = async(req, res) => {
 		const { rows } = await query(createQuery, values);
 		return res.status(201).json({status:201,data:rows[0]});
 	} catch(error) {
-		return res.status(400).send(error);
+		return res.status(400).json(error);
 	}
 };
 
