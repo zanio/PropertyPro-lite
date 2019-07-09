@@ -1,6 +1,5 @@
 import moment from 'moment';
 import {query} from '../db';
-import uuidv4 from 'uuid/v4';
 
 
 
@@ -13,19 +12,20 @@ import uuidv4 from 'uuid/v4';
 
 
 const createProperty = async(req, res) => { 
-	const {property_name, status,state,city, price,contact_person_number,contact_person_address, proof,note,type} = req.body;
+	const {property_name, status,state,city,property_description, price,contact_person_number,contact_person_address, proof,note,type} = req.body;
 	const createQuery = `INSERT INTO property(owner_id,
-		property_name, status,state,city,type, price,contact_person_number,
+		 status,state,city,type, price,property_name,property_description,contact_person_number,
 		contact_person_address, proof,note,image,created_date, modified_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14) returning *`;
+      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15) returning *`;
 	const values = [
 		req.result.userId,
-		property_name,
 		status,
 		state,
 		city,
 		type,
 		price,
+		property_name,
+		property_description,
 		contact_person_number,
 		contact_person_address, 
 		proof,
@@ -46,6 +46,127 @@ const createProperty = async(req, res) => {
 
 
 /**
+   * Create A Reflection
+   * @param {object} req 
+   * @param {object} res
+   * @returns {object} reflection object 
+   */
+
+
+const reportProperty = async(req, res) => { 
+	const {reason,description,experience} = req.body;
+	const createQuery = `INSERT INTO report(property_id,
+		reporter_id,reason,description,experience,created_date)
+      VALUES($1, $2, $3, $4, $5, $6) returning *`;
+	const values = [
+		req.params.id,
+		req.result.userId,
+		reason,
+		description,
+		experience,
+		moment(new Date())
+	];
+	
+	try {
+		const { rows } = await query(createQuery, values);
+		return res.status(201).json({status:201,data:rows[0]});
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
+
+/**
+   * Create A Reflection
+   * @param {object} req 
+   * @param {object} res
+   * @returns {object} reflection object 
+   */
+
+
+const flaggedProperty = async(req, res) => { 
+	const createQuery = `INSERT INTO flagged(
+		report_id,admin_name,created_date)
+	  VALUES($1, $2,$3) returning *`;
+	const queryAdmin = `SELECT first_name,last_name,is_admin
+	FROM users where id = $1`;
+	const { rows } = await query(queryAdmin, [req.result.userId]);
+	const values = [
+		req.params.id,
+		rows[0].first_name+' '+rows[0].last_name,
+		moment(new Date())
+	];
+	
+	try {
+		if(rows[0].is_admin){
+			const response = await query(createQuery, values);
+			return res.status(201).json({status:201,data:response.rows[0]});
+		}
+		
+		return res.status(422).json({status:422,error:'Only an admin can flag a property'});
+		
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
+
+
+/**
+   * Create A Reflection
+   * @param {object} req 
+   * @param {object} res
+   * @returns {object} reflection object 
+   */
+
+
+const getOneFlaggedProperty = async(req, res) => { 
+	const queryreport = `SELECT id,property_id,reason,description,experience,created_date 
+	FROM report where id = $1`;
+	const values = [
+		req.params.id
+	];
+	const { rows } = await query(queryreport, values);
+	
+	
+	try {
+		if(rows[0].id){
+			return res.status(200).json({status:200,data:rows[0]});
+		}
+		
+		return res.status(404).json({status:404,error:'The id does not match any flagged property'});
+		
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
+
+
+/**
+   * Create A Reflection
+   * @param {object} req 
+   * @param {object} res
+   * @returns {object} reflection object 
+   */
+
+
+const getAllFlaggedProperty = async(req, res) => { 
+	const queryreport = `SELECT * 
+	FROM report`;
+	const { rows,rowCount } = await query(queryreport);
+	
+	try {
+		if(rows[0]){
+			return res.status(200).json({status:200,data:[rows,{rowCount}]});
+		}
+		
+		
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
+
+
+
+/**
    * Get All property
    * @param {object} req 
    * @param {object} res 
@@ -54,7 +175,7 @@ const createProperty = async(req, res) => {
 
   
 const getAllProperty = async (req, res) => { 
-	const findAllQuery = `SELECT id,property_name,status,state,city,price,
+	const findAllQuery = `SELECT id,property_name,property_description,status,state,city,price,
 	contact_person_number,contact_person_address,proof,type,created_date,image
 	 FROM property`;
 	try {
@@ -93,13 +214,13 @@ const getAllPropertyOfUser = async (req, res) => {
 
 const getOneProperty = async (req, res) => { 
 	
-	const text = `SELECT id,property_name,status,state,city,price,
+	const text = `SELECT id,property_name,status,state,city,price,property_description,
 	contact_person_number,contact_person_address,proof,type,created_date,image
 	 FROM property WHERE id = $1`;
 	try {
 		const { rows } = await query(text, [req.params.id]);
 		if (!rows[0]) {
-			return res.status(404).send({'message': 'reflection not found'});
+			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
 		return res.status(200).json({status:200,data:rows[0] });
 	} catch(error) {
@@ -115,7 +236,7 @@ const getOneProperty = async (req, res) => {
 
 const getTypeProperty = async (req, res) => { 
 	
-	const text = `SELECT id,property_name,status,state,city,price,
+	const text = `SELECT id,property_name,status,state,city,price,property_description,
 	contact_person_number,contact_person_address,proof,type,created_date,image
 	 FROM property WHERE type = $1`;
 	try {
@@ -138,21 +259,22 @@ const getTypeProperty = async (req, res) => {
 const updateProperty = async (req, res) => { 
 	const findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
 	const updateOneQuery =`UPDATE property
-	  SET property_name=$1,status=$2,state=$3,
-	  city=$4,price=$5,contact_person_number=$6,
-	  contact_person_address=$7,proof=$8,note=$9,
-	  modified_date=$10, image = $11
-      WHERE id=$12 AND owner_id = $13 returning *`;
+	  SET property_name=$1,status=$2,state=$3,property_description=$4,
+	  city=$5,price=$6,contact_person_number=$7,
+	  contact_person_address=$8,proof=$9,note=$10,
+	  modified_date=$11, image = $12
+      WHERE id=$13 AND owner_id = $14 returning *`;
 	try {
 		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
 		
 		if(!rows[0]) {
-			return res.status(404).send({'message': 'reflection not found'});
+			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
 		const values = [
 			req.body.property_name || rows[0].property_name,
 			req.body.status || rows[0].status,
 			req.body.state || rows[0].state,
+			req.body.property_description || rows[0].property_description,
 			req.body.city || rows[0].city,
 			req.body.price || rows[0].price,
 			req.body.contact_person_number || rows[0].contact_person_number,
@@ -221,4 +343,6 @@ const deleteProperty = async (req, res) => {
 };
 
 
-export {deleteProperty,getAllProperty,updatePropertyStatus,getTypeProperty,getOneProperty,updateProperty,createProperty,getAllPropertyOfUser};
+export {deleteProperty,reportProperty,getAllProperty,updatePropertyStatus,flaggedProperty,
+	getTypeProperty,getOneProperty,updateProperty,createProperty,getAllPropertyOfUser
+	,getOneFlaggedProperty,getAllFlaggedProperty};
