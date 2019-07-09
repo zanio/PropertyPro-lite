@@ -199,7 +199,7 @@ const getAllPropertyOfUser = async (req, res) => {
 		const { rows, rowCount } = await query(findAllQuery,[req.result.userId]);
 		return res.status(200).json({status:200,data:[...rows,{rowCount}] });
 	} catch(error) {
-		return res.status(400).send(error);
+		return res.status(400).json(error);
 	}
 };
 

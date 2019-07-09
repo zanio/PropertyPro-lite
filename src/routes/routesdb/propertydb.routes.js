@@ -27,7 +27,7 @@ propertyrouter.delete('/property-advert/:id', idCheck, authorization, jwtVerify,
 propertyrouter.get('/property-advert', getAllProperty);
 
 
-propertyrouter.get('/property-advert/user',authorization, jwtVerify, getAllPropertyOfUser);
+propertyrouter.get('/property-advert/user', authorization , jwtVerify , getAllPropertyOfUser);
 
 propertyrouter.post('/property-advert/:id/report',idCheck,authorization, jwtVerify,reportProperty);
 
