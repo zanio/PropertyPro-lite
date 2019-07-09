@@ -126,7 +126,6 @@ const getOneFlaggedProperty = async(req, res) => {
 	];
 	const { rows } = await query(queryreport, values);
 	
-	
 	try {
 		if(rows[0].id){
 			return res.status(200).json({status:200,data:rows[0]});
@@ -160,7 +159,7 @@ const getAllFlaggedProperty = async(req, res) => {
 		
 		
 	} catch(error) {
-		return res.status(400).send(error);
+		return res.status(400).json(error);
 	}
 };
 

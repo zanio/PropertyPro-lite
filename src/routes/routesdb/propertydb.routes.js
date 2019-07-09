@@ -35,9 +35,9 @@ propertyrouter.get('/property-advert/search',typeAdvert,getTypeProperty);
 
 propertyrouter.get('/property-advert/:id',idCheck,getOneProperty);
 
-propertyrouter.get('/property-advert/flagged/:id',idCheck,getOneFlaggedProperty);
+propertyrouter.get('/property-advert/flagged/:id', idCheck, getOneFlaggedProperty);
 
-propertyrouter.get('/flagged',getAllFlaggedProperty);
+propertyrouter.get('/flagged', getAllFlaggedProperty);
 
 
 
