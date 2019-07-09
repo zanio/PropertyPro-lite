@@ -107,6 +107,7 @@ const createUserTable = () => {
         address TEXT NOT NULL,
         gender VARCHAR(8) NOT NULL,
         is_admin BOOLEAN NOT NULL DEFAULT False,
+        is_verify BOOLEAN DEFAULT False,
         created_date TIMESTAMP,
         modified_date TIMESTAMP
       )`;

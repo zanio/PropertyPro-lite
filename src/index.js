@@ -38,4 +38,6 @@ app.post('/upload', multerUploads, (req, res) => {
 			}));
 	}
 });
+// email verification
+//https://codeforgeek.com/node-email-verification-script/
 app.listen(Port, () => console.log(`Server started at http://localhost:${Port}`));
