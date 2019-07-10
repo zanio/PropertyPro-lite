@@ -58,7 +58,7 @@
     "swagger-editor": "^3.6.31",
     "swagger-ui-express": "^4.0.7",
     "uuid": "^3.3.2",
-    "debug": "^4.1.1",
+    "debug": "^4.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
