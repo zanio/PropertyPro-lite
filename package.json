@@ -11,7 +11,7 @@
     "clean": "rm -rf dist && mkdir dist",
     "script": "babel-node src/services/test.js",
     "build-babel": "npm run clean && babel src --out-dir dist",
-    "start": "npm run serve & npm run postgres",
+    "start": "npm run serve",
     "postgres": "node db createUserTable & node db creatAdminTable & node db createPropertyTable & node db createReportTable & node db createFlaggedTable",
     "serve": "node dist/app.js",
     "psql": "psql -h localhost -p 2000 -U postgres -W"
