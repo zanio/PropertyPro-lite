@@ -19,7 +19,6 @@ let latitude,longitude;
 async function geolocation(){
 	var geocoder = new google.maps.Geocoder();
 	const res = await getAdress(endpoint,2);
-	console.log(res.data);
 	address = res.data.contact_person_address+' ,'+res.data.city+' ,'+res.data.state;
 	geocoder.geocode( { 'address': address},function(results,status){
     
@@ -42,7 +41,6 @@ async function initMap() {
 		lat: latitude,
 		lng: longitude
 	};
-	console.log(set);
 	// The map, centered
 	var map = await new google.maps.Map(
 		document.getElementById('map'), {

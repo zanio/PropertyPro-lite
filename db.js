@@ -39,6 +39,7 @@ const createPropertyTable = () => {
 	  )`;
 	pool.query(queryText)
 		.then((res) => {
+			debug(res);
 			pool.end();
 		})
 		.catch((err) => {
@@ -60,6 +61,7 @@ const createFlaggedTable = () => {
 	  )`;
 	pool.query(queryText)
 		.then((res) => {
+			debug(res);
 			pool.end();
 		})
 		.catch((err) => {
@@ -84,6 +86,7 @@ const createReportTable = () => {
 	  )`;
 	pool.query(queryText)
 		.then((res) => {
+			debug(res);
 			pool.end();
 		})
 		.catch((err) => {
@@ -114,6 +117,7 @@ const createUserTable = () => {
 
 	pool.query(queryText)
 		.then((res) => {
+			debug(res);
 			pool.end();
 		})
 		.catch((err) => {
