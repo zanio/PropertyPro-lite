@@ -1,8 +1,9 @@
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import {query} from '../db';
-import {isValidEmail,hashPassword,comparePassword,generateToken} from '../../helpers/helper';
+import {isValidEmail,hashPassword,comparePassword,generateToken,emailToken} from '../../helpers/helper';
 import {Mail} from '../../services/sendmail';
+import {resetPass} from '../../services/template/resetPassword';
 import {verifyEmail} from '../../services/template/verifyEmail';
 import jwt from 'jsonwebtoken';
 import url from 'url';
@@ -64,7 +65,7 @@ const createUser = async (req, res) => {
 		};
 		const send = new Mail(verify_mail,verifyEmail(data));
 		send.main();
-		
+		console.log(data)
 		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender,is_verify:rows[0].is_verify,is_admin:req.is_admin === 'False' ? false:true} });
 	} catch(error) {
 		if (error.routine === '_bt_check_unique') {
@@ -130,6 +131,33 @@ const deleteUser = async (req, res) =>{
 		return res.status(400).json(error);
 	}
 };
+/**
+   * Update A User password
+   * @param {object} req 
+   * @param {object} res 
+   * @returns {void} return status code 204 
+   */
+
+const updatePassword = async (req, res) =>{
+	const {old_password,new_password} = req.body;
+	const updateQuery = 'UPDATE users SET password = $1 WHERE id=$2 returning *';
+	const selectQuery = 'SELECT password FROM users WHERE id=$1';
+	const newhash = await hashPassword(new_password);
+	
+	try {
+		const { rows } = await query(selectQuery, [req.result.userId]);
+		const comparepass = await comparePassword(rows[0].password, old_password);
+		if(!comparepass){
+			return res.status(422).json({status:422, error: 'The credentials you provided is incorrect' });
+		}
+
+		await query(updateQuery, [newhash,req.result.userId]);
+		
+		return res.status(200).json({ status:200,data:{message:'Your password has been successfull reset'}});
+	} catch(error) {
+		return res.status(400).json(error);
+	}
+};
 
 /**
    * Create A Reflection
@@ -169,7 +197,6 @@ const createAdmin = async(req, res) => {
 const verifyUserEmail = async (req, res) => {
 	const id = url.parse(req.url,true).query.id;
 	const response = await jwt.verify(id, process.env.SECRET_KEY);
-
 	try{
 		const text = 'SELECT is_verify,id FROM users WHERE id=$1';
 		const updateText = 'UPDATE users SET is_verify=$1 WHERE id =$2';
@@ -189,5 +216,65 @@ const verifyUserEmail = async (req, res) => {
 };
 
 
+const resetLink = async (req, res) => {
+	const email = url.parse(req.url,true).query.email;
+	let rand=Math.floor((Math.random() * 100) + 54);
+	const verify_mail = {
+		Subject:'Password reset link',
+		Recipient:email
+	};
 
-export {deleteUser,loginUser,createUser,createAdmin,verifyUserEmail};
+	try{
+		const token = await emailToken(rand);
+		let link= process.env.NODE_ENV === 'development'?`http://localhost:3300/api/v1/reset/verify?id=${token}&email=${email}`:
+			`${req.protocol}://${req.get('host')}/api/v1/reset/verify?id=${token}&email=${email}`;
+
+		const text = 'SELECT first_name FROM users WHERE email=$1';
+		const { rows } = await query(text, [email]);
+		const data = {
+			email,
+			first_name:rows[0].first_name,
+			link
+		};
+	
+		const resetmail = new Mail(verify_mail,resetPass(data));
+	
+		resetmail.main();
+		
+		return res.status(200).json({status:200,data:{message:'Check your email for a reset link'}});
+		
+	} catch(error){
+		return res.status(400).json(error);
+	}
+		
+	
+	
+};
+
+const resetPassword = async (req, res) => {
+	const url_parts = url.parse(req.url,true).query;
+	const response = await jwt.verify(url_parts.id, process.env.SECRET_KEY);
+	const {password} = req.body;
+	const hashPass = await hashPassword(password);
+
+	try{
+		const text = 'SELECT first_name FROM users WHERE email=$1';
+		const updateText = 'UPDATE users SET password=$1,modified_date=$2 WHERE email=$3 returning *';
+		const { rows } = await query(text, [url_parts.email]);
+		const site = process.env.NODE_ENV === 'development'?'http://localhost:3300':req.protocol+'://'+req.get('host');
+		if((req.protocol+'://'+req.get('host'))==(site) && response.code){
+			await query(updateText, [hashPass,moment(new Date()),url_parts.email]);
+			return res.status(200).json({status:200,data:{user:rows[0].first_name,message:'your password has been reset successfully'}});
+		}
+		res.status(401).json({status:401,error:'This is a proctected route'});
+		
+	} catch(error){
+		return res.status(400).json(error);
+	}
+			
+	
+};
+
+
+
+export {deleteUser,loginUser,createUser,createAdmin,verifyUserEmail,resetLink,resetPassword,updatePassword};
