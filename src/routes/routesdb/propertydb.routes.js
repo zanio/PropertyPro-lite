@@ -6,7 +6,7 @@ import {cloudinaryHandler} from '../../config/cloudinary';
 import {authorization,idCheck,typeAdvert} from '../../middlewares/auth/auth';
 import {jwtVerify} from '../../middlewares/auth/jsonweb';
 import {checkPropertyEmpty,checkPropertyField} from '../../middlewares/field/inputfield';
-import {createProperty,getOneFlaggedProperty,getAllFlaggedProperty,reportProperty,updatePropertyStatus,getTypeProperty,updateProperty,deleteProperty,getOneProperty,getAllProperty,getAllPropertyOfUser} from '../../usingDb/controller/property';
+import {createProperty,getOneFlaggedProperty,getAddress,getAllFlaggedProperty,reportProperty,updatePropertyStatus,getTypeProperty,updateProperty,deleteProperty,getOneProperty,getAllProperty,getAllPropertyOfUser} from '../../usingDb/controller/property';
 
 
 /* create propertyadvert advert  */
@@ -38,6 +38,8 @@ propertyrouter.get('/property-advert/:id',idCheck,getOneProperty);
 propertyrouter.get('/property-advert/flagged/:id', idCheck, getOneFlaggedProperty);
 
 propertyrouter.get('/flagged', getAllFlaggedProperty);
+
+propertyrouter.get('/property-advert/address/:id',idCheck,getAddress);
 
 
 

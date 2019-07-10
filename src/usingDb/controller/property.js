@@ -248,6 +248,20 @@ const getTypeProperty = async (req, res) => {
 		return res.status(400).send(error);
 	}
 };
+const getAddress = async (req, res) => { 
+	
+	const text = `SELECT contact_person_address,city,state
+	 FROM property WHERE id = $1`;
+	try {
+		const { rows } = await query(text, [req.params.id]);
+		if (!rows[0]) {
+			return res.status(404).json({status:404,error:'No advert available with that id' });
+		}
+		return res.status(200).json({status:200,data:rows[0] });
+	} catch(error) {
+		return res.status(400).send(error);
+	}
+};
 	/**
    * Update A Reflection
    * @param {object} req 
@@ -344,4 +358,4 @@ const deleteProperty = async (req, res) => {
 
 export {deleteProperty,reportProperty,getAllProperty,updatePropertyStatus,flaggedProperty,
 	getTypeProperty,getOneProperty,updateProperty,createProperty,getAllPropertyOfUser
-	,getOneFlaggedProperty,getAllFlaggedProperty};
+	,getOneFlaggedProperty,getAllFlaggedProperty,getAddress};

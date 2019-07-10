@@ -103,7 +103,16 @@ const generateToken = (id) => {
     
 };
 
+const emailToken = (rand) => {
+	return new Promise((resolve,reject)=>{
+		const token = jwt.sign({code: rand },process.env.SECRET_KEY, { expiresIn: '5m' });
+		if(token) resolve(token);
+		if(!token) reject({err:'could not assign a token'});
+	});
+    
+};
 
 
 
-export {getNewId,newDate,mustBeInArray,hashPassword,getSubId,adminDb,typeSearch,isValidEmail,generateToken,comparePassword};
+
+export {getNewId,emailToken,newDate,mustBeInArray,hashPassword,getSubId,adminDb,typeSearch,isValidEmail,generateToken,comparePassword};
