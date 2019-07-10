@@ -57,7 +57,8 @@
     "pg": "^7.11.0",
     "swagger-editor": "^3.6.31",
     "swagger-ui-express": "^4.0.7",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "debug": "^4.1.1",
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -69,7 +70,6 @@
     "@babel/register": "^7.4.4",
     "babel-register": "^6.26.0",
     "coveralls": "^3.0.4",
-    "debug": "^4.1.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.18.0",
