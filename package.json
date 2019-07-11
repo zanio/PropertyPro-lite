@@ -42,7 +42,9 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cloudinary": "^1.14.0",
+    "cors": "^2.8.5",
     "datauri": "^2.0.0",
+    "debug": "^4.1.1",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -57,8 +59,7 @@
     "pg": "^7.11.0",
     "swagger-editor": "^3.6.31",
     "swagger-ui-express": "^4.0.7",
-    "uuid": "^3.3.2",
-    "debug": "^4.1.1"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

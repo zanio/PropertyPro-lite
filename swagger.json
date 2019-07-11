@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0",
     "title": "Propertypro Lite",
-    "description": "This a project titled PropertyPro-lite. It is an online platform that allow users (Agent or Customer ) to see posted property advert which may be in form of Housing, personal property and mcuh more"
+    "description": "This a project titled PropertyPro-lite. It is an online platform that allow users (Agent or Customer ) to see posted property advert which may be in form of Housing, personal property and much more"
   },
   "servers": [
     {
@@ -1174,6 +1174,51 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/properties"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/delete": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "User can delete his/her account. This action cannot be undone",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "success",

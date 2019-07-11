@@ -56,7 +56,7 @@ const createUser = async (req, res) => {
 			Recipient:req.body.email
 		};
 		let link= process.env.NODE_ENV === 'development'?`http://localhost:3300/api/v1/auth/verify?id=${token}`:
-			`${req.protocol}://${req.get('host')}/api/v1/auth/verify?id=${token}`;
+			`${'https'}://${req.get('host')}/api/v1/auth/verify?id=${token}`;
 		const data = {
 			email,
 			first_name,
@@ -121,7 +121,7 @@ const loginUser = async (req, res) => {
 const deleteUser = async (req, res) =>{
 	const deleteQuery = 'DELETE FROM users WHERE id=$1 returning *';
 	try {
-		const { rows } = await query(deleteQuery, [req.user.id]);
+		const { rows } = await query(deleteQuery, [req.result.userId]);
 		if(!rows[0]) {
 			return res.status(404).json({'message': 'user not found'});
 		}
@@ -200,7 +200,8 @@ const verifyUserEmail = async (req, res) => {
 		const text = 'SELECT is_verify,id FROM users WHERE id=$1';
 		const updateText = 'UPDATE users SET is_verify=$1 WHERE id =$2';
 		const { rows } = await query(text, [response.userId]);
-		if((req.protocol+'://'+req.get('host'))==('http://localhost:3300') && rows[0].id){
+		const site = process.env.NODE_ENV === 'development'?'http://localhost:3300':'https://propertpro-lite.herokuapp.com';
+		if(('https'+'://'+req.get('host'))==(site) && rows[0].id){
 			await query(updateText, ['True',rows[0].id]);
 			return res.status(200).json({status:200,data:{is_verify:rows[0].is_verify}});
 		}
@@ -260,7 +261,7 @@ const resetPassword = async (req, res) => {
 		const text = 'SELECT first_name FROM users WHERE email=$1';
 		const updateText = 'UPDATE users SET password=$1,modified_date=$2 WHERE email=$3 returning *';
 		const { rows } = await query(text, [url_parts.email]);
-		const site = process.env.NODE_ENV === 'development'?'http://localhost:3300':req.protocol+'://'+req.get('host');
+		const site = process.env.NODE_ENV === 'development'?'http://localhost:3300':'https://propertpro-lite.herokuapp.com';
 		if((req.protocol+'://'+req.get('host'))==(site) && response.code){
 			await query(updateText, [hashPass,moment(new Date()),url_parts.email]);
 			return res.status(200).json({status:200,data:{user:rows[0].first_name,message:'your password has been reset successfully'}});

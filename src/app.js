@@ -6,6 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger.json';
 import routerJsObject from './routes/routesjs/index.routes';
 import routerdb from './routes/routesdb/index.routes';
+import cors from 'cors';
 
 const router = !process.env.type? routerJsObject : routerdb;
 
@@ -16,11 +17,19 @@ const app = express();
 // Morgan
 app.use(morgan('tiny'));
 
+const configurationOption = {
+	origin: ['http://127.0.0.1:5500','https://propertpro-lite.herokuapp.com','https://zanio.github.io']
+};
+
+//Cors configuration
+app.use(cors(configurationOption));
+
 app.use( (request, response, next) => {
-	response.header('Access-Control-Allow-Origin', '*');
-	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	response.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
 	next();
 });
+
+
 // First route
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));

@@ -1,6 +1,6 @@
 
 let address;
-let endpoint = 'http://localhost:3300/api/v1/property-advert/address/';
+let endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/property-advert/address/';
 
 let getAdress = (url,id)=>{
 	return new Promise((resolve,reject)=>{

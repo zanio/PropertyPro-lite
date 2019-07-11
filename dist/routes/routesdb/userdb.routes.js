@@ -26,6 +26,9 @@ Userrouter.post('/auth/register', _auth.AdminCheckDb, _inputfield.genderCheck, _
 /* Login User */
 
 Userrouter.post('/auth/login', _auth.AdminCheckDb, _Users.loginUser);
+/* delete User Account */
+
+Userrouter["delete"]('/auth/delete', _auth.authorization, _jsonweb.jwtVerify, _Users.deleteUser);
 /* my email verification section */
 
 Userrouter.get('/auth/verify', _Users.verifyUserEmail);

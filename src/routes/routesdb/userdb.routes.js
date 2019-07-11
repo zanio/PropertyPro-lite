@@ -2,7 +2,7 @@ import express from 'express' ;
 const Userrouter = express.Router();
 import {AdminCheckDb,authorization} from '../../middlewares/auth/auth';
 import {jwtVerify} from '../../middlewares/auth/jsonweb';
-import {createUser,loginUser,verifyUserEmail,resetLink,resetPassword,updatePassword} from '../../usingDb/controller/Users';
+import {createUser,deleteUser, loginUser,verifyUserEmail,resetLink,resetPassword,updatePassword} from '../../usingDb/controller/Users';
 import {genderCheck,regCharCheck} from '../../middlewares/field/inputfield';
 
 
@@ -11,6 +11,11 @@ Userrouter.post('/auth/register', AdminCheckDb,genderCheck,regCharCheck, createU
 
 /* Login User */
 Userrouter.post('/auth/login',AdminCheckDb,loginUser);
+
+
+/* delete User Account */
+Userrouter.delete('/auth/delete',authorization,jwtVerify,deleteUser);
+
 
 /* my email verification section */
 Userrouter.get('/auth/verify',verifyUserEmail);

@@ -94,7 +94,7 @@ function () {
               Subject: 'Email Verification',
               Recipient: req.body.email
             };
-            link = process.env.NODE_ENV === 'development' ? "http://localhost:3300/api/v1/auth/verify?id=".concat(token) : "".concat(req.protocol, "://").concat(req.get('host'), "/api/v1/auth/verify?id=").concat(token);
+            link = process.env.NODE_ENV === 'development' ? "http://localhost:3300/api/v1/auth/verify?id=".concat(token) : 'https'.concat("://", req.get('host'), "/api/v1/auth/verify?id=").concat(token);
             data = {
               email: email,
               first_name: first_name,
@@ -304,7 +304,7 @@ function () {
             deleteQuery = 'DELETE FROM users WHERE id=$1 returning *';
             _context3.prev = 1;
             _context3.next = 4;
-            return (0, _db.query)(deleteQuery, [req.user.id]);
+            return (0, _db.query)(deleteQuery, [req.result.userId]);
 
           case 4:
             _ref6 = _context3.sent;
@@ -513,7 +513,7 @@ function () {
   var _ref11 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee6(req, res) {
-    var id, response, text, updateText, _ref12, rows;
+    var id, response, text, updateText, _ref12, rows, site;
 
     return _regenerator["default"].wrap(function _callee6$(_context6) {
       while (1) {
@@ -534,16 +534,17 @@ function () {
           case 9:
             _ref12 = _context6.sent;
             rows = _ref12.rows;
+            site = process.env.NODE_ENV === 'development' ? 'http://localhost:3300' : 'https://propertpro-lite.herokuapp.com';
 
-            if (!(req.protocol + '://' + req.get('host') == 'http://localhost:3300' && rows[0].id)) {
-              _context6.next = 15;
+            if (!('https' + '://' + req.get('host') == site && rows[0].id)) {
+              _context6.next = 16;
               break;
             }
 
-            _context6.next = 14;
+            _context6.next = 15;
             return (0, _db.query)(updateText, ['True', rows[0].id]);
 
-          case 14:
+          case 15:
             return _context6.abrupt("return", res.status(200).json({
               status: 200,
               data: {
@@ -551,25 +552,25 @@ function () {
               }
             }));
 
-          case 15:
+          case 16:
             res.status(401).json({
               status: 401,
               error: 'This is a proctected route'
             });
-            _context6.next = 21;
+            _context6.next = 22;
             break;
 
-          case 18:
-            _context6.prev = 18;
+          case 19:
+            _context6.prev = 19;
             _context6.t0 = _context6["catch"](4);
             return _context6.abrupt("return", res.status(400).json(_context6.t0));
 
-          case 21:
+          case 22:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[4, 18]]);
+    }, _callee6, null, [[4, 19]]);
   }));
 
   return function verifyUserEmail(_x11, _x12) {
@@ -678,7 +679,7 @@ function () {
           case 13:
             _ref16 = _context8.sent;
             rows = _ref16.rows;
-            site = process.env.NODE_ENV === 'development' ? 'http://localhost:3300' : req.protocol + '://' + req.get('host');
+            site = process.env.NODE_ENV === 'development' ? 'http://localhost:3300' : 'https://propertpro-lite.herokuapp.com';
 
             if (!(req.protocol + '://' + req.get('host') == site && response.code)) {
               _context8.next = 20;

@@ -21,15 +21,21 @@ var _index = _interopRequireDefault(require("./routes/routesjs/index.routes"));
 
 var _index2 = _interopRequireDefault(require("./routes/routesdb/index.routes"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 // Import packages
 var router = !process.env.type ? _index["default"] : _index2["default"]; // App
 
 var app = (0, _express["default"])(); // Morgan
 
 app.use((0, _morgan["default"])('tiny'));
+var configurationOption = {
+  origin: ['http://127.0.0.1:5500', 'https://propertpro-lite.herokuapp.com', 'https://zanio.github.io']
+}; //Cors configuration
+
+app.use((0, _cors["default"])(configurationOption));
 app.use(function (request, response, next) {
-  response.header('Access-Control-Allow-Origin', '*');
-  response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  response.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
   next();
 }); // First route
 
