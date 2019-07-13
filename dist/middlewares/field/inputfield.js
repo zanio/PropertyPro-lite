@@ -5,9 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.regNumCheck = exports.regCharCheck = exports.emailValidation = exports.checkPropertyEmpty = exports.genderCheck = exports.checkFieldsUser = exports.checkPropertyField = void 0;
-
-var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+exports.regNumCheck = exports.regCharCheck = exports.emailValidation = exports.checkPropertyEmpty = exports.genderCheck = exports.checkPropertyField = void 0;
 
 var _string = require("../../utils/string");
 
@@ -17,19 +15,9 @@ var _checkfloat = _interopRequireDefault(require("../../utils/checkfloat"));
 
 var _multer = require("../../config/multer");
 
-var _helper = require("../../helpers/helper");
-
 var _email = require("../../utils/email");
 
-var _error = require("../../usingJSObject/data/error");
-
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
-
 var _dotenv = _interopRequireDefault(require("dotenv"));
-
-//import { newDate,getSubId } from './helper';
-var _require = require('../../usingJSObject/data/users'),
-    users = _require.users;
 
 _dotenv["default"].config();
 
@@ -42,9 +30,15 @@ var checkPropertyField = function checkPropertyField(req, res, next) {
   var floatBoolean = (0, _checkfloat["default"])(_float.price);
 
   if (!letterBolean) {
-    res.status(403).json(_error.error.label_err_403);
+    res.status(403).json({
+      status: 403,
+      error: 'the property information can only contain aphabetic character'
+    });
   } else if (!floatBoolean) {
-    res.status(403).json(_error.error.price_403);
+    res.status(403).json({
+      status: 403,
+      error: 'price value can only be numbers or floating numbers'
+    });
   } else {
     req.price = parseFloat(_float.price);
     req.property = property;
@@ -55,60 +49,6 @@ var checkPropertyField = function checkPropertyField(req, res, next) {
 
 exports.checkPropertyField = checkPropertyField;
 
-var checkFieldsUser = function checkFieldsUser(req, res, next) {
-  var _req$body = req.body,
-      first_name = _req$body.first_name,
-      last_name = _req$body.last_name,
-      password = _req$body.password,
-      address = _req$body.address,
-      email = _req$body.email,
-      phone_number = _req$body.phone_number,
-      gender = _req$body.gender;
-  var is_Admin = req.is_Admin;
-  var checkAdmin = is_Admin ? true : false;
-  var id = {
-    id: (0, _helper.getNewId)(users)
-  };
-
-  if (first_name && last_name && password && address && email && phone_number && gender) {
-    var newPassword = null;
-    (0, _helper.harshPassword)(password).then(function (result) {
-      if (result) {
-        newPassword = result;
-        var namedata = {
-          first_name: first_name,
-          last_name: last_name
-        };
-        var newUserNotoken = (0, _objectSpread2["default"])({}, namedata, {
-          email: email,
-          password: newPassword,
-          address: address,
-          phone_number: phone_number,
-          gender: gender,
-          is_Admin: checkAdmin
-        });
-
-        var token = _jsonwebtoken["default"].sign((0, _objectSpread2["default"])({
-          code: newPassword
-        }, id, {
-          newUserNotoken: newUserNotoken
-        }), process.env.SECRET_KEY);
-
-        var newUser = (0, _objectSpread2["default"])({
-          token: token
-        }, newUserNotoken);
-        req.newUser = newUser;
-        next();
-      }
-    });
-  } else {
-    res.status(403).json(_error.error.all_field_403);
-    return;
-  }
-};
-
-exports.checkFieldsUser = checkFieldsUser;
-
 var genderCheck = function genderCheck(req, res, next) {
   var gender = req.body.gender;
   var genderCheck = gender === 'male' || gender === 'female' ? true : false;
@@ -116,7 +56,10 @@ var genderCheck = function genderCheck(req, res, next) {
   if (genderCheck) {
     next();
   } else {
-    res.status(403).json(_error.error.gender_error_403);
+    res.status(403).json({
+      status: 403,
+      error: 'gender can only be male or female values'
+    });
     return;
   }
 };
@@ -125,19 +68,20 @@ exports.genderCheck = genderCheck;
 
 var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
   try {
+    //dataUris(req);
     (0, _multer.dataUri)(req);
-    var _req$body2 = req.body,
-        property_name = _req$body2.property_name,
-        status = _req$body2.status,
-        price = _req$body2.price,
-        state = _req$body2.state,
-        city = _req$body2.city,
-        type = _req$body2.type,
-        contact_person_number = _req$body2.contact_person_number,
-        contact_person_address = _req$body2.contact_person_address,
-        proof = _req$body2.proof,
-        note = _req$body2.note;
-    var image = req.file;
+    var _req$body = req.body,
+        property_name = _req$body.property_name,
+        status = _req$body.status,
+        price = _req$body.price,
+        state = _req$body.state,
+        city = _req$body.city,
+        type = _req$body.type,
+        contact_person_number = _req$body.contact_person_number,
+        contact_person_address = _req$body.contact_person_address,
+        proof = _req$body.proof,
+        note = _req$body.note;
+    var image = req.file; //const image = req.file;
 
     if (status && city && state && property_name && price && image && type && contact_person_number && contact_person_address) {
       var property = {
@@ -145,9 +89,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         state: state,
         type: type
       };
-      var image_url = {
-        image: image
-      };
+      var image_url = image;
       var _float2 = {
         price: price
       };
@@ -165,10 +107,16 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
       req.other_details = other_details;
       next();
     } else {
-      res.status(403).json(_error.error.all_field_403);
+      res.status(403).json({
+        status: 403,
+        error: 'please fill all filled correctly'
+      });
     }
   } catch (errors) {
-    res.status(403).json(_error.error.input_image_403);
+    res.status(403).json({
+      status: 403,
+      error: 'please fill all filled correctly and upload an image'
+    });
   }
 };
 
@@ -180,7 +128,10 @@ var emailValidation = function emailValidation(req, res, next) {
   if ((0, _email.validateEmail)(email) && email) {
     next();
   } else {
-    res.status(402).json(_error.error.invalid_email_402);
+    res.status(422).json({
+      status: 422,
+      error: 'invalid email validation'
+    });
     return;
   }
 };
@@ -188,10 +139,10 @@ var emailValidation = function emailValidation(req, res, next) {
 exports.emailValidation = emailValidation;
 
 var regCharCheck = function regCharCheck(req, res, next) {
-  var _req$body3 = req.body,
-      newUser = _req$body3.newUser,
-      first_name = _req$body3.first_name,
-      last_name = _req$body3.last_name;
+  var _req$body2 = req.body,
+      newUser = _req$body2.newUser,
+      first_name = _req$body2.first_name,
+      last_name = _req$body2.last_name;
   var namedata = {
     first_name: first_name,
     last_name: last_name
@@ -203,7 +154,10 @@ var regCharCheck = function regCharCheck(req, res, next) {
     req.newUser = newUser;
     next();
   } else {
-    res.status(404).json(_error.error.string_err_403);
+    res.status(404).json({
+      status: 404,
+      error: 'first_name and last_name can only be letter characters'
+    });
     return;
   }
 };
@@ -220,7 +174,10 @@ var regNumCheck = function regNumCheck(req, res, next) {
     req.newUser = newUser;
     next();
   } else {
-    res.status(404).json(_error.error.interger_err_404);
+    res.status(422).json({
+      status: 422,
+      error: 'phone number can only be digits with at least 11 characters and less than 13 characters'
+    });
     return;
   }
 };

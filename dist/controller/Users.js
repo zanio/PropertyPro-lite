@@ -17,13 +17,13 @@ var _v = _interopRequireDefault(require("uuid/v4"));
 
 var _db = require("../db");
 
-var _helper = require("../../helpers/helper");
+var _helper = require("../helpers/helper");
 
-var _sendmail = require("../../services/sendmail");
+var _sendmail = require("../services/sendmail");
 
-var _resetPassword = require("../../services/template/resetPassword");
+var _resetPassword = require("../services/template/resetPassword");
 
-var _verifyEmail = require("../../services/template/verifyEmail");
+var _verifyEmail = require("../services/template/verifyEmail");
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 

@@ -17,6 +17,8 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _db = require("../db");
 
+var _helper = require("../helpers/helper");
+
 /**
    * Create A Reflection
    * @param {object} req 
@@ -36,8 +38,8 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, property_name = _req$body.property_name, status = _req$body.status, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, contact_person_address = _req$body.contact_person_address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
-            createQuery = "INSERT INTO property(owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\tcontact_person_address, proof,note,image,created_date, modified_date)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15) returning *";
-            values = [req.result.userId, status, state, city, type, price, property_name, property_description, contact_person_number, contact_person_address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
+            createQuery = "INSERT INTO property(id,owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\tcontact_person_address, proof,note,image,created_date, modified_date)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *";
+            values = [(0, _helper.generateId)() + '1', req.result.userId, status, state, city, type, price, property_name, property_description, contact_person_number, contact_person_address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 3;
             _context.next = 6;
             return (0, _db.query)(createQuery, values);
@@ -90,8 +92,8 @@ function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             _req$body2 = req.body, reason = _req$body2.reason, description = _req$body2.description, experience = _req$body2.experience;
-            createQuery = "INSERT INTO report(property_id,\n\t\treporter_id,reason,description,experience,created_date)\n      VALUES($1, $2, $3, $4, $5, $6) returning *";
-            values = [req.params.id, req.result.userId, reason, description, experience, (0, _moment["default"])(new Date())];
+            createQuery = "INSERT INTO report(id,property_id,\n\t\treporter_id,reason,description,experience,created_date)\n      VALUES($1, $2, $3, $4, $5, $6,$7) returning *";
+            values = [(0, _helper.generateId)() + '1', req.params.id, req.result.userId, reason, description, experience, (0, _moment["default"])(new Date())];
             _context2.prev = 3;
             _context2.next = 6;
             return (0, _db.query)(createQuery, values);
@@ -143,7 +145,7 @@ function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            createQuery = "INSERT INTO flagged(\n\t\treport_id,admin_name,created_date)\n\t  VALUES($1, $2,$3) returning *";
+            createQuery = "INSERT INTO flagged(id,\n\t\treport_id,admin_name,created_date)\n\t  VALUES($1, $2,$3) returning *";
             queryAdmin = "SELECT first_name,last_name,is_admin\n\tFROM users where id = $1";
             _context3.next = 4;
             return (0, _db.query)(queryAdmin, [req.result.userId]);
@@ -151,7 +153,7 @@ function () {
           case 4:
             _ref6 = _context3.sent;
             rows = _ref6.rows;
-            values = [req.params.id, rows[0].first_name + ' ' + rows[0].last_name, (0, _moment["default"])(new Date())];
+            values = [(0, _helper.generateId)(1), req.params.id, rows[0].first_name + ' ' + rows[0].last_name, (0, _moment["default"])(new Date())];
             _context3.prev = 7;
 
             if (!rows[0].is_admin) {

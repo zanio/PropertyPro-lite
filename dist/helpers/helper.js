@@ -5,9 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.comparePassword = exports.generateToken = exports.isValidEmail = exports.typeSearch = exports.adminDb = exports.getSubId = exports.hashPassword = exports.mustBeInArray = exports.newDate = exports.emailToken = exports.getNewId = void 0;
-
-var _error = require("../usingJSObject/data/error");
+exports.comparePassword = exports.generateToken = exports.isValidEmail = exports.adminDb = exports.getSubId = exports.hashPassword = exports.newDate = exports.generateId = exports.emailToken = exports.getNewId = void 0;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
@@ -45,22 +43,6 @@ var newDate = function newDate() {
 
 exports.newDate = newDate;
 
-var mustBeInArray = function mustBeInArray(array, id) {
-  return new Promise(function (resolve, reject) {
-    var row = array.find(function (r) {
-      return r.id == id;
-    });
-
-    if (!row) {
-      reject(_error.error.user_404);
-    }
-
-    resolve(row);
-  });
-};
-
-exports.mustBeInArray = mustBeInArray;
-
 var hashPassword = function hashPassword(password) {
   return new Promise(function (resolve, reject) {
     _bcrypt["default"].hash(password, 10, function (err, hash) {
@@ -92,22 +74,6 @@ var adminDb = function adminDb(array, email) {
     resolve(db);
   });
 };
-
-exports.adminDb = adminDb;
-
-var typeSearch = function typeSearch(array, type) {
-  return new Promise(function (resolve, reject) {
-    var db = array.filter(function (r) {
-      return r.type === type;
-    });
-
-    if (!db) {
-      reject(_error.error.property_404);
-    }
-
-    resolve(db);
-  });
-};
 /**
    * isValidEmail helper method
    * @param {string} email
@@ -115,7 +81,7 @@ var typeSearch = function typeSearch(array, type) {
    */
 
 
-exports.typeSearch = typeSearch;
+exports.adminDb = adminDb;
 
 var isValidEmail = function isValidEmail(email) {
   return /\S+@\S+\.\S+/.test(email);
@@ -162,3 +128,11 @@ var emailToken = function emailToken(rand) {
 };
 
 exports.emailToken = emailToken;
+
+var generateId = function generateId() {
+  var rand = Math.floor(Math.random() * 1000 + 400);
+  console.log(rand, rand + 1000);
+  return rand + 1000;
+};
+
+exports.generateId = generateId;

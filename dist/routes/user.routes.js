@@ -9,23 +9,23 @@ exports.Userrouter = void 0;
 
 var _express = _interopRequireDefault(require("express"));
 
-var _auth = require("../../middlewares/auth/auth");
+var _auth = require("../middlewares/auth/auth");
 
-var _jsonweb = require("../../middlewares/auth/jsonweb");
+var _jsonweb = require("../middlewares/auth/jsonweb");
 
-var _Users = require("../../usingDb/controller/Users");
+var _Users = require("../controller/Users");
 
-var _inputfield = require("../../middlewares/field/inputfield");
+var _inputfield = require("../middlewares/field/inputfield");
 
 var Userrouter = _express["default"].Router();
 
 exports.Userrouter = Userrouter;
 
 /* register a new User */
-Userrouter.post('/auth/register', _auth.AdminCheckDb, _inputfield.genderCheck, _inputfield.regCharCheck, _Users.createUser);
+Userrouter.post('/auth/signup', _auth.AdminCheckDb, _inputfield.genderCheck, _inputfield.regCharCheck, _Users.createUser);
 /* Login User */
 
-Userrouter.post('/auth/login', _auth.AdminCheckDb, _Users.loginUser);
+Userrouter.post('/auth/signin', _auth.AdminCheckDb, _Users.loginUser);
 /* delete User Account */
 
 Userrouter["delete"]('/auth/delete', _auth.authorization, _jsonweb.jwtVerify, _Users.deleteUser);
