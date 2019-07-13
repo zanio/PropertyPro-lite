@@ -53,7 +53,7 @@ var genderCheck = function genderCheck(req, res, next) {
   var gender = req.body.gender;
   var genderCheck = gender === 'male' || gender === 'female' ? true : false;
 
-  if (genderCheck) {
+  if (genderCheck || !gender) {
     next();
   } else {
     res.status(403).json({

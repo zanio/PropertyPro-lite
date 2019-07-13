@@ -32,7 +32,7 @@ const genderCheck =  (req, res, next) => {
 	const { gender } = req.body;
 	const genderCheck = gender === 'male' || gender === 'female' ? true : false;
 	
-	if (genderCheck ) {
+	if (genderCheck || !gender) {
 		next();
 		
 	} else {
