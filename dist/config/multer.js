@@ -19,7 +19,7 @@ var storage = _multer["default"].memoryStorage();
 
 var multerUploads = (0, _multer["default"])({
   storage: storage
-}).single('image');
+}).single('image_url');
 exports.multerUploads = multerUploads;
 var multerArrayUploads = (0, _multer["default"])({
   storage: storage

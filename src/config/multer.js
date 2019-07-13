@@ -3,7 +3,7 @@ import path from 'path';
 import Datauri from 'datauri';
 const dUri = new Datauri();
 const storage = multer.memoryStorage();
-const multerUploads = multer({ storage }).single('image');
+const multerUploads = multer({ storage }).single('image_url');
 
 const multerArrayUploads = multer({ storage }).array('myFiles', 4);
 
