@@ -41,7 +41,7 @@ function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, email, password, first_name, last_name, phone_number, address, gender, hashPass, createQuery, values, _ref2, rows, id, token, verify_mail, link, data, send;
+    var _req$body, email, password, first_name, last_name, phone_number, address, gender, hashPass, createQuery, values, _ref2, rows, id, token, verify_mail, link, data;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
@@ -100,9 +100,9 @@ function () {
               first_name: first_name,
               last_name: last_name,
               link: link
-            };
-            send = new _sendmail.Mail(verify_mail, (0, _verifyEmail.verifyEmail)(data));
-            send.main();
+            }; // const send = new Mail(verify_mail,verifyEmail(data));
+            // send.main();
+
             return _context.abrupt("return", res.status(201).json({
               status: 201,
               data: {
@@ -119,12 +119,12 @@ function () {
               }
             }));
 
-          case 27:
-            _context.prev = 27;
+          case 25:
+            _context.prev = 25;
             _context.t0 = _context["catch"](10);
 
             if (!(_context.t0.routine === '_bt_check_unique')) {
-              _context.next = 31;
+              _context.next = 29;
               break;
             }
 
@@ -133,9 +133,9 @@ function () {
               error: 'User with that EMAIL already exist'
             }));
 
-          case 31:
+          case 29:
             if (!(_context.t0.routine === 'varchar')) {
-              _context.next = 33;
+              _context.next = 31;
               break;
             }
 
@@ -144,18 +144,18 @@ function () {
               error: 'Phone Number cannot be more than 13 characters'
             }));
 
-          case 33:
-            return _context.abrupt("return", res.status(400).send({
+          case 31:
+            return _context.abrupt("return", res.status(400).json({
               status: 400,
               error: 'Validation error, please make sure you fill in all input correctly'
             }));
 
-          case 34:
+          case 32:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[10, 27]]);
+    }, _callee, null, [[10, 25]]);
   }));
 
   return function createUser(_x, _x2) {

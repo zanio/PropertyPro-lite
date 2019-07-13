@@ -166,18 +166,16 @@ var regCharCheck = function regCharCheck(req, res, next) {
 exports.regCharCheck = regCharCheck;
 
 var regNumCheck = function regNumCheck(req, res, next) {
-  var newUser = req.newUser;
-  var numInfo = newUser.phone_number;
-  var numRex = (0, _numRegex.numRegex)(numInfo);
-  var lengthNum = (0, _numRegex.phoneLength)(numInfo);
+  var phone_number = req.body.phone_number;
+  var numRex = (0, _numRegex.numRegex)(phone_number);
+  var lengthNum = (0, _numRegex.phoneLength)(phone_number);
 
-  if (numRex && lengthNum) {
-    req.newUser = newUser;
+  if (numRex & lengthNum) {
     next();
   } else {
     res.status(422).json({
       status: 422,
-      error: 'phone number can only be digits with at least 11 characters and less than 13 characters'
+      error: 'phone number can only be digits with 11 characters and less than 13 characters'
     });
     return;
   }

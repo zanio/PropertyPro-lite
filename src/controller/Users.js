@@ -63,8 +63,8 @@ const createUser = async (req, res) => {
 			last_name,
 			link
 		};
-		const send = new Mail(verify_mail,verifyEmail(data));
-		send.main();
+		// const send = new Mail(verify_mail,verifyEmail(data));
+		// send.main();
 		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender,is_verify:rows[0].is_verify,is_admin:req.is_admin === 'False' ? false:true} });
 	} catch(error) {
 		if (error.routine === '_bt_check_unique') {
@@ -73,7 +73,7 @@ const createUser = async (req, res) => {
 		if(error.routine === 'varchar'){
 			return res.status(422).json({status:422, error: 'Phone Number cannot be more than 13 characters' });
 		}
-		return res.status(400).send({status:400,error:'Validation error, please make sure you fill in all input correctly'});
+		return res.status(400).json({status:400,error:'Validation error, please make sure you fill in all input correctly'});
 	}
 };
 

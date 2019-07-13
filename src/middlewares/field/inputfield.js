@@ -106,18 +106,18 @@ const regCharCheck = (req, res, next)=>{
 };
 
 const regNumCheck = (req, res, next)=>{
-	const {newUser} = req;
-	const numInfo = newUser.phone_number;
-	const numRex = numRegex(numInfo);
-	const lengthNum = phoneLength(numInfo);
+	const {phone_number} = req.body;
+
+	const numRex = numRegex(phone_number);
+	const lengthNum = phoneLength(phone_number);
 	
-	if(numRex && lengthNum){
-		req.newUser = newUser;
+	
+	if(numRex & lengthNum){
 		next();
 	} 
 	else
 	{
-		res.status(422).json({status:422,error:'phone number can only be digits with at least 11 characters and less than 13 characters'});
+		res.status(422).json({status:422, error:'phone number can only be digits with 11 characters and less than 13 characters'});
 		return;
 	}
 };
