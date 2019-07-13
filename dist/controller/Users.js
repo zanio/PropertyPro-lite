@@ -49,7 +49,7 @@ function () {
           case 0:
             _req$body = req.body, email = _req$body.email, password = _req$body.password, first_name = _req$body.first_name, last_name = _req$body.last_name, phone_number = _req$body.phone_number, address = _req$body.address, gender = _req$body.gender;
 
-            if (!(!email || !password)) {
+            if (!(!email || !password || !first_name || !last_name || !phone_number)) {
               _context.next = 3;
               break;
             }

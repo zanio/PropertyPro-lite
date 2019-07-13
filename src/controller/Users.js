@@ -18,7 +18,7 @@ import url from 'url';
    */
 const createUser = async (req, res) => {
 	const {email,password,first_name,last_name,phone_number,address,gender} = req.body;
-	if (!email || !password) {
+	if (!email || !password || !first_name || !last_name || !phone_number) {
 		return res.status(400).json({'message': 'Some values are missing'});
 	}
 	if (!isValidEmail(req.body.email)) {
@@ -73,7 +73,7 @@ const createUser = async (req, res) => {
 		if(error.routine === 'varchar'){
 			return res.status(422).json({status:422, error: 'Phone Number cannot be more than 13 characters' });
 		}
-		return res.status(400).json({status:400,error:'Validation error, please make sure you fill in all input correctly'});
+		return res.status(400).json({status:400, error: 'Validation error, please make sure you fill in all input correctly' });
 	}
 };
 
