@@ -145,7 +145,7 @@ function () {
             }));
 
           case 33:
-            return _context.abrupt("return", res.status(400).json({
+            return _context.abrupt("return", res.status(400).send({
               status: 400,
               error: 'Validation error, please make sure you fill in all input correctly'
             }));

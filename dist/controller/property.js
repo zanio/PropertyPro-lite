@@ -55,7 +55,10 @@ function () {
           case 11:
             _context.prev = 11;
             _context.t0 = _context["catch"](3);
-            return _context.abrupt("return", res.status(400).send(_context.t0));
+            return _context.abrupt("return", res.status(400).send({
+              status: 400,
+              error: 'error occured during the process'
+            }));
 
           case 14:
           case "end":
