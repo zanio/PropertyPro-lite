@@ -23,7 +23,7 @@ var propertyrouter = express.Router();
 exports.propertyrouter = propertyrouter;
 
 /* create propertyadvert advert  */
-propertyrouter.post('/property', _auth.authorization, _jsonweb.jwtVerify, _multer.multerUploads, _inputfield.checkPropertyEmpty, _inputfield.checkPropertyField, _cloudinary.cloudinaryHandler, _property.createProperty);
+propertyrouter.post('/property', _multer.multerUploads, _inputfield.checkPropertyEmpty, _inputfield.checkPropertyField, _auth.authorization, _jsonweb.jwtVerify, _cloudinary.cloudinaryHandler, _property.createProperty);
 propertyrouter.patch('/property/:id', _auth.idCheck, _auth.authorization, _jsonweb.jwtVerify, _multer.multerUploads, _inputfield.checkPropertyEmpty, _inputfield.checkPropertyField, _cloudinary.cloudinaryHandler, _property.updateProperty);
 propertyrouter.patch('/property/:id/sold', _auth.idCheck, _auth.authorization, _jsonweb.jwtVerify, _property.updatePropertyStatus);
 propertyrouter["delete"]('/property/:id', _auth.idCheck, _auth.authorization, _jsonweb.jwtVerify, _property.deleteProperty);

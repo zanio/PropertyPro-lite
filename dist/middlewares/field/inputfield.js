@@ -72,6 +72,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
     (0, _multer.dataUri)(req);
     var _req$body = req.body,
         property_name = _req$body.property_name,
+        token = _req$body.token,
         status = _req$body.status,
         price = _req$body.price,
         state = _req$body.state,

@@ -47,7 +47,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 	try {
 		//dataUris(req);
 		dataUri(req);
-		const {property_name, status,price,state,city,type,contact_person_number,contact_person_address,proof,note} = req.body;
+		const {property_name, token, status,price,state,city,type,contact_person_number,contact_person_address,proof,note} = req.body;
 		const image = req.file;
 		//const image = req.file;
 		

@@ -10,8 +10,8 @@ import {createProperty,getOneFlaggedProperty,getAddress,getAllFlaggedProperty,re
 
 
 /* create propertyadvert advert  */
-propertyrouter.post('/property', authorization, 
-	jwtVerify, multerUploads, checkPropertyEmpty,checkPropertyField,cloudinaryHandler, createProperty);
+propertyrouter.post('/property',multerUploads, checkPropertyEmpty,checkPropertyField , authorization, 
+	jwtVerify,cloudinaryHandler, createProperty);
 
 
 propertyrouter.patch('/property/:id', idCheck, authorization, 
