@@ -145,7 +145,10 @@ function () {
             }));
 
           case 33:
-            return _context.abrupt("return", res.status(400).json(_context.t0));
+            return _context.abrupt("return", res.status(400).json({
+              status: 400,
+              error: 'Validation error, please make sure you fill in all input correctly'
+            }));
 
           case 34:
           case "end":

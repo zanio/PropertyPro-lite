@@ -73,7 +73,7 @@ const createUser = async (req, res) => {
 		if(error.routine === 'varchar'){
 			return res.status(422).json({status:422, error: 'Phone Number cannot be more than 13 characters' });
 		}
-		return res.status(400).json(error);
+		return res.status(400).json({status:400,error:'Validation error, please make sure you fill in all input correctly'});
 	}
 };
 
