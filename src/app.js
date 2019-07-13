@@ -4,11 +4,9 @@ import morgan from 'morgan';
 import { cloudinaryConfig } from './config/cloudinaryConfig';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../swagger.json';
-import routerJsObject from './routes/routesjs/index.routes';
-import routerdb from './routes/routesdb/index.routes';
+import router from './routes/index.routes';
 import cors from 'cors';
 
-const router = !process.env.type? routerJsObject : routerdb;
 
 
 // App
@@ -17,12 +15,12 @@ const app = express();
 // Morgan
 app.use(morgan('tiny'));
 
-const configurationOption = {
-	origin: ['http://127.0.0.1:5500','https://propertpro-lite.herokuapp.com','https://zanio.github.io']
-};
+// const configurationOption = {
+// 	origin: ['http://127.0.0.1:5500','https://propertpro-lite.herokuapp.com','https://zanio.github.io']
+// };
 
 //Cors configuration
-app.use(cors(configurationOption));
+app.use(cors());
 
 app.use( (request, response, next) => {
 	response.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');

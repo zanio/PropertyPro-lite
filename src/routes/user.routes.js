@@ -1,16 +1,16 @@
 import express from 'express' ;
 const Userrouter = express.Router();
-import {AdminCheckDb,authorization} from '../../middlewares/auth/auth';
-import {jwtVerify} from '../../middlewares/auth/jsonweb';
-import {createUser,deleteUser, loginUser,verifyUserEmail,resetLink,resetPassword,updatePassword} from '../../usingDb/controller/Users';
-import {genderCheck,regCharCheck} from '../../middlewares/field/inputfield';
+import {AdminCheckDb,authorization} from '../middlewares/auth/auth';
+import {jwtVerify} from '../middlewares/auth/jsonweb';
+import {createUser,deleteUser, loginUser,verifyUserEmail,resetLink,resetPassword,updatePassword} from '../controller/Users';
+import {genderCheck,regCharCheck} from '../middlewares/field/inputfield';
 
 
 /* register a new User */
-Userrouter.post('/auth/register', AdminCheckDb,genderCheck,regCharCheck, createUser);
+Userrouter.post('/auth/signup', AdminCheckDb,genderCheck,regCharCheck, createUser);
 
 /* Login User */
-Userrouter.post('/auth/login',AdminCheckDb,loginUser);
+Userrouter.post('/auth/signin',AdminCheckDb,loginUser);
 
 
 /* delete User Account */

@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
-import {Userrouter} from './userdb.routes';
-import {propertyrouter} from './propertydb.routes';
+import {Userrouter} from './user.routes';
+import {propertyrouter} from './property.routes';
 import {adminrouter} from './admin.routes';
 
 

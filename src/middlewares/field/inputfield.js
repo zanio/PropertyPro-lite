@@ -1,14 +1,9 @@
-//import { newDate,getSubId } from './helper';
 import { checkLetter, Arr } from '../../utils/string';
 import { numRegex , phoneLength} from '../../utils/numRegex';
 import checkFloat from '../../utils/checkfloat';
-import {dataUri} from '../../config/multer';
-let {users} = require('../../usingJSObject/data/users');
-import {harshPassword,getNewId}  from '../../helpers/helper';
+import {dataUri,dataUris} from '../../config/multer';
 import {validateEmail} from '../../utils/email';
-import {error} from '../../usingJSObject/data/error';
 
-import jwt  from 'jsonwebtoken';
 import dotenv  from 'dotenv';
 dotenv.config();
 
@@ -18,9 +13,9 @@ const checkPropertyField = (req, res, next) =>{
 	const letterBolean = checkLetter(boolArray);
 	const floatBoolean = checkFloat(float.price);
 	if(!letterBolean){
-		res.status(403).json(error.label_err_403);
+		res.status(403).json({status:403,error:'the property information can only contain aphabetic character'});
 	} else if (!floatBoolean){
-		res.status(403).json(error.price_403);
+		res.status(403).json({status:403,error:'price value can only be numbers or floating numbers'});
 	}
 	else{
 		req.price = parseFloat(float.price);
@@ -31,57 +26,6 @@ const checkPropertyField = (req, res, next) =>{
     
 };
 
-const checkFieldsUser =  (req, res, next) => {
-	const { first_name,last_name, password, address, email,phone_number,gender } = req.body;
-	const {is_Admin} = req;
-	const checkAdmin =  is_Admin ? true : false;
-	const id = { id: getNewId(users) };
-	
-	
-
-	if (first_name && last_name && password && address && email && phone_number && gender  ) {
-		let newPassword = null;
-		harshPassword(password).then(result=>{
-			if(result) {
-				newPassword = result;		
-				const namedata = {
-					first_name,
-					last_name
-			
-				};
-				const newUserNotoken = {
-					...namedata,
-					email,
-					password:newPassword,
-					address,
-					phone_number,
-					gender,
-					is_Admin:checkAdmin,
-			
-				};
-
-				const token = jwt.sign({ code: newPassword,...id, newUserNotoken }, process.env.SECRET_KEY);
-
-				const newUser = {
-					token,
-					...newUserNotoken
-			
-				};
-		
-				req.newUser = newUser;
-				next();
-		
-				
-			}
-		});
-		
-
-		
-	} else {
-		res.status(403).json(error.all_field_403);
-		return;
-	}
-};
 
 
 const genderCheck =  (req, res, next) => {
@@ -92,7 +36,7 @@ const genderCheck =  (req, res, next) => {
 		next();
 		
 	} else {
-		res.status(403).json(error.gender_error_403);
+		res.status(403).json({status:403, error:'gender can only be male or female values'});
 		return;
 	}
 };
@@ -101,12 +45,16 @@ const genderCheck =  (req, res, next) => {
 const checkPropertyEmpty = (req, res, next) =>{
 	
 	try {
+		//dataUris(req);
 		dataUri(req);
 		const {property_name, status,price,state,city,type,contact_person_number,contact_person_address,proof,note} = req.body;
 		const image = req.file;
-		if(status && city && state  && property_name && price && image && type && contact_person_number && contact_person_address ){
+		//const image = req.file;
+		
+		
+		if(status && city && state && property_name && price && image && type && contact_person_number && contact_person_address ){
 			const property = {status,state,type};
-			const image_url = {image};
+			const image_url = image;
 			const float = {price};
 			const other_details = {contact_person_number,city,contact_person_address,proof,note,property_name};
 			req.property = property;
@@ -115,11 +63,11 @@ const checkPropertyEmpty = (req, res, next) =>{
 			req.other_details = other_details;
 			next();
 		} else{
-			res.status(403).json(error.all_field_403);
+			res.status(403).json({status:403,error:'please fill all filled correctly'});
 		}
 	} 
 	catch(errors){
-		res.status(403).json(error.input_image_403);
+		res.status(403).json({status:403,error:'please fill all filled correctly and upload an image'});
 		
 	}
 	
@@ -132,7 +80,7 @@ const emailValidation = (req, res, next)=>{
 	if(validateEmail(email) && email){
 		next();
 	} else{
-		res.status(402).json(error.invalid_email_402);
+		res.status(422).json({status:422,error:'invalid email validation'});
 		return;
 	}
 };
@@ -152,7 +100,7 @@ const regCharCheck = (req, res, next)=>{
 	} 
 	else
 	{
-		res.status(404).json(error.string_err_403);
+		res.status(404).json({status:404,error:'first_name and last_name can only be letter characters'});
 		return;
 	}
 };
@@ -169,11 +117,11 @@ const regNumCheck = (req, res, next)=>{
 	} 
 	else
 	{
-		res.status(404).json(error.interger_err_404);
+		res.status(422).json({status:422,error:'phone number can only be digits with at least 11 characters and less than 13 characters'});
 		return;
 	}
 };
 
 
 
-export {checkPropertyField,checkFieldsUser,genderCheck,checkPropertyEmpty,emailValidation,regCharCheck,regNumCheck};
+export {checkPropertyField,genderCheck,checkPropertyEmpty,emailValidation,regCharCheck,regNumCheck};

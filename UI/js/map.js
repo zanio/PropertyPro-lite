@@ -1,6 +1,7 @@
 
 let address;
 let endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/property-advert/address/';
+let endpoint2 = 'https://propertpro-lite.herokuapp.com/api/v1/property-advert/search?type=flat';
 
 let getAdress = (url,id)=>{
 	return new Promise((resolve,reject)=>{
@@ -14,11 +15,13 @@ let getAdress = (url,id)=>{
 	});
 };
 
+getAdress(endpoint2,'').then(res=>console.log(res)).catch(err=>console.log(err));
+
 let latitude,longitude;
 
 async function geolocation(){
 	var geocoder = new google.maps.Geocoder();
-	const res = await getAdress(endpoint,2);
+	const res = await getAdress(endpoint,1);
 	address = res.data.contact_person_address+' ,'+res.data.city+' ,'+res.data.state;
 	geocoder.geocode( { 'address': address},function(results,status){
     
