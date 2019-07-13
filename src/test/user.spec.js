@@ -27,7 +27,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/register')
+			.post('/api/v1/auth/signup')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.data).to.have.property('email');
@@ -57,7 +57,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/register')
+			.post('/api/v1/auth/signup')
 			.send(body)
 			.end((err, res) => {
 				
@@ -80,7 +80,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/register')
+			.post('/api/v1/auth/signup')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.status).to.equal(404);
@@ -90,7 +90,7 @@ describe('/POST User', () => {
 			});
 	});
 
-	it('it should login existing user ', (done) => {
+	it('it should signin existing user ', (done) => {
 		const body = {
 			email: 'davephenom@gmail.com',
 			password: 'jhfdcthjk24r44',
@@ -98,7 +98,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/login')
+			.post('/api/v1/auth/signin')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.data).to.have.property('email');
@@ -123,7 +123,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/login')
+			.post('/api/v1/auth/signin')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.status).to.equal(403);
@@ -140,7 +140,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/register')
+			.post('/api/v1/auth/signup')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.status).to.equal(403);
@@ -162,7 +162,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/register')
+			.post('/api/v1/auth/signup')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.status).to.equal(403);
@@ -179,7 +179,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/login')
+			.post('/api/v1/auth/signin')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.status).to.equal(402);
@@ -200,7 +200,7 @@ describe('/POST User', () => {
 		};
   
 		chai.request(app)
-			.post('/api/v1/auth/register')
+			.post('/api/v1/auth/signup')
 			.send(body)
 			.end((err, res) => {
 				expect(res.body.data).to.have.property('email');

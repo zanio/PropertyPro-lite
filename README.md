@@ -92,15 +92,15 @@ The application can be tested locally through localhost on port 3300 or through 
 
 Method        | Endpoint      | Enable a user to: |
 ------------- | ------------- | ---------------
-POST  | api/v1/auth/register  | Create user account  |
-POST  | api/v1/auth/login  | Login a user |
-POST  | api/v1/property-advert  | Create a property advert |
-PATCH  | api/v1/property-advert/<:property-id>  | Update property data |
-PATCH  | api/v1/property-advert/<:property-id>/sold  | Mark a property as sold so users know it’s no longer available |
-DELETE  | api/v1/property-advert/<:property-id>  | Delete a property advert |
-GET  | api/v1/property-advert/ | Get all property adverts |
-GET  | api/v1/property-advert/search?type =​ propertyType  | Get all property advertisement offering a specific type of property (e,g flat, mini-flat,etc) |
-GET  | api/v1/property-advert/<:property-id>  | View a specific property advert |
+POST  | api/v1/auth/signup  | Create user account  |
+POST  | api/v1/auth/signin  | Login a user |
+POST  | api/v1/property  | Create a property advert |
+PATCH  | api/v1/property/<:property-id>  | Update property data |
+PATCH  | api/v1/property/<:property-id>/sold  | Mark a property as sold so users know it’s no longer available |
+DELETE  | api/v1/property/<:property-id>  | Delete a property advert |
+GET  | api/v1/property/ | Get all property adverts |
+GET  | api/v1/property/search?type =​ propertyType  | Get all property advertisement offering a specific type of property (e,g flat, mini-flat,etc) |
+GET  | api/v1/property/<:property-id>  | View a specific property advert |
 
 ## Acknowledgements
 

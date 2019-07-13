@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {query} from '../db';
+import {generateId} from '../helpers/helper'
 
 
 
@@ -13,11 +14,12 @@ import {query} from '../db';
 
 const createProperty = async(req, res) => { 
 	const {property_name, status,state,city,property_description, price,contact_person_number,contact_person_address, proof,note,type} = req.body;
-	const createQuery = `INSERT INTO property(owner_id,
+	const createQuery = `INSERT INTO property(id,owner_id,
 		 status,state,city,type, price,property_name,property_description,contact_person_number,
 		contact_person_address, proof,note,image,created_date, modified_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15) returning *`;
+      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
 	const values = [
+		generateId()+'1',
 		req.result.userId,
 		status,
 		state,
@@ -55,10 +57,11 @@ const createProperty = async(req, res) => {
 
 const reportProperty = async(req, res) => { 
 	const {reason,description,experience} = req.body;
-	const createQuery = `INSERT INTO report(property_id,
+	const createQuery = `INSERT INTO report(id,property_id,
 		reporter_id,reason,description,experience,created_date)
-      VALUES($1, $2, $3, $4, $5, $6) returning *`;
+      VALUES($1, $2, $3, $4, $5, $6,$7) returning *`;
 	const values = [
+		generateId()+'1',
 		req.params.id,
 		req.result.userId,
 		reason,
@@ -84,13 +87,14 @@ const reportProperty = async(req, res) => {
 
 
 const flaggedProperty = async(req, res) => { 
-	const createQuery = `INSERT INTO flagged(
+	const createQuery = `INSERT INTO flagged(id,
 		report_id,admin_name,created_date)
 	  VALUES($1, $2,$3) returning *`;
 	const queryAdmin = `SELECT first_name,last_name,is_admin
 	FROM users where id = $1`;
 	const { rows } = await query(queryAdmin, [req.result.userId]);
 	const values = [
+		generateId(1),
 		req.params.id,
 		rows[0].first_name+' '+rows[0].last_name,
 		moment(new Date())

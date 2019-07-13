@@ -48,7 +48,7 @@
         }
       }
     },
-    "/auth/register": {
+    "/auth/signup": {
       "post": {
         "tags": [
           "Users"
@@ -121,7 +121,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/auth/signin": {
       "post": {
         "tags": [
           "Users"
@@ -179,7 +179,7 @@
         }
       }
     },
-    "/property-advert": {
+    "/property": {
       "get": {
         "tags": [
           "Properties"
@@ -304,7 +304,7 @@
         }
       }
     },
-    "/property-advert/{propertyId}": {
+    "/property/{propertyId}": {
       "get": {
         "tags": [
           "Properties"
@@ -515,7 +515,7 @@
         }
       }
     },
-    "/property-advert/{propertyId}/sold": {
+    "/property/{propertyId}/sold": {
       "patch": {
         "tags": [
           "Properties"
@@ -598,7 +598,7 @@
         }
       }
     },
-    "/property-advert/search/": {
+    "/property/search/": {
       "get": {
         "tags": [
           "Properties"
@@ -649,7 +649,7 @@
         }
       }
     },
-    "/property-advert/user": {
+    "/property/user": {
       "get": {
         "tags": [
           "Properties"
@@ -694,7 +694,7 @@
         }
       }
     },
-    "/property-advert/{propertyId}/report": {
+    "/property/{propertyId}/report": {
       "post": {
         "tags": [
           "Properties"
@@ -771,7 +771,7 @@
         }
       }
     },
-    "/admin/property-advert/{propertyId}/flagged": {
+    "/admin/property/{propertyId}/flagged": {
       "put": {
         "tags": [
           "Properties"
@@ -827,12 +827,12 @@
         }
       }
     },
-    "/admin/register": {
+    "/admin/signup": {
       "post": {
         "tags": [
           "Users"
         ],
-        "summary": "admin can can register new admin",
+        "summary": "admin can can signup new admin",
         "security": [
           {
             "bearerAuth": []
@@ -887,7 +887,7 @@
         }
       }
     },
-    "/property-advert/flagged/{propertyId}": {
+    "/property/flagged/{propertyId}": {
       "get": {
         "tags": [
           "Properties"
@@ -1253,7 +1253,7 @@
         }
       }
     },
-    "/property-advert/address/{propertyId}": {
+    "/property/address/{propertyId}": {
       "get": {
         "tags": [
           "Properties"

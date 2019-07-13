@@ -1,10 +1,10 @@
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import {query} from '../db';
-import {isValidEmail,hashPassword,comparePassword,generateToken,emailToken} from '../../helpers/helper';
-import {Mail} from '../../services/sendmail';
-import {resetPass} from '../../services/template/resetPassword';
-import {verifyEmail} from '../../services/template/verifyEmail';
+import {isValidEmail,hashPassword,comparePassword,generateToken,emailToken} from '../helpers/helper';
+import {Mail} from '../services/sendmail';
+import {resetPass} from '../services/template/resetPassword';
+import {verifyEmail} from '../services/template/verifyEmail';
 import jwt from 'jsonwebtoken';
 import url from 'url';
 

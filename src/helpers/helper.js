@@ -1,6 +1,6 @@
-import {error} from '../usingJSObject/data/error';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+
 const getNewId = (array) => {
    
 	if (array.length > 0) {
@@ -30,15 +30,7 @@ const getSubId = (array) => {
 };
 const newDate = () => new Date().toLocaleString();
 
-const mustBeInArray = (array, id) =>{
-	return new Promise((resolve, reject) => {
-		const row = array.find(r => r.id == id);
-		if (!row) {
-			reject(error.user_404);
-		}
-		resolve(row);
-	});
-};
+
 
 const hashPassword = (password)=>{
 	return new Promise((resolve, reject)=>{
@@ -65,16 +57,6 @@ const adminDb = (array, email) =>{
 	// eslint-disable-next-line no-unused-vars
 	return new Promise((resolve, reject) => {
 		const db = array.find(r => r.email === email);
-		resolve(db);
-	});
-};
-
-const typeSearch = (array, type) =>{
-	return new Promise((resolve, reject) => {
-		const db = array.filter(r => r.type === type);
-		if(!db){
-			reject(error.property_404);
-		}
 		resolve(db);
 	});
 };
@@ -112,7 +94,13 @@ const emailToken = (rand) => {
     
 };
 
+const generateId = ()=>{
+	let rand=Math.floor((Math.random() * 1000) + 400);
+	console.log(rand,rand+1000)
+	return rand+1000;
+}
 
 
 
-export {getNewId,emailToken,newDate,mustBeInArray,hashPassword,getSubId,adminDb,typeSearch,isValidEmail,generateToken,comparePassword};
+
+export {getNewId,emailToken,generateId,newDate,hashPassword,getSubId,adminDb,isValidEmail,generateToken,comparePassword};
