@@ -95,11 +95,11 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
     //console.log(token,'this is the token that is to be used for authentication');
 
     if (city && state && price && image_url && type && address) {
-      console.log(token, 'this is the token that is to be used for authentication');
+      console.log(token, _image_url, 'this is the token that is to be used for authentication');
       var property = {
-        status: status,
         state: state,
-        type: type
+        type: type,
+        city: city
       };
       var _image_url = _image_url;
       var _float2 = {
@@ -125,6 +125,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
       });
     }
   } catch (errors) {
+    console.log(errors);
     res.status(403).json({
       status: 403,
       error: 'please fill all filled correctly and upload an image'

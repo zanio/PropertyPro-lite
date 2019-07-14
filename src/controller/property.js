@@ -20,7 +20,7 @@ const createProperty = async(req, res) => {
       VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
 	const values = [
 		generateId()+'1',
-		req.result.userId,
+		req.body.token.userId,
 		status,
 		state,
 		city,
@@ -42,7 +42,7 @@ const createProperty = async(req, res) => {
 		const { rows } = await query(createQuery, values);
 		return res.status(201).json({status:201,data:rows[0]});
 	} catch(error) {
-		//console.log(error)
+		console.log(error)
 		return res.status(400).json({status:400,error:'error occured during the process'});
 	}
 };
