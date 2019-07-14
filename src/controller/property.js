@@ -40,6 +40,7 @@ const createProperty = async(req, res) => {
 	
 	try {
 		const { rows } = await query(createQuery, values);
+		console.log(rows[0])
 		return res.status(201).json({status:201,data:rows[0]});
 	} catch(error) {
 		console.log(error)

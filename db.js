@@ -22,7 +22,7 @@ const createPropertyTable = () => {
     `CREATE TABLE IF NOT EXISTS property (
 		id SERIAL PRIMARY KEY,
 		owner_id UUID ,
-        status TEXT NOT NULL,
+        status TEXT,
         state TEXT NOT NULL,
 		city TEXT NOT NULL,
 		type VARCHAR(120) NOT NULL,

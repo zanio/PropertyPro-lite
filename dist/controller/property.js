@@ -47,13 +47,14 @@ function () {
           case 6:
             _ref2 = _context.sent;
             rows = _ref2.rows;
+            console.log(rows[0]);
             return _context.abrupt("return", res.status(201).json({
               status: 201,
               data: rows[0]
             }));
 
-          case 11:
-            _context.prev = 11;
+          case 12:
+            _context.prev = 12;
             _context.t0 = _context["catch"](3);
             console.log(_context.t0);
             return _context.abrupt("return", res.status(400).json({
@@ -61,12 +62,12 @@ function () {
               error: 'error occured during the process'
             }));
 
-          case 15:
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[3, 11]]);
+    }, _callee, null, [[3, 12]]);
   }));
 
   return function createProperty(_x, _x2) {
