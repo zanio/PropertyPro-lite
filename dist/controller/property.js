@@ -661,12 +661,12 @@ function () {
             updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  contact_person_address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image = $12\n\t  WHERE id=$13 AND owner_id = $14 returning *";
             _context11.prev = 2;
             _context11.next = 5;
-            return (0, _db.query)(findOneQuery, [req.params.id, req.result.userId.toString()]);
+            return (0, _db.query)(findOneQuery, [parseInt(req.params.id), req.result.userId.toString()]);
 
           case 5:
             _ref22 = _context11.sent;
             rows = _ref22.rows;
-            console.log((0, _typeof2["default"])(req.result.userId), (0, _typeof2["default"])(req.params.id), rows[0]);
+            console.log((0, _typeof2["default"])(req.result.userId), (0, _typeof2["default"])(parseInt(req.params.id)), rows);
 
             if (rows[0].id) {
               _context11.next = 10;
