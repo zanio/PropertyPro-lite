@@ -666,7 +666,7 @@ function () {
           case 5:
             _ref22 = _context11.sent;
             rows = _ref22.rows;
-            console.log((0, _typeof2["default"])(req.result.userId), (0, _typeof2["default"])(parseInt(req.params.id)), rows);
+            console.log(req.result.userId, (0, _typeof2["default"])(parseInt(req.params.id)), rows);
 
             if (rows[0].id) {
               _context11.next = 10;
