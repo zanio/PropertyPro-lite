@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.updateprice = exports.regNumCheck = exports.regCharCheck = exports.emailValidation = exports.checkPropertyEmpty = exports.genderCheck = exports.checkPropertyField = void 0;
 
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
+
 var _string = require("../../utils/string");
 
 var _numRegex = require("../../utils/numRegex");
@@ -141,7 +143,7 @@ var updateprice = function updateprice(req, res, next) {
   var _req$body2 = req.body,
       token = _req$body2.token,
       price = _req$body2.price;
-  console.log(price);
+  console.log((0, _typeof2["default"])(price));
   price = price ? price.trim() : null;
 
   if (price) {

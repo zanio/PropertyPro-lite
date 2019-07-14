@@ -93,7 +93,7 @@ const updateprice = (req, res, next) =>{
 	
 	
 	let {token,price} = req.body;
-	console.log(price);
+	console.log(typeof price);
 	price = price ? price.trim():null;
 		
 		
