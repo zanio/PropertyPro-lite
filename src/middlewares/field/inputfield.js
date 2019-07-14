@@ -53,7 +53,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 		
 		
 		if(status && city && state && price && image_url && type && address, token ){
-			console.log(token);
+			console.log(token,'this is the token that is to be used for authentication');
 			const property = {status,state,type};
 			const image_url = image_url;
 			const float = {price};

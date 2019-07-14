@@ -55,7 +55,8 @@ function () {
             }
 
             return _context.abrupt("return", res.status(400).json({
-              'message': 'Some values are missing'
+              status: 400,
+              error: 'Some values are missing'
             }));
 
           case 3:
@@ -65,7 +66,8 @@ function () {
             }
 
             return _context.abrupt("return", res.status(400).json({
-              'message': 'Please enter a valid email address'
+              status: 400,
+              error: 'Please enter a valid email address'
             }));
 
           case 5:
