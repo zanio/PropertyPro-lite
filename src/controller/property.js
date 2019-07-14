@@ -14,15 +14,15 @@ import {generateId} from '../helpers/helper'
 
 const createProperty = async(req, res) => { 
 	const {property_name, status,state,city,property_description, price,contact_person_number, address, proof,note,type} = req.body;
-	const createQuery = `INSERT INTO property(id,
+	const createQuery = `INSERT INTO property(id,owner_email,
 		 status,state,city,type, price,property_name,property_description,contact_person_number,
 		address, proof,note,image_url,created_on, modified_on)
-	  VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15) returning *`;
-	//   const selectemail = 'SELECT email FROM users WHERE id = $1';
-	//   const response = await query(selectemail, [req.result.userId]);
+	  VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
+	  const selectemail = 'SELECT email FROM users WHERE id = $1';
+	  const response = await query(selectemail, [req.result.userId]);
 	const values = [
 		generateId()+'1',
-		
+		response.rows[0].email,
 		'available',
 		state,
 		city,
