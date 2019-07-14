@@ -288,7 +288,7 @@ const updateProperty = async (req, res) => {
 	try {
 		
 
-		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
+		const { rows } = await query(findOneQuery, [`${req.params.id}`, `${req.result.userId}`]);
 		console.log(req.result.userId,req.params.id, rows)
 		if(!rows[0].id) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
@@ -312,7 +312,6 @@ const updateProperty = async (req, res) => {
 		const response = await query(updateOneQuery, values);
 		return res.status(200).json({status:200,data:response.rows[0]});
 	} catch(err) {
-		console.log(err)
 		return res.status(400).json({status:400,error:'error occured during the process'});
 	}
 };

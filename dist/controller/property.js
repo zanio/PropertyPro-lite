@@ -659,7 +659,7 @@ function () {
             updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  contact_person_address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image = $12\n\t  WHERE id=$13 AND owner_id = $14 returning *";
             _context11.prev = 2;
             _context11.next = 5;
-            return (0, _db.query)(findOneQuery, [req.params.id, req.result.userId]);
+            return (0, _db.query)(findOneQuery, ["".concat(req.params.id), "".concat(req.result.userId)]);
 
           case 5:
             _ref22 = _context11.sent;
@@ -691,13 +691,12 @@ function () {
           case 17:
             _context11.prev = 17;
             _context11.t0 = _context11["catch"](2);
-            console.log(_context11.t0);
             return _context11.abrupt("return", res.status(400).json({
               status: 400,
               error: 'error occured during the process'
             }));
 
-          case 21:
+          case 20:
           case "end":
             return _context11.stop();
         }
