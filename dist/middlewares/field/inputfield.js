@@ -85,6 +85,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         proof = _req$body.proof,
         note = _req$body.note;
     var image_url = req.file;
+    console.log(image_url);
     property_name = property_name ? property_name.trim() : null;
     status = status ? status.trim() : null;
     price = price ? price.trim() : null;
