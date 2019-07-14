@@ -286,6 +286,8 @@ const updateProperty = async (req, res) => {
 	  modified_date=$11, image = $12
       WHERE id=$13 AND owner_id = $14 returning *`;
 	try {
+		console.log(rows[0].id,rows[0].owner_id)
+
 		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
 		console.log(rows[0])
 		if(!rows[0].id) {
