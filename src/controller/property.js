@@ -13,10 +13,10 @@ import {generateId} from '../helpers/helper'
 
 
 const createProperty = async(req, res) => { 
-	const {property_name, status,state,city,property_description, price,contact_person_number,contact_person_address, proof,note,type} = req.body;
+	const {property_name, status,state,city,property_description, price,contact_person_number, address, proof,note,type} = req.body;
 	const createQuery = `INSERT INTO property(id,owner_id,
 		 status,state,city,type, price,property_name,property_description,contact_person_number,
-		contact_person_address, proof,note,image,created_date, modified_date)
+		address, proof,note,image_url,created_date, modified_date)
       VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
 	const values = [
 		generateId()+'1',
@@ -29,7 +29,7 @@ const createProperty = async(req, res) => {
 		property_name,
 		property_description,
 		contact_person_number,
-		contact_person_address, 
+		address, 
 		proof,
 		note,
 		req.Image_url,
@@ -42,7 +42,8 @@ const createProperty = async(req, res) => {
 		const { rows } = await query(createQuery, values);
 		return res.status(201).json({status:201,data:rows[0]});
 	} catch(error) {
-		return res.status(400).send({status:400,error:'error occured during the process'});
+		//console.log(error)
+		return res.status(400).json({status:400,error:'error occured during the process'});
 	}
 };
 

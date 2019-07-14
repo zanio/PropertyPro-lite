@@ -31,15 +31,15 @@ function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, property_name, status, state, city, property_description, price, contact_person_number, contact_person_address, proof, note, type, createQuery, values, _ref2, rows;
+    var _req$body, property_name, status, state, city, property_description, price, contact_person_number, address, proof, note, type, createQuery, values, _ref2, rows;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, property_name = _req$body.property_name, status = _req$body.status, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, contact_person_address = _req$body.contact_person_address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
-            createQuery = "INSERT INTO property(id,owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\tcontact_person_address, proof,note,image,created_date, modified_date)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *";
-            values = [(0, _helper.generateId)() + '1', req.result.userId, status, state, city, type, price, property_name, property_description, contact_person_number, contact_person_address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
+            _req$body = req.body, property_name = _req$body.property_name, status = _req$body.status, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, address = _req$body.address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
+            createQuery = "INSERT INTO property(id,owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\taddress, proof,note,image_url,created_date, modified_date)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *";
+            values = [(0, _helper.generateId)() + '1', req.result.userId, status, state, city, type, price, property_name, property_description, contact_person_number, address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 3;
             _context.next = 6;
             return (0, _db.query)(createQuery, values);
@@ -55,7 +55,7 @@ function () {
           case 11:
             _context.prev = 11;
             _context.t0 = _context["catch"](3);
-            return _context.abrupt("return", res.status(400).send({
+            return _context.abrupt("return", res.status(400).json({
               status: 400,
               error: 'error occured during the process'
             }));

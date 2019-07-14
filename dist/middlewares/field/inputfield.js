@@ -90,11 +90,11 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
     city = city ? city.trim() : null;
     type = type ? type.trim() : null;
     address = address ? address.trim() : null;
-    proof = proof ? proof.trim() : null; //const image = req.file;
+    proof = proof ? proof.trim() : null;
+    note = note ? note.trim() : null; //const image = req.file;
+    //console.log(token,'this is the token that is to be used for authentication');
 
-    console.log(token, 'this is the token that is to be used for authentication');
-
-    if (status && city && state && price && image_url && type && address) {
+    if (city && state && price && image_url && type && address) {
       console.log(token, 'this is the token that is to be used for authentication');
       var property = {
         status: status,
