@@ -97,8 +97,8 @@ const updateprice = (req, res, next) =>{
 	price = price ? price.trim():null;
 		
 		
-		
-	if(price ){
+		console.log(price)
+	if(price){
 			
 			
 		const float = {price};

@@ -297,7 +297,7 @@ const updateProperty = async (req, res) => {
 			req.body.state || rows[0].state,
 			req.body.property_description || rows[0].property_description,
 			req.body.city || rows[0].city,
-			req.float.price || rows[0].price,
+			req.body.price || rows[0].price,
 			req.body.contact_person_number || rows[0].contact_person_number,
 			req.body.contact_person_address || rows[0].address,
 			req.body.proof || rows[0].proof,
