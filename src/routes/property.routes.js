@@ -15,7 +15,7 @@ propertyrouter.post('/property',multerUploads, checkPropertyEmpty,checkPropertyF
 
 
 propertyrouter.patch('/property/:id', idCheck, authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler,updateProperty);
+	jwtVerify,multerUploads,checkPropertyEmpty,cloudinaryHandler,updateProperty);
 
 
 propertyrouter.patch('/property/:id/sold', idCheck, authorization, jwtVerify,updatePropertyStatus);

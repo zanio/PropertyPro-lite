@@ -71,6 +71,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 			const float = {price};
 			const other_details = {contact_person_number,city,address,proof,note,property_name};
 			req.property = property;
+			console.log(property);
 			req.image_url = image_url;
 			req.float = float;
 			req.other_details = other_details;

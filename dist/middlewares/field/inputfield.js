@@ -115,6 +115,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         property_name: property_name
       };
       req.property = property;
+      console.log(property);
       req.image_url = _image_url;
       req["float"] = _float2;
       req.other_details = other_details;
