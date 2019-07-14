@@ -5,7 +5,7 @@ import url from 'url';
 
 
 const authorization = (req, res, next)=>{
-	const header = req.headers['authorization'];
+	const header = req.body.token;
     
 	if(typeof header !== 'undefined') {
 		const bearer = header;

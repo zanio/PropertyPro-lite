@@ -19,7 +19,7 @@ var _url = _interopRequireDefault(require("url"));
 
 /* eslint-disable no-console */
 var authorization = function authorization(req, res, next) {
-  var header = req.headers['authorization'];
+  var header = req.body.token;
 
   if (typeof header !== 'undefined') {
     var bearer = header;
