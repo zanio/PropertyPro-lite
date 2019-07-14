@@ -288,7 +288,7 @@ const updateProperty = async (req, res) => {
 	try {
 		
 
-		const { rows } = await query(findOneQuery, [req.params.id.toString() , req.result.userId]);
+		const { rows } = await query(findOneQuery, [req.params.id.toString() , req.result.userId.toString()]);
 		console.log(typeof req.result.userId,typeof req.params.id, rows)
 		if(!rows[0].id) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
