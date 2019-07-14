@@ -48,13 +48,13 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, email = _req$body.email, password = _req$body.password, first_name = _req$body.first_name, last_name = _req$body.last_name, phone_number = _req$body.phone_number, address = _req$body.address, gender = _req$body.gender;
-            email = email.trim();
-            password = password.trim();
-            first_name = first_name.trim();
-            last_name = last_name.trim();
-            phone_number = phone_number.trim();
-            address = address.trim();
-            gender.trim();
+            email = email ? email.trim() : null;
+            password = password ? password.trim() : null;
+            first_name = first_name ? first_name.trim() : null;
+            last_name = last_name ? last_name.trim() : null;
+            phone_number = phone_number ? phone_number.trim() : null;
+            address = address ? address.trim() : null;
+            gender = gender ? gender.trim() : null;
 
             if (!(!email && !password && !first_name && !last_name && !phone_number)) {
               _context.next = 10;

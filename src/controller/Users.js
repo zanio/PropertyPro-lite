@@ -18,13 +18,13 @@ import url from 'url';
    */
 const createUser = async (req, res) => {
 	let {email,password,first_name,last_name,phone_number,address,gender} = req.body;
-	email = email.trim();
-	password = password.trim();
-	first_name = first_name.trim();
-	last_name = last_name.trim();
-	phone_number = phone_number.trim();
-	address = address.trim();
-	gender.trim();
+	email = email ? email.trim():null;
+	password = password ? password.trim() :null;
+	first_name = first_name ? first_name.trim() :null;
+	last_name =last_name ?  last_name.trim() :null;
+	phone_number =phone_number ? phone_number.trim() :null;
+	address = address ? address.trim() :null;
+	gender = gender ? gender.trim():null;
 	if (!email && !password && !first_name && !last_name && !phone_number) {
 		return res.status(400).json({status:400,error:'Some values are missing'});
 	}

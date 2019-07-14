@@ -82,7 +82,15 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         address = _req$body.address,
         proof = _req$body.proof,
         note = _req$body.note;
-    var image_url = req.file; //const image = req.file;
+    var image_url = req.file;
+    property_name = property_name ? property_name.trim() : null;
+    status = status ? status.trim() : null;
+    price = price ? price.trim() : null;
+    state = state ? state.trim() : null;
+    city = city ? city.trim() : null;
+    type = type ? type.trim() : null;
+    address = address ? address.trim() : null;
+    proof = proof ? proof.trim() : null; //const image = req.file;
 
     if (status && city && state && price && image_url && type && address && token) {
       console.log(token, 'this is the token that is to be used for authentication');
@@ -145,7 +153,7 @@ var regCharCheck = function regCharCheck(req, res, next) {
       newUser = _req$body2.newUser,
       first_name = _req$body2.first_name,
       last_name = _req$body2.last_name;
-  first_name.trim(), last_name.trim();
+  first_name = first_name ? first_name.trim() : null, last_name = last_name ? last_name.trim() : null;
   var namedata = {
     first_name: first_name,
     last_name: last_name
@@ -169,7 +177,7 @@ exports.regCharCheck = regCharCheck;
 
 var regNumCheck = function regNumCheck(req, res, next) {
   var phone_number = req.body.phone_number;
-  phone_number.trim();
+  phone_number = phone_number ? phone_number.trim() : null;
   var numRex = (0, _numRegex.numRegex)(phone_number);
   var lengthNum = (0, _numRegex.phoneLength)(phone_number);
 

@@ -2,7 +2,7 @@ import { checkLetter, Arr } from '../../utils/string';
 import { numRegex , phoneLength} from '../../utils/numRegex';
 import checkFloat from '../../utils/checkfloat';
 import {dataUri,dataUris} from '../../config/multer';
-import {validateEmail} from '../../utils/email';
+import {validateEmail} from '../../utils/email'; 
 
 import dotenv  from 'dotenv';
 dotenv.config();
@@ -47,8 +47,17 @@ const checkPropertyEmpty = (req, res, next) =>{
 	try {
 		//dataUris(req);
 		dataUri(req);
-		const {property_name, token, status,price,state,city,type,contact_person_number,address,proof,note} = req.body;
+		let {property_name, token, status,price,state,city,type,contact_person_number,address,proof,note} = req.body;
 		const image_url = req.file;
+		property_name = property_name ? property_name.trim():null;
+		status = status ? status.trim():null;
+		price = price ? price.trim():null;
+		state = state ? state.trim():null;
+		city = city ? city.trim():null;
+		type = type ? type.trim():null;
+		address = address ? address.trim():null;
+		proof = proof ? proof.trim():null;
+		
 		//const image = req.file;
 		
 		
@@ -76,7 +85,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 
 const emailValidation = (req, res, next)=>{
    
-	const {email} = req.body;
+	let {email} = req.body;
 
 	if(validateEmail(email) && email){
 		next();
@@ -87,9 +96,9 @@ const emailValidation = (req, res, next)=>{
 };
 
 const regCharCheck = (req, res, next)=>{
-	const {newUser,first_name,last_name} = req.body;
-	first_name.trim(),
-	last_name.trim();
+	let {newUser,first_name,last_name} = req.body;
+	first_name = first_name ? first_name.trim():null,
+	last_name = last_name ? last_name.trim():null;
 	const namedata = {
 		first_name,
 		last_name	
@@ -109,8 +118,8 @@ const regCharCheck = (req, res, next)=>{
 };
 
 const regNumCheck = (req, res, next)=>{
-	const {phone_number} = req.body;
-	phone_number.trim();
+	let {phone_number} = req.body;
+	phone_number =phone_number ? phone_number.trim() :null;
 	const numRex = numRegex(phone_number);
 	const lengthNum = phoneLength(phone_number);
 	

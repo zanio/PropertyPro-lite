@@ -22,7 +22,7 @@ var Userrouter = _express["default"].Router();
 exports.Userrouter = Userrouter;
 
 /* register a new User */
-Userrouter.post('/auth/signup', _inputfield.regNumCheck, _auth.AdminCheckDb, _inputfield.genderCheck, _inputfield.regCharCheck, _Users.createUser);
+Userrouter.post('/auth/signup', _auth.AdminCheckDb, _inputfield.genderCheck, _inputfield.regCharCheck, _Users.createUser);
 /* Login User */
 
 Userrouter.post('/auth/signin', _auth.AdminCheckDb, _Users.loginUser);

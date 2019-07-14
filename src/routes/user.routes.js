@@ -7,7 +7,7 @@ import {genderCheck,regCharCheck,regNumCheck} from '../middlewares/field/inputfi
 
 
 /* register a new User */
-Userrouter.post('/auth/signup',regNumCheck, AdminCheckDb,genderCheck,regCharCheck, createUser);
+Userrouter.post('/auth/signup', AdminCheckDb,genderCheck,regCharCheck, createUser);
 
 /* Login User */
 Userrouter.post('/auth/signin',AdminCheckDb,loginUser);
