@@ -356,18 +356,19 @@ function () {
   var _ref11 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee6(req, res) {
-    var findAllQuery, _ref12, rows, rowCount;
+    var token, findAllQuery, _ref12, rows, rowCount;
 
     return _regenerator["default"].wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            findAllQuery = "SELECT id,property_name,property_description,status,state,city,price,\n\tcontact_person_number,contact_person_address,proof,type,created_date,image\n\t FROM property";
-            _context6.prev = 1;
-            _context6.next = 4;
+            token = req.body.token;
+            findAllQuery = "SELECT id,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_date,image_url\n\t FROM property";
+            _context6.prev = 2;
+            _context6.next = 5;
             return (0, _db.query)(findAllQuery);
 
-          case 4:
+          case 5:
             _ref12 = _context6.sent;
             rows = _ref12.rows;
             rowCount = _ref12.rowCount;
@@ -378,17 +379,17 @@ function () {
               }])
             }));
 
-          case 10:
-            _context6.prev = 10;
-            _context6.t0 = _context6["catch"](1);
+          case 11:
+            _context6.prev = 11;
+            _context6.t0 = _context6["catch"](2);
             return _context6.abrupt("return", res.status(400).send(_context6.t0));
 
-          case 13:
+          case 14:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[1, 10]]);
+    }, _callee6, null, [[2, 11]]);
   }));
 
   return function getAllProperty(_x11, _x12) {
@@ -466,23 +467,24 @@ function () {
   var _ref15 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee8(req, res) {
-    var text, _ref16, rows;
+    var token, text, _ref16, rows;
 
     return _regenerator["default"].wrap(function _callee8$(_context8) {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
-            text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,contact_person_address,proof,type,created_date,image\n\t FROM property WHERE id = $1";
-            _context8.prev = 1;
-            _context8.next = 4;
+            token = req.body.token;
+            text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,address,proof,type,created_date,image_url\n\t FROM property WHERE id = $1";
+            _context8.prev = 2;
+            _context8.next = 5;
             return (0, _db.query)(text, [req.params.id]);
 
-          case 4:
+          case 5:
             _ref16 = _context8.sent;
             rows = _ref16.rows;
 
             if (rows[0]) {
-              _context8.next = 8;
+              _context8.next = 9;
               break;
             }
 
@@ -491,23 +493,23 @@ function () {
               error: 'That id property does not exist or has already been deleted'
             }));
 
-          case 8:
+          case 9:
             return _context8.abrupt("return", res.status(200).json({
               status: 200,
               data: rows[0]
             }));
 
-          case 11:
-            _context8.prev = 11;
-            _context8.t0 = _context8["catch"](1);
+          case 12:
+            _context8.prev = 12;
+            _context8.t0 = _context8["catch"](2);
             return _context8.abrupt("return", res.status(400).send(_context8.t0));
 
-          case 14:
+          case 15:
           case "end":
             return _context8.stop();
         }
       }
-    }, _callee8, null, [[1, 11]]);
+    }, _callee8, null, [[2, 12]]);
   }));
 
   return function getOneProperty(_x15, _x16) {
@@ -733,11 +735,11 @@ function () {
       while (1) {
         switch (_context12.prev = _context12.next) {
           case 0:
-            findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
-            updateOneQuery = "UPDATE property SET status=$1\n      WHERE id=$2 AND owner_id = $3 returning *";
+            findOneQuery = 'SELECT * FROM property WHERE id=$1';
+            updateOneQuery = "UPDATE property SET status=$1\n      WHERE id=$2 returning *";
             _context12.prev = 2;
             _context12.next = 5;
-            return (0, _db.query)(findOneQuery, [req.params.id, req.result.userId]);
+            return (0, _db.query)(findOneQuery, [req.params.id]);
 
           case 5:
             _ref24 = _context12.sent;
@@ -754,7 +756,7 @@ function () {
             }));
 
           case 9:
-            values = [req.body.status || rows[0].status, req.params.id, req.result.userId];
+            values = [req.body.status || rows[0].status, req.params.id];
             _context12.next = 12;
             return (0, _db.query)(updateOneQuery, values);
 
@@ -804,10 +806,10 @@ function () {
       while (1) {
         switch (_context13.prev = _context13.next) {
           case 0:
-            deleteQuery = 'DELETE FROM property WHERE id=$1 AND owner_id = $2 returning *';
+            deleteQuery = 'DELETE FROM property WHERE id=$1 returning *';
             _context13.prev = 1;
             _context13.next = 4;
-            return (0, _db.query)(deleteQuery, [req.params.id, req.result.userId]);
+            return (0, _db.query)(deleteQuery, [req.params.id]);
 
           case 4:
             _ref26 = _context13.sent;

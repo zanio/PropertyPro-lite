@@ -182,8 +182,9 @@ const getAllFlaggedProperty = async(req, res) => {
 
   
 const getAllProperty = async (req, res) => { 
+	const {token} = req.body;
 	const findAllQuery = `SELECT id,property_name,property_description,status,state,city,price,
-	contact_person_number,contact_person_address,proof,type,created_date,image
+	contact_person_number,address,proof,type,created_date,image_url
 	 FROM property`;
 	try {
 		const { rows, rowCount } = await query(findAllQuery);
@@ -220,9 +221,9 @@ const getAllPropertyOfUser = async (req, res) => {
    */
 
 const getOneProperty = async (req, res) => { 
-	
+	const {token} = req.body;
 	const text = `SELECT id,property_name,status,state,city,price,property_description,
-	contact_person_number,contact_person_address,proof,type,created_date,image
+	contact_person_number,address,proof,type,created_date,image_url
 	 FROM property WHERE id = $1`;
 	try {
 		const { rows } = await query(text, [req.params.id]);
@@ -326,11 +327,11 @@ const updateProperty = async (req, res) => {
    */
 
 const updatePropertyStatus = async (req, res) => { 
-	const findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
+	const findOneQuery = 'SELECT * FROM property WHERE id=$1';
 	const updateOneQuery =`UPDATE property SET status=$1
-      WHERE id=$2 AND owner_id = $3 returning *`;
+      WHERE id=$2 returning *`;
 	try {
-		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
+		const { rows } = await query(findOneQuery, [req.params.id]);
 		
 		if(!rows[0]) {
 			return res.status(404).json({status:404,error:'invalid search query params' });
@@ -338,7 +339,7 @@ const updatePropertyStatus = async (req, res) => {
 		const values = [
 			req.body.status || rows[0].status,
 			req.params.id,
-			req.result.userId
+			
 		];
 		const response = await query(updateOneQuery, values);
 		return res.status(200).json({status:200,data:response.rows[0]});
@@ -354,9 +355,9 @@ const updatePropertyStatus = async (req, res) => {
    * @returns {void} return statuc code 204 
    */
 const deleteProperty = async (req, res) => { 
-	const deleteQuery = 'DELETE FROM property WHERE id=$1 AND owner_id = $2 returning *';
+	const deleteQuery = 'DELETE FROM property WHERE id=$1 returning *';
 	try {
-		const { rows } = await query(deleteQuery, [req.params.id, req.result.userId]);
+		const { rows } = await query(deleteQuery, [req.params.id]);
 		if(!rows[0]) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
