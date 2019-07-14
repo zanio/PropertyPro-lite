@@ -16,7 +16,7 @@ const createProperty = async(req, res) => {
 	const {property_name, status,state,city,property_description, price,contact_person_number, address, proof,note,type} = req.body;
 	const createQuery = `INSERT INTO property(id,owner_id,
 		 status,state,city,type, price,property_name,property_description,contact_person_number,
-		address, proof,note,image_url,created_date, modified_date)
+		address, proof,note,image_url,created_on, modified_on)
       VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
 	const values = [
 		generateId()+'1',
@@ -187,6 +187,9 @@ const getAllProperty = async (req, res) => {
 	contact_person_number,address,proof,type,created_date,image_url
 	 FROM property`;
 	try {
+		if(!token){
+			return res.status(422).json({status:422,error:'you must provide a token' });
+		}
 		const { rows, rowCount } = await query(findAllQuery);
 		return res.status(200).json({status:200,data:[...rows,{rowCount}] });
 	} catch(error) {

@@ -143,7 +143,6 @@ var updateprice = function updateprice(req, res, next) {
       price = _req$body2.price;
 
   if (price) {
-    console.log(token);
     var _float3 = {
       price: price
     };

@@ -97,7 +97,6 @@ const updateprice = (req, res, next) =>{
 		
 	if(price){
 			
-			console.log(token)
 		const float = {price};
 		req.float = float;
 			

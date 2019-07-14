@@ -21,7 +21,7 @@ const createPropertyTable = () => {
 	const queryText =
     `CREATE TABLE IF NOT EXISTS property (
 		id INT PRIMARY KEY,
-		owner_id UUID,
+		owner_email TEXT,
         status TEXT,
         state TEXT NOT NULL,
 		city TEXT NOT NULL,
@@ -34,9 +34,9 @@ const createPropertyTable = () => {
 		proof BOOLEAN,
 		note TEXT,
 		image_url TEXT NOT NULL,
-        created_date TIMESTAMP,
-		modified_date TIMESTAMP,
-        FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
+        created_on TIMESTAMP,
+		modified_on TIMESTAMP,
+        FOREIGN KEY (owner_email) REFERENCES users (email) ON DELETE CASCADE
 	  )`;
 	pool.query(queryText)
 		.then((res) => {

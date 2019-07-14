@@ -40,7 +40,7 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, property_name = _req$body.property_name, status = _req$body.status, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, address = _req$body.address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
-            createQuery = "INSERT INTO property(id,owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\taddress, proof,note,image_url,created_date, modified_date)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *";
+            createQuery = "INSERT INTO property(id,owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\taddress, proof,note,image_url,created_on, modified_on)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *";
             values = [(0, _helper.generateId)() + '1', req.body.token.userId, 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 3;
             _context.next = 6;
@@ -365,10 +365,22 @@ function () {
             token = req.body.token;
             findAllQuery = "SELECT id,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_date,image_url\n\t FROM property";
             _context6.prev = 2;
-            _context6.next = 5;
-            return (0, _db.query)(findAllQuery);
+
+            if (token) {
+              _context6.next = 5;
+              break;
+            }
+
+            return _context6.abrupt("return", res.status(422).json({
+              status: 422,
+              error: 'you must provide a token'
+            }));
 
           case 5:
+            _context6.next = 7;
+            return (0, _db.query)(findAllQuery);
+
+          case 7:
             _ref12 = _context6.sent;
             rows = _ref12.rows;
             rowCount = _ref12.rowCount;
@@ -379,17 +391,17 @@ function () {
               }])
             }));
 
-          case 11:
-            _context6.prev = 11;
+          case 13:
+            _context6.prev = 13;
             _context6.t0 = _context6["catch"](2);
             return _context6.abrupt("return", res.status(400).send(_context6.t0));
 
-          case 14:
+          case 16:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[2, 11]]);
+    }, _callee6, null, [[2, 13]]);
   }));
 
   return function getAllProperty(_x11, _x12) {
