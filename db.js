@@ -21,7 +21,7 @@ const createPropertyTable = () => {
 	const queryText =
     `CREATE TABLE IF NOT EXISTS property (
 		id INT PRIMARY KEY,
-		owner_email TEXT,
+		owner_email VARCHAR(128) UNIQUE NOT NULL,
         status TEXT,
         state TEXT NOT NULL,
 		city TEXT NOT NULL,
