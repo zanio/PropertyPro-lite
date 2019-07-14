@@ -14,13 +14,13 @@ import {generateId} from '../helpers/helper'
 
 const createProperty = async(req, res) => { 
 	const {property_name, status,state,city,property_description, price,contact_person_number, address, proof,note,type} = req.body;
-	const createQuery = `INSERT INTO property(id,owner_id,
+	const createQuery = `INSERT INTO property(id,
 		 status,state,city,type, price,property_name,property_description,contact_person_number,
 		address, proof,note,image_url,created_on, modified_on)
-      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
+      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15) returning *`;
 	const values = [
 		generateId()+'1',
-		req.body.token.userId,
+		
 		'available',
 		state,
 		city,
@@ -184,7 +184,7 @@ const getAllFlaggedProperty = async(req, res) => {
 const getAllProperty = async (req, res) => { 
 	const {token} = req.body;
 	const findAllQuery = `SELECT id,property_name,property_description,status,state,city,price,
-	contact_person_number,address,proof,type,created_date,image_url
+	contact_person_number,address,proof,type,created_on,image_url
 	 FROM property`;
 	try {
 		if(!token){
@@ -226,7 +226,7 @@ const getAllPropertyOfUser = async (req, res) => {
 const getOneProperty = async (req, res) => { 
 	const {token} = req.body;
 	const text = `SELECT id,property_name,status,state,city,price,property_description,
-	contact_person_number,address,proof,type,created_date,image_url
+	contact_person_number,address,proof,type,created_on,image_url
 	 FROM property WHERE id = $1`;
 	try {
 		const { rows } = await query(text, [req.params.id]);
@@ -287,7 +287,7 @@ const updateProperty = async (req, res) => {
 	  SET property_name=$1,status=$2,state=$3,property_description=$4,
 	  city=$5,price=$6,contact_person_number=$7,
 	  address=$8,proof=$9,note=$10,
-	  modified_date=$11, image_url = $12
+	  modified_on=$11, image_url = $12
 	  WHERE id=$13 returning *`;
 	try {
 		

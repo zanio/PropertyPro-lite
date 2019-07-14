@@ -40,8 +40,8 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, property_name = _req$body.property_name, status = _req$body.status, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, address = _req$body.address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
-            createQuery = "INSERT INTO property(id,owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\taddress, proof,note,image_url,created_on, modified_on)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *";
-            values = [(0, _helper.generateId)() + '1', req.body.token.userId, 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
+            createQuery = "INSERT INTO property(id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\taddress, proof,note,image_url,created_on, modified_on)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15) returning *";
+            values = [(0, _helper.generateId)() + '1', 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 3;
             _context.next = 6;
             return (0, _db.query)(createQuery, values);
@@ -363,7 +363,7 @@ function () {
         switch (_context6.prev = _context6.next) {
           case 0:
             token = req.body.token;
-            findAllQuery = "SELECT id,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_date,image_url\n\t FROM property";
+            findAllQuery = "SELECT id,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property";
             _context6.prev = 2;
 
             if (token) {
@@ -486,7 +486,7 @@ function () {
         switch (_context8.prev = _context8.next) {
           case 0:
             token = req.body.token;
-            text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,address,proof,type,created_date,image_url\n\t FROM property WHERE id = $1";
+            text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property WHERE id = $1";
             _context8.prev = 2;
             _context8.next = 5;
             return (0, _db.query)(text, [req.params.id]);
@@ -672,7 +672,7 @@ function () {
         switch (_context11.prev = _context11.next) {
           case 0:
             findOneQuery = 'SELECT * FROM property WHERE id=$1';
-            updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image_url = $12\n\t  WHERE id=$13 returning *";
+            updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  address=$8,proof=$9,note=$10,\n\t  modified_on=$11, image_url = $12\n\t  WHERE id=$13 returning *";
             _context11.prev = 2;
             _context11.next = 5;
             return (0, _db.query)(findOneQuery, [parseInt(req.params.id)]);
