@@ -82,7 +82,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 		}
 	} 
 	catch(errors){
-		console.log(errors)
+		console.log(errors);
 		res.status(403).json({status:403,error:'please fill all filled correctly and upload an image'});
 		
 	}
