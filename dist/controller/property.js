@@ -384,6 +384,7 @@ function () {
             _ref12 = _context6.sent;
             rows = _ref12.rows;
             rowCount = _ref12.rowCount;
+            console.log(rows);
             return _context6.abrupt("return", res.status(200).json({
               status: 200,
               data: [].concat((0, _toConsumableArray2["default"])(rows), [{
@@ -391,17 +392,17 @@ function () {
               }])
             }));
 
-          case 13:
-            _context6.prev = 13;
+          case 14:
+            _context6.prev = 14;
             _context6.t0 = _context6["catch"](2);
             return _context6.abrupt("return", res.status(400).send(_context6.t0));
 
-          case 16:
+          case 17:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[2, 13]]);
+    }, _callee6, null, [[2, 14]]);
   }));
 
   return function getAllProperty(_x11, _x12) {
@@ -840,7 +841,9 @@ function () {
           case 8:
             return _context13.abrupt("return", res.status(200).json({
               status: 204,
-              data: "The id ".concat(req.params.id, " has been succcessufully deleted")
+              data: {
+                message: "The id ".concat(req.params.id, " has been succcessufully deleted")
+              }
             }));
 
           case 11:

@@ -191,6 +191,7 @@ const getAllProperty = async (req, res) => {
 			return res.status(422).json({status:422,error:'you must provide a token' });
 		}
 		const { rows, rowCount } = await query(findAllQuery);
+		console.log(rows)
 		return res.status(200).json({status:200,data:[...rows,{rowCount}] });
 	} catch(error) {
 		return res.status(400).send(error);
@@ -364,7 +365,7 @@ const deleteProperty = async (req, res) => {
 		if(!rows[0]) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
-		return res.status(200).json({status:204, data:`The id ${req.params.id} has been succcessufully deleted` });
+		return res.status(200).json({status:204, data:{message:`The id ${req.params.id} has been succcessufully deleted` }});
 	} catch(error) {
 		return res.status(400).json({status:400,error:'There was a serverr error'});
 	}
