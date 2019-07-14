@@ -12,9 +12,12 @@ const checkPropertyField = (req, res, next) =>{
 	const boolArray = Arr(property);
 	const letterBolean = checkLetter(boolArray);
 	const floatBoolean = checkFloat(float.price);
+	
 	if(!letterBolean){
+		console.log(image_url,'letter boolean')
 		res.status(403).json({status:403,error:'the property information can only contain aphabetic character'});
 	} else if (!floatBoolean){
+		console.log(image_url,'float boolean')
 		res.status(403).json({status:403,error:'price value can only be numbers or floating numbers'});
 	}
 	else{
@@ -63,7 +66,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 		//console.log(token,'this is the token that is to be used for authentication');
 		
 		if(city && state && price && image_url && type && address ){
-			console.log(token,image_url,'this is the token that is to be used for authentication');
+			console.log(token,' this is the token that is to be used for authentication',image_url);
 			const property = {state,type,city};
 			const image_url = image_url;
 			const float = {price};
