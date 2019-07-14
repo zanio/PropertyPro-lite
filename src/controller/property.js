@@ -183,7 +183,7 @@ const getAllFlaggedProperty = async(req, res) => {
   
 const getAllProperty = async (req, res) => { 
 	const {token} = req.body;
-	const findAllQuery = `SELECT id,property_name,property_description,status,state,city,price,
+	const findAllQuery = `SELECT id,owner_email,property_name,property_description,status,state,city,price,
 	contact_person_number,address,proof,type,created_on,image_url
 	 FROM property`;
 	try {
@@ -364,9 +364,9 @@ const deleteProperty = async (req, res) => {
 		if(!rows[0]) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
-		return res.status(204).json({status:202, message:`The id ${req.params.id} has been succcessufully deleted` });
+		return res.status(200).json({status:204, data:`The id ${req.params.id} has been succcessufully deleted` });
 	} catch(error) {
-		return res.status(400).json(error);
+		return res.status(400).json({status:400,error:'There was a serverr error'});
 	}
 };
 

@@ -363,7 +363,7 @@ function () {
         switch (_context6.prev = _context6.next) {
           case 0:
             token = req.body.token;
-            findAllQuery = "SELECT id,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property";
+            findAllQuery = "SELECT id,owner_email,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property";
             _context6.prev = 2;
 
             if (token) {
@@ -838,15 +838,18 @@ function () {
             }));
 
           case 8:
-            return _context13.abrupt("return", res.status(204).json({
-              status: 202,
-              message: "The id ".concat(req.params.id, " has been succcessufully deleted")
+            return _context13.abrupt("return", res.status(200).json({
+              status: 204,
+              data: "The id ".concat(req.params.id, " has been succcessufully deleted")
             }));
 
           case 11:
             _context13.prev = 11;
             _context13.t0 = _context13["catch"](1);
-            return _context13.abrupt("return", res.status(400).json(_context13.t0));
+            return _context13.abrupt("return", res.status(400).json({
+              status: 400,
+              error: 'There was a serverr error'
+            }));
 
           case 14:
           case "end":
