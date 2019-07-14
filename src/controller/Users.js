@@ -17,11 +17,18 @@ import url from 'url';
    * @returns {object} reflection object 
    */
 const createUser = async (req, res) => {
-	const {email,password,first_name,last_name,phone_number,address,gender} = req.body;
-	if (!email || !password || !first_name || !last_name || !phone_number) {
+	let {email,password,first_name,last_name,phone_number,address,gender} = req.body;
+	email = email.trim();
+	password = password.trim();
+	first_name = first_name.trim();
+	last_name = last_name.trim();
+	phone_number = phone_number.trim();
+	address = address.trim();
+	gender.trim();
+	if (!email && !password && !first_name && !last_name && !phone_number) {
 		return res.status(400).json({status:400,error:'Some values are missing'});
 	}
-	if (!isValidEmail(req.body.email)) {
+	if (!isValidEmail(req.body.email.trim())) {
 		return res.status(400).json({status:400, error: 'Please enter a valid email address' });
 	}
 	const hashPass = await hashPassword(password);
@@ -51,18 +58,18 @@ const createUser = async (req, res) => {
 		const { rows } = await query(createQuery, values);
 		const  id = rows[0].id;
 		const token = await generateToken(id);
-		const verify_mail = {
-			Subject:'Email Verification',
-			Recipient:req.body.email
-		};
-		let link= process.env.NODE_ENV === 'development'?`http://localhost:3300/api/v1/auth/verify?id=${token}`:
-			`${'https'}://${req.get('host')}/api/v1/auth/verify?id=${token}`;
-		const data = {
-			email,
-			first_name,
-			last_name,
-			link
-		};
+		// const verify_mail = {
+		// 	Subject:'Email Verification',
+		// 	Recipient:req.body.email
+		// };
+		// let link= process.env.NODE_ENV === 'development'?`http://localhost:3300/api/v1/auth/verify?id=${token}`:
+		// 	`${'https'}://${req.get('host')}/api/v1/auth/verify?id=${token}`;
+		// const data = {
+		// 	email,
+		// 	first_name,
+		// 	last_name,
+		// 	link
+		// };
 		// const send = new Mail(verify_mail,verifyEmail(data));
 		// send.main();
 		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender,is_verify:rows[0].is_verify,is_admin:req.is_admin === 'False' ? false:true} });

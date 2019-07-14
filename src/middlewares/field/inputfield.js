@@ -88,6 +88,8 @@ const emailValidation = (req, res, next)=>{
 
 const regCharCheck = (req, res, next)=>{
 	const {newUser,first_name,last_name} = req.body;
+	first_name.trim(),
+	last_name.trim();
 	const namedata = {
 		first_name,
 		last_name	
@@ -108,7 +110,7 @@ const regCharCheck = (req, res, next)=>{
 
 const regNumCheck = (req, res, next)=>{
 	const {phone_number} = req.body;
-
+	phone_number.trim();
 	const numRex = numRegex(phone_number);
 	const lengthNum = phoneLength(phone_number);
 	

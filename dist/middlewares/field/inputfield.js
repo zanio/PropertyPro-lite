@@ -145,6 +145,7 @@ var regCharCheck = function regCharCheck(req, res, next) {
       newUser = _req$body2.newUser,
       first_name = _req$body2.first_name,
       last_name = _req$body2.last_name;
+  first_name.trim(), last_name.trim();
   var namedata = {
     first_name: first_name,
     last_name: last_name
@@ -168,6 +169,7 @@ exports.regCharCheck = regCharCheck;
 
 var regNumCheck = function regNumCheck(req, res, next) {
   var phone_number = req.body.phone_number;
+  phone_number.trim();
   var numRex = (0, _numRegex.numRegex)(phone_number);
   var lengthNum = (0, _numRegex.phoneLength)(phone_number);
 

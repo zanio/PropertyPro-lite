@@ -41,16 +41,23 @@ function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, email, password, first_name, last_name, phone_number, address, gender, hashPass, createQuery, values, _ref2, rows, id, token, verify_mail, link, data;
+    var _req$body, email, password, first_name, last_name, phone_number, address, gender, hashPass, createQuery, values, _ref2, rows, id, token;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, email = _req$body.email, password = _req$body.password, first_name = _req$body.first_name, last_name = _req$body.last_name, phone_number = _req$body.phone_number, address = _req$body.address, gender = _req$body.gender;
+            email = email.trim();
+            password = password.trim();
+            first_name = first_name.trim();
+            last_name = last_name.trim();
+            phone_number = phone_number.trim();
+            address = address.trim();
+            gender.trim();
 
-            if (!(!email || !password || !first_name || !last_name || !phone_number)) {
-              _context.next = 3;
+            if (!(!email && !password && !first_name && !last_name && !phone_number)) {
+              _context.next = 10;
               break;
             }
 
@@ -59,9 +66,9 @@ function () {
               error: 'Some values are missing'
             }));
 
-          case 3:
-            if ((0, _helper.isValidEmail)(req.body.email)) {
-              _context.next = 5;
+          case 10:
+            if ((0, _helper.isValidEmail)(req.body.email.trim())) {
+              _context.next = 12;
               break;
             }
 
@@ -70,41 +77,28 @@ function () {
               error: 'Please enter a valid email address'
             }));
 
-          case 5:
-            _context.next = 7;
+          case 12:
+            _context.next = 14;
             return (0, _helper.hashPassword)(password);
 
-          case 7:
+          case 14:
             hashPass = _context.sent;
             createQuery = "INSERT INTO\n      users(id, email, password,first_name,last_name,phone_number,address,gender,is_admin,is_verify, created_date,modified_date)\n      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9,$10,$11,$12)\n\t  returning *"; // const data = {first_name,last_name,phone_number,address,gender,is_admin:req.is_admin};
 
             values = [(0, _v["default"])(), email, hashPass, first_name, last_name, phone_number, address, gender, req.is_admin, 'False', (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
-            _context.prev = 10;
-            _context.next = 13;
+            _context.prev = 17;
+            _context.next = 20;
             return (0, _db.query)(createQuery, values);
 
-          case 13:
+          case 20:
             _ref2 = _context.sent;
             rows = _ref2.rows;
             id = rows[0].id;
-            _context.next = 18;
+            _context.next = 25;
             return (0, _helper.generateToken)(id);
 
-          case 18:
+          case 25:
             token = _context.sent;
-            verify_mail = {
-              Subject: 'Email Verification',
-              Recipient: req.body.email
-            };
-            link = process.env.NODE_ENV === 'development' ? "http://localhost:3300/api/v1/auth/verify?id=".concat(token) : 'https'.concat("://", req.get('host'), "/api/v1/auth/verify?id=").concat(token);
-            data = {
-              email: email,
-              first_name: first_name,
-              last_name: last_name,
-              link: link
-            }; // const send = new Mail(verify_mail,verifyEmail(data));
-            // send.main();
-
             return _context.abrupt("return", res.status(201).json({
               status: 201,
               data: {
@@ -121,12 +115,12 @@ function () {
               }
             }));
 
-          case 25:
-            _context.prev = 25;
-            _context.t0 = _context["catch"](10);
+          case 29:
+            _context.prev = 29;
+            _context.t0 = _context["catch"](17);
 
             if (!(_context.t0.routine === '_bt_check_unique')) {
-              _context.next = 29;
+              _context.next = 33;
               break;
             }
 
@@ -135,9 +129,9 @@ function () {
               error: 'User with that EMAIL already exist'
             }));
 
-          case 29:
+          case 33:
             if (!(_context.t0.routine === 'varchar')) {
-              _context.next = 31;
+              _context.next = 35;
               break;
             }
 
@@ -146,18 +140,18 @@ function () {
               error: 'Phone Number cannot be more than 13 characters'
             }));
 
-          case 31:
+          case 35:
             return _context.abrupt("return", res.status(400).json({
               status: 400,
               error: 'Validation error, please make sure you fill in all input correctly'
             }));
 
-          case 32:
+          case 36:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[10, 25]]);
+    }, _callee, null, [[17, 29]]);
   }));
 
   return function createUser(_x, _x2) {
