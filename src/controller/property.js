@@ -46,7 +46,6 @@ const createProperty = async(req, res) => {
 			city:rows[0].city,type:rows[0].type,price:rows[0].price,
 			address:rows[0].address,image_url:rows[0].image_url}});
 	} catch(error) {
-		console.log(error)
 		return res.status(400).json({status:400,error:'error occured during the process'});
 	}
 };
@@ -294,7 +293,7 @@ const updateProperty = async (req, res) => {
 		}
 		const values = [
 			req.body.property_name || rows[0].property_name,
-			req.body.status || rows[0].status,
+			rows[0].status,
 			req.body.state || rows[0].state,
 			req.body.property_description || rows[0].property_description,
 			req.body.city || rows[0].city,
@@ -304,14 +303,15 @@ const updateProperty = async (req, res) => {
 			req.body.proof || rows[0].proof,
 			req.body.note || rows[0].note,
 			moment(new Date()),
-			req.Image_url || rows[0].image_url,
+			req.image_url || rows[0].image_url,
 			req.params.id,
 			req.result.userId
 		];
 		const response = await query(updateOneQuery, values);
 		return res.status(200).json({status:200,data:response.rows[0]});
 	} catch(err) {
-		return res.status(400).json(err);
+		console.log(err)
+		return res.status(400).json({status:400,error:'error occured during the process'});
 	}
 };
 
