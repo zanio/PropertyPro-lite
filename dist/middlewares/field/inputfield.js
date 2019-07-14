@@ -98,7 +98,6 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
     //console.log(token,'this is the token that is to be used for authentication');
 
     if (city && state && price && image_url && type && address) {
-      console.log(token, ' this is the token that is to be used for authentication', _image_url);
       var property = {
         state: state,
         type: type,
@@ -120,6 +119,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
       req.image_url = _image_url;
       req["float"] = _float2;
       req.other_details = other_details;
+      console.log(token, ' this is the token that is to be used for authentication', _image_url);
       next();
     } else {
       res.status(403).json({

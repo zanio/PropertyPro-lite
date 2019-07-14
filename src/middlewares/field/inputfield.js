@@ -67,7 +67,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 		//console.log(token,'this is the token that is to be used for authentication');
 		
 		if(city && state && price && image_url && type && address ){
-			console.log(token,' this is the token that is to be used for authentication',image_url);
+			
 			const property = {state,type,city};
 			const image_url = image_url;
 			const float = {price};
@@ -76,6 +76,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 			req.image_url = image_url;
 			req.float = float;
 			req.other_details = other_details;
+			console.log(token,' this is the token that is to be used for authentication',image_url);
 			next();
 		} else{
 			res.status(403).json({status:403,error:'please fill all filled correctly'});
