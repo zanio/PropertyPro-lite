@@ -282,8 +282,8 @@ const updateProperty = async (req, res) => {
 	const updateOneQuery =`UPDATE property
 	  SET property_name=$1,status=$2,state=$3,property_description=$4,
 	  city=$5,price=$6,contact_person_number=$7,
-	  contact_person_address=$8,proof=$9,note=$10,
-	  modified_date=$11, image = $12
+	  address=$8,proof=$9,note=$10,
+	  modified_date=$11, image_url = $12
 	  WHERE id=$13 returning *`;
 	try {
 		

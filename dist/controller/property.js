@@ -658,7 +658,7 @@ function () {
         switch (_context11.prev = _context11.next) {
           case 0:
             findOneQuery = 'SELECT * FROM property WHERE id=$1';
-            updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  contact_person_address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image = $12\n\t  WHERE id=$13 returning *";
+            updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image_url = $12\n\t  WHERE id=$13 returning *";
             _context11.prev = 2;
             _context11.next = 5;
             return (0, _db.query)(findOneQuery, [parseInt(req.params.id)]);
