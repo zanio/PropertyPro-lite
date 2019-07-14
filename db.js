@@ -20,8 +20,8 @@ pool.on('connect', () => {
 const createPropertyTable = () => {
 	const queryText =
     `CREATE TABLE IF NOT EXISTS property (
-		id SERIAL PRIMARY KEY,
-		owner_id UUID ,
+		id INT PRIMARY KEY,
+		owner_id UUID,
         status TEXT,
         state TEXT NOT NULL,
 		city TEXT NOT NULL,
