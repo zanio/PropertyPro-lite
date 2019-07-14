@@ -84,7 +84,7 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         note = _req$body.note;
     var image_url = req.file; //const image = req.file;
 
-    if (status && city && state && price && image_url && type && address, token) {
+    if (status && city && state && price && image_url && type && address && token) {
       console.log(token, 'this is the token that is to be used for authentication');
       var property = {
         status: status,
