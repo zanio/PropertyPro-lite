@@ -664,9 +664,10 @@ function () {
           case 5:
             _ref22 = _context11.sent;
             rows = _ref22.rows;
+            console.log(rows[0]);
 
             if (rows[0].id) {
-              _context11.next = 9;
+              _context11.next = 10;
               break;
             }
 
@@ -675,20 +676,20 @@ function () {
               error: 'That id property does not exist or has already been deleted'
             }));
 
-          case 9:
+          case 10:
             values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.image_url || rows[0].image_url, req.params.id, req.result.userId];
-            _context11.next = 12;
+            _context11.next = 13;
             return (0, _db.query)(updateOneQuery, values);
 
-          case 12:
+          case 13:
             response = _context11.sent;
             return _context11.abrupt("return", res.status(200).json({
               status: 200,
               data: response.rows[0]
             }));
 
-          case 16:
-            _context11.prev = 16;
+          case 17:
+            _context11.prev = 17;
             _context11.t0 = _context11["catch"](2);
             console.log(_context11.t0);
             return _context11.abrupt("return", res.status(400).json({
@@ -696,12 +697,12 @@ function () {
               error: 'error occured during the process'
             }));
 
-          case 20:
+          case 21:
           case "end":
             return _context11.stop();
         }
       }
-    }, _callee11, null, [[2, 16]]);
+    }, _callee11, null, [[2, 17]]);
   }));
 
   return function updateProperty(_x21, _x22) {
