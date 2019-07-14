@@ -28,6 +28,7 @@ var checkPropertyField = function checkPropertyField(req, res, next) {
   var boolArray = (0, _string.Arr)(property);
   var letterBolean = (0, _string.checkLetter)(boolArray);
   var floatBoolean = (0, _checkfloat["default"])(_float.price);
+  console.log(req.body.token, ' this is the token that is to be used for authentication', image_url);
 
   if (!letterBolean) {
     console.log(image_url, 'letter boolean');
@@ -119,7 +120,6 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
       req.image_url = _image_url;
       req["float"] = _float2;
       req.other_details = other_details;
-      console.log(token, ' this is the token that is to be used for authentication', _image_url);
       next();
     } else {
       res.status(403).json({
