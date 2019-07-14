@@ -666,7 +666,7 @@ function () {
             _ref22 = _context11.sent;
             rows = _ref22.rows;
 
-            if (rows[0]) {
+            if (rows[0].id) {
               _context11.next = 9;
               break;
             }
@@ -677,7 +677,7 @@ function () {
             }));
 
           case 9:
-            values = [req.body.property_name || rows[0].property_name, req.body.status || rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].contact_person_address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.Image_url || rows[0].image, req.params.id, req.result.userId];
+            values = [req.body.property_name || rows[0].property_name, req.body.status || rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req["float"].price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.Image_url || rows[0].image_url, req.params.id, req.result.userId];
             _context11.next = 12;
             return (0, _db.query)(updateOneQuery, values);
 

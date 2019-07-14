@@ -289,7 +289,7 @@ const updateProperty = async (req, res) => {
 	try {
 		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
 		
-		if(!rows[0]) {
+		if(!rows[0].id) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
 		const values = [
@@ -298,13 +298,13 @@ const updateProperty = async (req, res) => {
 			req.body.state || rows[0].state,
 			req.body.property_description || rows[0].property_description,
 			req.body.city || rows[0].city,
-			req.body.price || rows[0].price,
+			req.float.price || rows[0].price,
 			req.body.contact_person_number || rows[0].contact_person_number,
-			req.body.contact_person_address || rows[0].contact_person_address,
+			req.body.contact_person_address || rows[0].address,
 			req.body.proof || rows[0].proof,
 			req.body.note || rows[0].note,
 			moment(new Date()),
-			req.Image_url || rows[0].image,
+			req.Image_url || rows[0].image_url,
 			req.params.id,
 			req.result.userId
 		];

@@ -14,10 +14,10 @@ const checkPropertyField = (req, res, next) =>{
 	const floatBoolean = checkFloat(req.float.price);
 	console.log(req.body.token,' this is the token that is to be used for authentication',req.image_url);
 	if(!letterBolean){
-		console.log(req.image_url,'letter boolean')
+		console.log(req.image_url,'letter boolean');
 		res.status(403).json({status:403,error:'the property information can only contain aphabetic character'});
 	} else if (!floatBoolean){
-		console.log(image_url,'float boolean')
+		console.log(image_url,'float boolean');
 		res.status(403).json({status:403,error:'price value can only be numbers or floating numbers'});
 	}
 	else{
@@ -89,6 +89,29 @@ const checkPropertyEmpty = (req, res, next) =>{
 	
 };
 
+const updateprice = (req, res, next) =>{
+	
+	
+	let {token,price} = req.body;
+		
+	price = price ? price.trim():null;
+		
+		
+		
+	if(price ){
+			
+			
+		const float = {price};
+		req.float = float;
+			
+		next();
+	} else{
+		res.status(403).json({status:403,error:'please fill in the exact price'});
+	}
+	 
+	
+};
+
 const emailValidation = (req, res, next)=>{
    
 	let {email} = req.body;
@@ -142,4 +165,4 @@ const regNumCheck = (req, res, next)=>{
 
 
 
-export {checkPropertyField,genderCheck,checkPropertyEmpty,emailValidation,regCharCheck,regNumCheck};
+export {checkPropertyField,genderCheck,checkPropertyEmpty,emailValidation,regCharCheck,regNumCheck,updateprice};

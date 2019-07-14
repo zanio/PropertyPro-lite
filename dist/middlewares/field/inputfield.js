@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.regNumCheck = exports.regCharCheck = exports.emailValidation = exports.checkPropertyEmpty = exports.genderCheck = exports.checkPropertyField = void 0;
+exports.updateprice = exports.regNumCheck = exports.regCharCheck = exports.emailValidation = exports.checkPropertyEmpty = exports.genderCheck = exports.checkPropertyField = void 0;
 
 var _string = require("../../utils/string");
 
@@ -137,6 +137,28 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
 
 exports.checkPropertyEmpty = checkPropertyEmpty;
 
+var updateprice = function updateprice(req, res, next) {
+  var _req$body2 = req.body,
+      token = _req$body2.token,
+      price = _req$body2.price;
+  price = price ? price.trim() : null;
+
+  if (price) {
+    var _float3 = {
+      price: price
+    };
+    req["float"] = _float3;
+    next();
+  } else {
+    res.status(403).json({
+      status: 403,
+      error: 'please fill in the exact price'
+    });
+  }
+};
+
+exports.updateprice = updateprice;
+
 var emailValidation = function emailValidation(req, res, next) {
   var email = req.body.email;
 
@@ -154,10 +176,10 @@ var emailValidation = function emailValidation(req, res, next) {
 exports.emailValidation = emailValidation;
 
 var regCharCheck = function regCharCheck(req, res, next) {
-  var _req$body2 = req.body,
-      newUser = _req$body2.newUser,
-      first_name = _req$body2.first_name,
-      last_name = _req$body2.last_name;
+  var _req$body3 = req.body,
+      newUser = _req$body3.newUser,
+      first_name = _req$body3.first_name,
+      last_name = _req$body3.last_name;
   first_name = first_name ? first_name.trim() : null, last_name = last_name ? last_name.trim() : null;
   var namedata = {
     first_name: first_name,

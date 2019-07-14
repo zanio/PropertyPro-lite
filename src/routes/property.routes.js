@@ -6,7 +6,7 @@ import {cloudinaryHandler} from '../config/cloudinary';
 import {authorization,idCheck,typeAdvert} from '../middlewares/auth/auth';
 import {jwtVerify} from '../middlewares/auth/jsonweb';
 import {checkPropertyEmpty,checkPropertyField} from '../middlewares/field/inputfield';
-import {createProperty,getOneFlaggedProperty,getAddress,getAllFlaggedProperty,reportProperty,updatePropertyStatus,getTypeProperty,updateProperty,deleteProperty,getOneProperty,getAllProperty,getAllPropertyOfUser} from '../controller/property';
+import {createProperty,getOneFlaggedProperty,getAddress,updateprice,getAllFlaggedProperty,reportProperty,updatePropertyStatus,getTypeProperty,updateProperty,deleteProperty,getOneProperty,getAllProperty,getAllPropertyOfUser} from '../controller/property';
 
 
 /* create propertyadvert advert  */
@@ -14,8 +14,8 @@ propertyrouter.post('/property',multerUploads, checkPropertyEmpty, authorization
 	jwtVerify,cloudinaryHandler, createProperty);
 
 
-propertyrouter.patch('/property/:id', idCheck, authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler,updateProperty);
+propertyrouter.patch('/property/:id', idCheck,updateprice,authorization, 
+	jwtVerify,updateProperty);
 
 
 propertyrouter.patch('/property/:id/sold', idCheck, authorization, jwtVerify,updatePropertyStatus);
