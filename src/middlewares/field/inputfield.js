@@ -9,20 +9,19 @@ dotenv.config();
 
 const checkPropertyField = (req, res, next) =>{
 	const {image_url,property,float}  = req;
-	const boolArray = Arr(property);
+	const boolArray = Arr(req.property);
 	const letterBolean = checkLetter(boolArray);
-	const floatBoolean = checkFloat(float.price);
-	console.log(req.body.token,' this is the token that is to be used for authentication',image_url);
+	const floatBoolean = checkFloat(req.float.price);
+	console.log(req.body.token,' this is the token that is to be used for authentication',req.image_url);
 	if(!letterBolean){
-		console.log(image_url,'letter boolean')
+		console.log(req.image_url,'letter boolean')
 		res.status(403).json({status:403,error:'the property information can only contain aphabetic character'});
 	} else if (!floatBoolean){
 		console.log(image_url,'float boolean')
 		res.status(403).json({status:403,error:'price value can only be numbers or floating numbers'});
 	}
 	else{
-		req.price = parseFloat(float.price);
-		req.property = property;
+		req.price = parseFloat(req.float.price);
 		req.image_url = image_url;
 		next();
 	}
@@ -52,7 +51,6 @@ const checkPropertyEmpty = (req, res, next) =>{
 		dataUri(req);
 		let {property_name, token, status,price,state,city,type,contact_person_number,address,proof,note} = req.body;
 		const image_url = req.file;
-		console.log(image_url)
 		property_name = property_name ? property_name.trim():null;
 		status = status ? status.trim():null;
 		price = price ? price.trim():null;

@@ -25,13 +25,13 @@ var checkPropertyField = function checkPropertyField(req, res, next) {
   var image_url = req.image_url,
       property = req.property,
       _float = req["float"];
-  var boolArray = (0, _string.Arr)(property);
+  var boolArray = (0, _string.Arr)(req.property);
   var letterBolean = (0, _string.checkLetter)(boolArray);
-  var floatBoolean = (0, _checkfloat["default"])(_float.price);
-  console.log(req.body.token, ' this is the token that is to be used for authentication', image_url);
+  var floatBoolean = (0, _checkfloat["default"])(req["float"].price);
+  console.log(req.body.token, ' this is the token that is to be used for authentication', req.image_url);
 
   if (!letterBolean) {
-    console.log(image_url, 'letter boolean');
+    console.log(req.image_url, 'letter boolean');
     res.status(403).json({
       status: 403,
       error: 'the property information can only contain aphabetic character'
@@ -43,8 +43,7 @@ var checkPropertyField = function checkPropertyField(req, res, next) {
       error: 'price value can only be numbers or floating numbers'
     });
   } else {
-    req.price = parseFloat(_float.price);
-    req.property = property;
+    req.price = parseFloat(req["float"].price);
     req.image_url = image_url;
     next();
   }
@@ -86,7 +85,6 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         proof = _req$body.proof,
         note = _req$body.note;
     var image_url = req.file;
-    console.log(image_url);
     property_name = property_name ? property_name.trim() : null;
     status = status ? status.trim() : null;
     price = price ? price.trim() : null;
