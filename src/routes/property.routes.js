@@ -10,12 +10,12 @@ import {createProperty,getOneFlaggedProperty,getAddress,getAllFlaggedProperty,re
 
 
 /* create propertyadvert advert  */
-propertyrouter.post('/property',multerUploads, checkPropertyEmpty,checkPropertyField , authorization, 
+propertyrouter.post('/property',multerUploads, checkPropertyEmpty, authorization, 
 	jwtVerify,cloudinaryHandler, createProperty);
 
 
 propertyrouter.patch('/property/:id', idCheck, authorization, 
-	jwtVerify,multerUploads,checkPropertyEmpty,cloudinaryHandler,updateProperty);
+	jwtVerify,multerUploads,checkPropertyEmpty,checkPropertyField,cloudinaryHandler,updateProperty);
 
 
 propertyrouter.patch('/property/:id/sold', idCheck, authorization, jwtVerify,updatePropertyStatus);
