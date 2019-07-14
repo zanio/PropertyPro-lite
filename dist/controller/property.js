@@ -387,9 +387,7 @@ function () {
             console.log(rows);
             return _context6.abrupt("return", res.status(200).json({
               status: 200,
-              data: [].concat((0, _toConsumableArray2["default"])(rows), [{
-                rowCount: rowCount
-              }])
+              data: rows
             }));
 
           case 14:
