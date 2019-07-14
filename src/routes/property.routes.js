@@ -5,8 +5,8 @@ import {multerUploads,multerArrayUploads} from '../config/multer';
 import {cloudinaryHandler} from '../config/cloudinary';
 import {authorization,idCheck,typeAdvert} from '../middlewares/auth/auth';
 import {jwtVerify} from '../middlewares/auth/jsonweb';
-import {checkPropertyEmpty,checkPropertyField} from '../middlewares/field/inputfield';
-import {createProperty,getOneFlaggedProperty,getAddress,updateprice,getAllFlaggedProperty,reportProperty,updatePropertyStatus,getTypeProperty,updateProperty,deleteProperty,getOneProperty,getAllProperty,getAllPropertyOfUser} from '../controller/property';
+import {checkPropertyEmpty,checkPropertyField,updateprice} from '../middlewares/field/inputfield';
+import {createProperty,getOneFlaggedProperty,getAddress,getAllFlaggedProperty,reportProperty,updatePropertyStatus,getTypeProperty,updateProperty,deleteProperty,getOneProperty,getAllProperty,getAllPropertyOfUser} from '../controller/property';
 
 
 /* create propertyadvert advert  */
