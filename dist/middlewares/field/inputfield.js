@@ -141,8 +141,8 @@ var updateprice = function updateprice(req, res, next) {
   var _req$body2 = req.body,
       token = _req$body2.token,
       price = _req$body2.price;
-  price = price ? price.trim() : null;
   console.log(price);
+  price = price ? price.trim() : null;
 
   if (price) {
     var _float3 = {

@@ -93,11 +93,11 @@ const updateprice = (req, res, next) =>{
 	
 	
 	let {token,price} = req.body;
-		
+	console.log(price);
 	price = price ? price.trim():null;
 		
 		
-		console.log(price)
+		
 	if(price){
 			
 			
