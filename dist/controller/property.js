@@ -50,7 +50,17 @@ function () {
             console.log(rows[0]);
             return _context.abrupt("return", res.status(201).json({
               status: 201,
-              data: rows[0]
+              data: {
+                id: rows[0].id,
+                owner_id: rows[0].owner_id,
+                status: rows[0].status,
+                state: rows[0].state,
+                city: rows[0].city,
+                type: rows[0].type,
+                price: rows[0].price,
+                address: rows[0].address,
+                image_url: rows[0].image_url
+              }
             }));
 
           case 12:

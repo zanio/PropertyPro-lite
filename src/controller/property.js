@@ -41,7 +41,10 @@ const createProperty = async(req, res) => {
 	try {
 		const { rows } = await query(createQuery, values);
 		console.log(rows[0])
-		return res.status(201).json({status:201,data:rows[0]});
+		return res.status(201).json({status:201,data:{
+			id:rows[0].id,owner_id:rows[0].owner_id,status:rows[0].status,state:rows[0].state,
+			city:rows[0].city,type:rows[0].type,price:rows[0].price,
+			address:rows[0].address,image_url:rows[0].image_url}});
 	} catch(error) {
 		console.log(error)
 		return res.status(400).json({status:400,error:'error occured during the process'});
