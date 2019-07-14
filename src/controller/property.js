@@ -21,7 +21,7 @@ const createProperty = async(req, res) => {
 	const values = [
 		generateId()+'1',
 		req.body.token.userId,
-		status,
+		'available',
 		state,
 		city,
 		type,

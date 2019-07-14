@@ -39,7 +39,7 @@ function () {
           case 0:
             _req$body = req.body, property_name = _req$body.property_name, status = _req$body.status, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, address = _req$body.address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
             createQuery = "INSERT INTO property(id,owner_id,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\taddress, proof,note,image_url,created_date, modified_date)\n      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *";
-            values = [(0, _helper.generateId)() + '1', req.body.token.userId, status, state, city, type, price, property_name, property_description, contact_person_number, address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
+            values = [(0, _helper.generateId)() + '1', req.body.token.userId, 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 3;
             _context.next = 6;
             return (0, _db.query)(createQuery, values);
