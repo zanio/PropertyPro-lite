@@ -59,9 +59,9 @@ const checkPropertyEmpty = (req, res, next) =>{
 		proof = proof ? proof.trim():null;
 		
 		//const image = req.file;
+		console.log(token,'this is the token that is to be used for authentication');
 		
-		
-		if(status && city && state && price && image_url && type && address && token ){
+		if(status && city && state && price && image_url && type && address ){
 			console.log(token,'this is the token that is to be used for authentication');
 			const property = {status,state,type};
 			const image_url = image_url;
