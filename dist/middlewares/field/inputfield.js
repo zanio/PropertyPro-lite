@@ -79,31 +79,32 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         city = _req$body.city,
         type = _req$body.type,
         contact_person_number = _req$body.contact_person_number,
-        contact_person_address = _req$body.contact_person_address,
+        address = _req$body.address,
         proof = _req$body.proof,
         note = _req$body.note;
-    var image = req.file; //const image = req.file;
+    var image_url = req.file; //const image = req.file;
 
-    if (status && city && state && property_name && price && image && type && contact_person_number && contact_person_address) {
+    if (status && city && state && price && image_url && type && address, token) {
+      console.log(token);
       var property = {
         status: status,
         state: state,
         type: type
       };
-      var image_url = image;
+      var _image_url = _image_url;
       var _float2 = {
         price: price
       };
       var other_details = {
         contact_person_number: contact_person_number,
         city: city,
-        contact_person_address: contact_person_address,
+        address: address,
         proof: proof,
         note: note,
         property_name: property_name
       };
       req.property = property;
-      req.image_url = image_url;
+      req.image_url = _image_url;
       req["float"] = _float2;
       req.other_details = other_details;
       next();

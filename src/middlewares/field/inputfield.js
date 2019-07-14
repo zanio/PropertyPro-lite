@@ -47,16 +47,17 @@ const checkPropertyEmpty = (req, res, next) =>{
 	try {
 		//dataUris(req);
 		dataUri(req);
-		const {property_name, token, status,price,state,city,type,contact_person_number,contact_person_address,proof,note} = req.body;
-		const image = req.file;
+		const {property_name, token, status,price,state,city,type,contact_person_number,address,proof,note} = req.body;
+		const image_url = req.file;
 		//const image = req.file;
 		
 		
-		if(status && city && state && property_name && price && image && type && contact_person_number && contact_person_address ){
+		if(status && city && state && price && image_url && type && address, token ){
+			console.log(token);
 			const property = {status,state,type};
-			const image_url = image;
+			const image_url = image_url;
 			const float = {price};
-			const other_details = {contact_person_number,city,contact_person_address,proof,note,property_name};
+			const other_details = {contact_person_number,city,address,proof,note,property_name};
 			req.property = property;
 			req.image_url = image_url;
 			req.float = float;
