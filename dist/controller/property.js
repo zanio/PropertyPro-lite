@@ -657,11 +657,11 @@ function () {
       while (1) {
         switch (_context11.prev = _context11.next) {
           case 0:
-            findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
-            updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  contact_person_address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image = $12\n\t  WHERE id=$13 AND owner_id = $14 returning *";
+            findOneQuery = 'SELECT * FROM property WHERE id=$1';
+            updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  contact_person_address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image = $12\n\t  WHERE id=$13 returning *";
             _context11.prev = 2;
             _context11.next = 5;
-            return (0, _db.query)(findOneQuery, [parseInt(req.params.id), req.result.userId]);
+            return (0, _db.query)(findOneQuery, [parseInt(req.params.id)]);
 
           case 5:
             _ref22 = _context11.sent;
@@ -679,7 +679,7 @@ function () {
             }));
 
           case 10:
-            values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.image_url || rows[0].image_url, req.params.id, req.result.userId];
+            values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.image_url || rows[0].image_url, req.params.id];
             _context11.next = 13;
             return (0, _db.query)(updateOneQuery, values);
 

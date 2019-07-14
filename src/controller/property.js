@@ -278,17 +278,17 @@ const getAddress = async (req, res) => {
    */
 
 const updateProperty = async (req, res) => { 
-	const findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
+	const findOneQuery = 'SELECT * FROM property WHERE id=$1';
 	const updateOneQuery =`UPDATE property
 	  SET property_name=$1,status=$2,state=$3,property_description=$4,
 	  city=$5,price=$6,contact_person_number=$7,
 	  contact_person_address=$8,proof=$9,note=$10,
 	  modified_date=$11, image = $12
-	  WHERE id=$13 AND owner_id = $14 returning *`;
+	  WHERE id=$13 returning *`;
 	try {
 		
 
-		const { rows } = await query(findOneQuery, [parseInt(req.params.id) , req.result.userId]);
+		const { rows } = await query(findOneQuery, [parseInt(req.params.id)]);
 		console.log(req.result.userId,typeof parseInt(req.params.id), rows)
 		if(!rows[0]) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
@@ -307,7 +307,7 @@ const updateProperty = async (req, res) => {
 			moment(new Date()),
 			req.image_url || rows[0].image_url,
 			req.params.id,
-			req.result.userId
+			
 		];
 		const response = await query(updateOneQuery, values);
 		return res.status(200).json({status:200,data:response.rows[0]});
