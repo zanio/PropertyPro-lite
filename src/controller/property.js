@@ -14,13 +14,15 @@ import {generateId} from '../helpers/helper'
 
 const createProperty = async(req, res) => { 
 	const {property_name, status,state,city,property_description, price,contact_person_number, address, proof,note,type} = req.body;
-	const createQuery = `INSERT INTO property(id,
+	const createQuery = `INSERT INTO property(id,owner_email,
 		 status,state,city,type, price,property_name,property_description,contact_person_number,
 		address, proof,note,image_url,created_on, modified_on)
-      VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15) returning *`;
+	  VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
+	  const selectemail = 'SELECT email FROM users WHERE id = $1';
+	  const response = await query(selectemail, [req.result.userId]);
 	const values = [
 		generateId()+'1',
-		
+		response.rows.email,
 		'available',
 		state,
 		city,
@@ -40,7 +42,6 @@ const createProperty = async(req, res) => {
 	
 	try {
 		const { rows } = await query(createQuery, values);
-		console.log(rows[0])
 		return res.status(201).json({status:201,data:{
 			id:rows[0].id,owner_id:rows[0].owner_id,status:rows[0].status,state:rows[0].state,
 			city:rows[0].city,type:rows[0].type,price:rows[0].price,
