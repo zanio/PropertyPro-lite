@@ -658,17 +658,16 @@ function () {
             findOneQuery = 'SELECT * FROM property WHERE id=$1 AND owner_id = $2';
             updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  contact_person_address=$8,proof=$9,note=$10,\n\t  modified_date=$11, image = $12\n      WHERE id=$13 AND owner_id = $14 returning *";
             _context11.prev = 2;
-            console.log(rows[0].id, rows[0].owner_id);
-            _context11.next = 6;
+            _context11.next = 5;
             return (0, _db.query)(findOneQuery, [req.params.id, req.result.userId]);
 
-          case 6:
+          case 5:
             _ref22 = _context11.sent;
             rows = _ref22.rows;
-            console.log(rows[0]);
+            console.log(rows[0].price);
 
             if (rows[0].id) {
-              _context11.next = 11;
+              _context11.next = 10;
               break;
             }
 
@@ -677,20 +676,20 @@ function () {
               error: 'That id property does not exist or has already been deleted'
             }));
 
-          case 11:
+          case 10:
             values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.image_url || rows[0].image_url, req.params.id, req.result.userId];
-            _context11.next = 14;
+            _context11.next = 13;
             return (0, _db.query)(updateOneQuery, values);
 
-          case 14:
+          case 13:
             response = _context11.sent;
             return _context11.abrupt("return", res.status(200).json({
               status: 200,
               data: response.rows[0]
             }));
 
-          case 18:
-            _context11.prev = 18;
+          case 17:
+            _context11.prev = 17;
             _context11.t0 = _context11["catch"](2);
             console.log(_context11.t0);
             return _context11.abrupt("return", res.status(400).json({
@@ -698,12 +697,12 @@ function () {
               error: 'error occured during the process'
             }));
 
-          case 22:
+          case 21:
           case "end":
             return _context11.stop();
         }
       }
-    }, _callee11, null, [[2, 18]]);
+    }, _callee11, null, [[2, 17]]);
   }));
 
   return function updateProperty(_x21, _x22) {

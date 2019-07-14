@@ -286,10 +286,10 @@ const updateProperty = async (req, res) => {
 	  modified_date=$11, image = $12
       WHERE id=$13 AND owner_id = $14 returning *`;
 	try {
-		console.log(rows[0].id,rows[0].owner_id)
+		
 
 		const { rows } = await query(findOneQuery, [req.params.id, req.result.userId]);
-		console.log(rows[0])
+		console.log(rows[0].price)
 		if(!rows[0].id) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}
