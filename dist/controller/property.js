@@ -7,8 +7,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getAddress = exports.getAllFlaggedProperty = exports.getOneFlaggedProperty = exports.getAllPropertyOfUser = exports.createProperty = exports.updateProperty = exports.getOneProperty = exports.getTypeProperty = exports.flaggedProperty = exports.updatePropertyStatus = exports.getAllProperty = exports.reportProperty = exports.deleteProperty = void 0;
 
-var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
-
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
@@ -59,7 +57,7 @@ function () {
               status: 201,
               data: {
                 id: rows[0].id,
-                owner_id: rows[0].owner_id,
+                owner_email: rows[0].owner_email,
                 status: rows[0].status,
                 state: rows[0].state,
                 city: rows[0].city,
@@ -166,7 +164,7 @@ function () {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            createQuery = "INSERT INTO flagged(id,\n\t\treport_id,admin_name,created_date)\n\t  VALUES($1, $2,$3) returning *";
+            createQuery = "INSERT INTO flagged(id,\n\t\treport_id,admin_name,created_date)\n\t  VALUES($1, $2,$3,$4) returning *";
             queryAdmin = "SELECT first_name,last_name,is_admin\n\tFROM users where id = $1";
             _context3.next = 4;
             return (0, _db.query)(queryAdmin, [req.result.userId]);
@@ -174,41 +172,43 @@ function () {
           case 4:
             _ref6 = _context3.sent;
             rows = _ref6.rows;
-            values = [(0, _helper.generateId)(1), req.params.id, rows[0].first_name + ' ' + rows[0].last_name, (0, _moment["default"])(new Date())];
+            values = [(0, _helper.generateId)() + '1', req.params.id, rows[0].first_name + ' ' + rows[0].last_name, (0, _moment["default"])(new Date())];
             _context3.prev = 7;
+            console.log(rows[0]);
 
             if (!rows[0].is_admin) {
-              _context3.next = 13;
+              _context3.next = 14;
               break;
             }
 
-            _context3.next = 11;
+            _context3.next = 12;
             return (0, _db.query)(createQuery, values);
 
-          case 11:
+          case 12:
             response = _context3.sent;
             return _context3.abrupt("return", res.status(201).json({
               status: 201,
               data: response.rows[0]
             }));
 
-          case 13:
+          case 14:
             return _context3.abrupt("return", res.status(422).json({
               status: 422,
               error: 'Only an admin can flag a property'
             }));
 
-          case 16:
-            _context3.prev = 16;
+          case 17:
+            _context3.prev = 17;
             _context3.t0 = _context3["catch"](7);
+            console.log(_context3.t0);
             return _context3.abrupt("return", res.status(400).json(_context3.t0));
 
-          case 19:
+          case 21:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[7, 16]]);
+    }, _callee3, null, [[7, 17]]);
   }));
 
   return function flaggedProperty(_x5, _x6) {
@@ -371,7 +371,7 @@ function () {
             findAllQuery = "SELECT id,owner_email,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property";
             _context6.prev = 2;
 
-            if (token) {
+            if (!(token == 'undefined')) {
               _context6.next = 5;
               break;
             }
@@ -392,7 +392,10 @@ function () {
             console.log(rows);
             return _context6.abrupt("return", res.status(200).json({
               status: 200,
-              data: rows
+              data: {
+                rows: rows,
+                rowCount: rowCount
+              }
             }));
 
           case 14:
@@ -428,18 +431,24 @@ function () {
   var _ref13 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee7(req, res) {
-    var findAllQuery, _ref14, rows, rowCount;
+    var findAllQuery, selectemail, response, _ref14, rows, rowCount;
 
     return _regenerator["default"].wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
-            findAllQuery = 'SELECT * FROM property WHERE owner_id = $1';
-            _context7.prev = 1;
+            findAllQuery = 'SELECT * FROM property WHERE owner_email = $1';
+            selectemail = 'SELECT email FROM users WHERE id = $1';
             _context7.next = 4;
-            return (0, _db.query)(findAllQuery, [req.result.userId]);
+            return (0, _db.query)(selectemail, [req.result.userId]);
 
           case 4:
+            response = _context7.sent;
+            _context7.prev = 5;
+            _context7.next = 8;
+            return (0, _db.query)(findAllQuery, [response.rows[0].email]);
+
+          case 8:
             _ref14 = _context7.sent;
             rows = _ref14.rows;
             rowCount = _ref14.rowCount;
@@ -450,17 +459,17 @@ function () {
               }])
             }));
 
-          case 10:
-            _context7.prev = 10;
-            _context7.t0 = _context7["catch"](1);
+          case 14:
+            _context7.prev = 14;
+            _context7.t0 = _context7["catch"](5);
             return _context7.abrupt("return", res.status(400).json(_context7.t0));
 
-          case 13:
+          case 17:
           case "end":
             return _context7.stop();
         }
       }
-    }, _callee7, null, [[1, 10]]);
+    }, _callee7, null, [[5, 14]]);
   }));
 
   return function getAllPropertyOfUser(_x13, _x14) {
@@ -554,7 +563,7 @@ function () {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
-            text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,contact_person_address,proof,type,created_date,image\n\t FROM property WHERE type = $1";
+            text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property WHERE type = $1";
             _context9.prev = 1;
             _context9.next = 4;
             return (0, _db.query)(text, [req.type]);
@@ -611,7 +620,7 @@ function () {
       while (1) {
         switch (_context10.prev = _context10.next) {
           case 0:
-            text = "SELECT contact_person_address,city,state\n\t FROM property WHERE id = $1";
+            text = "SELECT address,city,state\n\t FROM property WHERE id = $1";
             _context10.prev = 1;
             _context10.next = 4;
             return (0, _db.query)(text, [req.params.id]);
@@ -684,10 +693,9 @@ function () {
           case 5:
             _ref22 = _context11.sent;
             rows = _ref22.rows;
-            console.log(req.result.userId, (0, _typeof2["default"])(parseInt(req.params.id)), rows);
 
             if (rows[0]) {
-              _context11.next = 10;
+              _context11.next = 9;
               break;
             }
 
@@ -696,20 +704,20 @@ function () {
               error: 'That id property does not exist or has already been deleted'
             }));
 
-          case 10:
+          case 9:
             values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.image_url || rows[0].image_url, req.params.id];
-            _context11.next = 13;
+            _context11.next = 12;
             return (0, _db.query)(updateOneQuery, values);
 
-          case 13:
+          case 12:
             response = _context11.sent;
             return _context11.abrupt("return", res.status(200).json({
               status: 200,
               data: response.rows[0]
             }));
 
-          case 17:
-            _context11.prev = 17;
+          case 16:
+            _context11.prev = 16;
             _context11.t0 = _context11["catch"](2);
             console.log(_context11.t0);
             return _context11.abrupt("return", res.status(400).json({
@@ -717,12 +725,12 @@ function () {
               error: 'error occured during the process'
             }));
 
-          case 21:
+          case 20:
           case "end":
             return _context11.stop();
         }
       }
-    }, _callee11, null, [[2, 17]]);
+    }, _callee11, null, [[2, 16]]);
   }));
 
   return function updateProperty(_x21, _x22) {

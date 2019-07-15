@@ -43,7 +43,7 @@ const createProperty = async(req, res) => {
 	try {
 		const { rows } = await query(createQuery, values);
 		return res.status(201).json({status:201,data:{
-			id:rows[0].id,owner_id:rows[0].owner_id,status:rows[0].status,state:rows[0].state,
+			id:rows[0].id,owner_email:rows[0].owner_email,status:rows[0].status,state:rows[0].state,
 			city:rows[0].city,type:rows[0].type,price:rows[0].price,
 			address:rows[0].address,image_url:rows[0].image_url}});
 	} catch(error) {
@@ -94,26 +94,29 @@ const reportProperty = async(req, res) => {
 const flaggedProperty = async(req, res) => { 
 	const createQuery = `INSERT INTO flagged(id,
 		report_id,admin_name,created_date)
-	  VALUES($1, $2,$3) returning *`;
+	  VALUES($1, $2,$3,$4) returning *`;
 	const queryAdmin = `SELECT first_name,last_name,is_admin
 	FROM users where id = $1`;
 	const { rows } = await query(queryAdmin, [req.result.userId]);
 	const values = [
-		generateId(1),
+		generateId()+'1',
 		req.params.id,
 		rows[0].first_name+' '+rows[0].last_name,
 		moment(new Date())
 	];
 	
 	try {
+		console.log(rows[0])
 		if(rows[0].is_admin){
 			const response = await query(createQuery, values);
+			
 			return res.status(201).json({status:201,data:response.rows[0]});
 		}
 		
 		return res.status(422).json({status:422,error:'Only an admin can flag a property'});
 		
 	} catch(error) {
+		console.log(error)
 		return res.status(400).json(error);
 	}
 };
@@ -188,12 +191,12 @@ const getAllProperty = async (req, res) => {
 	contact_person_number,address,proof,type,created_on,image_url
 	 FROM property`;
 	try {
-		if(!token){
+		if(token == 'undefined'){
 			return res.status(422).json({status:422,error:'you must provide a token' });
 		}
 		const { rows, rowCount } = await query(findAllQuery);
 		console.log(rows)
-		return res.status(200).json({status:200,data:rows });
+		return res.status(200).json({status:200,data:{rows,rowCount} });
 	} catch(error) {
 		return res.status(400).send(error);
 	}
@@ -208,9 +211,11 @@ const getAllProperty = async (req, res) => {
 
   
 const getAllPropertyOfUser = async (req, res) => { 
-	const findAllQuery = 'SELECT * FROM property WHERE owner_id = $1';
+	const findAllQuery = 'SELECT * FROM property WHERE owner_email = $1';
+	const selectemail = 'SELECT email FROM users WHERE id = $1';
+	  const response = await query(selectemail, [req.result.userId]);
 	try {
-		const { rows, rowCount } = await query(findAllQuery,[req.result.userId]);
+		const { rows, rowCount } = await query(findAllQuery,[response.rows[0].email]);
 		return res.status(200).json({status:200,data:[...rows,{rowCount}] });
 	} catch(error) {
 		return res.status(400).json(error);
@@ -250,7 +255,7 @@ const getOneProperty = async (req, res) => {
 const getTypeProperty = async (req, res) => { 
 	
 	const text = `SELECT id,property_name,status,state,city,price,property_description,
-	contact_person_number,contact_person_address,proof,type,created_date,image
+	contact_person_number,address,proof,type,created_on,image_url
 	 FROM property WHERE type = $1`;
 	try {
 		const { rows } = await query(text, [req.type]);
@@ -264,7 +269,7 @@ const getTypeProperty = async (req, res) => {
 };
 const getAddress = async (req, res) => { 
 	
-	const text = `SELECT contact_person_address,city,state
+	const text = `SELECT address,city,state
 	 FROM property WHERE id = $1`;
 	try {
 		const { rows } = await query(text, [req.params.id]);
@@ -295,7 +300,7 @@ const updateProperty = async (req, res) => {
 		
 
 		const { rows } = await query(findOneQuery, [parseInt(req.params.id)]);
-		console.log(req.result.userId,typeof parseInt(req.params.id), rows)
+		
 		if(!rows[0]) {
 			return res.status(404).json({status:404,error:'That id property does not exist or has already been deleted'});
 		}

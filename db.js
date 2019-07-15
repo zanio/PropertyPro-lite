@@ -21,7 +21,7 @@ const createPropertyTable = () => {
 	const queryText =
     `CREATE TABLE IF NOT EXISTS property (
 		id INT PRIMARY KEY,
-		owner_email VARCHAR(128) UNIQUE NOT NULL,
+		owner_email VARCHAR(128) NOT NULL,
         status TEXT,
         state TEXT NOT NULL,
 		city TEXT NOT NULL,
@@ -192,6 +192,27 @@ const dropUserTable = () => {
 		});
 };
 
+const dropFlaggedTable = () => {
+	const queryText = 'DROP TABLE IF EXISTS flagged';
+	pool.query(queryText)
+		.then((res) => {
+			pool.end();
+		})
+		.catch((err) => {
+			pool.end();
+		});
+};
+const dropReportTable = () => {
+	const queryText = 'DROP TABLE IF EXISTS report';
+	pool.query(queryText)
+		.then((res) => {
+			pool.end();
+		})
+		.catch((err) => {
+			pool.end();
+		});
+};
+
 
 pool.on('remove', () => {
 	debug('client removed');
@@ -205,6 +226,8 @@ module.exports = {
 	dropUserTable,
 	creatAdminTable,
 	dropAdminsTable,
+	dropReportTable,
+	dropFlaggedTable,
 	createFlaggedTable,
 	createReportTable
 	

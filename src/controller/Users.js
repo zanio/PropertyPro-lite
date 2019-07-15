@@ -58,20 +58,20 @@ const createUser = async (req, res) => {
 		const { rows } = await query(createQuery, values);
 		const  id = rows[0].id;
 		const token = await generateToken(id);
-		// const verify_mail = {
-		// 	Subject:'Email Verification',
-		// 	Recipient:req.body.email
-		// };
-		// let link= process.env.NODE_ENV === 'development'?`http://localhost:3300/api/v1/auth/verify?id=${token}`:
-		// 	`${'https'}://${req.get('host')}/api/v1/auth/verify?id=${token}`;
-		// const data = {
-		// 	email,
-		// 	first_name,
-		// 	last_name,
-		// 	link
-		// };
-		// const send = new Mail(verify_mail,verifyEmail(data));
-		// send.main();
+		const verify_mail = {
+			Subject:'Email Verification',
+			Recipient:req.body.email.trim()
+		};
+		let link= process.env.NODE_ENV === 'development'?`http://localhost:3300/api/v1/auth/verify?id=${token}`:
+			`${'https'}://${req.get('host')}/api/v1/auth/verify?id=${token}`;
+		const data = {
+			email,
+			first_name,
+			last_name,
+			link
+		};
+		const send = new Mail(verify_mail,verifyEmail(data));
+		send.main();
 		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender,is_verify:rows[0].is_verify,is_admin:req.is_admin === 'False' ? false:true} });
 	} catch(error) {
 		if (error.routine === '_bt_check_unique') {

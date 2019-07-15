@@ -41,7 +41,7 @@ function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, email, password, first_name, last_name, phone_number, address, gender, hashPass, createQuery, values, _ref2, rows, id, token;
+    var _req$body, email, password, first_name, last_name, phone_number, address, gender, hashPass, createQuery, values, _ref2, rows, id, token, verify_mail, link, data, send;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
@@ -99,6 +99,19 @@ function () {
 
           case 25:
             token = _context.sent;
+            verify_mail = {
+              Subject: 'Email Verification',
+              Recipient: req.body.email.trim()
+            };
+            link = process.env.NODE_ENV === 'development' ? "http://localhost:3300/api/v1/auth/verify?id=".concat(token) : 'https'.concat("://", req.get('host'), "/api/v1/auth/verify?id=").concat(token);
+            data = {
+              email: email,
+              first_name: first_name,
+              last_name: last_name,
+              link: link
+            };
+            send = new _sendmail.Mail(verify_mail, (0, _verifyEmail.verifyEmail)(data));
+            send.main();
             return _context.abrupt("return", res.status(201).json({
               status: 201,
               data: {
@@ -115,12 +128,12 @@ function () {
               }
             }));
 
-          case 29:
-            _context.prev = 29;
+          case 34:
+            _context.prev = 34;
             _context.t0 = _context["catch"](17);
 
             if (!(_context.t0.routine === '_bt_check_unique')) {
-              _context.next = 33;
+              _context.next = 38;
               break;
             }
 
@@ -129,9 +142,9 @@ function () {
               error: 'User with that EMAIL already exist'
             }));
 
-          case 33:
+          case 38:
             if (!(_context.t0.routine === 'varchar')) {
-              _context.next = 35;
+              _context.next = 40;
               break;
             }
 
@@ -140,18 +153,18 @@ function () {
               error: 'Phone Number cannot be more than 13 characters'
             }));
 
-          case 35:
+          case 40:
             return _context.abrupt("return", res.status(400).json({
               status: 400,
               error: 'Validation error, please make sure you fill in all input correctly'
             }));
 
-          case 36:
+          case 41:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[17, 29]]);
+    }, _callee, null, [[17, 34]]);
   }));
 
   return function createUser(_x, _x2) {

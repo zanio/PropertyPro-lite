@@ -15,6 +15,8 @@ var _cloudinaryConfig = require("./cloudinaryConfig");
 
 var _multer = require("./multer");
 
+var _auth = require("../middlewares/auth/auth");
+
 var contentimg =
 /*#__PURE__*/
 function () {
@@ -162,8 +164,8 @@ function () {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            if (!req.file) {
-              _context4.next = 14;
+            if (!(req.file !== undefined)) {
+              _context4.next = 17;
               break;
             }
 
@@ -171,26 +173,27 @@ function () {
             // let files = await contentimg(req);
             // let arrayImage = [];
 
-            _context4.prev = 2;
-            _context4.next = 5;
+            console.log(req.file);
+            _context4.prev = 3;
+            _context4.next = 6;
             return uploadone(file);
 
-          case 5:
+          case 6:
             singlefile = _context4.sent;
             //const multiplefiles = await uploadall(files,arrayImage);
             //let arrayImages = multiplefiles;
             req.Image_url = singlefile; //req.Image_urls = arrayImages;
 
             next();
-            _context4.next = 14;
+            _context4.next = 15;
             break;
 
-          case 10:
-            _context4.prev = 10;
-            _context4.t0 = _context4["catch"](2);
+          case 11:
+            _context4.prev = 11;
+            _context4.t0 = _context4["catch"](3);
 
             if (!_context4.t0) {
-              _context4.next = 14;
+              _context4.next = 15;
               break;
             }
 
@@ -199,12 +202,20 @@ function () {
               error: _context4.t0.message
             }));
 
-          case 14:
+          case 15:
+            _context4.next = 19;
+            break;
+
+          case 17:
+            console.log(req.file);
+            next();
+
+          case 19:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[2, 10]]);
+    }, _callee4, null, [[3, 11]]);
   }));
 
   return function cloudinaryHandler(_x5, _x6, _x7) {

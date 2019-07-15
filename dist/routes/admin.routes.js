@@ -23,4 +23,4 @@ exports.adminrouter = adminrouter;
 
 /* flag a reported property */
 adminrouter.put('/admin/property/:id/flagged', _auth.idCheck, _auth.authorization, _jsonweb.jwtVerify, _property.flaggedProperty);
-adminrouter.post('/admin/register', _auth.authorization, _jsonweb.jwtVerify, _Users.createAdmin);
+adminrouter.post('/admin/signup', _auth.authorization, _jsonweb.jwtVerify, _Users.createAdmin);
