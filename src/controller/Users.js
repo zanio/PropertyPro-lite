@@ -26,10 +26,10 @@ const createUser = async (req, res) => {
 	address = address ? address.trim() :null;
 	gender = gender ? gender.trim():null;
 	if (!email && !password && !first_name && !last_name && !phone_number) {
-		return res.status(400).json({status:400,error:'Some values are missing'});
+		return res.status(409).json({status:409,error:'Some values are missing'});
 	}
 	if (!isValidEmail(req.body.email.trim())) {
-		return res.status(400).json({status:400, error: 'Please enter a valid email address' });
+		return res.status(409).json({status:409, error: 'Please enter a valid email address' });
 	}
 	const hashPass = await hashPassword(password);
 
@@ -103,7 +103,7 @@ const loginUser = async (req, res) => {
 	try {	
 		const { rows } = await query(text, [req.body.email]);
 		if (!rows[0]) {
-			return res.status(403).json({'message': 'The credentials you provided is incorrect'});
+			return res.status(403).json({status:403,error: 'The credentials you provided is incorrect'});
 		}
 		const comparepass = await comparePassword(rows[0].password, password);
 		if(!comparepass) {
@@ -132,7 +132,7 @@ const deleteUser = async (req, res) =>{
 		if(!rows[0]) {
 			return res.status(404).json({'message': 'user not found'});
 		}
-		return res.status(204).json({ 'message': 'deleted' });
+		return res.status(200).json({ status:204,data: {message:'user has been deleted'} });
 	} catch(error) {
 		return res.status(400).json(error);
 	}
@@ -154,7 +154,7 @@ const updatePassword = async (req, res) =>{
 		const { rows } = await query(selectQuery, [req.result.userId]);
 		const comparepass = await comparePassword(rows[0].password, old_password);
 		if(!comparepass){
-			return res.status(422).json({status:422, error: 'The credentials you provided is incorrect' });
+			return res.status(422).json({status:422, error: 'password mismatch' });
 		}
 
 		await query(updateQuery, [newhash,req.result.userId]);

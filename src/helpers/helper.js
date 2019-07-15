@@ -1,33 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-const getNewId = (array) => {
-   
-	if (array.length > 0) {
-		let n;
-		let idValue = array[array.length - 1].id; 
-		n = idValue+1;
-		return n;
-        
-	} else {
-		return 234013005001;
-	}
-    
-};
 
-const getSubId = (array) => {
-   
-	if (array.length > 0) {
-		let n;
-		let idValue = array[array.length - 1].id; 
-		n = idValue+1;
-		return n;
-        
-	} else {
-		return 43501;
-	}
-    
-};
 const newDate = () => new Date().toLocaleString();
 
 
@@ -52,14 +26,6 @@ const comparePassword = (hashpassword , password)=>{
            
 };
 
-
-const adminDb = (array, email) =>{
-	// eslint-disable-next-line no-unused-vars
-	return new Promise((resolve, reject) => {
-		const db = array.find(r => r.email === email);
-		resolve(db);
-	});
-};
 
 /**
    * isValidEmail helper method
@@ -96,11 +62,10 @@ const emailToken = (rand) => {
 
 const generateId = ()=>{
 	let rand=Math.floor((Math.random() * 1000) + 400);
-	console.log(rand,rand+1000)
 	return rand+1000;
 }
 
 
 
 
-export {getNewId,emailToken,generateId,newDate,hashPassword,getSubId,adminDb,isValidEmail,generateToken,comparePassword};
+export {emailToken,generateId,newDate,hashPassword,isValidEmail,generateToken,comparePassword};

@@ -13,7 +13,7 @@ chai.use(chaiHttp);
 describe('/GET user account info', () => {
 	it('it should test for "/" route ', (done) => {
 		chai.request(app)
-			.get('/')
+			.get('/api/v1')
 			.end((err, res) => {
 				expect(res.status).to.equal(200);
 				done();

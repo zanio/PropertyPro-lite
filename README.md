@@ -26,7 +26,9 @@ I designed the UI of PropertyPro-lite  on **figma** and you can check the url fo
 
 [PropertyPro-lite/UI link](https://zanio.github.io/PropertyPro-lite/)
 
-**Note:** Non-persistent Database has been  implemented as of **7 -02 -2019**
+**Note:** 
+* Two types of database was used in this project. The develop branch uses postgres database
+* And the non-persistence data which used javascript object model. The [bg-clean-167071582](https://zanio.github.io/PropertyPro-lite/) uses non-persistence
 
 ### REST API Docs
 
@@ -44,6 +46,25 @@ User (agent) can delete a property advert.
 User can view all properties adverts.
 User can view all properties of a specific type - 2 bedroom, 3 bedroom, mini flat etc.
 User can view a specific property advert.
+```
+### More Features
+
+```
+Users (admin) can create new admin.
+User can delete his/her account. This action cannot be undone
+User when logged in can Gets and display all property in his dashboard
+User (agent) can report an advert
+Users (admin) can flag an advert
+users can see flagged property matching the particular id
+users can see all flagged property
+User can a specific property aaddress to be displayed on the map with the red flag
+User (agent) can post a property advert
+User (agent) can update detail of a property advert.
+User (agent) should get Email verification when signed up
+User (agent) should get Password reset link sent to user mail for if he/she does not remember the password
+User (agent) should be redirected to a password reset page where he can reset password
+User (agent) can reset password if he/she remembers old password
+
 ```
 
 ### Programming paradigm
@@ -83,7 +104,7 @@ npm run test
 
 ## Test the endpoints
 
-The application can be tested locally through localhost on port 3300 or through the live [url](https://propertpro-lite.herokuapp.com/api-docs/) using postman
+The application can be tested locally through localhost on port 3300 or through the live [url](https://propertpro-lite.herokuapp.com/api-docs/) using postman or directly with swagger
 
 1. Run the application while postman is open
 2. Go to postman and test against the endpoints below with the required property:-
@@ -101,6 +122,8 @@ DELETE  | api/v1/property/<:property-id>  | Delete a property advert |
 GET  | api/v1/property/ | Get all property adverts |
 GET  | api/v1/property/search?type =​ propertyType  | Get all property advertisement offering a specific type of property (e,g flat, mini-flat,etc) |
 GET  | api/v1/property/<:property-id>  | View a specific property advert |
+
+**please see the [api-docs](https://propertpro-lite.herokuapp.com/api-docs/) for a full documentation**
 
 ## Acknowledgements
 
