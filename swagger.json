@@ -185,6 +185,7 @@
           "Properties"
         ],
         "summary": "Get all properties",
+        
         "responses": {
           "200": {
             "description": "success",

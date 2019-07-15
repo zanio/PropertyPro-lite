@@ -31,7 +31,6 @@ describe('/Auth User', () => {
 	after(async () => {
 		const deletequery = 'DELETE FROM users WHERE id = $1';
 		await query(deletequery, [userId]);
-		console.log(userId)
 		request.close();
 	});
 
@@ -192,6 +191,43 @@ describe('/Auth User', () => {
 			}).timeout(0);
 		});
 	});
+
+	describe('UPDATE PASSWORD IF USERS IS AUTHENTICATED',()=>{
+		describe('UPDATE PASWORD IF OLD_PASSWORD AND NEW_PASSWORD IS PRESENT', () => {
+			it('should have a status of 200', async () => {
+				const body = {
+					old_password:'ee',
+					new_password:'ss'
+				}
+				const response = await request.patch('/api/v1/reset/update').
+					set('Authorization',token).
+					send(body);
+				expect(response.body.status).to.equal(200);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		describe('UPDATE PASSWORD SHOULD FAIL BECAUSE PASSWORD DON"T MATCH', () => {
+			it('should have a status of 422', async () => {
+				const body = {
+					old_password:'eCe',
+					new_password:'ss'
+				}
+				const response = await request.patch('/api/v1/reset/update').
+					set('Authorization',token).
+					send(body);
+				expect(response.body.status).to.equal(422);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		
+	});
+	
+
+
 	describe('DELETE ROUTE',()=>{
 		describe('DELETE SUCCESSFULLY', () => {
 			it('should have a status of 200', async () => {
@@ -205,6 +241,7 @@ describe('/Auth User', () => {
 
 		
 	});
+	
 
 		
 

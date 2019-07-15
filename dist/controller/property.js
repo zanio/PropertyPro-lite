@@ -371,7 +371,7 @@ function () {
             findAllQuery = "SELECT id,owner_email,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property";
             _context6.prev = 2;
 
-            if (!(token == 'undefined')) {
+            if (token) {
               _context6.next = 5;
               break;
             }
@@ -392,10 +392,7 @@ function () {
             console.log(rows);
             return _context6.abrupt("return", res.status(200).json({
               status: 200,
-              data: {
-                rows: rows,
-                rowCount: rowCount
-              }
+              data: (0, _toConsumableArray2["default"])(rows)
             }));
 
           case 14:
