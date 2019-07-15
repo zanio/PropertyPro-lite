@@ -1,5 +1,6 @@
 import { uploader} from './cloudinaryConfig';
 import { dataUri,dataUris } from './multer';
+import { idCheck } from '../middlewares/auth/auth';
 
 const contentimg = async req =>{
 	let file =[];
@@ -58,11 +59,13 @@ const uploadone =  (singleimage) =>{
 
 const cloudinaryHandler = async (req, res,next) => {
 	
-	if(req.file) {
+	
+	if(req.file !== undefined) {
 		const file = dataUri(req).content;
 		// console.log(file)
 		// let files = await contentimg(req);
 		// let arrayImage = [];
+		console.log(req.file)
 
 		try{
 			const singlefile = await uploadone(file);
@@ -76,7 +79,10 @@ const cloudinaryHandler = async (req, res,next) => {
 				return res.status(500).json({status:500,error:err.message});
 			}
 		}		
-	} 	
+	} else {
+		console.log(req.file)
+		next();
+	}	
 };
 	
 

@@ -261,7 +261,7 @@
                   "note": {
                     "type": "string"
                   },
-                  "image": {
+                  "image_url": {
                     "type": "string",
                     "format": "binary"
                   }
@@ -407,7 +407,7 @@
                   "note": {
                     "type": "string"
                   },
-                  "image": {
+                  "image_url": {
                     "type": "string",
                     "format": "binary"
                   }

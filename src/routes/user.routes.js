@@ -3,7 +3,7 @@ const Userrouter = express.Router();
 import {AdminCheckDb,authorization} from '../middlewares/auth/auth';
 import {jwtVerify} from '../middlewares/auth/jsonweb';
 import {createUser,deleteUser, loginUser,verifyUserEmail,resetLink,resetPassword,updatePassword} from '../controller/Users';
-import {genderCheck,regCharCheck} from '../middlewares/field/inputfield';
+import {genderCheck,regCharCheck,regNumCheck} from '../middlewares/field/inputfield';
 
 
 /* register a new User */

@@ -5,39 +5,24 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.jwtsign = exports.jwtVerify = void 0;
+exports.jwtVerify = void 0;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
-var _error = require("../../usingJSObject/data/error");
-
 /* eslint-disable no-console */
 _dotenv["default"].config();
-
-var jwtsign = function jwtsign(req, res, next) {
-  var user = req.user;
-
-  var decoded = _jsonwebtoken["default"].verify(user.token, process.env.SECRET_KEY);
-
-  var valid = decoded.code;
-
-  if (valid) {
-    next();
-  } else {
-    res.status(402).json(_error.error.failed_auth_402);
-  }
-};
-
-exports.jwtsign = jwtsign;
 
 var jwtVerify = function jwtVerify(req, res, next) {
   var token = req.token;
 
   _jsonwebtoken["default"].verify(token, process.env.SECRET_KEY, function (err, result) {
     if (err) {
-      res.status(401).json(_error.error.autthorization_401);
+      res.status(401).json({
+        status: 401,
+        error: 'failed jwt verification'
+      });
     } else {
       req.result = result;
       next();

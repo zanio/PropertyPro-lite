@@ -20,23 +20,23 @@ pool.on('connect', () => {
 const createPropertyTable = () => {
 	const queryText =
     `CREATE TABLE IF NOT EXISTS property (
-		id SERIAL PRIMARY KEY,
-		owner_id UUID NOT NULL,
-        status TEXT NOT NULL,
+		id INT PRIMARY KEY,
+		owner_email VARCHAR(128) NOT NULL,
+        status TEXT,
         state TEXT NOT NULL,
 		city TEXT NOT NULL,
 		type VARCHAR(120) NOT NULL,
 		price int NOT NULL,
-		property_name TEXT NOT NULL,
-        property_description TEXT NOT NULL,
-		contact_person_number VARCHAR(13) NOT NULL,
-		contact_person_address TEXT NOT NULL,
-		proof BOOLEAN NOT NULL,
-		note TEXT NOT NULL,
-		image TEXT NOT NULL,
-        created_date TIMESTAMP,
-		modified_date TIMESTAMP,
-        FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
+		property_name TEXT,
+        property_description TEXT ,
+		contact_person_number VARCHAR(13) ,
+		address TEXT NOT NULL,
+		proof BOOLEAN,
+		note TEXT,
+		image_url TEXT NOT NULL,
+        created_on TIMESTAMP,
+		modified_on TIMESTAMP,
+        FOREIGN KEY (owner_email) REFERENCES users (email) ON DELETE CASCADE
 	  )`;
 	pool.query(queryText)
 		.then((res) => {
@@ -107,10 +107,10 @@ const createUserTable = () => {
         password VARCHAR(128) NOT NULL,
         first_name VARCHAR(128) NOT NULL,
         last_name VARCHAR(128) NOT NULL,
-        phone_number VARCHAR(13) NOT NULL,
+        phone_number TEXT NOT NULL,
         address TEXT NOT NULL,
-        gender VARCHAR(8) NOT NULL,
-        is_admin BOOLEAN NOT NULL DEFAULT False,
+        gender VARCHAR(8),
+        is_admin BOOLEAN DEFAULT False,
         is_verify BOOLEAN DEFAULT False,
         created_date TIMESTAMP,
         modified_date TIMESTAMP
@@ -192,6 +192,27 @@ const dropUserTable = () => {
 		});
 };
 
+const dropFlaggedTable = () => {
+	const queryText = 'DROP TABLE IF EXISTS flagged';
+	pool.query(queryText)
+		.then((res) => {
+			pool.end();
+		})
+		.catch((err) => {
+			pool.end();
+		});
+};
+const dropReportTable = () => {
+	const queryText = 'DROP TABLE IF EXISTS report';
+	pool.query(queryText)
+		.then((res) => {
+			pool.end();
+		})
+		.catch((err) => {
+			pool.end();
+		});
+};
+
 
 pool.on('remove', () => {
 	debug('client removed');
@@ -205,6 +226,8 @@ module.exports = {
 	dropUserTable,
 	creatAdminTable,
 	dropAdminsTable,
+	dropReportTable,
+	dropFlaggedTable,
 	createFlaggedTable,
 	createReportTable
 	

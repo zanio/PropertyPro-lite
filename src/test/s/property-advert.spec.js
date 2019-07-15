@@ -7,12 +7,11 @@ import app from '../app';
 
 
 
-//https://dev.to/asciidev/testing-a-nodeexpress-application-with-mocha--chai-4lho
 chai.use(chaiHttp);
 //Our parent block
 
 /*
-  * Test the Car /POST route
+  * Test the property /POST route
   */
 
 describe('GET and POST AD  ROUTES', () => {

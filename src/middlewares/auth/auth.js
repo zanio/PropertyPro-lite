@@ -5,12 +5,12 @@ import url from 'url';
 
 
 const authorization = (req, res, next)=>{
-	const header = req.headers['authorization'];
+	const token_body = req.body.token;
+	const header = req.header('Authorization');
     
-	if(typeof header !== 'undefined') {
-		const bearer = header;
+	if(typeof token_body !== 'undefined' || typeof header !== 'undefined') {
+		const bearer = token_body ? token_body:header;
 		const token = bearer;
-
 		req.token = token;
 		next();
 	} else {

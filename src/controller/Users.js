@@ -17,12 +17,19 @@ import url from 'url';
    * @returns {object} reflection object 
    */
 const createUser = async (req, res) => {
-	const {email,password,first_name,last_name,phone_number,address,gender} = req.body;
-	if (!email || !password) {
-		return res.status(400).json({'message': 'Some values are missing'});
+	let {email,password,first_name,last_name,phone_number,address,gender} = req.body;
+	email = email ? email.trim():null;
+	password = password ? password.trim() :null;
+	first_name = first_name ? first_name.trim() :null;
+	last_name =last_name ?  last_name.trim() :null;
+	phone_number =phone_number ? phone_number.trim() :null;
+	address = address ? address.trim() :null;
+	gender = gender ? gender.trim():null;
+	if (!email && !password && !first_name && !last_name && !phone_number) {
+		return res.status(409).json({status:409,error:'Some values are missing'});
 	}
-	if (!isValidEmail(req.body.email)) {
-		return res.status(400).json({ 'message': 'Please enter a valid email address' });
+	if (!isValidEmail(req.body.email.trim())) {
+		return res.status(409).json({status:409, error: 'Please enter a valid email address' });
 	}
 	const hashPass = await hashPassword(password);
 
@@ -53,7 +60,7 @@ const createUser = async (req, res) => {
 		const token = await generateToken(id);
 		const verify_mail = {
 			Subject:'Email Verification',
-			Recipient:req.body.email
+			Recipient:req.body.email.trim()
 		};
 		let link= process.env.NODE_ENV === 'development'?`http://localhost:3300/api/v1/auth/verify?id=${token}`:
 			`${'https'}://${req.get('host')}/api/v1/auth/verify?id=${token}`;
@@ -73,7 +80,7 @@ const createUser = async (req, res) => {
 		if(error.routine === 'varchar'){
 			return res.status(422).json({status:422, error: 'Phone Number cannot be more than 13 characters' });
 		}
-		return res.status(400).json(error);
+		return res.status(400).json({status:400, error: 'Validation error, please make sure you fill in all input correctly' });
 	}
 };
 
@@ -96,7 +103,7 @@ const loginUser = async (req, res) => {
 	try {	
 		const { rows } = await query(text, [req.body.email]);
 		if (!rows[0]) {
-			return res.status(403).json({'message': 'The credentials you provided is incorrect'});
+			return res.status(403).json({status:403,error: 'The credentials you provided is incorrect'});
 		}
 		const comparepass = await comparePassword(rows[0].password, password);
 		if(!comparepass) {
@@ -125,7 +132,7 @@ const deleteUser = async (req, res) =>{
 		if(!rows[0]) {
 			return res.status(404).json({'message': 'user not found'});
 		}
-		return res.status(204).json({ 'message': 'deleted' });
+		return res.status(200).json({ status:204,data: {message:'user has been deleted'} });
 	} catch(error) {
 		return res.status(400).json(error);
 	}
@@ -147,7 +154,7 @@ const updatePassword = async (req, res) =>{
 		const { rows } = await query(selectQuery, [req.result.userId]);
 		const comparepass = await comparePassword(rows[0].password, old_password);
 		if(!comparepass){
-			return res.status(422).json({status:422, error: 'The credentials you provided is incorrect' });
+			return res.status(422).json({status:422, error: 'password mismatch' });
 		}
 
 		await query(updateQuery, [newhash,req.result.userId]);

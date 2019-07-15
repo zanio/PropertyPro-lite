@@ -31,7 +31,7 @@ describe('/POST User', function () {
       phone_number: '09012343212'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/register').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signup').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.data).to.have.property('email');
       (0, _chai.expect)(res.body.data).to.have.property('first_name');
       (0, _chai.expect)(res.body.data).to.have.property('last_name');
@@ -56,7 +56,7 @@ describe('/POST User', function () {
       phone_number: '09012343212'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/register').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signup').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.status).to.equal(403);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
@@ -73,19 +73,19 @@ describe('/POST User', function () {
       phone_number: '090143212'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/register').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signup').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.status).to.equal(404);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
     });
   });
-  it('it should login existing user ', function (done) {
+  it('it should signin existing user ', function (done) {
     var body = {
       email: 'davephenom@gmail.com',
       password: 'jhfdcthjk24r44'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/login').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signin').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.data).to.have.property('email');
       (0, _chai.expect)(res.body.data).to.have.property('first_name');
       (0, _chai.expect)(res.body.data).to.have.property('last_name');
@@ -105,7 +105,7 @@ describe('/POST User', function () {
       password: 'jhfthjk24r44'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/login').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signin').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.status).to.equal(403);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
@@ -117,7 +117,7 @@ describe('/POST User', function () {
       password: 'jhfthjk24r44'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/register').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signup').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.status).to.equal(403);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
@@ -134,7 +134,7 @@ describe('/POST User', function () {
       phone_number: '09012343212'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/register').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signup').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.status).to.equal(403);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
@@ -146,7 +146,7 @@ describe('/POST User', function () {
       password: 'jhfdcthjk24r44'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/login').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signin').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.status).to.equal(402);
       (0, _chai.expect)(res.body).to.be.a('object');
       done();
@@ -163,7 +163,7 @@ describe('/POST User', function () {
       phone_number: '09012343212'
     };
 
-    _chai["default"].request(_app["default"]).post('/api/v1/auth/register').send(body).end(function (err, res) {
+    _chai["default"].request(_app["default"]).post('/api/v1/auth/signup').send(body).end(function (err, res) {
       (0, _chai.expect)(res.body.data).to.have.property('email');
       (0, _chai.expect)(res.body.data).to.have.property('first_name');
       (0, _chai.expect)(res.body.data).to.have.property('last_name');

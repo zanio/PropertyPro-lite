@@ -11,7 +11,7 @@ import {createAdmin} from '../controller/Users';
 /* flag a reported property */
 adminrouter.put('/admin/property/:id/flagged', idCheck, authorization, jwtVerify, flaggedProperty);
 
-adminrouter.post('/admin/register',authorization,jwtVerify,createAdmin);
+adminrouter.post('/admin/signup',authorization,jwtVerify,createAdmin);
 
 
 

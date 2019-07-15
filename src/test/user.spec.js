@@ -2,222 +2,213 @@
 import chai from 'chai';
 import {expect} from 'chai';
 import chaiHttp from 'chai-http';
+import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import app from '../app';
+import {query} from '../db/index';
 
 
+let request;
+let token;
+let userId;
 
-//https://dev.to/asciidev/testing-a-nodeexpress-application-with-mocha--chai-4lho
+
 chai.use(chaiHttp);
-//Our parent block
+chai.use(sinonChai);
+
 
 /*
   * Test the /POST route
   */
-describe('/POST User', () => {
+describe('/Auth User', () => {
 
-	it('it should register new user ', (done) => {
-		const body = {
-			email: 'davephenom@gmail.com',
-			first_name: 'Aniefiok',
-			last_name: 'Akpan',
-			password: 'jhfdcthjk24r44',
-			address: '12, ifelodun',
-			gender: 'male',
-			phone_number:'09012343212'
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signup')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.data).to.have.property('email');
-				expect(res.body.data).to.have.property('first_name');
-				expect(res.body.data).to.have.property('last_name');
-				expect(res.body.data).to.have.property('id');
-				expect(res.body.data).to.have.property('address');
-				expect(res.body.data).to.have.property('gender');
-				expect(res.body.data).to.have.property('phone_number');
-				expect(res.body.data).to.have.property('is_Admin').equal(false);
-				expect(res.body.status).to.equal(201);
-
-				expect(res.body).to.be.a('object');
-				done();
-			});
+	before(async () => {
+		request = chai.request(app).keepOpen();
 	});
 
-	it('it should return email already in use ', (done) => {
-		const body = {
-			email: 'davephenom@gmail.com',
-			first_name: 'Aniefiok',
-			last_name: 'Akpan',
-			password: 'jhfdcthjk24r44',
-			address: '12, ifelodun',
-			gender: 'male',
-			phone_number:'09012343212'
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signup')
-			.send(body)
-			.end((err, res) => {
+	afterEach(() => sinon.restore());
+
+	after(async () => {
+		const deletequery = 'DELETE FROM users WHERE id = $1';
+		await query(deletequery, [userId]);
+		console.log(userId)
+		request.close();
+	});
+
+	describe('SIGNUP ROUTE', () => {
+		
+
+		describe('SIGNUP SUCCESSFULLY', () => {
+			it('should have a status of 201', async () => {
+				const body = {
+					email:'akp.ani@yahoo.com',
+					password:'ee',
+					address:'block 199 flat 4',
+					phone_number:'08023456789',
+					first_name:'Aniefiok',
+					last_name:'Akpan'
+				};
+	
+				const response = await request.post('/api/v1/auth/signup').send(body);
+				token = response.body.data.token;
 				
-				expect(res.body.status).to.equal(403);
+				userId = response.body.data.id;
+				expect(response.body.status).to.equal(201);
+				expect(response.body).to.be.a('object');
 
-				expect(res.body).to.be.a('object');
-				done();
-			});
+			}).timeout(0);
+		});
+
+		describe('SIGNUP WITHOUT PASSWORD FIELD', () => {
+			it('should have a status of 400', async () => {
+				const body = {
+					email:'akp.s@yahoo.com',
+					password:'',
+					address:'block 199 flat 4',
+					phone_number:'08023456789',
+					first_name:'Aniefiok',
+					last_name:'Akpan'
+				};
+	
+				const response = await request.post('/api/v1/auth/signup').send(body);
+				expect(response.body.status).to.equal(400);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		describe('SIGNUP WITH invalid email', () => {
+			it('should have a status of 409', async () => {
+				const body = {
+					email:'akp.aniyahoo.com',
+					address:'block 199 flat 4',
+					password:'ee',
+					phone_number:'08023456789',
+					first_name:'Aniefiok',
+					last_name:'Akpan'
+				};
+	
+				const response = await request.post('/api/v1/auth/signup').send(body);
+				expect(response.body.status).to.equal(409);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		describe('SIGNUP WITH ALREADY EXISTING EMAIL', () => {
+			it('should have a status of 409', async () => {
+				const body = {
+					email:'akp.ani@yahoo.com',
+					address:'block 199 flat 4',
+					password:'ee',
+					phone_number:'08023456789',
+					first_name:'Aniefiok',
+					last_name:'Akpan'
+				};
+	
+				const response = await request.post('/api/v1/auth/signup').send(body);
+				expect(response.body.status).to.equal(409);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		
+
 	});
 
-	it('it should return phone number can only be 11 digits ', (done) => {
-		const body = {
-			email: 'davephenom@gmail.com',
-			first_name: 'Aniefiok',
-			last_name: 'Akpan',
-			password: 'jhfdcthjk24r44',
-			address: '12, ifelodun',
-			gender: 'male',
-			phone_number:'090143212'
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signup')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.status).to.equal(404);
+	describe('SIGNIN ROUTE',()=>{
+		describe('SIGNIN SUCCESSFULLY', () => {
+			it('should have a status of 200', async () => {
+				const body = {
+					email:'akp.ani@yahoo.com',
+					password:'ee'
+					
+				};
+	
+				const response = await request.post('/api/v1/auth/signin').send(body);
+				expect(response.body.status).to.equal(200);
+				expect(response.body).to.be.a('object');
 
-				expect(res.body).to.be.a('object');
-				done();
-			});
+			}).timeout(0);
+		});
+
+		describe('SIGNIN WITH MISMATCH PASSWORD', () => {
+			it('should have a status of 422', async () => {
+				const body = {
+					email:'akp.ani@yahoo.com',
+					password:'eGe'
+					
+				};
+	
+				const response = await request.post('/api/v1/auth/signin').send(body);
+				expect(response.body.status).to.equal(422);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		describe('SIGNIN WITH INVALID EMAIL', () => {
+			it('should have a status of 422', async () => {
+				const body = {
+					email:'akp.aniyahoo.com',
+					password:'ee'
+					
+				};
+	
+				const response = await request.post('/api/v1/auth/signin').send(body);
+				expect(response.body.status).to.equal(422);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		describe('SIGNIN WITHOUT EMAIL', () => {
+			it('should have a status of 422', async () => {
+				const body = {
+					password:'ee'
+					
+				};
+	
+				const response = await request.post('/api/v1/auth/signin').send(body);
+				expect(response.body.status).to.equal(422);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		describe('SIGNIN WITHOUT EMAIL ACCOUNT IN DATABASE', () => {
+			it('should have a status of 403', async () => {
+				const body = {
+					email:'a@as.com',
+					password:'ee'
+					
+				};
+	
+				const response = await request.post('/api/v1/auth/signin').send(body);
+				expect(response.body.status).to.equal(403);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+	});
+	describe('DELETE ROUTE',()=>{
+		describe('DELETE SUCCESSFULLY', () => {
+			it('should have a status of 200', async () => {
+				
+				const response = await request.delete('/api/v1/auth/delete').set('Authorization',token);
+				expect(response.body.status).to.equal(204);
+				expect(response.body).to.be.a('object');
+
+			}).timeout(0);
+		});
+
+		
 	});
 
-	it('it should signin existing user ', (done) => {
-		const body = {
-			email: 'davephenom@gmail.com',
-			password: 'jhfdcthjk24r44',
-			
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signin')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.data).to.have.property('email');
-				expect(res.body.data).to.have.property('first_name');
-				expect(res.body.data).to.have.property('last_name');
-				expect(res.body.data).to.have.property('id');
-				expect(res.body.data).to.have.property('address');
-				expect(res.body.data).to.have.property('gender');
-				expect(res.body.data).to.have.property('phone_number');
-				expect(res.body.data).to.have.property('token');
-				expect(res.body.status).to.equal(200);
-				expect(res.body).to.be.a('object');
-				done();
-			});
-	});
+		
 
-	it('it should return password  does not match ', (done) => {
-		const body = {
-			email: 'davephenom@gmail.com',
-			password: 'jhfthjk24r44',
-			
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signin')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.status).to.equal(403);
-				expect(res.body).to.be.a('object');
-				done();
-			});
-	});
+	
 
-	it('it should return all field required ', (done) => {
-		const body = {
-			email: 'davephenom@gmail.com',
-			password: 'jhfthjk24r44',
-			
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signup')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.status).to.equal(403);
-				expect(res.body).to.be.a('object');
-				done();
-			});
-	});
-
-
-	it('it should return first_name and last_name field can only be letter ', (done) => {
-		const body = {
-			email: 'davephenom@gmail.com',
-			first_name: 'An4iefiok',
-			last_name: 'Akp34an',
-			password: 'jhfdcthjk24r44',
-			address: '12, ifelodun',
-			gender: 'male',
-			phone_number:'09012343212'
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signup')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.status).to.equal(403);
-				expect(res.body).to.be.a('object');
-				done();
-			});
-	});
-
-	it('it should return invalid email ', (done) => {
-		const body = {
-			email: 'davephenomgmail.com',
-			password: 'jhfdcthjk24r44',
-			
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signin')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.status).to.equal(402);
-				expect(res.body).to.be.a('object');
-				done();
-			});
-	});
-
-	it('it should register user as admin ', (done) => {
-		const body = {
-			email: 'akp.ani@yahoo.com',
-			first_name: 'Aniefiok',
-			last_name: 'Akpan',
-			password: 'jhfdcthjk24r44',
-			address: '12, ifelodun',
-			gender: 'male',
-			phone_number:'09012343212'
-		};
-  
-		chai.request(app)
-			.post('/api/v1/auth/signup')
-			.send(body)
-			.end((err, res) => {
-				expect(res.body.data).to.have.property('email');
-				expect(res.body.data).to.have.property('first_name');
-				expect(res.body.data).to.have.property('last_name');
-				expect(res.body.data).to.have.property('id');
-				expect(res.body.data).to.have.property('address');
-				expect(res.body.data).to.have.property('gender');
-				expect(res.body.data).to.have.property('phone_number');
-				expect(res.body.data).to.have.property('is_Admin').equal(true);
-				expect(res.body.status).to.equal(201);
-				expect(res.body).to.be.a('object');
-				done();
-			});
-	});
-
-    
      
 });
-
