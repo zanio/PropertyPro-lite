@@ -185,6 +185,22 @@
           "Properties"
         ],
         "summary": "Get all properties",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                  
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "success",
