@@ -83,7 +83,7 @@ describe('/property', () => {
 			.field(propertyBody)
 			
 		propertyId = propertyResponse.body.data.id;
-		console.log(propertyId)
+		
 		const reportBody = {
 			
 			reason:'frudulent',
@@ -126,13 +126,13 @@ describe('/property', () => {
 				};
 	
 				const response = await request.post('/api/v1/property')
-					.set('Authorization', firstUserToken)
+					.set('Authorization', secondUserToken)
 					.attach('image_url','src/test/Screenshot (24).png')
 					.field(body);
 					
 				
 				expect(response.body.status).to.equal(201);
-			}).timeout(0);
+			});
 
 		});
 
