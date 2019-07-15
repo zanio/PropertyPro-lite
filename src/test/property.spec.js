@@ -131,6 +131,7 @@ describe('/property', () => {
 					.field(body);
 					
 				propertyId1 = response.body.data.id;
+				console.log(propertyId1,'property id',response.body.data)
 				expect(response.body.status).to.equal(201);
 			}).timeout(0);
 
