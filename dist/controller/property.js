@@ -371,7 +371,7 @@ function () {
             findAllQuery = "SELECT id,owner_email,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property";
             _context6.prev = 2;
 
-            if (!(token == 'undefined')) {
+            if (!token) {
               _context6.next = 5;
               break;
             }

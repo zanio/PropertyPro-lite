@@ -5,37 +5,11 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.comparePassword = exports.generateToken = exports.isValidEmail = exports.adminDb = exports.getSubId = exports.hashPassword = exports.newDate = exports.generateId = exports.emailToken = exports.getNewId = void 0;
+exports.comparePassword = exports.generateToken = exports.isValidEmail = exports.hashPassword = exports.newDate = exports.generateId = exports.emailToken = void 0;
 
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
-
-var getNewId = function getNewId(array) {
-  if (array.length > 0) {
-    var n;
-    var idValue = array[array.length - 1].id;
-    n = idValue + 1;
-    return n;
-  } else {
-    return 234013005001;
-  }
-};
-
-exports.getNewId = getNewId;
-
-var getSubId = function getSubId(array) {
-  if (array.length > 0) {
-    var n;
-    var idValue = array[array.length - 1].id;
-    n = idValue + 1;
-    return n;
-  } else {
-    return 43501;
-  }
-};
-
-exports.getSubId = getSubId;
 
 var newDate = function newDate() {
   return new Date().toLocaleString();
@@ -62,18 +36,6 @@ var comparePassword = function comparePassword(hashpassword, password) {
     });
   });
 };
-
-exports.comparePassword = comparePassword;
-
-var adminDb = function adminDb(array, email) {
-  // eslint-disable-next-line no-unused-vars
-  return new Promise(function (resolve, reject) {
-    var db = array.find(function (r) {
-      return r.email === email;
-    });
-    resolve(db);
-  });
-};
 /**
    * isValidEmail helper method
    * @param {string} email
@@ -81,7 +43,7 @@ var adminDb = function adminDb(array, email) {
    */
 
 
-exports.adminDb = adminDb;
+exports.comparePassword = comparePassword;
 
 var isValidEmail = function isValidEmail(email) {
   return /\S+@\S+\.\S+/.test(email);
@@ -131,7 +93,6 @@ exports.emailToken = emailToken;
 
 var generateId = function generateId() {
   var rand = Math.floor(Math.random() * 1000 + 400);
-  console.log(rand, rand + 1000);
   return rand + 1000;
 };
 

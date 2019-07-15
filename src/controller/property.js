@@ -191,7 +191,7 @@ const getAllProperty = async (req, res) => {
 	contact_person_number,address,proof,type,created_on,image_url
 	 FROM property`;
 	try {
-		if(token == 'undefined'){
+		if(token){
 			return res.status(422).json({status:422,error:'you must provide a token' });
 		}
 		const { rows, rowCount } = await query(findAllQuery);

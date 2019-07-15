@@ -61,8 +61,8 @@ function () {
               break;
             }
 
-            return _context.abrupt("return", res.status(400).json({
-              status: 400,
+            return _context.abrupt("return", res.status(409).json({
+              status: 409,
               error: 'Some values are missing'
             }));
 
@@ -72,8 +72,8 @@ function () {
               break;
             }
 
-            return _context.abrupt("return", res.status(400).json({
-              status: 400,
+            return _context.abrupt("return", res.status(409).json({
+              status: 409,
               error: 'Please enter a valid email address'
             }));
 
@@ -232,7 +232,8 @@ function () {
             }
 
             return _context2.abrupt("return", res.status(403).json({
-              'message': 'The credentials you provided is incorrect'
+              status: 403,
+              error: 'The credentials you provided is incorrect'
             }));
 
           case 13:
@@ -332,8 +333,11 @@ function () {
             }));
 
           case 8:
-            return _context3.abrupt("return", res.status(204).json({
-              'message': 'deleted'
+            return _context3.abrupt("return", res.status(200).json({
+              status: 204,
+              data: {
+                message: 'user has been deleted'
+              }
             }));
 
           case 11:
@@ -403,7 +407,7 @@ function () {
 
             return _context4.abrupt("return", res.status(422).json({
               status: 422,
-              error: 'The credentials you provided is incorrect'
+              error: 'password mismatch'
             }));
 
           case 16:

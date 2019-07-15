@@ -20,7 +20,7 @@ _chai["default"].use(_chaiHttp["default"]); //Our parent block
 
 describe('/GET user account info', function () {
   it('it should test for "/" route ', function (done) {
-    _chai["default"].request(_app["default"]).get('/').end(function (err, res) {
+    _chai["default"].request(_app["default"]).get('/api/v1').end(function (err, res) {
       (0, _chai.expect)(res.status).to.equal(200);
       done();
     });
