@@ -207,8 +207,9 @@ describe('/Auth User', () => {
 
 			}).timeout(0);
 		});
+
 		describe('UPDATE PASSWORD SHOULD FAIL BECAUSE PASSWORD DON"T MATCH', () => {
-			it('should have a status of 200', async () => {
+			it('should have a status of 422', async () => {
 				const body = {
 					old_password:'eCe',
 					new_password:'ss'

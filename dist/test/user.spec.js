@@ -412,7 +412,7 @@ describe('/Auth User', function () {
       }))).timeout(0);
     });
     describe('UPDATE PASSWORD SHOULD FAIL BECAUSE PASSWORD DON"T MATCH', function () {
-      it('should have a status of 200',
+      it('should have a status of 422',
       /*#__PURE__*/
       (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
