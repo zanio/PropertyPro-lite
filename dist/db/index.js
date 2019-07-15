@@ -14,8 +14,7 @@ var _dotenv = _interopRequireDefault(require("dotenv"));
 _dotenv["default"].config();
 
 var pool = new _pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.ssl
+  connectionString: process.env.DATABASE_URL
 });
 /**
    * DB Query

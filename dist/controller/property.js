@@ -361,13 +361,13 @@ function () {
   var _ref11 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee6(req, res) {
-    var token, findAllQuery, _ref12, rows, rowCount;
+    var _ref12, token, findAllQuery, _ref13, rows, rowCount;
 
     return _regenerator["default"].wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            token = req.body.token;
+            _ref12 = req.body || req.header('Authorization'), token = _ref12.token;
             findAllQuery = "SELECT id,owner_email,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property";
             _context6.prev = 2;
 
@@ -386,9 +386,9 @@ function () {
             return (0, _db.query)(findAllQuery);
 
           case 7:
-            _ref12 = _context6.sent;
-            rows = _ref12.rows;
-            rowCount = _ref12.rowCount;
+            _ref13 = _context6.sent;
+            rows = _ref13.rows;
+            rowCount = _ref13.rowCount;
             console.log(rows);
             return _context6.abrupt("return", res.status(200).json({
               status: 200,
@@ -425,10 +425,10 @@ exports.getAllProperty = getAllProperty;
 var getAllPropertyOfUser =
 /*#__PURE__*/
 function () {
-  var _ref13 = (0, _asyncToGenerator2["default"])(
+  var _ref14 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee7(req, res) {
-    var findAllQuery, selectemail, response, _ref14, rows, rowCount;
+    var findAllQuery, selectemail, response, _ref15, rows, rowCount;
 
     return _regenerator["default"].wrap(function _callee7$(_context7) {
       while (1) {
@@ -446,9 +446,9 @@ function () {
             return (0, _db.query)(findAllQuery, [response.rows[0].email]);
 
           case 8:
-            _ref14 = _context7.sent;
-            rows = _ref14.rows;
-            rowCount = _ref14.rowCount;
+            _ref15 = _context7.sent;
+            rows = _ref15.rows;
+            rowCount = _ref15.rowCount;
             return _context7.abrupt("return", res.status(200).json({
               status: 200,
               data: [].concat((0, _toConsumableArray2["default"])(rows), [{
@@ -470,7 +470,7 @@ function () {
   }));
 
   return function getAllPropertyOfUser(_x13, _x14) {
-    return _ref13.apply(this, arguments);
+    return _ref14.apply(this, arguments);
   };
 }();
 /**
@@ -486,10 +486,10 @@ exports.getAllPropertyOfUser = getAllPropertyOfUser;
 var getOneProperty =
 /*#__PURE__*/
 function () {
-  var _ref15 = (0, _asyncToGenerator2["default"])(
+  var _ref16 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee8(req, res) {
-    var token, text, _ref16, rows;
+    var token, text, _ref17, rows;
 
     return _regenerator["default"].wrap(function _callee8$(_context8) {
       while (1) {
@@ -502,8 +502,8 @@ function () {
             return (0, _db.query)(text, [req.params.id]);
 
           case 5:
-            _ref16 = _context8.sent;
-            rows = _ref16.rows;
+            _ref17 = _context8.sent;
+            rows = _ref17.rows;
 
             if (rows[0]) {
               _context8.next = 9;
@@ -535,7 +535,7 @@ function () {
   }));
 
   return function getOneProperty(_x15, _x16) {
-    return _ref15.apply(this, arguments);
+    return _ref16.apply(this, arguments);
   };
 }();
 /**
@@ -551,10 +551,10 @@ exports.getOneProperty = getOneProperty;
 var getTypeProperty =
 /*#__PURE__*/
 function () {
-  var _ref17 = (0, _asyncToGenerator2["default"])(
+  var _ref18 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee9(req, res) {
-    var text, _ref18, rows;
+    var text, _ref19, rows;
 
     return _regenerator["default"].wrap(function _callee9$(_context9) {
       while (1) {
@@ -566,8 +566,8 @@ function () {
             return (0, _db.query)(text, [req.type]);
 
           case 4:
-            _ref18 = _context9.sent;
-            rows = _ref18.rows;
+            _ref19 = _context9.sent;
+            rows = _ref19.rows;
 
             if (rows[0]) {
               _context9.next = 8;
@@ -599,7 +599,7 @@ function () {
   }));
 
   return function getTypeProperty(_x17, _x18) {
-    return _ref17.apply(this, arguments);
+    return _ref18.apply(this, arguments);
   };
 }();
 
@@ -608,10 +608,10 @@ exports.getTypeProperty = getTypeProperty;
 var getAddress =
 /*#__PURE__*/
 function () {
-  var _ref19 = (0, _asyncToGenerator2["default"])(
+  var _ref20 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee10(req, res) {
-    var text, _ref20, rows;
+    var text, _ref21, rows;
 
     return _regenerator["default"].wrap(function _callee10$(_context10) {
       while (1) {
@@ -623,8 +623,8 @@ function () {
             return (0, _db.query)(text, [req.params.id]);
 
           case 4:
-            _ref20 = _context10.sent;
-            rows = _ref20.rows;
+            _ref21 = _context10.sent;
+            rows = _ref21.rows;
 
             if (rows[0]) {
               _context10.next = 8;
@@ -656,7 +656,7 @@ function () {
   }));
 
   return function getAddress(_x19, _x20) {
-    return _ref19.apply(this, arguments);
+    return _ref20.apply(this, arguments);
   };
 }();
 /**
@@ -672,10 +672,10 @@ exports.getAddress = getAddress;
 var updateProperty =
 /*#__PURE__*/
 function () {
-  var _ref21 = (0, _asyncToGenerator2["default"])(
+  var _ref22 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee11(req, res) {
-    var findOneQuery, updateOneQuery, _ref22, rows, values, response;
+    var findOneQuery, updateOneQuery, _ref23, rows, values, response;
 
     return _regenerator["default"].wrap(function _callee11$(_context11) {
       while (1) {
@@ -688,8 +688,8 @@ function () {
             return (0, _db.query)(findOneQuery, [parseInt(req.params.id)]);
 
           case 5:
-            _ref22 = _context11.sent;
-            rows = _ref22.rows;
+            _ref23 = _context11.sent;
+            rows = _ref23.rows;
 
             if (rows[0]) {
               _context11.next = 9;
@@ -731,7 +731,7 @@ function () {
   }));
 
   return function updateProperty(_x21, _x22) {
-    return _ref21.apply(this, arguments);
+    return _ref22.apply(this, arguments);
   };
 }();
 /**
@@ -747,10 +747,10 @@ exports.updateProperty = updateProperty;
 var updatePropertyStatus =
 /*#__PURE__*/
 function () {
-  var _ref23 = (0, _asyncToGenerator2["default"])(
+  var _ref24 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee12(req, res) {
-    var findOneQuery, updateOneQuery, _ref24, rows, values, response;
+    var findOneQuery, updateOneQuery, _ref25, rows, values, response;
 
     return _regenerator["default"].wrap(function _callee12$(_context12) {
       while (1) {
@@ -763,8 +763,8 @@ function () {
             return (0, _db.query)(findOneQuery, [req.params.id]);
 
           case 5:
-            _ref24 = _context12.sent;
-            rows = _ref24.rows;
+            _ref25 = _context12.sent;
+            rows = _ref25.rows;
 
             if (rows[0]) {
               _context12.next = 9;
@@ -802,7 +802,7 @@ function () {
   }));
 
   return function updatePropertyStatus(_x23, _x24) {
-    return _ref23.apply(this, arguments);
+    return _ref24.apply(this, arguments);
   };
 }();
 /**
@@ -818,10 +818,10 @@ exports.updatePropertyStatus = updatePropertyStatus;
 var deleteProperty =
 /*#__PURE__*/
 function () {
-  var _ref25 = (0, _asyncToGenerator2["default"])(
+  var _ref26 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee13(req, res) {
-    var deleteQuery, _ref26, rows;
+    var deleteQuery, _ref27, rows;
 
     return _regenerator["default"].wrap(function _callee13$(_context13) {
       while (1) {
@@ -833,8 +833,8 @@ function () {
             return (0, _db.query)(deleteQuery, [req.params.id]);
 
           case 4:
-            _ref26 = _context13.sent;
-            rows = _ref26.rows;
+            _ref27 = _context13.sent;
+            rows = _ref27.rows;
 
             if (rows[0]) {
               _context13.next = 8;
@@ -871,7 +871,7 @@ function () {
   }));
 
   return function deleteProperty(_x25, _x26) {
-    return _ref25.apply(this, arguments);
+    return _ref26.apply(this, arguments);
   };
 }();
 

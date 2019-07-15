@@ -5,6 +5,7 @@
   "main": "src/app.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill -r dotenv/config src/test/*.js --exit",
+    "test-build": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill -r dotenv/config dist/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "babel-node docs.js",
     "dev": "set DEBUG=http & nodemon --exec babel-node src/app.js ",
