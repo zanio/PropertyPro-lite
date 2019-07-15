@@ -225,6 +225,7 @@ describe('/Auth User', () => {
 
 		
 	});
+	
 
 
 	describe('DELETE ROUTE',()=>{

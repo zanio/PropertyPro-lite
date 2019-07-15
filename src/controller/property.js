@@ -186,7 +186,7 @@ const getAllFlaggedProperty = async(req, res) => {
 
   
 const getAllProperty = async (req, res) => { 
-	const {token} = req.body;
+	const {token} = req.body || req.header('Authorization');
 	const findAllQuery = `SELECT id,owner_email,property_name,property_description,status,state,city,price,
 	contact_person_number,address,proof,type,created_on,image_url
 	 FROM property`;
