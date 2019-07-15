@@ -83,7 +83,7 @@ describe('/property', () => {
 			.field(propertyBody)
 			
 		propertyId = propertyResponse.body.data.id;
-
+		console.log(propertyId)
 		const reportBody = {
 			
 			reason:'frudulent',
@@ -130,8 +130,7 @@ describe('/property', () => {
 					.attach('image_url','src/test/Screenshot (24).png')
 					.field(body);
 					
-				propertyId1 = response.body.data.id;
-				console.log(propertyId1,'property id',response.body.data)
+				
 				expect(response.body.status).to.equal(201);
 			}).timeout(0);
 
