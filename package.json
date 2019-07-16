@@ -4,7 +4,7 @@
   "description": "PropertyPro-lite enpoint to be consumed by my frontend",
   "main": "src/app.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill -r dotenv/config src/test/*.js --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill -r dotenv/config src/test/*.js --timeout 10000 --exit",
     "test-build": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill -r dotenv/config dist/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "babel-node docs.js",

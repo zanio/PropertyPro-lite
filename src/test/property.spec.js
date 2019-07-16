@@ -79,7 +79,7 @@ describe('/property', () => {
 
 		const propertyResponse = await request.post('/api/v1/property')
 			.set('Authorization', firstUserToken)
-			.attach('image_url','src/test/Screenshot (24).png')
+			.attach('image_url','src/test/img2.png')
 			.field(propertyBody)
 			
 		propertyId = propertyResponse.body.data.id;
@@ -127,11 +127,11 @@ describe('/property', () => {
 	
 				const response = await request.post('/api/v1/property')
 					.set('Authorization', secondUserToken)
-					.attach('image_url','src/test/Screenshot (24).png')
+					.attach('image_url','src/test/img2.png')
 					.field(body);
 					
-				
 				expect(response.body.status).to.equal(201);
+				
 			});
 
 		});
@@ -149,7 +149,7 @@ describe('/property', () => {
 	
 				const response = await request.post('/api/v1/property')
 					.set('Authorization', 'hjjfjriu')
-					.attach('image_url','src/test/Screenshot (24).png')
+					.attach('image_url','src/test/img2.png')
 					.field(body);
 					
 				
@@ -192,13 +192,92 @@ describe('/property', () => {
 	
 				const response = await request.post('/api/v1/property')
 					.set('Authorization', firstUserToken)
-					.attach('image_url','src/test/Screenshot (24).png')
+					.attach('image_url','src/test/img2.png')
 					.field(body);
 					
 				expect(response.body.status).to.equal(403);
 			}).timeout(0);
 
 		});
+	});
+
+	describe('PATCH ROUTE WITH ID', () => {
+		describe('PATCH PROPERTY ADVERT FOR PRICE ONLY SUCCESS', () => {
+			it('should have a status of 200', async () => {
+				const body = {
+					price:'2399890',
+				};
+	
+				const response = await request.patch(`/api/v1/property/${propertyId}`)
+					.set('Authorization', firstUserToken)
+					.attach('image_url','src/test/img1.jpg')
+					.field(body);
+						
+				expect(response.body.status).to.equal(200);
+				
+			});
+
+		});
+
+		describe('PATCH PROPERTY ADVERT FOR EVERY OTHER BODY PROPERTY', () => {
+			it('should have a status of 200', async () => {
+				const body = {
+					state:'BENIN',
+					city:'',
+					type:'2 bedroom',
+					price:'238443490',
+					address:'block 199 flat 4, jakande estate',
+					
+				};
+	
+				const response = await request.patch(`/api/v1/property/${propertyId}`)
+					.set('Authorization', firstUserToken)
+					.attach('image_url','src/test/img1.jpg')
+					.field(body);
+					
+				expect(response.body.status).to.equal(200);
+				
+			});
+
+		});
+
+		describe('PROPERTY ADVERT NO PRICE', () => {
+			it('should have a status of 403', async () => {
+				const body = {
+					
+					price:'',
+				};
+	
+				const response = await request.patch(`/api/v1/property/${propertyId}`)
+					.set('Authorization', firstUserToken)
+					.attach('image_url','src/test/img2.png')
+					.field(body);
+					
+				expect(response.body.status).to.equal(403);
+				
+			});
+
+		});
+
+		describe('PROPERTY ADVERT NO IMAGE', () => {
+			it('should have a status of 403', async () => {
+				const body = {
+					
+					price:'4444',
+				};
+	
+				const response = await request.patch(`/api/v1/property/${propertyId}`)
+					.set('Authorization', firstUserToken)
+					.field(body);
+					
+					
+				expect(response.body.status).to.equal(200);
+				
+			});
+
+		});
+
+		
 	});
 
 

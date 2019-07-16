@@ -76,12 +76,12 @@ describe('Helper function in helpers folder test',()=>{
 		done();
 	});
 
-	it('it checks if generateId function returns int',(done)=>{
+	it('it checks if generateId function returns int',async ()=>{
 		
 		
-		expect(generateId()).to.be.a('number');			
+		expect(await generateId('property')).to.be.a('number');			
 			
-		done();
+		
 	});
 
 	
