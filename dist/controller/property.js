@@ -45,7 +45,7 @@ function () {
 
           case 5:
             response = _context.sent;
-            values = [(0, _helper.generateId)() + '1', response.rows[0].email, 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof, note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
+            values = [(0, _helper.generateId)() + '1', response.rows[0].email, 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof || 'no', note, req.Image_url, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 7;
             _context.next = 10;
             return (0, _db.query)(createQuery, values);
@@ -71,12 +71,13 @@ function () {
           case 15:
             _context.prev = 15;
             _context.t0 = _context["catch"](7);
+            console.log(_context.t0);
             return _context.abrupt("return", res.status(400).json({
               status: 400,
               error: 'error occured during the process'
             }));
 
-          case 18:
+          case 19:
           case "end":
             return _context.stop();
         }
@@ -702,7 +703,7 @@ function () {
             }));
 
           case 9:
-            values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.image_url || rows[0].image_url, req.params.id];
+            values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.Image_url || rows[0].image_url, req.params.id];
             _context11.next = 12;
             return (0, _db.query)(updateOneQuery, values);
 

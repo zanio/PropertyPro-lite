@@ -92,8 +92,8 @@ var emailToken = function emailToken(rand) {
 exports.emailToken = emailToken;
 
 var generateId = function generateId() {
-  var rand = Math.floor(Math.random() * 1000 + 400);
-  return rand + 1000;
+  var rand = Math.floor(222 + Math.random() * 10000 + 400);
+  return parseInt('222' + rand);
 };
 
 exports.generateId = generateId;

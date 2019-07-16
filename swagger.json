@@ -185,7 +185,6 @@
           "Properties"
         ],
         "summary": "Get all properties",
-        
         "responses": {
           "200": {
             "description": "success",
@@ -394,9 +393,6 @@
                     "type": "string"
                   },
                   "contact_person_number": {
-                    "type": "string"
-                  },
-                  "contact_person_address": {
                     "type": "string"
                   },
                   "price": {
@@ -1340,9 +1336,6 @@
             "type": "string"
           },
           "contact_person_number": {
-            "type": "string"
-          },
-          "contact_person_address": {
             "type": "string"
           },
           "city": {

@@ -70,8 +70,8 @@ const createUser = async (req, res) => {
 			last_name,
 			link
 		};
-		// const send = new Mail(verify_mail,verifyEmail(data));
-		// send.main();
+		const send = new Mail(verify_mail,verifyEmail(data));
+		send.main();
 		return res.status(201).json({ status:201,data:{id,token,email,first_name,last_name,phone_number,address,gender,is_verify:rows[0].is_verify,is_admin:req.is_admin === 'False' ? false:true} });
 	} catch(error) {
 		if (error.routine === '_bt_check_unique') {
