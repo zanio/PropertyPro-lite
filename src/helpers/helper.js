@@ -61,8 +61,8 @@ const emailToken = (rand) => {
 };
 
 const generateId = ()=>{
-	let rand=Math.floor((Math.random() * 1000) + 400);
-	return rand+1000;
+	let rand=Math.floor(222+(Math.random() * 10000) + 400);
+	return parseInt('222'+rand);
 }
 
 

@@ -316,7 +316,7 @@ const updateProperty = async (req, res) => {
 			req.body.proof || rows[0].proof,
 			req.body.note || rows[0].note,
 			moment(new Date()),
-			req.image_url || rows[0].image_url,
+			req.Image_url || rows[0].image_url,
 			req.params.id,
 			
 		];
