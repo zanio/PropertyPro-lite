@@ -32,7 +32,7 @@ const createProperty = async(req, res) => {
 		property_description,
 		contact_person_number,
 		address, 
-		proof,
+		proof || 'no',
 		note,
 		req.Image_url,
 		moment(new Date()),
@@ -47,6 +47,7 @@ const createProperty = async(req, res) => {
 			city:rows[0].city,type:rows[0].type,price:rows[0].price,
 			address:rows[0].address,image_url:rows[0].image_url}});
 	} catch(error) {
+		console.log(error)
 		return res.status(400).json({status:400,error:'error occured during the process'});
 	}
 };

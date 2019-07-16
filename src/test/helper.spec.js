@@ -23,7 +23,7 @@ describe('Helper function in helpers folder test',()=>{
 		
 		hashPassword('ehhjfhjhf4764jfj')
 			.then(res=>{
-				console.log(res);
+				
 				expect(res).to.equal(res);
 				expect(res).to.be.a(typeof res);
 			});
@@ -58,7 +58,7 @@ describe('Helper function in helpers folder test',()=>{
 		
 		emailToken(12234)
 			.then(res=>{
-				console.log(res);
+				
 				expect(res).to.equal(res);
 				expect(res).to.be.a(typeof res);
 			});
