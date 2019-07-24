@@ -16,8 +16,8 @@ const createProperty = async(req, res) => {
 	const {property_name, status,state,city,property_description, price,contact_person_number, address, proof,note,type} = req.body;
 	const createQuery = `INSERT INTO property(id,owner_email,
 		 status,state,city,type, price,property_name,property_description,contact_person_number,
-		address, proof,note,image_url,created_on, modified_on)
-	  VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16) returning *`;
+		address, proof,note,image_url,images_url,created_on, modified_on)
+	  VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16,$17) returning *`;
 	  const selectemail = 'SELECT email FROM users WHERE id = $1';
 	  const response = await query(selectemail, [req.result.userId]);
 	const values = [
@@ -35,8 +35,9 @@ const createProperty = async(req, res) => {
 		proof || 'no',
 		note,
 		req.Image_url,
+		req.gallery,
 		moment(new Date()),
-		moment(new Date()),
+		moment(new Date())
 		
 	];
 	
@@ -45,7 +46,7 @@ const createProperty = async(req, res) => {
 		return res.status(201).json({status:201,data:{
 			id:rows[0].id,owner_email:rows[0].owner_email,status:rows[0].status,state:rows[0].state,
 			city:rows[0].city,type:rows[0].type,price:rows[0].price,
-			address:rows[0].address,image_url:rows[0].image_url}});
+			address:rows[0].address,image_url:rows[0].image_url,gallery:rows[0].images_url}});
 	} catch(error) {
 		console.log(error)
 		return res.status(400).json({status:400,error:'error occured during the process'});
@@ -189,7 +190,7 @@ const getAllFlaggedProperty = async(req, res) => {
 const getAllProperty = async (req, res) => { 
 	const {token} = req.body || req.header('Authorization');
 	const findAllQuery = `SELECT id,owner_email,property_name,property_description,status,state,city,price,
-	contact_person_number,address,proof,type,created_on,image_url
+	contact_person_number,address,proof,type,created_on,image_url,images_url
 	 FROM property`;
 	try {
 		if(!token){
@@ -234,7 +235,7 @@ const getAllPropertyOfUser = async (req, res) => {
 const getOneProperty = async (req, res) => { 
 	const {token} = req.body;
 	const text = `SELECT id,property_name,status,state,city,price,property_description,
-	contact_person_number,address,proof,type,created_on,image_url
+	contact_person_number,address,proof,type,created_on,image_url, images_url
 	 FROM property WHERE id = $1`;
 	try {
 		const { rows } = await query(text, [req.params.id]);
@@ -295,8 +296,8 @@ const updateProperty = async (req, res) => {
 	  SET property_name=$1,status=$2,state=$3,property_description=$4,
 	  city=$5,price=$6,contact_person_number=$7,
 	  address=$8,proof=$9,note=$10,
-	  modified_on=$11, image_url = $12
-	  WHERE id=$13 returning *`;
+	  modified_on=$11, image_url = $12, images_url = $13
+	  WHERE id=$14 returning *`;
 	try {
 		
 
@@ -318,6 +319,7 @@ const updateProperty = async (req, res) => {
 			req.body.note || rows[0].note,
 			moment(new Date()),
 			req.Image_url || rows[0].image_url,
+			req.gallery || rows[0].images_url,
 			req.params.id,
 			
 		];

@@ -1,8 +1,9 @@
-import { uploader} from './cloudinaryConfig';
+import { uploader,v2} from './cloudinaryConfig';
 import { dataUri,dataUris } from './multer';
 import { idCheck } from '../middlewares/auth/auth';
+import {generateId} from '../helpers/helper'
 
-const contentimg = async req =>{
+const contentimg = async (req) =>{
 	let file =[];
 	await dataUris(req).map(el=>{
 		file.push(el.content);
@@ -10,7 +11,7 @@ const contentimg = async req =>{
 	return file;
 };
 
-const uploadall =  (array,arrayImage) =>{
+const uploadall =  (array,arrayImage,n) =>{
 	
 	return new Promise( (resolve,reject)=>{
 		
@@ -20,7 +21,7 @@ const uploadall =  (array,arrayImage) =>{
 				let image =  await result.url;
 				
 				arrayImage.push(image);
-				if(arrayImage[3]){
+				if(arrayImage[n]){
 					resolve(arrayImage);
 				}
 			}
@@ -36,53 +37,60 @@ const uploadall =  (array,arrayImage) =>{
 	
 };
 
-const uploadone =  (singleimage) =>{
+
+const uploadone =  (singleimage,res) =>{
 	
-	return new Promise( async (resolve,reject)=>{
-		try{
-			let result = await uploader.upload(singleimage);
-			let image =  await result.url;	
-				
-			if(image){
-				resolve(image);
-			}
-		}
-		catch(err){
-			if(err)reject(err);
-				
-		}	
-	});
-	
-	
+	return new Promise(  (resolve,reject)=>{
+		v2.uploader.upload(singleimage,{ resource_type: 'image', public_id: 
+										'api/screens/thumnail_'+generateId(),tags:['screenshot','image'],	
+		audio_codec: "none", effect: "auto_contrast", gravity: "south", height: 300, radius: 0, width: 300, crop: "crop"
+		},
+		
+		 function(err,result){		
+						if(result){
+							const image = result.url
+							resolve(image);
+						}
+						if(err){
+							res.status(500).json({status:500,err})
+						}
+					 });
+			
+		});
+			
 };
 
 
 const cloudinaryHandler = async (req, res,next) => {
 	
 	
-	if(req.file !== undefined) {
+	if(req.files !== undefined) {
 		const file = dataUri(req).content;
-		// console.log(file)
-		// let files = await contentimg(req);
-		// let arrayImage = [];
-		console.log(req.file)
-
+		let files = req.files['images_url']? await contentimg(req):null;
+		let arrayImage = [];
+		
+		
 		try{
-			const singlefile = await uploadone(file);
-			//const multiplefiles = await uploadall(files,arrayImage);
-			//let arrayImages = multiplefiles;
-			req.Image_url = singlefile;
-			//req.Image_urls = arrayImages;
-			next();
+			const singlefile = await uploadone(file,res);
+			
+			const multiplefiles = req.files['images_url']? await uploadall(files,arrayImage,2):['upload at least 3 images'];
+			
+			let arrayImages = multiplefiles;
+			
+			if((singlefile && multiplefiles)|| multiplefiles  ){
+				req.Image_url = singlefile;
+				req.gallery = arrayImages;
+				
+				next();
+			}
+				
+			
 		} catch(err){
 			if(err){
-				return res.status(500).json({status:500,error:err.message});
+				return res.status(500).json({status:500,error:': THIS IS MOST LIKELY A NETWORK ERROR'});
 			}
 		}		
-	} else {
-		console.log(req.file)
-		next();
-	}	
+	} 
 };
 	
 

@@ -1,4 +1,4 @@
-import { config, uploader } from 'cloudinary';
+import { config, uploader, v2 } from 'cloudinary';
 import dotenv from 'dotenv';
 dotenv.config();
 const cloudinaryConfig = (req,res,next) => {
@@ -9,4 +9,4 @@ const cloudinaryConfig = (req,res,next) => {
 	});
 	next();
 };
-export { cloudinaryConfig, uploader };
+export { cloudinaryConfig, uploader,v2 };
