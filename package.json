@@ -15,7 +15,7 @@
     "start": "npm run serve",
     "postgres": "node db createUserTable & node db creatAdminTable & node db createPropertyTable & node db createReportTable & node db createFlaggedTable",
     "serve": "node dist/app.js",
-    "psql": "psql -h localhost -p 2000 -U postgres -W"
+    "psql": "psql -h localhost -p 5432 -U postgres -W"
   },
   "babel": {
     "presets": [

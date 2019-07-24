@@ -34,6 +34,7 @@ const createPropertyTable = () => {
 		proof BOOLEAN,
 		note TEXT,
 		image_url TEXT NOT NULL,
+		images_url TEXT [],
         created_on TIMESTAMP,
 		modified_on TIMESTAMP,
         FOREIGN KEY (owner_email) REFERENCES users (email) ON DELETE CASCADE
