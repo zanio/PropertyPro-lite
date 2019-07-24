@@ -1,9 +1,9 @@
 
-let address;
-let endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/property-advert/address/';
-let endpoint2 = 'https://propertpro-lite.herokuapp.com/api/v1/property-advert/search?type=flat';
+let address,latitude,longitude;
+let AddressEndpoint = 'http://localhost:3300/api/v1/property/address/';
 
-let getAdress = (url,id)=>{
+
+let getOne = (url,id)=>{
 	return new Promise((resolve,reject)=>{
 		if(window.fetch){
 			fetch(url+id)
@@ -14,29 +14,6 @@ let getAdress = (url,id)=>{
 		}
 	});
 };
-
-getAdress(endpoint2,'').then(res=>console.log(res)).catch(err=>console.log(err));
-
-let latitude,longitude;
-
-async function geolocation(){
-	var geocoder = new google.maps.Geocoder();
-	const res = await getAdress(endpoint,1);
-	address = res.data.contact_person_address+' ,'+res.data.city+' ,'+res.data.state;
-	geocoder.geocode( { 'address': address},function(results,status){
-    
-		if (status == google.maps.GeocoderStatus.OK) {
-			latitude = results[0].geometry.location.lat();
-			longitude = results[0].geometry.location.lng();
-			initMap();
-		} 
-    
-	}); 
-
-}
-
-
-geolocation();
 
 async function initMap() {
 	// The location 
@@ -56,6 +33,29 @@ async function initMap() {
 		map: map
 	});
 }
+
+
+
+async function geolocation(){
+	var geocoder = new google.maps.Geocoder();
+	const res = await getOne(AddressEndpoint,22260411);
+	address = res.data.address+' ,'+res.data.city+' ,'+res.data.state;
+	geocoder.geocode( { 'address': address},function(results,status){
+    
+		if (status == google.maps.GeocoderStatus.OK) {
+			latitude = results[0].geometry.location.lat();
+			longitude = results[0].geometry.location.lng();
+			initMap();
+		} 
+    
+	}); 
+
+}
+
+
+geolocation();
+
+
 
 
 

@@ -7,77 +7,89 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <script src="js/getContent.js"></script>
     <title>PropertyPro-lite</title>
 </head>
 <body>
     <!-- header -->
-    <header class="bg-blue insertHeader">
+    <header id ='navigation' class="bg-blue insertHeader navbar">
         
     </header>
     <main>
         <!-- sign up title -->
+        
         <section class="container ">
             <div class="center width-70 text-center pt-3 ">
-                <img src="icons/signup-icon.png" alt="sign up icon">
+                
+                <img class="icon-res" src="icons/signup-icon.png" alt="sign up icon">
                 <p class="title-head -light-blue mb-2">Welcome, signUp to start posting advert on your property</p>
+                <div id="async-loading" class="lds-spinner hide width-20 center mb-3 mt-3"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
             </div>
 
         </section>
        <section class="container">
            <!-- signup form body -->
            <div class="signup-80 center pb-3">
-               <form class="flex-cloumn" action="/signup">
-                <div class="flex-row space-evenly flex-cloumn">
-                    <div>
+               <div id="slide-notification" class="width-20 mb-2  center block"></div>
+               <form id="sign-up-form" >
+                <div class="flex-row space-evenly mb-1">
+                    <div class="width-half">
                         <label class="-blue" for="email">Email</label><br>
-                        <input class="width-85 -blue" type="text" name="email">
+                        <input class="max-width-input -blue" type="text" name="email">
                     </div>
-                    <div>
+                    <div class="width-half">
                         <label class="-blue" for="password">Password</label><br>
-                        <input class="width-85  -blue" type="password" name="password">
+                        <input class="max-width-input  -blue" type="password" name="password">
                     </div>
                 </div>
-                <div class="flex-row space-evenly flex-cloumn">
-                    <div>
+                <div class="flex-row space-evenly mb-1">
+                    <div  class="width-half">
                         <label class="-blue" for="first_name">First Name</label><br>
-                        <input class="width-85 -blue" type="text" name="first_name">
+                        <input class="max-width-input -blue" type="text" name="first_name">
                     </div>
-                    <div>
+                    <div class="width-half">
                         <label class="-blue" for="last_name">Last Name</label><br>
-                        <input class="width-85 -blue"  type="text" name="last_name">
+                        <input class="max-width-input -blue"  type="text" name="last_name">
                     </div>
                 </div>
-                <div class="flex-row space-evenly flex-cloumn">
-                    <div>
+                <div class="flex-row space-evenly mb-1">
+                    <div class="width-half">
                         <label class="-blue" for="phoneNumber">Phone Number</label><br>
-                        <input class="width-85 -blue"  type="text" name="phoneNumber">
+                        <input class="max-width-input -blue"  type="text" name="phone_number">
                     </div>
-                    <div >
+                    <div  class="width-half">
                         <label class="-blue" for="address">Address</label><br>
-                        <input class="width-85" type="text" name="address">
+                        <input class="max-width-input -blue" type="text" name="address">
                     </div>
+                    
                 </div>
                 <div class="text-center mt-3">
-                        <button class="btn btn-bg btn-blue ft-1 white" type="submit">Create Account</button>
+                        <button type="submit"  class="btn btn-bg btn-blue ft-1 white" >Create Account</button>
                 </div>
                 
                 </form>
+
                 <div class="text-center mt-3">
                     <p class="title-head ft-1">Already have an account ? <a class="blue-link -light-blue" href="login.html">Login</a> here</p>
                 </div>
+
            </div>
+          
 
        </section>
     </main>
     <footer class="pt-3 pb-3 container">
      
-        <div class="insertFooter"></div>
+        <div id="insertFooter"></div>
    
     </footer>
     <section class="text-center footer-info">
             <p>© All rights reserved 2019 - Designed & Developed by Aniefiok Akpan</p>
     </section>
-    <script src="js/mains.js"></script>
+    <script src="js/component.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/signup.js"></script>
+
 </body>
 </html>

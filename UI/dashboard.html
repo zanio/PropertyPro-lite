@@ -6,146 +6,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
-    <script src="js/getContent.js"></script>
+    <!-- <script src="js/getContent.js"></script> -->
     <title>PropertyPro-lite</title>
 </head>
 <body>
     <!-- header -->
-    <header class="bg-blue insertauthHeader">
+    <header id="navigation" class="bg-blue insertauthHeader navbar">
         
     </header>
     <main class="bg-account pb-3">
         <!-- dashboard head title -->
         <section class="container ">
            <div class="width-50 center">
+               <div id="slide-notification"></div>
+               <div id="notification"></div>
                <h1 class="title-head -blue ft-2 pt-3 text-center">Your recent advert</h1>
-               <p class="title-head ft-1 pt-2 pb-2 text-center color-999">Sed mauris nulla, tempor et pretium eu, pellentesque a lectus. Phasellus sit amet sollicitudin ipsum, eu facilisis purus. Donec ullamcorper mattis risus. Cras imperdiet nec leo ut vulputate. </p>
-           </div>
+               <div id="user-info" class="title-head ft-1 color-777 pt-2 pb-2 text-center "></div>
+               <div id="async-loading" class="lds-spinner hide width-20 center mb-3 mt-3"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+            </div>
 
         </section>
 
        <section class="container pt-3">
 
            <!-- row 1 -->
-           <section class="flex-row space-evenly">
-               <div class="dashboard-cards mb-1">
-                   <div>
-                      <img class=" width-100" src="images/kitchen.png" alt="kitchen utensils for cooking" >
-                   </div>
-                <div class="pt-1 pr-1 pb-1 pl-1 ">
-                    <div class="flex-row space-between pb-1">
-                        <h2 class="title-head ft-1 -blue">Kitchen Utensils</h2>
-                        <h2 class="title-head ft-1 -orange">N2,008,888.8</h2>
-                    </div>
-                    <p class="title-head ft-08 color-777 text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus sit amet orci eget rutrum</p>
-                    <div class="flex-row space-between pb-1 mt-1 text-center">
-                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white">Update advert</button>
-                            <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-1  white up mark-advert">Mark advert</button>
-                            <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-1 mb-1 white delete">Delete Advert</button>
-                        </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
-                </div>
-                   
-               </div>
-               <div class="dashboard-cards mb-1">
-                   <div>
-                      <img class=" width-100" src="images/kitchen.png" alt="kitchen utensils for cooking" >
-                   </div>
-                <div class="pt-1 pr-1 pb-1 pl-1 ">
-                    <div class="flex-row space-between pb-1">
-                        <h2 class="title-head ft-1 -blue">Kitchen Utensils</h2>
-                        <h2 class="title-head ft-1 -orange">N2,008,888.8</h2>
-                    </div>
-                    <p class="title-head ft-08 color-777 text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus sit amet orci eget rutrum</p>
-                    <div class="flex-row space-between pb-1 mt-1 text-center">
-                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white">Update advert</button>
-                            <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-1  white up mark-advert">Mark advert</button>
-                            <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-1 mb-1 white delete">Delete Advert</button>
-                        </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
-                </div>
-                   
-               </div>
-               <div class="dashboard-cards mb-1">
-                   <div>
-                      <img class=" width-100" src="images/kitchen.png" alt="kitchen utensils for cooking" >
-                   </div>
-                <div class="pt-1 pr-1 pb-1 pl-1 ">
-                    <div class="flex-row space-between pb-1">
-                        <h2 class="title-head ft-1 -blue">Kitchen Utensils</h2>
-                        <h2 class="title-head ft-1 -orange">N2,008,888.8</h2>
-                    </div>
-                    <p class="title-head ft-08 color-777 text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus sit amet orci eget rutrum</p>
-                    <div class="flex-row space-between pb-1 mt-1 text-center">
-                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white">Update advert</button>
-                            <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-1  white up mark-advert">Mark advert</button>
-                            <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-1 mb-1 white delete">Delete Advert</button>
-                        </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
-                </div>
-                   
-               </div>
+           <section id="user_ads" class="flex-row space-evenly">
+               
 
            </section>
            <!-- row 2 -->
-           <section class="flex-row space-evenly">
-               <div class="dashboard-cards mb-1">
-                   <div>
-                      <img class=" width-100" src="images/kitchen.png" alt="kitchen utensils for cooking" >
-                   </div>
-                <div class="pt-1 pr-1 pb-1 pl-1 ">
-                    <div class="flex-row space-between pb-1">
-                        <h2 class="title-head ft-1 -blue">Kitchen Utensils</h2>
-                        <h2 class="title-head ft-1 -orange">N2,008,888.8</h2>
-                    </div>
-                    <p class="title-head ft-08 color-777 text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus sit amet orci eget rutrum</p>
-                    <div class="flex-row space-between pb-1 mt-1 text-center">
-                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white">Update advert</button>
-                            <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-1  white up mark-advert">Mark advert</button>
-                            <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-1 mb-1 white delete">Delete Advert</button>
-                        </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
-                </div>
-                   
-               </div>
-               <div class="dashboard-cards mb-1">
-                   <div>
-                      <img class=" width-100" src="images/kitchen.png" alt="kitchen utensils for cooking" >
-                   </div>
-                <div class="pt-1 pr-1 pb-1 pl-1 ">
-                    <div class="flex-row space-between pb-1">
-                        <h2 class="title-head ft-1 -blue">Kitchen Utensils</h2>
-                        <h2 class="title-head ft-1 -orange">N2,008,888.8</h2>
-                    </div>
-                    <p class="title-head ft-08 color-777 text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus sit amet orci eget rutrum</p>
-                    <div class="flex-row space-between pb-1 mt-1 text-center">
-                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white">Update advert</button>
-                            <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-1  white up mark-advert">Mark advert</button>
-                            <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-1 mb-1 white delete">Delete Advert</button>
-                        </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
-                </div>
-                   
-               </div>
-               <div class="dashboard-cards mb-1">
-                   <div>
-                      <img class=" width-100" src="images/kitchen.png" alt="kitchen utensils for cooking" >
-                   </div>
-                <div class="pt-1 pr-1 pb-1 pl-1 ">
-                    <div class="flex-row space-between pb-1">
-                        <h2 class="title-head ft-1 -blue">Kitchen Utensils</h2>
-                        <h2 class="title-head ft-1 -orange">N2,008,888.8</h2>
-                    </div>
-                    <p class="title-head ft-08 color-777 text-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus sit amet orci eget rutrum</p>
-                    <div class="flex-row space-between pb-1 mt-1 text-center">
-                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white">Update advert</button>
-                            <button  class="btn  btn-orange sm-padding btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white up mark-advert">Mark advert</button>
-                            <button class="btn btn-danger sm-padding btn-no-shadow no-border mobile-width-20 ft-1 mb-1 white delete">Delete Advert</button>
-                        </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
-                </div>
-                   
-               </div>
+           <section id="user_ads_1" class="flex-row space-evenly">
+               
 
            </section>
 
@@ -163,12 +55,15 @@
     </main>
     <footer class="pt-3 pb-3 container">
      
-        <div class="insertFooter"></div>
+        <div id="insertFooter"></div>
    
     </footer>
     <section class="text-center footer-info">
             <p>© All rights reserved 2019 - Designed & Developed by Aniefiok Akpan</p>
     </section>
-    <script src="js/mains.js"></script>
+    <script src="js/component.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 </html>
