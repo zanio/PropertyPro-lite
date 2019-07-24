@@ -1,6 +1,6 @@
 const express = require('express');
 const propertyrouter = express.Router();
-import {multerUploads,multerArrayUploads} from '../config/multer';
+import {multerUploads,multerArrayUploads,cpUpload} from '../config/multer';
 
 import {cloudinaryHandler} from '../config/cloudinary';
 import {authorization,idCheck,typeAdvert} from '../middlewares/auth/auth';
@@ -10,22 +10,17 @@ import {createProperty,getOneFlaggedProperty,getAddress,getAllFlaggedProperty,re
 
 
 /* create propertyadvert advert  */
-propertyrouter.post('/property',multerUploads, checkPropertyEmpty, authorization, 
+propertyrouter.post('/property',cpUpload, checkPropertyEmpty, authorization, 
 	jwtVerify,cloudinaryHandler, createProperty);
 
-
-propertyrouter.patch('/property/:id',multerUploads, idCheck,updateprice,authorization, 
+propertyrouter.patch('/property/:id',cpUpload, idCheck,updateprice,authorization, 
 	jwtVerify,cloudinaryHandler,updateProperty);
-
 
 propertyrouter.patch('/property/:id/sold', idCheck, authorization, jwtVerify,updatePropertyStatus);
 
-
 propertyrouter.delete('/property/:id', idCheck, authorization, jwtVerify, deleteProperty);
 
-	
 propertyrouter.get('/property', getAllProperty);
-
 
 propertyrouter.get('/property/user', authorization , jwtVerify , getAllPropertyOfUser);
 

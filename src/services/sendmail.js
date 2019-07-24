@@ -10,8 +10,19 @@ class Mail{
 		this.content = content;
 	}
 
-	async main(){
+	
 
+	formatRecipients  (recipients){
+		let array = recipients.split(',');
+		array.map(el=>{
+			el.trim();
+		});
+		return array;
+
+	}
+
+	async main(){
+		const {subject,recipient,content} = this;
 		// create reusable transporter object using the default SMTP transport
 		let transporter = nodemailer.createTransport({
 			service: process.env.layer,
@@ -21,7 +32,7 @@ class Mail{
 			}
 		});
 
-		const {subject,recipient,content} = this;
+		
 
 		let mailOptions = {
 			from: '"PropertyPro-Lite" <'+process.env.email+'>', 
@@ -31,8 +42,7 @@ class Mail{
 		};
         
 		try{
-			const info = await transporter.sendMail(mailOptions);
-			console.log(info);
+			await transporter.sendMail(mailOptions);
 		} 
 		catch(error){
 			console.log(error);

@@ -46,7 +46,7 @@ const generateToken = (id) => {
 	return new Promise((resolve,reject)=>{
 		const token = jwt.sign({userId: id },process.env.SECRET_KEY, { expiresIn: '7d' });
 		if(token) resolve(token);
-		if(!token) reject({err:'could not assign a token'});
+		if(!token) reject({err:'could not assign a token, make sure you provide a secret key'});
 	});
     
 };
@@ -55,7 +55,7 @@ const emailToken = (rand) => {
 	return new Promise((resolve,reject)=>{
 		const token = jwt.sign({code: rand },process.env.SECRET_KEY, { expiresIn: '5m' });
 		if(token) resolve(token);
-		if(!token) reject({err:'could not assign a token'});
+		if(!token) reject({err:'could not assign a token, make sure you provide a secret key'});
 	});
     
 };

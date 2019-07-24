@@ -8,7 +8,6 @@ const Arr = obj =>{
     const regex = /^[a-zA-Z\s-]+$/;
     let arr =[];
     values.map(val => arr.push(regex.test(val)));
-  //  console.log(values)
     
     return arr;
  };   

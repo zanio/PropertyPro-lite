@@ -47,10 +47,9 @@ const genderCheck =  (req, res, next) => {
 const checkPropertyEmpty = (req, res, next) =>{
 	
 	try {
-		//dataUris(req);
-		dataUri(req);
+		
 		let {property_name, token, status,price,state,city,type,contact_person_number,address,proof,note} = req.body;
-		const image_url = req.file;
+		const image_url = req.files['image_url'][0];
 		property_name = property_name ? property_name.trim():null;
 		status = status ? status.trim():null;
 		price = price ? price.trim():null;
@@ -61,8 +60,6 @@ const checkPropertyEmpty = (req, res, next) =>{
 		proof = proof ? proof.trim():null;
 		note = note ? note.trim():null;
 		
-		//const image = req.file;
-		//console.log(token,'this is the token that is to be used for authentication');
 		
 		if(city && state && price && image_url && type && address ){
 			
@@ -161,4 +158,12 @@ const regNumCheck = (req, res, next)=>{
 
 
 
-export {checkPropertyField,genderCheck,checkPropertyEmpty,emailValidation,regCharCheck,regNumCheck,updateprice};
+export {
+	checkPropertyField,
+	genderCheck,
+	checkPropertyEmpty,
+	emailValidation,
+	regCharCheck,
+	regNumCheck,
+	updateprice
+};
