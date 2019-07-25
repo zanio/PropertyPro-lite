@@ -108,7 +108,6 @@ const flaggedProperty = async(req, res) => {
 	];
 	
 	try {
-		console.log(rows[0])
 		if(rows[0].is_admin){
 			const response = await query(createQuery, values);
 			
@@ -118,7 +117,6 @@ const flaggedProperty = async(req, res) => {
 		return res.status(422).json({status:422,error:'Only an admin can flag a property'});
 		
 	} catch(error) {
-		console.log(error)
 		return res.status(400).json(error);
 	}
 };

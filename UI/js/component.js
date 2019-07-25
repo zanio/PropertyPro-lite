@@ -51,29 +51,24 @@ const AuthHeader = `
                  <li>
                      <a href="dashboard.html">Dashboard</a>
                  </li>
-                 <li class="property">
-                        <p>  Type
-                          <ul class="card-bg-white ">
+                 <li class="property"><p>Type<ul class=" ">
                               <li><a href="flat.html">Flat</a></li>
                               <li><a href="land.html">Land</a></li>
                               <li><a href="miniflat.html">Mini-flat</a></li>
                               <li><a href="real-estate.html">real Estate</a></li>
-                              
                           </ul>
                         </p>
                       </li>
 
                  <li>
-                     <a href="no-advert.html">Post Advert</a>
+                     <a class="btn mr-1 no-border btn-md btn-no-shadow btn-orange" href="no-advert.html">Post Ad</a>
                  </li>
-                 <li><button id ="sign-out-button" >Logout</button></li>
-                 
                  
                  <li id="user-profile" class="user-li">
                      <img class="user-dp" src="icons/user.png" alt="User Account profile">
-                     <ul class="user-setting">
+                     <ul class="user-setting hide">
                          <li><a href="my-account.html">My Account</a></li>
-                         <li><a id="">Logout</a></li>
+                         <li><a id="sign-out-button">Logout</a></li>
                      </ul>
                  </li>
              </ul>

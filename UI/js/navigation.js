@@ -20,6 +20,7 @@ const navigationMount = () => {
           Render.renderContainer('navigation', adminNav);
         } else {
           Render.renderContainer('navigation', AuthHeader);
+          console.log(AuthHeader)
         }
       } catch (ex) {
         console.warn('Navigation container not found');
@@ -38,3 +39,20 @@ const navigationMount = () => {
   } catch (ex) {
     console.warn('sign out button not found');
   }
+
+  
+  window.addEventListener('load',()=>{
+    const userSettings = document.querySelector('.user-setting');
+    const body = document.querySelector('body');
+
+    body.addEventListener('click',(e)=>{
+      if(e.target.classList.value === 'user-dp'){
+        userSettings.classList.remove('hide');
+        userSettings.classList.add('block');
+      } else{
+        userSettings.classList.remove('block');
+        userSettings.classList.add('hide');
+      }
+
+    })
+  })

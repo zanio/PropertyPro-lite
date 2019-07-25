@@ -43,7 +43,9 @@ class Render {
     static blockNotification(word) {
       try {
         const notificationContainer = document.querySelector('#notification');
-        notificationContainer.textContent = word;
+        notificationContainer.innerHTML = `<p class="slide-right inline-block
+         color-red bd-red mb-1 text-center font-weight
+         pl-1 pr-1 pt-1 pb-1">${word}</p>`;
   
         notificationContainer.className = 'block';
   
@@ -52,10 +54,10 @@ class Render {
             'block',
             '',
           );
-          notificationContainer.textContent = '';
-        }, 3000);
+          notificationContainer.innerHTML = '';
+        }, 4000);
       } catch (ex) {
-        console.log('the image with id was not found');
+        console.log('the id of notification was not found');
       }
     }
   

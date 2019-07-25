@@ -164,18 +164,9 @@ const UpdateProcess = (domElement,i)=>{
         StatusEvent(changeStatus,get_id); 
     });
            
-}
+};
 
-
-
-const ProcessAdvertList = async ()=>{
-    const data = await fetchUserAdverts();
-    let content;
-    
-    if(data.length <= 1){
-        window.location.replace('no-advert.html');
-    }
-    data.pop();
+const DisplayUserAdverts = data=>{
     const FirstThree = Helpers.getFirstN(data,0,3);
     const NextThree = Helpers.getFirstN(data,3,6);
 
@@ -189,17 +180,33 @@ const ProcessAdvertList = async ()=>{
     const Images_2 = Helpers.loopImage(NextThree);
 
     injectManyImage(Images_1.concat(Images_2));
+};
 
-// Delete button section dashboard
+
+
+const ProcessAdvertList = async ()=>{
+    const data = await fetchUserAdverts();
+    let content;
+    
+    if(data.length <= 1){
+        window.location.replace('no-advert.html');
+    }
+    data.pop();
+    data.reverse();
+    
+//Display Users advert if users has adverts on his/her dashboard
+    DisplayUserAdverts(data);
+
+//Delete button and mark property status section dashboard
     AllDeleteBtn = document.querySelectorAll('.delete');
     AllUpdateBtn = document.querySelectorAll('.mark-advert');
 
     for(let i =0; i < AllDeleteBtn.length;i++){
         DeleteProcess(AllDeleteBtn,i);
-        UpdateProcess(AllUpdateBtn,i)
+        UpdateProcess(AllUpdateBtn,i);
     }
 
-}
+};
 
 window.addEventListener('load',()=>{
    const getUserInfo = JSON.parse(getUser)
