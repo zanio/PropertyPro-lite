@@ -1,9 +1,11 @@
 const getUser = localStorage.getItem('user');
+const page_1 = localStorage.getItem('page_1');
 const chooseState = document.querySelector('#choose-state')
 const chooseLga = document.querySelector('#choose-lga')
 const propertyType = document.querySelector('#type-of-property')
 const propertyName = document.querySelector('#property-name')
 const propertyAddress = document.querySelector('#property-address')
+const propertyDescription = document.querySelector('#property-description')
 const continueAdBtn = document.querySelector('#next-1');
 
 if (
@@ -16,10 +18,33 @@ if (
 ) {
   window.location.replace('signup.html');
 }
+
+const preserveState = ()=>{
+  const data = JSON.parse(page_1);
+  chooseState.value = data['state'];
+  chooseLga.value = data['lga'];
+  propertyType.value = data['property-type'];
+  propertyName.value = data['property-name'];
+  propertyAddress.value = data['property-address'];
+  propertyDescription.value = data['property-description'];
+}
+// PRESERVE PREVIOUS STATE FROM localStorage;
+if (
+  !(
+    page_1 === null
+    || page_1 === undefined
+    || page_1 === 'undefined'
+    || page_1 === 'null'
+  )
+) {
+  preserveState();
+}
+
 const fetchStates = async ()=>{
   const endpoint = 'https://locationsng-api.herokuapp.com/api/v1/states';
   
   try{
+  
     const states = await fetch(endpoint);
     const statesJson = await states.json();
     const allStates =  statesJson.map(response=>{
@@ -33,6 +58,7 @@ const fetchStates = async ()=>{
   
 
 }
+
 const fetchLga = async (state)=>{
   const endpoint = 'http://locationsng-api.herokuapp.com/api/v1/lgas';
   chooseLga.innerHTML = '';
@@ -86,6 +112,7 @@ const continueAd = (data)=>{
 
 
 window.addEventListener('load',()=>{
+ 
   fetchStates();
   let page_1 = {};
 
@@ -103,6 +130,10 @@ window.addEventListener('load',()=>{
     page_1['property-address'] = propertyAddress.value;
   })
 
+  propertyDescription.addEventListener('keyup',()=>{
+    page_1['property-description'] = propertyDescription.value;
+  })
+
    propertyType.addEventListener('change',()=>{
     if(propertyType.value !== 'choose type')
     page_1['property-type'] = propertyType.value
@@ -118,6 +149,12 @@ window.addEventListener('load',()=>{
   });
   
   continueAdBtn.addEventListener('click',()=>{
+    page_1['property-type'] = page_1['property-type'] || propertyType.value;
+    page_1['property-name'] = page_1['property-name'] || propertyName.value;
+    page_1['lga'] = page_1['lga'] || chooseLga.value;
+    page_1['property-address'] = page_1['property-address'] || propertyAddress.value;
+    page_1['property-description'] = page_1['property-description'] || propertyDescription.value;
+    console.log(page_1);
     continueAd(page_1);
   })
 

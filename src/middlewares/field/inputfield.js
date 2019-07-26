@@ -50,6 +50,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 		
 		let {property_name, token, status,price,state,city,type,contact_person_number,address,proof,note} = req.body;
 		const image_url = req.files['image_url'][0];
+		const images_url = req.files['images_url'];
 		property_name = property_name ? property_name.trim():null;
 		status = status ? status.trim():null;
 		price = price ? price.trim():null;
@@ -59,6 +60,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 		address = address ? address.trim():null;
 		proof = proof ? proof.trim():null;
 		note = note ? note.trim():null;
+		console.log(images_url)
 		
 		
 		if(city && state && price && image_url && type && address ){

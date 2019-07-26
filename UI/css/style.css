@@ -12,16 +12,16 @@ https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%
 */
 
     ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: #FFFFFF;
+        color: rgb(155, 150, 150);
         opacity: .7; /* Firefox */
     }
     
     :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: #FFFFFF;
+        color: rgb(155, 150, 150);
     }
     
     ::-ms-input-placeholder { /* Microsoft Edge */
-        color: #FFFFFF;
+        color: rgb(155, 150, 150);
     }
     
     @font-face{

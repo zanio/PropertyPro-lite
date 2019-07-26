@@ -191,6 +191,15 @@ class Render {
         txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(),
       );
     }
+    static float(amount) {
+      const regex = /^[+-]?\d+(\.\d+)?$/;
+      return  regex.test(amount);
+    }
+
+    static phoneNumber(no) {
+      const regex = no.length == 11;
+      return  regex
+    }
   
   
     static serialize(obj) {
@@ -210,9 +219,9 @@ class Render {
       return isNum.test(num);
     }
   
-    static logout() {
-      localStorage.removeItem('user');
-      window.location.replace('home.html');
+    static removelocalStorage(item,page) {
+      localStorage.removeItem(`${item}`);
+      window.location.replace(`${page}.html`);
     }
 
     static getFirstN(array,startN, endN) {

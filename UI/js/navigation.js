@@ -33,7 +33,7 @@ const navigationMount = () => {
   try {
     const signOutButton = document.querySelector('#sign-out-button');
     signOutButton.addEventListener('click', () => {
-      Helpers.logout();
+      Helpers.removelocalStorage('user','home');
     });
   } catch (ex) {
     console.warn('sign out button not found');
