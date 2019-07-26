@@ -70,8 +70,6 @@ exports.genderCheck = genderCheck;
 
 var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
   try {
-    //dataUris(req);
-    (0, _multer.dataUri)(req);
     var _req$body = req.body,
         property_name = _req$body.property_name,
         token = _req$body.token,
@@ -84,7 +82,8 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
         address = _req$body.address,
         proof = _req$body.proof,
         note = _req$body.note;
-    var image_url = req.file;
+    var image_url = req.files['image_url'][0];
+    var images_url = req.files['images_url'];
     property_name = property_name ? property_name.trim() : null;
     status = status ? status.trim() : null;
     price = price ? price.trim() : null;
@@ -93,8 +92,8 @@ var checkPropertyEmpty = function checkPropertyEmpty(req, res, next) {
     type = type ? type.trim() : null;
     address = address ? address.trim() : null;
     proof = proof ? proof.trim() : null;
-    note = note ? note.trim() : null; //const image = req.file;
-    //console.log(token,'this is the token that is to be used for authentication');
+    note = note ? note.trim() : null;
+    console.log(images_url);
 
     if (city && state && price && image_url && type && address) {
       var property = {

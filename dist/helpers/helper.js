@@ -67,7 +67,7 @@ var generateToken = function generateToken(id) {
 
     if (token) resolve(token);
     if (!token) reject({
-      err: 'could not assign a token'
+      err: 'could not assign a token, make sure you provide a secret key'
     });
   });
 };
@@ -84,7 +84,7 @@ var emailToken = function emailToken(rand) {
 
     if (token) resolve(token);
     if (!token) reject({
-      err: 'could not assign a token'
+      err: 'could not assign a token, make sure you provide a secret key'
     });
   });
 };
@@ -92,8 +92,8 @@ var emailToken = function emailToken(rand) {
 exports.emailToken = emailToken;
 
 var generateId = function generateId() {
-  var rand = Math.floor(222 + Math.random() * 10000 + 400);
-  return parseInt('222' + rand);
+  var rand = Math.floor(222 + Math.random() * 65665 + 400);
+  return parseInt('220' + rand);
 };
 
 exports.generateId = generateId;

@@ -32,17 +32,27 @@ function () {
   }
 
   (0, _createClass2["default"])(Mail, [{
+    key: "formatRecipients",
+    value: function formatRecipients(recipients) {
+      var array = recipients.split(',');
+      array.map(function (el) {
+        el.trim();
+      });
+      return array;
+    }
+  }, {
     key: "main",
     value: function () {
       var _main = (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee() {
-        var transporter, subject, recipient, content, mailOptions, info;
+        var subject, recipient, content, transporter, mailOptions;
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // create reusable transporter object using the default SMTP transport
+                subject = this.subject, recipient = this.recipient, content = this.content; // create reusable transporter object using the default SMTP transport
+
                 transporter = _nodemailer["default"].createTransport({
                   service: process.env.layer,
                   auth: {
@@ -50,7 +60,6 @@ function () {
                     pass: process.env.password
                   }
                 });
-                subject = this.subject, recipient = this.recipient, content = this.content;
                 mailOptions = {
                   from: '"PropertyPro-Lite" <' + process.env.email + '>',
                   to: recipient,
@@ -62,22 +71,20 @@ function () {
                 return transporter.sendMail(mailOptions);
 
               case 6:
-                info = _context.sent;
-                console.log(info);
-                _context.next = 13;
+                _context.next = 11;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 8:
+                _context.prev = 8;
                 _context.t0 = _context["catch"](3);
                 console.log(_context.t0);
 
-              case 13:
+              case 11:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[3, 10]]);
+        }, _callee, this, [[3, 8]]);
       }));
 
       function main() {

@@ -161,16 +161,20 @@ const getOneFlaggedProperty = async(req, res) => {
 
 const getAllFlaggedProperty = async(req, res) => { 
 	const queryreport = `SELECT * 
-	FROM report`;
+	FROM flagged`;
 	const { rows,rowCount } = await query(queryreport);
 	
 	try {
-		if(rows[0]){
-			return res.status(200).json({status:200,data:[rows,{rowCount}]});
+		if(rows.length > 0){
+			return res.status(200).json({status:200,data:[...rows,{rowCount}]});
+		}
+		if(rows.length <= 1){
+			return res.status(400).json({status:400,data:{message:'No advert has been flagged'}});
 		}
 		
 		
 	} catch(error) {
+		console.log(error)
 		return res.status(400).json(error);
 	}
 };
@@ -191,8 +195,10 @@ const getAllProperty = async (req, res) => {
 	 FROM property`;
 	try {
 		const { rows, rowCount } = await query(findAllQuery);
-		console.log(rows)
-		return res.status(200).json({status:200,data:[...rows] });
+		if(rows.length>1){
+			return res.status(200).json({status:200,data:[...rows,rowCount] });
+		}
+		
 	} catch(error) {
 		return res.status(400).send(error);
 	}

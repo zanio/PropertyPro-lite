@@ -17,8 +17,7 @@ var Arr = function Arr(obj) {
   var arr = [];
   values.map(function (val) {
     return arr.push(regex.test(val));
-  }); //  console.log(values)
-
+  });
   return arr;
 };
 

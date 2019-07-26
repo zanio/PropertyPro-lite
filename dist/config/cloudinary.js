@@ -17,6 +17,8 @@ var _multer = require("./multer");
 
 var _auth = require("../middlewares/auth/auth");
 
+var _helper = require("../helpers/helper");
+
 var contentimg =
 /*#__PURE__*/
 function () {
@@ -50,7 +52,7 @@ function () {
   };
 }();
 
-var uploadall = function uploadall(array, arrayImage) {
+var uploadall = function uploadall(array, arrayImage, n) {
   return new Promise(function (resolve, reject) {
     array.map(
     /*#__PURE__*/
@@ -76,7 +78,7 @@ var uploadall = function uploadall(array, arrayImage) {
                 image = _context2.sent;
                 arrayImage.push(image);
 
-                if (arrayImage[3]) {
+                if (arrayImage[n]) {
                   resolve(arrayImage);
                 }
 
@@ -103,123 +105,132 @@ var uploadall = function uploadall(array, arrayImage) {
   });
 };
 
-var uploadone = function uploadone(singleimage) {
-  return new Promise(
-  /*#__PURE__*/
-  function () {
-    var _ref3 = (0, _asyncToGenerator2["default"])(
-    /*#__PURE__*/
-    _regenerator["default"].mark(function _callee3(resolve, reject) {
-      var result, image;
-      return _regenerator["default"].wrap(function _callee3$(_context3) {
-        while (1) {
-          switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.prev = 0;
-              _context3.next = 3;
-              return _cloudinaryConfig.uploader.upload(singleimage);
+var uploadone = function uploadone(singleimage, res) {
+  return new Promise(function (resolve, reject) {
+    _cloudinaryConfig.v2.uploader.upload(singleimage, {
+      resource_type: 'image',
+      public_id: 'api/screens/thumnail_' + (0, _helper.generateId)(),
+      tags: ['screenshot', 'image'],
+      audio_codec: "none",
+      effect: "auto_contrast",
+      gravity: "south",
+      height: 300,
+      radius: 0,
+      width: 300,
+      crop: "crop"
+    }, function (err, result) {
+      if (result) {
+        var image = result.url;
+        resolve(image);
+      }
 
-            case 3:
-              result = _context3.sent;
-              _context3.next = 6;
-              return result.url;
-
-            case 6:
-              image = _context3.sent;
-
-              if (image) {
-                resolve(image);
-              }
-
-              _context3.next = 13;
-              break;
-
-            case 10:
-              _context3.prev = 10;
-              _context3.t0 = _context3["catch"](0);
-              if (_context3.t0) reject(_context3.t0);
-
-            case 13:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3, null, [[0, 10]]);
-    }));
-
-    return function (_x3, _x4) {
-      return _ref3.apply(this, arguments);
-    };
-  }());
+      if (err) {
+        res.status(500).json({
+          status: 500,
+          err: err
+        });
+      }
+    });
+  });
 };
 
 var cloudinaryHandler =
 /*#__PURE__*/
 function () {
-  var _ref4 = (0, _asyncToGenerator2["default"])(
+  var _ref3 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  _regenerator["default"].mark(function _callee4(req, res, next) {
-    var file, singlefile;
-    return _regenerator["default"].wrap(function _callee4$(_context4) {
+  _regenerator["default"].mark(function _callee3(req, res, next) {
+    var file, files, arrayImage, singlefile, multiplefiles, arrayImages;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context4.prev = _context4.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            if (!(req.file !== undefined)) {
-              _context4.next = 17;
+            if (!(req.files !== undefined)) {
+              _context3.next = 31;
               break;
             }
 
-            file = (0, _multer.dataUri)(req).content; // console.log(file)
-            // let files = await contentimg(req);
-            // let arrayImage = [];
+            file = (0, _multer.dataUri)(req).content;
 
-            console.log(req.file);
-            _context4.prev = 3;
-            _context4.next = 6;
-            return uploadone(file);
+            if (!req.files['images_url']) {
+              _context3.next = 8;
+              break;
+            }
 
-          case 6:
-            singlefile = _context4.sent;
-            //const multiplefiles = await uploadall(files,arrayImage);
-            //let arrayImages = multiplefiles;
-            req.Image_url = singlefile; //req.Image_urls = arrayImages;
+            _context3.next = 5;
+            return contentimg(req);
 
-            next();
-            _context4.next = 15;
+          case 5:
+            _context3.t0 = _context3.sent;
+            _context3.next = 9;
             break;
 
-          case 11:
-            _context4.prev = 11;
-            _context4.t0 = _context4["catch"](3);
+          case 8:
+            _context3.t0 = null;
 
-            if (!_context4.t0) {
-              _context4.next = 15;
+          case 9:
+            files = _context3.t0;
+            arrayImage = [];
+            _context3.prev = 11;
+            _context3.next = 14;
+            return uploadone(file, res);
+
+          case 14:
+            singlefile = _context3.sent;
+
+            if (!req.files['images_url']) {
+              _context3.next = 21;
               break;
             }
 
-            return _context4.abrupt("return", res.status(500).json({
+            _context3.next = 18;
+            return uploadall(files, arrayImage, 2);
+
+          case 18:
+            _context3.t1 = _context3.sent;
+            _context3.next = 22;
+            break;
+
+          case 21:
+            _context3.t1 = ['upload at least 3 images'];
+
+          case 22:
+            multiplefiles = _context3.t1;
+            arrayImages = multiplefiles;
+
+            if (singlefile && multiplefiles || multiplefiles) {
+              req.Image_url = singlefile;
+              req.gallery = arrayImages;
+              next();
+            }
+
+            _context3.next = 31;
+            break;
+
+          case 27:
+            _context3.prev = 27;
+            _context3.t2 = _context3["catch"](11);
+
+            if (!_context3.t2) {
+              _context3.next = 31;
+              break;
+            }
+
+            return _context3.abrupt("return", res.status(500).json({
               status: 500,
-              error: _context4.t0.message
+              error: ': THIS IS MOST LIKELY A NETWORK ERROR'
             }));
 
-          case 15:
-            _context4.next = 19;
-            break;
-
-          case 17:
-            console.log(req.file);
-            next();
-
-          case 19:
+          case 31:
           case "end":
-            return _context4.stop();
+            return _context3.stop();
         }
       }
-    }, _callee4, null, [[3, 11]]);
+    }, _callee3, null, [[11, 27]]);
   }));
 
-  return function cloudinaryHandler(_x5, _x6, _x7) {
-    return _ref4.apply(this, arguments);
+  return function cloudinaryHandler(_x3, _x4, _x5) {
+    return _ref3.apply(this, arguments);
   };
 }();
 

@@ -11,6 +11,12 @@ Object.defineProperty(exports, "uploader", {
     return _cloudinary.uploader;
   }
 });
+Object.defineProperty(exports, "v2", {
+  enumerable: true,
+  get: function get() {
+    return _cloudinary.v2;
+  }
+});
 exports.cloudinaryConfig = void 0;
 
 var _cloudinary = require("cloudinary");
