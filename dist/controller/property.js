@@ -402,20 +402,33 @@ function () {
             }));
 
           case 9:
-            _context6.next = 14;
-            break;
+            if (!(rows.length <= 1)) {
+              _context6.next = 11;
+              break;
+            }
+
+            return _context6.abrupt("return", res.status(400).json({
+              status: 400,
+              data: {
+                message: 'No advert has been flagged'
+              }
+            }));
 
           case 11:
-            _context6.prev = 11;
+            _context6.next = 16;
+            break;
+
+          case 13:
+            _context6.prev = 13;
             _context6.t0 = _context6["catch"](1);
             return _context6.abrupt("return", res.status(400).send(_context6.t0));
 
-          case 14:
+          case 16:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[1, 11]]);
+    }, _callee6, null, [[1, 13]]);
   }));
 
   return function getAllProperty(_x11, _x12) {

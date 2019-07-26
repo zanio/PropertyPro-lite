@@ -198,6 +198,9 @@ const getAllProperty = async (req, res) => {
 		if(rows.length>1){
 			return res.status(200).json({status:200,data:[...rows,rowCount] });
 		}
+		if(rows.length <= 1){
+			return res.status(400).json({status:400,data:{message:'No advert has been flagged'}});
+		}
 		
 	} catch(error) {
 		return res.status(400).send(error);
