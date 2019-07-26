@@ -186,14 +186,10 @@ const getAllFlaggedProperty = async(req, res) => {
 
   
 const getAllProperty = async (req, res) => { 
-	const {token} = req.body || req.header('Authorization');
 	const findAllQuery = `SELECT id,owner_email,property_name,property_description,status,state,city,price,
 	contact_person_number,address,proof,type,created_on,image_url,images_url
 	 FROM property`;
 	try {
-		if(!token){
-			return res.status(422).json({status:422,error:'you must provide a token' });
-		}
 		const { rows, rowCount } = await query(findAllQuery);
 		console.log(rows)
 		return res.status(200).json({status:200,data:[...rows] });
