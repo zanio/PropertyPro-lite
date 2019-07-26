@@ -242,17 +242,24 @@ class Render {
       let backdropBg
       switch(type){
         case'async':
-        backdropBg = 'backdrop-async'
-        case 'normal':
+        backdropBg = 'backdrop-async';
+        break;
+        default:
         backdropBg = 'backdrop'
       }
-      let backdrop = document.querySelector('body').insertAdjacentHTML('beforeend',`<div  class="${backdropBg} message"></div>`);
-      return backdrop;
+     document.querySelector('body').insertAdjacentHTML('beforeend',`<div  class="${backdropBg} message"></div>`);
+      
+    }
+
+    static removeElement(ele){
+      let elem = document.querySelector(`.${ele}`);
+      return elem.parentNode.removeChild(elem);
     }
   
     static removeBackDrop(){
-      let backdrop = document.querySelector('.backdrop')
-      backdrop.classList.add('hide')
+      let backdrop = 'backdrop'
+      return this.removeElement(backdrop);
+
     }
     static async delayedRoute(n = 5000, url) {
       await new Promise((done) => {
@@ -262,6 +269,24 @@ class Render {
       });
     }
   }
+  
+  let pageHeight = 0;
+
+  (function() {
+    
+
+    function findHighestNode(nodesList) {
+        for (var i = nodesList.length - 1; i >= 0; i--) {
+            if (nodesList[i].scrollHeight && nodesList[i].clientHeight) {
+                var elHeight = Math.max(nodesList[i].scrollHeight, nodesList[i].clientHeight);
+                pageHeight = Math.max(elHeight, pageHeight);
+            }
+            if (nodesList[i].childNodes.length) findHighestNode(nodesList[i].childNodes);
+        }
+    }
+
+    findHighestNode(document.documentElement.childNodes);
+})();
   
   window.addEventListener('scroll', () => {
     const navBar = document.querySelector('.navbar');
@@ -284,6 +309,7 @@ class Render {
 			this.parentNode.removeChild(this);
 		});
     });
+
   });
   
   try {
@@ -291,4 +317,6 @@ class Render {
   } catch (ex) {
     console.log('footer-container not found');
   }
+
+
   

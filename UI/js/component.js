@@ -48,6 +48,9 @@ const AuthHeader = `
         </div> 
          <nav>
              <ul class="ul-link mobile">
+             <li>
+                     <a class="btn mr-1 no-border btn-md btn-no-shadow btn-orange" href="no-advert.html">Post Ad</a>
+                 </li>
                  <li>
                      <a href="dashboard.html">Dashboard</a>
                  </li>
@@ -60,9 +63,7 @@ const AuthHeader = `
                         </p>
                       </li>
 
-                 <li>
-                     <a class="btn mr-1 no-border btn-md btn-no-shadow btn-orange" href="no-advert.html">Post Ad</a>
-                 </li>
+                 
                  
                  <li id="user-profile" class="user-li">
                      <img class="user-dp" src="icons/user.png" alt="User Account profile">
@@ -167,13 +168,14 @@ const deleteMessage = `
             <h2 class="ttle-head ft-1 pt-2 -blue">Are you sure about this ? this can't be undone
                </h2>
                <button class="btn btn-danger white ft-1 no-border btn-no-shadow mb-1 mt-3 deleteId" id = "modal">Delete</button> 
+               <button class="btn btn-gray ml-1 ft-1 no-border btn-no-shadow mb-1 mt-3" id = "cancel">Cancel</button> 
         </div>
     </div>
 `
 
 const updateMessage = `
 <div  class="backdrop">
-<div class="width-50 mobile-modal bg-white shadow container center">
+<div class="width-50 mobile-modal bg-white shadow container center pb-3">
     <div class="mt-3 text-center">
     <div id="async-loading" class="lds-spinner hide width-20 center mb-3 mt-3"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
         <h2 class="ttle-head ft-1 pt-2 -blue">Select what you would like to update
@@ -185,7 +187,9 @@ const updateMessage = `
                </select>
            </div>
            <button class="btn btn-danger white ft-1 no-border btn-no-shadow mb-1 mt-3" id = "modal-update">Update Status</button> 
+           <button class="btn btn-gray ml-1 ft-1 no-border btn-no-shadow mb-1 mt-3" id = "cancel">Cancel</button> 
     </div>
 </div>
 </div>
 `
+

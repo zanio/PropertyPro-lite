@@ -117,11 +117,12 @@ const DeleteProcess = (domElement,i)=>{
         const get_text_id = document.querySelector('.get_id').textContent;
         const get_id = get_text_id.split(' ')[2].trim()
         
-        Helpers.insertBackdrop('normal')
+        Helpers.insertBackdrop();
 
         const message = document.querySelector('.message');
         message.innerHTML = deleteMessage;
         const modalBtn = document.querySelector('#modal');
+        const cancelBtn = document.querySelector('#cancel');
         modalBtn.addEventListener('click',async()=>{
         Render.blockAsyncNotification();
         const response = await fetchDeleteAdvert(get_id);
@@ -129,6 +130,9 @@ const DeleteProcess = (domElement,i)=>{
         Helpers.removeBackDrop();
         location.href = 'dashboard.html';
         });
+        cancelBtn.addEventListener('click',()=>{
+        Helpers.removeBackDrop();
+        })
     });
 }
 
@@ -139,14 +143,14 @@ const StatusEvent = (changeStatus,get_id)=>{
     statusObject['status'] = changeStatus.value;
     const statusBody = statusObject ? statusObject:'empty object'
     const modalBtn = document.querySelector('#modal-update');
+    
     modalBtn.addEventListener('click',async()=>{
     Render.blockAsyncNotification();
     const response = await fetchMarkStatus(get_id,statusBody);
     Helpers.removeBackDrop();
     location.href = 'dashboard.html';
-    
-
     });
+    
 });
 }
 
@@ -162,6 +166,10 @@ const UpdateProcess = (domElement,i)=>{
         const changeStatus = document.querySelector('#select_options');
        
         StatusEvent(changeStatus,get_id); 
+        const cancelBtn = document.querySelector('#cancel');
+        cancelBtn.addEventListener('click',()=>{
+            Helpers.removeBackDrop();
+        })
     });
            
 };

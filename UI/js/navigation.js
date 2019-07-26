@@ -20,7 +20,6 @@ const navigationMount = () => {
           Render.renderContainer('navigation', adminNav);
         } else {
           Render.renderContainer('navigation', AuthHeader);
-          console.log(AuthHeader)
         }
       } catch (ex) {
         console.warn('Navigation container not found');

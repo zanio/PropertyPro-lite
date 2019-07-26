@@ -76,7 +76,6 @@ const signIn = (payload) => {
       email: String(email).toLowerCase(),
       password
     };
-    console.log(payload)
     payload = JSON.stringify(payload);
     Render.blockAsyncNotification();
     setTimeout(()=>{
