@@ -54,7 +54,10 @@ const AuthHeader = `
                  <li>
                      <a href="dashboard.html">Dashboard</a>
                  </li>
-                 <li class="property"><p>Type<ul class=" ">
+                 <li>
+                     <a href="all-property.html">All Property</a>
+                 </li>
+                 <li class="property"><p>Category<ul class=" ">
                               <li><a href="flat.html">Flat</a></li>
                               <li><a href="land.html">Land</a></li>
                               <li><a href="miniflat.html">Mini-flat</a></li>

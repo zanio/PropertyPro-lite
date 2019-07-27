@@ -64,7 +64,6 @@ window.addEventListener('load',()=>{
     const sidenote = propertySubmit['sidenote'].value.trim()
     const file = propertySubmit['image_url'].files[0];
     const files = propertySubmit['images_url'].files;
-    console.log(files);
 
     //Validation start here
     if (!amount || amount == '') {
@@ -116,7 +115,11 @@ window.addEventListener('load',()=>{
     formdata.append('proof',proof);
     formdata.append('note',sidenote);
     formdata.append('image_url',file);
-    formdata.append('images_url',files);
+
+    for (let i = 0; i < files.length; i++) {
+      formdata.append('images_url',files[i]);
+      }
+    
 
     Render.blockAsyncNotification();
    createAd(formdata);

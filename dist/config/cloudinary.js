@@ -140,13 +140,13 @@ function () {
   var _ref3 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee3(req, res, next) {
-    var file, files, arrayImage, singlefile, multiplefiles, arrayImages;
+    var file, files, arrayImage, singlefile, no_images, multiplefiles, arrayImages;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             if (!(req.files !== undefined)) {
-              _context3.next = 31;
+              _context3.next = 32;
               break;
             }
 
@@ -177,24 +177,25 @@ function () {
 
           case 14:
             singlefile = _context3.sent;
+            no_images = req.files['images_url'].length - 1; //console.log(no_images)
 
             if (!req.files['images_url']) {
-              _context3.next = 21;
+              _context3.next = 22;
               break;
             }
 
-            _context3.next = 18;
-            return uploadall(files, arrayImage, 2);
+            _context3.next = 19;
+            return uploadall(files, arrayImage, no_images);
 
-          case 18:
+          case 19:
             _context3.t1 = _context3.sent;
-            _context3.next = 22;
+            _context3.next = 23;
             break;
 
-          case 21:
+          case 22:
             _context3.t1 = ['upload at least 3 images'];
 
-          case 22:
+          case 23:
             multiplefiles = _context3.t1;
             arrayImages = multiplefiles;
 
@@ -204,15 +205,15 @@ function () {
               next();
             }
 
-            _context3.next = 31;
+            _context3.next = 32;
             break;
 
-          case 27:
-            _context3.prev = 27;
+          case 28:
+            _context3.prev = 28;
             _context3.t2 = _context3["catch"](11);
 
             if (!_context3.t2) {
-              _context3.next = 31;
+              _context3.next = 32;
               break;
             }
 
@@ -221,12 +222,12 @@ function () {
               error: ': THIS IS MOST LIKELY A NETWORK ERROR'
             }));
 
-          case 31:
+          case 32:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[11, 27]]);
+    }, _callee3, null, [[11, 28]]);
   }));
 
   return function cloudinaryHandler(_x3, _x4, _x5) {
