@@ -32,7 +32,7 @@ describe('/property', () => {
 		request = chai.request(app).keepOpen();
 		this.timeout(0);
 		const firstUser = {
-			email:'akp.anibv@yahoo.com',
+			email:'akp.anidbv@yahoo.com',
 			password:'ee',
 			address:'block 199 flat 4',
 			phone_number:'08023456789',
@@ -40,7 +40,7 @@ describe('/property', () => {
 			last_name:'Akpan'
 		};
 		const secondUser = {
-			email:'akpan.ani@yahoo.com',
+			email:'akcvpan.ani@yahoo.com',
 			password:'ee',
 			address:'block 199 flat 4',
 			phone_number:'08023456789',
@@ -64,7 +64,6 @@ describe('/property', () => {
 			.send(secondUser);
 		secondUserId = secondUserResponse.body.data.id;
 		secondUserToken = secondUserResponse.body.data.token;
-		
 
 		const propertyBody = {
 			
@@ -81,8 +80,9 @@ describe('/property', () => {
 			.set('Authorization', firstUserToken)
 			.attach('image_url','src/test/img2.png')
 			.field(propertyBody)
-			
+			console.log(propertyResponse.body);	
 		propertyId = propertyResponse.body.data.id;
+		
 		
 		const reportBody = {
 			

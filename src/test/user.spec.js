@@ -40,7 +40,7 @@ describe('/Auth User', () => {
 		describe('SIGNUP SUCCESSFULLY', () => {
 			it('should have a status of 201', async () => {
 				const body = {
-					email:'akp.ani@yahoo.com',
+					email:'akpsa.ani@yahoo.com',
 					password:'ee',
 					address:'block 199 flat 4',
 					phone_number:'08023456789',

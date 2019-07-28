@@ -78,7 +78,7 @@ const cloudinaryHandler = async (req, res,next) => {
 			
 			let arrayImages = multiplefiles;
 			
-			if((singlefile && multiplefiles)|| multiplefiles  ){
+			if((singlefile && multiplefiles)|| singlefile  ){
 				req.Image_url = singlefile;
 				req.gallery = arrayImages;
 				
