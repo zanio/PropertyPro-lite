@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {numRegex} from '../../utils/numRegex';
-import {query} from '../../db';
+import {query} from '../../model';
 import url from 'url';
 
 

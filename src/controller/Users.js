@@ -1,6 +1,6 @@
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
-import {query} from '../db';
+import {query} from '../model/index';
 import {isValidEmail,hashPassword,comparePassword,generateToken,emailToken} from '../helpers/helper';
 import {Mail} from '../services/sendmail';
 import {resetPass} from '../services/template/resetPassword';

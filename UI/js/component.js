@@ -1,13 +1,13 @@
 const Header = `
 <div class="container flex-row space-between align-center header">
         <div class="mobile-flex pt-2 pb-2">
-                <a href="home.html">    <img class="img-res" src="images/PropertyPro-lite.png" alt="PropertyPro-lite Logo"></a>
+                <a href="index.html">    <img class="img-res" src="images/PropertyPro-lite.png" alt="PropertyPro-lite Logo"></a>
              <div ><span><img class="bars" src="icons/menu.png" alt=""></span></div>
         </div> 
          <nav>
              <ul class="ul-link mobile">
                  <li>
-                     <a href="home.html">Home</a>
+                     <a href="index.html">Home</a>
                  </li>
                  <li>
                      <a href="post.html">Post Advert</a>
@@ -43,7 +43,7 @@ const Header = `
 const AuthHeader = `
 <div class="container flex-row space-between align-center header">
         <div class="mobile-flex pt-2 pb-2">
-            <a href="home.html"> <img class="img-res" src="images/PropertyPro-lite.png" alt="PropertyPro-lite Logo"></a>
+            <a href="index.html"> <img class="img-res" src="images/PropertyPro-lite.png" alt="PropertyPro-lite Logo"></a>
              <div ><span><img class="bars" src="icons/menu.png" alt="menu"></span></div>
         </div> 
          <nav>
@@ -102,7 +102,7 @@ const footer = `
         <!-- column two footer -->
         <div class="width-20 footer-ht footer-auto mb-2">
              <div class="text-center ">
-                    <a href="home.html">  <img class="img-res" src="images/PropertyPro-lite.png" alt="propertyPro-lite Logo"></a>
+                    <a href="index.html">  <img class="img-res" src="images/PropertyPro-lite.png" alt="propertyPro-lite Logo"></a>
             </div>
             
             <div class="text-center display mt-2">

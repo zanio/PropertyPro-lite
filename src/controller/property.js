@@ -1,5 +1,5 @@
 import moment from 'moment';
-import {query} from '../db';
+import {query} from '../model';
 import {generateId} from '../helpers/helper'
 
 

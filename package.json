@@ -13,7 +13,7 @@
     "script": "babel-node src/services/test.js",
     "build-babel": "npm run clean && babel src --out-dir dist",
     "start": "npm run serve",
-    "postgres": "node db createUserTable & node db creatAdminTable & node db createPropertyTable & node db createReportTable & node db createFlaggedTable",
+    "postgres": "node src/model/model createUserTable & node db creatAdminTable & node db createPropertyTable & node db createReportTable & node db createFlaggedTable",
     "serve": "node dist/app.js",
     "psql": "psql -h localhost -p 5432 -U postgres -W"
   },

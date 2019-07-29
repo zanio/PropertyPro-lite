@@ -49,7 +49,7 @@ const checkPropertyEmpty = (req, res, next) =>{
 	try {
 		
 		let {property_name, token, status,price,state,city,type,contact_person_number,address,proof,note} = req.body;
-		const image_url = req.files['image_url'][0];
+		const image_url = req.files['image_url'][0]?req.files['image_url'][0]:null;
 		const images_url = req.files['images_url'];
 		property_name = property_name ? property_name.trim():null;
 		status = status ? status.trim():null;

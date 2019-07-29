@@ -5,7 +5,7 @@ import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import app from '../app';
-import {query} from '../db/index';
+import {query} from '../model/index';
 import {generateId} from '../helpers/helper'
 
 
@@ -80,7 +80,7 @@ describe('/property', () => {
 			.set('Authorization', firstUserToken)
 			.attach('image_url','src/test/img2.png')
 			.field(propertyBody)
-			console.log(propertyResponse.body);	
+			console.log(firstUserToken);	
 		propertyId = propertyResponse.body.data.id;
 		
 		
@@ -259,23 +259,7 @@ describe('/property', () => {
 
 		});
 
-		describe('PROPERTY ADVERT NO IMAGE', () => {
-			it('should have a status of 403', async () => {
-				const body = {
-					
-					price:'4444',
-				};
-	
-				const response = await request.patch(`/api/v1/property/${propertyId}`)
-					.set('Authorization', firstUserToken)
-					.field(body);
-					
-					
-				expect(response.body.status).to.equal(200);
-				
-			});
-
-		});
+		
 
 		
 	});

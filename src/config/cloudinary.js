@@ -72,13 +72,13 @@ const cloudinaryHandler = async (req, res,next) => {
 		
 		try{
 			const singlefile = await uploadone(file,res);
-			const no_images = req.files['images_url'].length-1;
+			const no_images = req.files['images_url']?req.files['images_url'].length-1:null;
 			//console.log(no_images)
 			const multiplefiles = req.files['images_url']? await uploadall(files,arrayImage,no_images):['upload at least 3 images'];
 			
 			let arrayImages = multiplefiles;
 			
-			if((singlefile && multiplefiles)|| singlefile  ){
+			if(singlefile|| (singlefile && multiplefiles)  ){
 				req.Image_url = singlefile;
 				req.gallery = arrayImages;
 				
@@ -87,8 +87,9 @@ const cloudinaryHandler = async (req, res,next) => {
 				
 			
 		} catch(err){
+			console.log(err)
 			if(err){
-				return res.status(500).json({status:500,error:': THIS IS MOST LIKELY A NETWORK ERROR'});
+				return res.status(500).json({status:500,error:'THIS IS MOST LIKELY A NETWORK ERROR'});
 			}
 		}		
 	} 

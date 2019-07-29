@@ -40,6 +40,7 @@ const fetchUserAdverts = async ()=>{
     return data;
 
 }
+
 const fetchDeleteAdvert = async (propertyId)=>{
     let data;
     const getUserInfo = JSON.parse(getUser)
@@ -67,6 +68,7 @@ const fetchDeleteAdvert = async (propertyId)=>{
     return data.message;
 
 }
+
 const fetchMarkStatus = async (propertyId,status)=>{
     let data;
     const getUserInfo = JSON.parse(getUser)

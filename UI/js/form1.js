@@ -154,7 +154,6 @@ window.addEventListener('load',()=>{
     page_1['lga'] = page_1['lga'] || chooseLga.value;
     page_1['property-address'] = page_1['property-address'] || propertyAddress.value;
     page_1['property-description'] = page_1['property-description'] || propertyDescription.value;
-    console.log(page_1);
     continueAd(page_1);
   })
 

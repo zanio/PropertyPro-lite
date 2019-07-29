@@ -221,7 +221,7 @@ class Render {
   
     static removelocalStorage(item,page) {
       localStorage.removeItem(`${item}`);
-      window.location.replace(`${page}.html`);
+      page && typeof page === String(page)? window.location.replace(`${page}.html`):null;
     }
 
     static getFirstN(array,startN, endN) {

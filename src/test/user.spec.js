@@ -5,7 +5,7 @@ import chaiHttp from 'chai-http';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import app from '../app';
-import {query} from '../db/index';
+import {query} from '../model/index';
 
 
 let request;
