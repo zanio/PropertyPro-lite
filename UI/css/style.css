@@ -725,7 +725,7 @@ https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%
 @media(min-width:768px) and (max-width:1400px){
     .hero-img{
        
-        background-size: 200%;
+        background-size: 100%;
         min-height: auto;
     }
     footer{

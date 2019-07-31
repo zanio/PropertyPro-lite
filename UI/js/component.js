@@ -2,40 +2,36 @@
 const Header = `
 <div class="container flex-row space-between align-center header">
         <div class="mobile-flex pt-2 pb-2">
-                <a href="index.html">    <img class="img-res" src="images/PropertyPro-lite.png" alt="PropertyPro-lite Logo"></a>
-             <div ><span><img class="bars" src="icons/menu.png" alt=""></span></div>
+            <a href="index.html"> <img class="img-res" src="images/PropertyPro-lite.png" alt="PropertyPro-lite Logo"></a>
+             <div ><span><img class="bars" src="icons/menu.png" alt="menu"></span></div>
         </div> 
          <nav>
              <ul class="ul-link mobile">
+            
                  <li>
                      <a href="index.html">Home</a>
                  </li>
                  <li>
-                     <a href="post.html">Post Advert</a>
+                     <a href="form1.html">Post Ad</a>
                  </li>
                  <li>
                      <a href="all-property.html">All Property</a>
                  </li>
-                 <li class="property">
-                   <p>  Type
-                     <ul class="card-bg-white ">
-                         <li><a href="flat.html">Flat</a></li>
-                         <li><a href="land.html">Land</a></li>
-                         <li><a href="miniflat.html">Mini-flat</a></li>
-                         <li><a href="real-estate.html">real Estate</a></li>
-                         
-                     </ul>
-                 </p>
-                 </li>
-                 <li>
-                     <a href="about-us.html">About Us</a>
-                 </li>
-                 <li>
-                     <a href="login.html">Login</a>
-                 </li>
-                 <li>
-                     <a href="signup.html">Sign Up</a>
-                 </li>
+                 <li class="property"><p>Category<ul class=" ">
+                              <li><a href="flat.html">Flat</a></li>
+                              <li><a href="land.html">Land</a></li>
+                              <li><a href="miniflat.html">Mini-flat</a></li>
+                              <li><a href="real-estate.html">real Estate</a></li>
+                          </ul>
+                        </p>
+                      </li>
+
+                      <li>
+                      <a href="login.html">Login</a>
+                  </li>
+                      <li>
+                      <a href="signup.html">Signup</a>
+                  </li>
              </ul>
          </nav>
      </div>
@@ -67,8 +63,6 @@ const AuthHeader = `
                         </p>
                       </li>
 
-                 
-                 
                  <li id="user-profile" class="user-li">
                      <img class="user-dp" src="icons/user.png" alt="User Account profile">
                      <ul class="user-setting hide">

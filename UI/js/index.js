@@ -218,7 +218,7 @@ class Helpers {
 
 	static removelocalStorage(item, page) {
 		localStorage.removeItem(`${item}`);
-		page && typeof page === String(page) ? window.location.replace(`${page}.html`) : null;
+		page ? window.location.replace(`${page}.html`) : null;
 	}
 
 	static getFirstN(array, startN, endN) {

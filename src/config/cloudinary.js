@@ -2,7 +2,7 @@
 consistent-return,radix */
 import { uploader, v2 } from './cloudinaryConfig';
 import { dataUri, dataUris } from './multer';
-import { generateId } from '../helpers/helper';
+import { generateRandom } from '../utils/prefixNum';
 
 const contentimg = async (req) => {
 	const file = [];
@@ -30,7 +30,7 @@ const uploadone = singleimage => new Promise((resolve, reject) => {
 	v2.uploader.upload(singleimage, {
 		resource_type: 'image',
 		public_id:
-										`api/screens/thumnail_${generateId()}`,
+										`api/screens/thumnail_${generateRandom(7)}`,
 		tags: ['screenshot', 'image'],
 		audio_codec: 'none',
 		effect: 'auto_contrast',

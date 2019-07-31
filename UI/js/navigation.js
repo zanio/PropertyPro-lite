@@ -35,7 +35,7 @@ navigationMount();
 try {
 	const signOutButton = document.querySelector('#sign-out-button');
 	signOutButton.addEventListener('click', () => {
-		Helpers.removelocalStorage('user', 'home');
+		Helpers.removelocalStorage('user', 'index');
 	});
 } catch (ex) {
 	console.warn('sign out button not found');
