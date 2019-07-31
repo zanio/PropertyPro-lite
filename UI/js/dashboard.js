@@ -102,22 +102,18 @@ const fetchMarkStatus = async (propertyId, status) => {
 
 const injectManyImage = (arrayImage) => {
 	try {
-		const imgElement = {};
+		const imgElementObj = {};
 		arrayImage.map((el, i) => {
-			imgElement[i] = `<img  class="dashboard-img-res" src="${el}" />`;
-			return imgElement;
+			imgElementObj[i] = `<img  class="dashboard-img-res" src="${el}" />`;
+			return imgElementObj;
 		});
-		// for (const i in arrayImage) {
-		// 	if (i) { imgElement[i] = `<img  class="dashboard-img-res" src="${arrayImage[i]}" />`; }
-		// }
+
+		const imgElement = Object.values(imgElementObj);
 		const domImageHolders = document.querySelectorAll('.item-image-main');
-		imgElement.map((el, key) => {
-			domImageHolders[key].innerHTML = imgElement[key];
+		imgElement.map((el, i) => {
+			domImageHolders[i].innerHTML = el;
 			return domImageHolders;
 		});
-		// for (const key in imgElement) {
-		// 	domImageHolders[key].innerHTML = imgElement[key];
-		// }
 	} catch (ex) {
 		console.log('Multiple images can not be appended');
 	}
@@ -166,7 +162,8 @@ const StatusEvent = (changeStatus, get_id) => {
 const UpdateProcess = (domElement, i) => {
 	domElement[i].addEventListener('click', () => {
 		const get_text_id = document.querySelector('.get_id').textContent;
-		const get_id = get_text_id.split(' ')[1].trim();
+		const get_id = get_text_id.split(' ')[2].trim();
+		console.log(get_id)
 
 		Helpers.insertBackdrop('normal');
 

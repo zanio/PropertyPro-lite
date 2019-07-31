@@ -15,8 +15,7 @@ const generateRandom = (len) => {
 		prefix += keys.charAt(Math.floor(Math.random() * 36));
 	}
 
-	return secretNum1 + prefix + secretNum2;
+	return prefix + secretNum1 + prefix + secretNum2;
 };
-
 
 export { generateRandom };
