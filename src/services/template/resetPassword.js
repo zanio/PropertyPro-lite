@@ -1,5 +1,6 @@
-export const resetPass = data=>{
-	return `
+/* eslint-disable import/prefer-default-export, no-irregular-whitespace */
+
+export const resetPass = data => `
 	
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -142,6 +143,5 @@ export const resetPass = data=>{
 
 
 </body>
+
 `;
-	
-};

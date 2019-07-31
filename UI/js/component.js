@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars,camelcase  */
 const Header = `
 <div class="container flex-row space-between align-center header">
         <div class="mobile-flex pt-2 pb-2">
@@ -137,12 +138,9 @@ const footer = `
 
 `;
 
-const firstNwords = (words)=>{
-    return words.split(' ').slice(0,10).join(' ');
-}
+const firstNwords = words => words.split(' ').slice(0, 10).join(' ');
 
-const user_ads = (el)=>{
-     return`
+const user_ads = el => `
     <div class="dashboard-cards mb-1 user-ads">
                    <div class="item-image-main">
                       
@@ -161,8 +159,7 @@ const user_ads = (el)=>{
                     <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
                 </div>
                    
-        </div>`
-}
+        </div>`;
 
 const deleteMessage = `
 <div class="width-50 mobile-modal bg-white shadow container center">
@@ -174,7 +171,7 @@ const deleteMessage = `
                <button class="btn btn-gray ml-1 ft-1 no-border btn-no-shadow mb-1 mt-3" id = "cancel">Cancel</button> 
         </div>
     </div>
-`
+`;
 
 const updateMessage = `
 <div  class="backdrop">
@@ -194,5 +191,4 @@ const updateMessage = `
     </div>
 </div>
 </div>
-`
-
+`;

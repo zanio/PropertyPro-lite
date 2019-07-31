@@ -1,11 +1,12 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef ,func-names,
+ prefer-destructuring, import/no-duplicates, no-unused-vars */
 import chai from 'chai';
-import {expect} from 'chai';
+import { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../app';
 
 chai.use(chaiHttp);
-//Our parent block
+// Our parent block
 
 /*
   * Test the index /GET route and unnknown routes
@@ -26,12 +27,8 @@ describe('/GET user account info', () => {
 			// eslint-disable-next-line no-unused-vars
 			.end((err, res) => {
 				expect(err).to.equal(err);
-				//expect(res.status).to.equal(404);
+				// expect(res.status).to.equal(404);
 				done();
 			});
 	});
- 
 });
-
- 
-

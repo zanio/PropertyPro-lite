@@ -1,19 +1,22 @@
-const key = require('../config/keys')
+/* eslint-disable import/prefer-default-export */
 
-const generateRandom = len=>{
-  const keys = key.char
-  const secretNum1 = key.numPrefix1;
-  const secretNum2 = key.numPrefix2;
+import dotenv from 'dotenv';
 
-  let prefix = ""
+dotenv.config();
 
-  for(let i=0; i < len; i++){
-      prefix += keys.charAt(Math.floor(Math.random()*36))
-  }
+const generateRandom = (len) => {
+	const keys = process.env.char;
+	const secretNum1 = process.env.numPrefix1;
+	const secretNum2 = process.env.numPrefix2;
 
-  return secretNum1+prefix+secretNum2
+	let prefix = '';
 
-}
+	for (let i = 0; i < len; i += 1) {
+		prefix += keys.charAt(Math.floor(Math.random() * 36));
+	}
+
+	return secretNum1 + prefix + secretNum2;
+};
 
 
-export {generateRandom}
+export { generateRandom };

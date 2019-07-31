@@ -1,4 +1,6 @@
 // db.js
+/* eslint-disable camelcase, no-unused-expressions , no-unused-vars , prefer-const */
+
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 const debug = require('debug')('http');
@@ -7,7 +9,7 @@ dotenv.config();
 
 const pool = new Pool({
 	connectionString: process.env.DATABASE_URL,
-	ssl: process.env.ssl
+	ssl: process.env.ssl,
 });
 
 pool.on('connect', () => {
@@ -18,8 +20,7 @@ pool.on('connect', () => {
  * Create Reflection Table
  */
 const createPropertyTable = () => {
-	const queryText =
-    `CREATE TABLE IF NOT EXISTS property (
+	const queryText = `CREATE TABLE IF NOT EXISTS property (
 		id INT PRIMARY KEY,
 		owner_email VARCHAR(128) NOT NULL,
         status TEXT,
@@ -53,8 +54,7 @@ const createPropertyTable = () => {
  * Create flagged Table
  */
 const createFlaggedTable = () => {
-	const queryText =
-    `CREATE TABLE IF NOT EXISTS flagged(
+	const queryText = `CREATE TABLE IF NOT EXISTS flagged(
 		id SERIAL PRIMARY KEY,
 		report_id SERIAL NOT NULL,
 		admin_name VARCHAR(128) NOT NULL,
@@ -75,8 +75,7 @@ const createFlaggedTable = () => {
  * Create report Table
  */
 const createReportTable = () => {
-	const queryText =
-    `CREATE TABLE IF NOT EXISTS report(
+	const queryText = `CREATE TABLE IF NOT EXISTS report(
 		id SERIAL PRIMARY KEY,
 		property_id SERIAL NOT NULL,
 		reporter_id UUID NOT NULL,
@@ -100,8 +99,7 @@ const createReportTable = () => {
  * Create User Table
  */
 const createUserTable = () => {
-	const queryText =
-    `CREATE TABLE IF NOT EXISTS
+	const queryText = `CREATE TABLE IF NOT EXISTS
       users(
         id UUID PRIMARY KEY,
         email VARCHAR(128) UNIQUE NOT NULL,
@@ -130,8 +128,7 @@ const createUserTable = () => {
 
 
 const creatAdminTable = () => {
-	const queryText =
-    `CREATE TABLE IF NOT EXISTS
+	const queryText = `CREATE TABLE IF NOT EXISTS
       admins(
         id SERIAL PRIMARY KEY,
         email VARCHAR(128) UNIQUE NOT NULL,
@@ -230,8 +227,8 @@ module.exports = {
 	dropReportTable,
 	dropFlaggedTable,
 	createFlaggedTable,
-	createReportTable
-	
+	createReportTable,
+
 
 };
 
