@@ -5,6 +5,7 @@ body {
     overflow-x: hidden;
     font-family: Arial;
     background-color: #888;
+}
     .pagination {
       max-width: 400px;
       min-width: 300px;
@@ -57,5 +58,5 @@ body {
       outline: none;
       user-select: none; 
     }
-  }
+
   

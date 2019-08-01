@@ -147,11 +147,11 @@ const user_ads = el => `
                     </div>
                     <p class="title-head ft-08 color-777 text-left">${firstNwords(el.property_description)}...</p>
                     <div class="flex-row space-between pb-1 mt-1 text-center">
-                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-1  white">Update advert</button>
-                            <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-1  white up mark-advert">Mark advert</button>
-                            <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-1 mb-1 white delete">Delete Advert</button>
+                            <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-08  white">Update advert</button>
+                            <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-08  white up mark-advert">Mark advert</button>
+                            <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-08 mb-1 white delete">Delete Advert</button>
                         </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-1 block bg-trans mb-1" href="">Preview advert</a>
+                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-08 block bg-trans mb-1" href="">Preview advert</a>
                 </div>
                    
         </div>`;

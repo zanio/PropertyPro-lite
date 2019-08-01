@@ -124,13 +124,15 @@ const regNumCheck = (req, res, next) => {
 	let { phone_number } = req.body;
 	phone_number = phone_number ? phone_number.trim() : null;
 	const numRex = numRegex(phone_number);
-	const lengthNum = phoneLength(phone_number);
+	const lengthNum = phone_number ? phoneLength(phone_number) : null;
 
 
 	if (numRex && lengthNum) {
 		next();
 	} else {
-		res.status(422).json({ status: 422, error: 'phone number can only be digits with 11 characters and less than 13 characters' });
+		res.status(409).json({
+			status: 409, error: 'phone number can only be digits with 11 characters and less than 13 characters',
+		});
 	}
 };
 

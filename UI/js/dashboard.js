@@ -179,19 +179,9 @@ const UpdateProcess = (domElement, i) => {
 };
 
 const DisplayUserAdverts = (data) => {
-	const FirstThree = Helpers.getFirstN(data, 0, 3);
-	const NextThree = Helpers.getFirstN(data, 3, 6);
-
-	const html_1 = Helpers.iterateItem(FirstThree, user_ads);
-	const html_2 = Helpers.iterateItem(NextThree, user_ads);
+	const html_1 = Helpers.iterateItem(data, user_ads);
 
 	Render.renderContainer('user_ads', html_1);
-	Render.renderContainer('user_ads_1', html_2);
-
-	const Images_1 = Helpers.loopImage(FirstThree);
-	const Images_2 = Helpers.loopImage(NextThree);
-
-	injectManyImage(Images_1.concat(Images_2));
 };
 
 

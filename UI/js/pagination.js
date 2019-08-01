@@ -7,11 +7,12 @@ const nextButton = document.querySelector('#button_next');
 const clickPageNumber = document.querySelectorAll('.clickPageNumber');
 
 class Pagination {
-	constructor(data, records) {
+	constructor(data, html) {
 		this.current_page = 1;
-		this.records_per_page = records;
+		this.records_per_page = 1;
 		this.data = data;
 		this.init = this.caller;
+		this.html = html;
 	}
 
 	caller() {
@@ -22,8 +23,8 @@ class Pagination {
 	}
 
 	changePage(page) {
-		const { data, records_per_page } = this;
-		const listingTable = document.querySelector('#listingTable');
+		const { data, html, records_per_page } = this;
+		const listingTable = document.querySelector('.listingTable');
 		if (page < 1) {
 			page = 1;
 		}
@@ -35,7 +36,7 @@ class Pagination {
 
 		for (let i = (page - 1) * records_per_page; i < (page * records_per_page)
          && i < data.length; i++) {
-			listingTable.innerHTML += `<div class=''>${data[i].adName}</div>`;
+			listingTable.innerHTML += html(data[i]);
 		}
 	}
 
@@ -76,7 +77,6 @@ class Pagination {
 	pageNumbers() {
 		const pageNumber = document.querySelector('#page_number');
 		pageNumber.innerHTML = '';
-		console.log(this.numPages());
 		for (let i = 1; i < this.numPages() + 1; i += 1) {
 			pageNumber.innerHTML += `<span class='clickPageNumber'>${i}</span>`;
 		}
