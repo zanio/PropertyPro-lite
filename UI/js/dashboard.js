@@ -163,7 +163,6 @@ const UpdateProcess = (domElement, i) => {
 	domElement[i].addEventListener('click', () => {
 		const get_text_id = document.querySelector('.get_id').textContent;
 		const get_id = get_text_id.split(' ')[2].trim();
-		console.log(get_id)
 
 		Helpers.insertBackdrop('normal');
 

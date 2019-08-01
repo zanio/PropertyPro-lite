@@ -48,20 +48,21 @@ const AuthHeader = `
              <li>
                      <a class="btn mr-1 no-border btn-md btn-no-shadow btn-orange" href="no-advert.html">Post Ad</a>
                  </li>
-                 <li>
-                     <a href="dashboard.html">Dashboard</a>
-                 </li>
+                 <li class="property"><p>Category<ul class=" ">
+                 <li><a href="flat.html">Flat</a></li>
+                 <li><a href="land.html">Land</a></li>
+                 <li><a href="miniflat.html">Mini-flat</a></li>
+                 <li><a href="real-estate.html">real Estate</a></li>
+             </ul>
+                 </p>
+            </li>
+                
                  <li>
                      <a href="all-property.html">All Property</a>
                  </li>
-                 <li class="property"><p>Category<ul class=" ">
-                              <li><a href="flat.html">Flat</a></li>
-                              <li><a href="land.html">Land</a></li>
-                              <li><a href="miniflat.html">Mini-flat</a></li>
-                              <li><a href="real-estate.html">real Estate</a></li>
-                          </ul>
-                        </p>
-                      </li>
+                 <li>
+                     <a href="dashboard.html">Dashboard</a>
+                 </li>
 
                  <li id="user-profile" class="user-li">
                      <img class="user-dp" src="icons/user.png" alt="User Account profile">
