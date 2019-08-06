@@ -37,7 +37,7 @@ const fetchUserAdverts = async () => {
 		}
 	} catch (err) {
 		Render.hideAsyncNotification();
-		Render.blockNotification('Internet error occured. please try again');
+		Render.blockNotification('error', 'Internet error occured. please try again');
 		console.log(err);
 	}
 	return data;
@@ -97,26 +97,7 @@ const fetchMarkStatus = async (propertyId, status) => {
 		Render.blockNotification('Internet error occured. please try again');
 		console.log(err);
 	}
-	return data.message;
-};
-
-const injectManyImage = (arrayImage) => {
-	try {
-		const imgElementObj = {};
-		arrayImage.map((el, i) => {
-			imgElementObj[i] = `<img  class="dashboard-img-res" src="${el}" />`;
-			return imgElementObj;
-		});
-
-		const imgElement = Object.values(imgElementObj);
-		const domImageHolders = document.querySelectorAll('.item-image-main');
-		imgElement.map((el, i) => {
-			domImageHolders[i].innerHTML = el;
-			return domImageHolders;
-		});
-	} catch (ex) {
-		console.log('Multiple images can not be appended');
-	}
+	return data.status;
 };
 
 const DeleteProcess = (domElement, i) => {
@@ -135,7 +116,10 @@ const DeleteProcess = (domElement, i) => {
 			const response = await fetchDeleteAdvert(get_id);
 			console.log(response);
 			Helpers.removeBackDrop();
-			location.href = 'dashboard.html';
+			Render.blockNotification('success', `${response}`);
+			setTimeout(() => {
+				location.href = 'dashboard.html';
+			}, 3000);
 		});
 		cancelBtn.addEventListener('click', () => {
 			Helpers.removeBackDrop();
@@ -154,7 +138,7 @@ const StatusEvent = (changeStatus, get_id) => {
 			Render.blockAsyncNotification();
 			const response = await fetchMarkStatus(get_id, statusBody);
 			Helpers.removeBackDrop();
-			location.href = 'dashboard.html';
+			Render.blockNotification('success', `Your advert has been successful marked as ${response}`);
 		});
 	});
 };

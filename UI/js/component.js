@@ -46,7 +46,7 @@ const AuthHeader = `
          <nav>
              <ul class="ul-link mobile">
              <li>
-                     <a class="btn mr-1 no-border btn-md btn-no-shadow btn-orange" href="no-advert.html">Post Ad</a>
+                     <button class="mr-1 white righteous cursor no-border btn-md btn-no-shadow btn-orange" onclick= 'location.href="no-advert.html"'>Post Ad</button>
                  </li>
                  <li class="property"><p>Category<ul class=" ">
                  <li><a href="flat.html">Flat</a></li>
@@ -133,7 +133,7 @@ const footer = `
 
 `;
 
-const firstNwords = words => words.split(' ').slice(0, 10).join(' ');
+const firstNwords = (words, n) => words.split(' ').slice(0, n).join(' ');
 
 const user_ads = el => `
     <div class="dashboard-cards mb-1 user-ads">
@@ -145,7 +145,7 @@ const user_ads = el => `
                         <h2 class="title-head ft-1 -blue">${el.property_name} <span class="block -orange get_id">ID - ${el.id}</span></h2>
                         <h2 class="title-head ft-1 -blue">N${el.price}</h2>
                     </div>
-                    <p class="title-head ft-08 color-777 text-left">${firstNwords(el.property_description)}...</p>
+                    <p class="title-head ft-08 color-777 text-left">${firstNwords(el.property_description, 5)}...</p>
                     <div class="flex-row space-between pb-1 mt-1 text-center">
                             <button onclick="location.href='update.html'" class="btn sm-padding  btn-blue btn-no-shadow no-border mobile-width-20 mb-1 ft-08  white">Update advert</button>
                             <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-08  white up mark-advert">Mark advert</button>
@@ -186,4 +186,33 @@ const updateMessage = `
     </div>
 </div>
 </div>
+`;
+
+const advertCard = el => `
+<div class="width-20 mb-2 card-bg-white ads">
+                    <div class="item-image-main">
+                        
+                    </div>
+                   
+                    <div class="sales-card width-100">
+                        <div class="flex-row align-start  space-between">
+                            <div class="span-70">
+                                <h3 class="title-sales">${el.property_name} <br> <p class="-light-blue ft-1">${el.id}</p></h3>
+                               
+                            </div>
+                            <div class="mb-1">
+                                <h3 class="title-sales -orange small-text">${el.price}</h3>
+                                <span>
+                                    <label class="btn  btn-xm btn-light-blue-1 btn-no-shadow ft-2" for="state">${el.status}</label>
+                                   
+                                </span>
+                            </div>
+                        </div>
+                        <p class="small-text ft-08">${el.property_description}...</p>
+                        
+                        
+                         <a class="mt-2 mb-2 btn btn-blue block text-center text-deco white" href="single-property.html">View detail</a>
+                        
+                    </div>
+                </div>
 `;

@@ -37,12 +37,46 @@ class Render {
 		return actionclasses;
 	}
 
+	static injectManyImage(arrayImage) {
+		try {
+			const imgElementObj = {};
+			arrayImage.map((el, i) => {
+				imgElementObj[i] = `<img  class="dashboard-img-res" src="${el}" />`;
+				return imgElementObj;
+			});
 
-	static blockNotification(word) {
+			const imgElement = Object.values(imgElementObj);
+			const domImageHolders = document.querySelectorAll('.item-image-main');
+			imgElement.map((el, i) => {
+				domImageHolders[i].innerHTML = el;
+				return domImageHolders;
+			});
+		} catch (ex) {
+			console.log('Multiple images can not be appended');
+		}
+	}
+
+
+	static blockNotification(type = 'normal', word) {
 		try {
 			const notificationContainer = document.querySelector('#notification');
+			let Textcolor;
+			let border;
+			switch (type) {
+			case 'success':
+				Textcolor = 'color-succes';
+				border = 'bd-succes';
+				break;
+			case 'error':
+				Textcolor = 'color-red';
+				border = 'bd-red';
+				break;
+			default:
+				Textcolor = 'color-black';
+				border = 'bd-black';
+			}
 			notificationContainer.innerHTML = `<p class="slide-right inline-block
-         color-red bd-red mb-1 text-center font-weight
+         ${Textcolor} ${border} mb-1 mt-2 bold text-center font-weight
          pl-1 pr-1 pt-1 pb-1">${word}</p>`;
 
 			notificationContainer.className = 'block';
@@ -53,7 +87,7 @@ class Render {
 					'',
 				);
 				notificationContainer.innerHTML = '';
-			}, 4000);
+			}, 5000);
 		} catch (ex) {
 			console.log('the id of notification was not found');
 		}

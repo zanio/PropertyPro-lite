@@ -32,13 +32,13 @@ const signIn = (payload) => {
 				Render.blockStickyNotification('error', response.error);
 				return;
 			}
-			Render.blockNotification('logging in');
+			Render.blockNotification('success', 'logging in');
 			localStorage.setItem('user', JSON.stringify(response.data));
 			window.location.replace('dashboard.html');
 		})
 		.catch((err) => {
 			Render.hideAsyncNotification();
-			Render.blockNotification('Internet error occured. please try again');
+			Render.blockNotification('error', 'Internet error occured. please try again');
 			console.log(err);
 		});
 };

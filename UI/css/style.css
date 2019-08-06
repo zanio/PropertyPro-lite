@@ -289,6 +289,13 @@ https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075);
         }
     }
+    .righteous{
+        font-family:'Righteous';
+        letter-spacing: 0.8px;
+    }
+    .cursor{
+        cursor: pointer;
+    }
     .btn{
         font-family:'Righteous';
         letter-spacing: 0.7px;
@@ -570,6 +577,12 @@ https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%
     /* padding: 0 1rem; */
     color: #E5E5E5;
     cursor: pointer;
+}
+.ul-link li a:hover,.property:hover {
+    color: #1081E0 !important;
+}
+.ul-link li a:active,.property:active {
+    color: #777777;
 }
 
 .ul-link li ul li a{
@@ -1158,7 +1171,7 @@ padding: 0 !important;
     
 }
 .color-succes{
-    color: rgba(17, 77, 32, 0.685);
+    color: rgba(2, 131, 34, 0.904);
     
 }
 
