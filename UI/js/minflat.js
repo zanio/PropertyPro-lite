@@ -1,9 +1,9 @@
 /* eslint-disable camelcase, no-undef, prefer-destructuring, no-console,
 consistent-return  */
 
-const AllAds = async () => {
+const AllAdsFetch = async () => {
 	let data;
-	const endpoint = 'http://localhost:3300/api/v1/property/';
+	const endpoint = 'http://localhost:3300/api/v1/property/search?type=Mini-flat';
 	const fetchRequest = {
 		method: 'GET',
 		headers: {
@@ -14,10 +14,10 @@ const AllAds = async () => {
 		const fetchAds = await fetch(endpoint, fetchRequest);
 		const response = await fetchAds.json();
 		Render.hideAsyncNotification();
-		data = response.data;
+		data = response.data ? response.data : { status: response.status, message: response.error };
 		if (response.error) {
-			Render.blockStickyNotification('error', response.error);
-			return response.error;
+			Render.blockStickyNotification('success', response.error);
+			return data;
 		}
 	} catch (err) {
 		Render.hideAsyncNotification();
@@ -35,14 +35,13 @@ const DisplayAllAdverts = (data) => {
 };
 
 const ProcessAds = async () => {
-	const data = await AllAds();
+	const data = await AllAdsFetch();
 	try {
 		if (data.message) {
-			Render.blockNotification('error', 'no advert to display');
+			Render.blockNotification('success', 'no advert to display');
 			return;
 		}
-		if (data.length > 1) {
-			data.pop();
+		if (data.length >= 1) {
 			data.reverse();
 			// Display All adverts from all category
 			DisplayAllAdverts(data);

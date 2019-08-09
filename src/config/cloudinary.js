@@ -75,6 +75,7 @@ const cloudinaryHandler = async (req, res, next) => {
 			}
 		} catch (err) {
 			if (err) {
+				console.log(err)
 				return res.status(500).json({ status: 500, error: err });
 			}
 		}

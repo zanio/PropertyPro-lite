@@ -595,7 +595,7 @@
         }
       }
     },
-    "/property/search/": {
+    "/property/search": {
       "get": {
         "tags": [
           "Properties"

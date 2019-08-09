@@ -64,8 +64,8 @@ class Render {
 			let border;
 			switch (type) {
 			case 'success':
-				Textcolor = 'color-succes';
-				border = 'bd-succes';
+				Textcolor = 'color-success';
+				border = 'bd-success';
 				break;
 			case 'error':
 				Textcolor = 'color-red';
@@ -135,8 +135,8 @@ class Render {
 				divBorder = 'bd-red';
 				break;
 			case 'success':
-				spanColor = 'color-green';
-				divBorder = 'bd-green';
+				spanColor = 'color-success';
+				divBorder = 'bd-success';
 				break;
 			default:
 				spanColor = 'color-black';

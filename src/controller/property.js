@@ -206,7 +206,8 @@ const getAllProperty = async (req, res) => {
 			return res.status(200).json({ status: 200, data: [...rows, rowCount] });
 		}
 		if (rows.length <= 1) {
-			return res.status(400).json({ status: 400, data: { message: 'No advert has been flagged' } });
+			console.log(rows)
+			return res.status(400).json({ status: 400, data: { message: 'No advert has been created' } });
 		}
 	} catch (error) {
 		return res.status(400).send(error);
@@ -269,7 +270,7 @@ const getTypeProperty = async (req, res) => {
 	try {
 		const { rows } = await query(text, [req.type]);
 		if (!rows[0]) {
-			return res.status(404).json({ status: 404, error: 'invalid search query params' });
+			return res.status(404).json({ status: 404, error: 'No adverts to display in this category' });
 		}
 		return res.status(200).json({ status: 200, data: rows });
 	} catch (error) {
