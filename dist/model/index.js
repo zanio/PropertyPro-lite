@@ -11,6 +11,8 @@ var _pg = require("pg");
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+/* eslint-disable camelcase, no-unused-expressions , no-unused-vars ,
+ prefer-const, import/prefer-default-export */
 _dotenv["default"].config();
 
 var pool = new _pg.Pool({
@@ -20,7 +22,7 @@ var pool = new _pg.Pool({
    * DB Query
    * @param {string} text
    * @param {Array} params
-   * @returns {object} object 
+   * @returns {object} object
    */
 
 var query = function query(text, params) {

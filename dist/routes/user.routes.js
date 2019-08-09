@@ -17,12 +17,13 @@ var _Users = require("../controller/Users");
 
 var _inputfield = require("../middlewares/field/inputfield");
 
+/* eslint-disable import/prefer-default-export */
 var Userrouter = _express["default"].Router();
+/* register a new User */
+
 
 exports.Userrouter = Userrouter;
-
-/* register a new User */
-Userrouter.post('/auth/signup', _auth.AdminCheckDb, _inputfield.genderCheck, _inputfield.regCharCheck, _Users.createUser);
+Userrouter.post('/auth/signup', _auth.AdminCheckDb, _inputfield.genderCheck, _inputfield.regNumCheck, _inputfield.regCharCheck, _Users.createUser);
 /* Login User */
 
 Userrouter.post('/auth/signin', _auth.AdminCheckDb, _Users.loginUser);

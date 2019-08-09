@@ -37,7 +37,7 @@ var multerArrayUploads = (0, _multer["default"])({
 exports.multerArrayUploads = multerArrayUploads;
 
 var dataUri = function dataUri(req) {
-  return dUri.format(_path["default"].extname(req.files['image_url'][0].originalname).toString(), req.files['image_url'][0].buffer);
+  return dUri.format(_path["default"].extname(req.files.image_url[0].originalname).toString(), req.files.image_url[0].buffer);
 };
 
 exports.dataUri = dataUri;
@@ -45,9 +45,9 @@ exports.dataUri = dataUri;
 var dataUris = function dataUris(req) {
   var AlliUri = [];
 
-  if (req.files['images_url']) {
-    for (var i = 0; i < req.files['images_url'].length; i++) {
-      AlliUri.push(dUri.format(_path["default"].extname(req.files['images_url'][i].originalname).toString(), req.files['images_url'][i].buffer));
+  if (req.files.images_url) {
+    for (var i = 0; i < req.files.images_url.length; i += 1) {
+      AlliUri.push(dUri.format(_path["default"].extname(req.files.images_url[i].originalname).toString(), req.files.images_url[i].buffer));
     }
   }
 

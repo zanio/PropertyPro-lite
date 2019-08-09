@@ -17,10 +17,12 @@ var _property = require("../controller/property");
 
 var _Users = require("../controller/Users");
 
+/* eslint-disable import/prefer-default-export */
+// import {genderCheck,regCharCheck} from '../../middlewares/field/inputfield';
 var adminrouter = _express["default"].Router();
+/* flag a reported property */
+
 
 exports.adminrouter = adminrouter;
-
-/* flag a reported property */
 adminrouter.put('/admin/property/:id/flagged', _auth.idCheck, _auth.authorization, _jsonweb.jwtVerify, _property.flaggedProperty);
 adminrouter.post('/admin/signup', _auth.authorization, _jsonweb.jwtVerify, _Users.createAdmin);

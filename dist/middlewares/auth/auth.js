@@ -11,19 +11,21 @@ var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"))
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
-var _numRegex = require("../../utils/numRegex");
-
-var _db = require("../../db");
-
 var _url = _interopRequireDefault(require("url"));
 
+var _numRegex = require("../../utils/numRegex");
+
+var _model = require("../../model");
+
 /* eslint-disable no-console */
+
+/* eslint-disable prefer-promise-reject-errors, camelcase */
 var authorization = function authorization(req, res, next) {
   var token_body = req.body.token;
   var header = req.header('Authorization');
 
   if (typeof token_body !== 'undefined' || typeof header !== 'undefined') {
-    var bearer = token_body ? token_body : header;
+    var bearer = token_body || header;
     var token = bearer;
     req.token = token;
     next();
@@ -52,7 +54,7 @@ function () {
             adminSelectQuery = 'SELECT * FROM admins WHERE email = $1';
             email = req.body.email;
             _context.next = 4;
-            return (0, _db.query)(adminSelectQuery, [email]);
+            return (0, _model.query)(adminSelectQuery, [email]);
 
           case 4:
             _ref2 = _context.sent;

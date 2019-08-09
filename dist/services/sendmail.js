@@ -19,6 +19,7 @@ var _nodemailer = _interopRequireDefault(require("nodemailer"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
+/* eslint-disable import/prefer-default-export, no-console */
 _dotenv["default"].config();
 
 var Mail =
@@ -33,10 +34,10 @@ function () {
 
   (0, _createClass2["default"])(Mail, [{
     key: "formatRecipients",
-    value: function formatRecipients(recipients) {
-      var array = recipients.split(',');
+    value: function formatRecipients() {
+      var array = this.recipient.split(',');
       array.map(function (el) {
-        el.trim();
+        return el.trim();
       });
       return array;
     }
@@ -61,7 +62,7 @@ function () {
                   }
                 });
                 mailOptions = {
-                  from: '"PropertyPro-Lite" <' + process.env.email + '>',
+                  from: "\"PropertyPro-Lite\" <".concat(process.env.email, ">"),
                   to: recipient,
                   subject: subject,
                   html: content

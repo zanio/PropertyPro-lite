@@ -11,7 +11,7 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _dotenv = _interopRequireDefault(require("dotenv"));
 
-/* eslint-disable no-console */
+/* eslint-disable import/prefer-default-export */
 _dotenv["default"].config();
 
 var jwtVerify = function jwtVerify(req, res, next) {

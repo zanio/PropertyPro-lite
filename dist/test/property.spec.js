@@ -18,11 +18,10 @@ var _sinonChai = _interopRequireDefault(require("sinon-chai"));
 
 var _app = _interopRequireDefault(require("../app"));
 
-var _index = require("../db/index");
+var _index = require("../model/index");
 
-var _helper = require("../helpers/helper");
-
-/* eslint-disable no-undef */
+/* eslint-disable no-undef ,func-names,
+ prefer-destructuring, import/no-duplicates, no-unused-vars */
 var request;
 var propertyId;
 var firstUserToken;
@@ -55,7 +54,7 @@ describe('/property', function () {
             request = _chai["default"].request(_app["default"]).keepOpen();
             this.timeout(0);
             firstUser = {
-              email: 'akp.anibv@yahoo.com',
+              email: 'akp.anidbv@yahoo.com',
               password: 'ee',
               address: 'block 199 flat 4',
               phone_number: '08023456789',
@@ -63,7 +62,7 @@ describe('/property', function () {
               last_name: 'Akpan'
             };
             secondUser = {
-              email: 'akpan.ani@yahoo.com',
+              email: 'akcvpan.ani@yahoo.com',
               password: 'ee',
               address: 'block 199 flat 4',
               phone_number: '08023456789',
@@ -382,35 +381,6 @@ describe('/property', function () {
             }
           }
         }, _callee9);
-      })));
-    });
-    describe('PROPERTY ADVERT NO IMAGE', function () {
-      it('should have a status of 403',
-      /*#__PURE__*/
-      (0, _asyncToGenerator2["default"])(
-      /*#__PURE__*/
-      _regenerator["default"].mark(function _callee10() {
-        var body, response;
-        return _regenerator["default"].wrap(function _callee10$(_context10) {
-          while (1) {
-            switch (_context10.prev = _context10.next) {
-              case 0:
-                body = {
-                  price: '4444'
-                };
-                _context10.next = 3;
-                return request.patch("/api/v1/property/".concat(propertyId)).set('Authorization', firstUserToken).field(body);
-
-              case 3:
-                response = _context10.sent;
-                (0, _chai.expect)(response.body.status).to.equal(200);
-
-              case 5:
-              case "end":
-                return _context10.stop();
-            }
-          }
-        }, _callee10);
       })));
     });
   });

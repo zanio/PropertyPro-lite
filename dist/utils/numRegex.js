@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.phoneLength = exports.numRegex = void 0;
 
+/* eslint-disable no-confusing-arrow, no-unneeded-ternary */
 var numRegex = function numRegex(num) {
   var regex = /^[0-9]*$/;
   return regex.test(num);

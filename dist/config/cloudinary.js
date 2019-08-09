@@ -15,10 +15,10 @@ var _cloudinaryConfig = require("./cloudinaryConfig");
 
 var _multer = require("./multer");
 
-var _auth = require("../middlewares/auth/auth");
+var _prefixNum = require("../utils/prefixNum");
 
-var _helper = require("../helpers/helper");
-
+/* eslint-disable import/prefer-default-export,  camelcase, no-console,
+consistent-return,radix */
 var contentimg =
 /*#__PURE__*/
 function () {
@@ -33,7 +33,7 @@ function () {
             file = [];
             _context.next = 3;
             return (0, _multer.dataUris)(req).map(function (el) {
-              file.push(el.content);
+              return file.push(el.content);
             });
 
           case 3:
@@ -105,19 +105,19 @@ var uploadall = function uploadall(array, arrayImage, n) {
   });
 };
 
-var uploadone = function uploadone(singleimage, res) {
+var uploadone = function uploadone(singleimage) {
   return new Promise(function (resolve, reject) {
     _cloudinaryConfig.v2.uploader.upload(singleimage, {
       resource_type: 'image',
-      public_id: 'api/screens/thumnail_' + (0, _helper.generateId)(),
+      public_id: "api/screens/thumnail_".concat((0, _prefixNum.generateRandom)(7)),
       tags: ['screenshot', 'image'],
-      audio_codec: "none",
-      effect: "auto_contrast",
-      gravity: "south",
+      audio_codec: 'none',
+      effect: 'auto_contrast',
+      gravity: 'south',
       height: 300,
       radius: 0,
       width: 300,
-      crop: "crop"
+      crop: 'crop'
     }, function (err, result) {
       if (result) {
         var image = result.url;
@@ -125,10 +125,7 @@ var uploadone = function uploadone(singleimage, res) {
       }
 
       if (err) {
-        res.status(500).json({
-          status: 500,
-          err: err
-        });
+        reject(err);
       }
     });
   });
@@ -146,13 +143,13 @@ function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             if (!(req.files !== undefined)) {
-              _context3.next = 32;
+              _context3.next = 33;
               break;
             }
 
             file = (0, _multer.dataUri)(req).content;
 
-            if (!req.files['images_url']) {
+            if (!req.files.images_url) {
               _context3.next = 8;
               break;
             }
@@ -177,9 +174,9 @@ function () {
 
           case 14:
             singlefile = _context3.sent;
-            no_images = req.files['images_url'].length - 1; //console.log(no_images)
+            no_images = req.files.images_url ? req.files.images_url.length - 1 : null;
 
-            if (!req.files['images_url']) {
+            if (!req.files.images_url) {
               _context3.next = 22;
               break;
             }
@@ -199,13 +196,13 @@ function () {
             multiplefiles = _context3.t1;
             arrayImages = multiplefiles;
 
-            if (singlefile && multiplefiles || multiplefiles) {
+            if (singlefile || singlefile && multiplefiles) {
               req.Image_url = singlefile;
               req.gallery = arrayImages;
               next();
             }
 
-            _context3.next = 32;
+            _context3.next = 33;
             break;
 
           case 28:
@@ -213,16 +210,17 @@ function () {
             _context3.t2 = _context3["catch"](11);
 
             if (!_context3.t2) {
-              _context3.next = 32;
+              _context3.next = 33;
               break;
             }
 
+            console.log(_context3.t2);
             return _context3.abrupt("return", res.status(500).json({
               status: 500,
-              error: ': THIS IS MOST LIKELY A NETWORK ERROR'
+              error: _context3.t2
             }));
 
-          case 32:
+          case 33:
           case "end":
             return _context3.stop();
         }

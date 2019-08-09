@@ -17,13 +17,14 @@ var _inputfield = require("../middlewares/field/inputfield");
 
 var _property = require("../controller/property");
 
+/* eslint-disable import/prefer-default-export */
 var express = require('express');
 
 var propertyrouter = express.Router();
-exports.propertyrouter = propertyrouter;
-
 /* create propertyadvert advert  */
-propertyrouter.post('/property', _multer.cpUpload, _inputfield.checkPropertyEmpty, _auth.authorization, _jsonweb.jwtVerify, _cloudinary.cloudinaryHandler, _property.createProperty);
+
+exports.propertyrouter = propertyrouter;
+propertyrouter.post('/property', _multer.cpUpload, _inputfield.checkPropertyEmpty, _inputfield.regNumCheck, _auth.authorization, _jsonweb.jwtVerify, _cloudinary.cloudinaryHandler, _property.createProperty);
 propertyrouter.patch('/property/:id', _multer.cpUpload, _auth.idCheck, _inputfield.updateprice, _auth.authorization, _jsonweb.jwtVerify, _cloudinary.cloudinaryHandler, _property.updateProperty);
 propertyrouter.patch('/property/:id/sold', _auth.idCheck, _auth.authorization, _jsonweb.jwtVerify, _property.updatePropertyStatus);
 propertyrouter["delete"]('/property/:id', _auth.idCheck, _auth.authorization, _jsonweb.jwtVerify, _property.deleteProperty);

@@ -8,7 +8,7 @@ exports.Arr = exports.checkLetter = void 0;
 
 /* eslint-disable indent */
 function stringCheck(el) {
-  return typeof el === 'string' ? true : false;
+  return typeof el === 'string';
 }
 
 var Arr = function Arr(obj) {
@@ -26,7 +26,7 @@ exports.Arr = Arr;
 var checkLetter = function checkLetter(arrs) {
   var falseCheck = true;
 
-  for (var i = 0; i < arrs.length; i++) {
+  for (var i = 0; i < arrs.length; i += 1) {
     if (!arrs[i]) {
       return false;
     }

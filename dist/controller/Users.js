@@ -15,7 +15,11 @@ var _moment = _interopRequireDefault(require("moment"));
 
 var _v = _interopRequireDefault(require("uuid/v4"));
 
-var _db = require("../db");
+var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+
+var _url = _interopRequireDefault(require("url"));
+
+var _index = require("../model/index");
 
 var _helper = require("../helpers/helper");
 
@@ -25,15 +29,13 @@ var _resetPassword = require("../services/template/resetPassword");
 
 var _verifyEmail = require("../services/template/verifyEmail");
 
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
-
-var _url = _interopRequireDefault(require("url"));
+/* eslint-disable import/prefer-default-export, no-shadow, consistent-return,  camelcase */
 
 /**
    * Create A User
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} reflection object 
+   * @returns {object} reflection object
    */
 var createUser =
 /*#__PURE__*/
@@ -88,7 +90,7 @@ function () {
             values = [(0, _v["default"])(), email, hashPass, first_name, last_name, phone_number, address, gender, req.is_admin, 'False', (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 17;
             _context.next = 20;
-            return (0, _db.query)(createQuery, values);
+            return (0, _index.query)(createQuery, values);
 
           case 20:
             _ref2 = _context.sent;
@@ -124,7 +126,7 @@ function () {
                 address: address,
                 gender: gender,
                 is_verify: rows[0].is_verify,
-                is_admin: req.is_admin === 'False' ? false : true
+                is_admin: req.is_admin !== 'False'
               }
             }));
 
@@ -173,9 +175,9 @@ function () {
 }();
 /**
    * Login
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} user object 
+   * @returns {object} user object
    */
 
 
@@ -220,7 +222,7 @@ function () {
             text = 'SELECT * FROM users WHERE email=$1';
             _context2.prev = 6;
             _context2.next = 9;
-            return (0, _db.query)(text, [req.body.email]);
+            return (0, _index.query)(text, [req.body.email]);
 
           case 9:
             _ref4 = _context2.sent;
@@ -294,9 +296,9 @@ function () {
 }();
 /**
    * Delete A User
-   * @param {object} req 
-   * @param {object} res 
-   * @returns {void} return status code 204 
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
    */
 
 
@@ -317,7 +319,7 @@ function () {
             deleteQuery = 'DELETE FROM users WHERE id=$1 returning *';
             _context3.prev = 1;
             _context3.next = 4;
-            return (0, _db.query)(deleteQuery, [req.result.userId]);
+            return (0, _index.query)(deleteQuery, [req.result.userId]);
 
           case 4:
             _ref6 = _context3.sent;
@@ -329,7 +331,7 @@ function () {
             }
 
             return _context3.abrupt("return", res.status(404).json({
-              'message': 'user not found'
+              message: 'user not found'
             }));
 
           case 8:
@@ -359,9 +361,9 @@ function () {
 }();
 /**
    * Update A User password
-   * @param {object} req 
-   * @param {object} res 
-   * @returns {void} return status code 204 
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return status code 204
    */
 
 
@@ -389,7 +391,7 @@ function () {
             newhash = _context4.sent;
             _context4.prev = 6;
             _context4.next = 9;
-            return (0, _db.query)(selectQuery, [req.result.userId]);
+            return (0, _index.query)(selectQuery, [req.result.userId]);
 
           case 9:
             _ref8 = _context4.sent;
@@ -412,7 +414,7 @@ function () {
 
           case 16:
             _context4.next = 18;
-            return (0, _db.query)(updateQuery, [newhash, req.result.userId]);
+            return (0, _index.query)(updateQuery, [newhash, req.result.userId]);
 
           case 18:
             return _context4.abrupt("return", res.status(200).json({
@@ -441,9 +443,9 @@ function () {
 }();
 /**
    * Create A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} reflection object 
+   * @returns {object} reflection object
    */
 
 
@@ -465,7 +467,7 @@ function () {
             createQuery = "INSERT INTO admins(\n\t\temail,created_date)\n\t  VALUES($1,$2) returning *";
             queryUsers = "SELECT is_admin \n\tFROM users where id = $1";
             _context5.next = 5;
-            return (0, _db.query)(queryUsers, [req.result.userId]);
+            return (0, _index.query)(queryUsers, [req.result.userId]);
 
           case 5:
             _ref10 = _context5.sent;
@@ -479,7 +481,7 @@ function () {
             }
 
             _context5.next = 12;
-            return (0, _db.query)(createQuery, values);
+            return (0, _index.query)(createQuery, values);
 
           case 12:
             reponse = _context5.sent;
@@ -545,20 +547,20 @@ function () {
             text = 'SELECT is_verify,id FROM users WHERE id=$1';
             updateText = 'UPDATE users SET is_verify=$1 WHERE id =$2';
             _context6.next = 9;
-            return (0, _db.query)(text, [response.userId]);
+            return (0, _index.query)(text, [response.userId]);
 
           case 9:
             _ref12 = _context6.sent;
             rows = _ref12.rows;
             site = process.env.NODE_ENV === 'development' ? 'http://localhost:3300' : 'https://propertpro-lite.herokuapp.com';
 
-            if (!('https' + '://' + req.get('host') == site && rows[0].id)) {
+            if (!('https://'.concat(req.get('host')) === site && rows[0].id)) {
               _context6.next = 16;
               break;
             }
 
             _context6.next = 15;
-            return (0, _db.query)(updateText, ['True', rows[0].id]);
+            return (0, _index.query)(updateText, ['True', rows[0].id]);
 
           case 15:
             return _context6.abrupt("return", res.status(200).json({
@@ -623,7 +625,7 @@ function () {
             link = process.env.NODE_ENV === 'development' ? "http://localhost:3300/api/v1/reset/verify?id=".concat(token, "&email=").concat(email) : "".concat(req.protocol, "://").concat(req.get('host'), "/api/v1/reset/verify?id=").concat(token, "&email=").concat(email);
             text = 'SELECT first_name FROM users WHERE email=$1';
             _context7.next = 11;
-            return (0, _db.query)(text, [email]);
+            return (0, _index.query)(text, [email]);
 
           case 11:
             _ref14 = _context7.sent;
@@ -690,20 +692,20 @@ function () {
             text = 'SELECT first_name FROM users WHERE email=$1';
             updateText = 'UPDATE users SET password=$1,modified_date=$2 WHERE email=$3 returning *';
             _context8.next = 13;
-            return (0, _db.query)(text, [url_parts.email]);
+            return (0, _index.query)(text, [url_parts.email]);
 
           case 13:
             _ref16 = _context8.sent;
             rows = _ref16.rows;
             site = process.env.NODE_ENV === 'development' ? 'http://localhost:3300' : 'https://propertpro-lite.herokuapp.com';
 
-            if (!(req.protocol + '://' + req.get('host') == site && response.code)) {
+            if (!("".concat(req.protocol, "://").concat(req.get('host')) === site && response.code)) {
               _context8.next = 20;
               break;
             }
 
             _context8.next = 19;
-            return (0, _db.query)(updateText, [hashPass, (0, _moment["default"])(new Date()), url_parts.email]);
+            return (0, _index.query)(updateText, [hashPass, (0, _moment["default"])(new Date()), url_parts.email]);
 
           case 19:
             return _context8.abrupt("return", res.status(200).json({

@@ -10,7 +10,8 @@ var _numRegex = require("../utils/numRegex");
 
 var _checkfloat = _interopRequireDefault(require("../utils/checkfloat"));
 
-/* eslint-disable no-undef */
+/* eslint-disable no-undef ,func-names,
+ prefer-destructuring, import/no-duplicates, no-unused-vars */
 describe('Test for checkLetter() function', function () {
   it('it checks if checkLetter function returns false', function (done) {
     var arr = [false, true, false, true, true];

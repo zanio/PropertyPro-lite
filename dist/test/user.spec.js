@@ -18,9 +18,9 @@ var _sinonChai = _interopRequireDefault(require("sinon-chai"));
 
 var _app = _interopRequireDefault(require("../app"));
 
-var _index = require("../db/index");
+var _index = require("../model/index");
 
-/* eslint-disable no-undef */
+/* eslint-disable no-undef , prefer-destructuring, import/no-duplicates */
 var request;
 var token;
 var userId;
@@ -86,13 +86,14 @@ describe('/Auth User', function () {
       (0, _asyncToGenerator2["default"])(
       /*#__PURE__*/
       _regenerator["default"].mark(function _callee3() {
-        var body, response;
+        var body, _ref4, response;
+
         return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 body = {
-                  email: 'akp.ani@yahoo.com',
+                  email: 'akpsa.ani@yahoo.com',
                   password: 'ee',
                   address: 'block 199 flat 4',
                   phone_number: '08023456789',
@@ -103,13 +104,14 @@ describe('/Auth User', function () {
                 return request.post('/api/v1/auth/signup').send(body);
 
               case 3:
-                response = _context3.sent;
+                _ref4 = _context3.sent;
+                response = _ref4.response;
                 token = response.body.data.token;
                 userId = response.body.data.id;
                 (0, _chai.expect)(response.body.status).to.equal(201);
                 (0, _chai.expect)(response.body).to.be.a('object');
 
-              case 8:
+              case 9:
               case "end":
                 return _context3.stop();
             }

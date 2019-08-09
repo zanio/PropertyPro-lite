@@ -12,7 +12,8 @@ var _chai = require("chai");
 
 var _helper = require("../helpers/helper");
 
-/* eslint-disable no-undef */
+/* eslint-disable no-undef ,func-names,
+ prefer-destructuring, import/no-duplicates, no-unused-vars */
 describe('Helper function in helpers folder test', function () {
   it('it checks if newDate function returns a new date in tolocalString', function (done) {
     (0, _chai.expect)((0, _helper.newDate)()).to.equal(new Date().toLocaleString());

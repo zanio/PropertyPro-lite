@@ -15,15 +15,17 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _db = require("../db");
+var _model = require("../model");
 
 var _helper = require("../helpers/helper");
 
+/* eslint-disable  camelcase, no-console, consistent-return,radix */
+
 /**
    * Create A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} reflection object 
+   * @returns {object} reflection object
    */
 var createProperty =
 /*#__PURE__*/
@@ -31,24 +33,24 @@ function () {
   var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee(req, res) {
-    var _req$body, property_name, status, state, city, property_description, price, contact_person_number, address, proof, note, type, createQuery, selectemail, response, values, _ref2, rows;
+    var _req$body, property_name, state, city, property_description, price, contact_person_number, address, proof, note, type, createQuery, selectemail, response, values, _ref2, rows;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _req$body = req.body, property_name = _req$body.property_name, status = _req$body.status, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, address = _req$body.address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
+            _req$body = req.body, property_name = _req$body.property_name, state = _req$body.state, city = _req$body.city, property_description = _req$body.property_description, price = _req$body.price, contact_person_number = _req$body.contact_person_number, address = _req$body.address, proof = _req$body.proof, note = _req$body.note, type = _req$body.type;
             createQuery = "INSERT INTO property(id,owner_email,\n\t\t status,state,city,type, price,property_name,property_description,contact_person_number,\n\t\taddress, proof,note,image_url,images_url,created_on, modified_on)\n\t  VALUES($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14, $15,$16,$17) returning *";
             selectemail = 'SELECT email FROM users WHERE id = $1';
             _context.next = 5;
-            return (0, _db.query)(selectemail, [req.result.userId]);
+            return (0, _model.query)(selectemail, [req.result.userId]);
 
           case 5:
             response = _context.sent;
-            values = [(0, _helper.generateId)() + '1', response.rows[0].email, 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof || 'no', note, req.Image_url, req.gallery, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
+            values = ["".concat((0, _helper.generateId)(), "1"), response.rows[0].email, 'available', state, city, type, price, property_name, property_description, contact_person_number, address, proof || 'no', note, req.Image_url, req.gallery, (0, _moment["default"])(new Date()), (0, _moment["default"])(new Date())];
             _context.prev = 7;
             _context.next = 10;
-            return (0, _db.query)(createQuery, values);
+            return (0, _model.query)(createQuery, values);
 
           case 10:
             _ref2 = _context.sent;
@@ -72,13 +74,12 @@ function () {
           case 15:
             _context.prev = 15;
             _context.t0 = _context["catch"](7);
-            console.log(_context.t0);
             return _context.abrupt("return", res.status(400).json({
               status: 400,
               error: 'error occured during the process'
             }));
 
-          case 19:
+          case 18:
           case "end":
             return _context.stop();
         }
@@ -92,9 +93,9 @@ function () {
 }();
 /**
    * Create A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} reflection object 
+   * @returns {object} reflection object
    */
 
 
@@ -114,10 +115,10 @@ function () {
           case 0:
             _req$body2 = req.body, reason = _req$body2.reason, description = _req$body2.description, experience = _req$body2.experience;
             createQuery = "INSERT INTO report(id,property_id,\n\t\treporter_id,reason,description,experience,created_date)\n      VALUES($1, $2, $3, $4, $5, $6,$7) returning *";
-            values = [(0, _helper.generateId)() + '1', req.params.id, req.result.userId, reason, description, experience, (0, _moment["default"])(new Date())];
+            values = ["".concat((0, _helper.generateId)(), "1"), req.params.id, req.result.userId, reason, description, experience, (0, _moment["default"])(new Date())];
             _context2.prev = 3;
             _context2.next = 6;
-            return (0, _db.query)(createQuery, values);
+            return (0, _model.query)(createQuery, values);
 
           case 6:
             _ref4 = _context2.sent;
@@ -146,9 +147,9 @@ function () {
 }();
 /**
    * Create A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} reflection object 
+   * @returns {object} reflection object
    */
 
 
@@ -169,12 +170,12 @@ function () {
             createQuery = "INSERT INTO flagged(id,\n\t\treport_id,admin_name,created_date)\n\t  VALUES($1, $2,$3,$4) returning *";
             queryAdmin = "SELECT first_name,last_name,is_admin\n\tFROM users where id = $1";
             _context3.next = 4;
-            return (0, _db.query)(queryAdmin, [req.result.userId]);
+            return (0, _model.query)(queryAdmin, [req.result.userId]);
 
           case 4:
             _ref6 = _context3.sent;
             rows = _ref6.rows;
-            values = [(0, _helper.generateId)() + '1', req.params.id, rows[0].first_name + ' ' + rows[0].last_name, (0, _moment["default"])(new Date())];
+            values = ["".concat((0, _helper.generateId)(), "1"), req.params.id, "".concat(rows[0].first_name, " ").concat(rows[0].last_name), (0, _moment["default"])(new Date())];
             _context3.prev = 7;
 
             if (!rows[0].is_admin) {
@@ -183,7 +184,7 @@ function () {
             }
 
             _context3.next = 11;
-            return (0, _db.query)(createQuery, values);
+            return (0, _model.query)(createQuery, values);
 
           case 11:
             response = _context3.sent;
@@ -217,9 +218,9 @@ function () {
 }();
 /**
    * Create A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} reflection object 
+   * @returns {object} reflection object
    */
 
 
@@ -240,7 +241,7 @@ function () {
             queryreport = "SELECT id,property_id,reason,description,experience,created_date \n\tFROM report where id = $1";
             values = [req.params.id];
             _context4.next = 4;
-            return (0, _db.query)(queryreport, values);
+            return (0, _model.query)(queryreport, values);
 
           case 4:
             _ref8 = _context4.sent;
@@ -282,9 +283,9 @@ function () {
 }();
 /**
    * Create A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
-   * @returns {object} reflection object 
+   * @returns {object} reflection object
    */
 
 
@@ -303,14 +304,14 @@ function () {
         switch (_context5.prev = _context5.next) {
           case 0:
             queryreport = "SELECT * \n\tFROM flagged";
-            _context5.next = 3;
-            return (0, _db.query)(queryreport);
+            _context5.prev = 1;
+            _context5.next = 4;
+            return (0, _model.query)(queryreport);
 
-          case 3:
+          case 4:
             _ref10 = _context5.sent;
             rows = _ref10.rows;
             rowCount = _ref10.rowCount;
-            _context5.prev = 6;
 
             if (!(rows.length > 0)) {
               _context5.next = 9;
@@ -338,21 +339,20 @@ function () {
             }));
 
           case 11:
-            _context5.next = 17;
+            _context5.next = 16;
             break;
 
           case 13:
             _context5.prev = 13;
-            _context5.t0 = _context5["catch"](6);
-            console.log(_context5.t0);
+            _context5.t0 = _context5["catch"](1);
             return _context5.abrupt("return", res.status(400).json(_context5.t0));
 
-          case 17:
+          case 16:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee5, null, [[6, 13]]);
+    }, _callee5, null, [[1, 13]]);
   }));
 
   return function getAllFlaggedProperty(_x9, _x10) {
@@ -361,8 +361,8 @@ function () {
 }();
 /**
    * Get All property
-   * @param {object} req 
-   * @param {object} res 
+   * @param {object} req
+   * @param {object} res
    * @returns {object} property array
    */
 
@@ -384,7 +384,7 @@ function () {
             findAllQuery = "SELECT id,owner_email,property_name,property_description,status,state,city,price,\n\tcontact_person_number,address,proof,type,created_on,image_url,images_url\n\t FROM property";
             _context6.prev = 1;
             _context6.next = 4;
-            return (0, _db.query)(findAllQuery);
+            return (0, _model.query)(findAllQuery);
 
           case 4:
             _ref12 = _context6.sent;
@@ -403,32 +403,33 @@ function () {
 
           case 9:
             if (!(rows.length <= 1)) {
-              _context6.next = 11;
+              _context6.next = 12;
               break;
             }
 
+            console.log(rows);
             return _context6.abrupt("return", res.status(400).json({
               status: 400,
               data: {
-                message: 'No advert has been flagged'
+                message: 'No advert has been created'
               }
             }));
 
-          case 11:
-            _context6.next = 16;
+          case 12:
+            _context6.next = 17;
             break;
 
-          case 13:
-            _context6.prev = 13;
+          case 14:
+            _context6.prev = 14;
             _context6.t0 = _context6["catch"](1);
             return _context6.abrupt("return", res.status(400).send(_context6.t0));
 
-          case 16:
+          case 17:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee6, null, [[1, 13]]);
+    }, _callee6, null, [[1, 14]]);
   }));
 
   return function getAllProperty(_x11, _x12) {
@@ -437,8 +438,8 @@ function () {
 }();
 /**
    * Get All user property
-   * @param {object} req 
-   * @param {object} res 
+   * @param {object} req
+   * @param {object} res
    * @returns {object} property array
    */
 
@@ -460,13 +461,13 @@ function () {
             findAllQuery = 'SELECT * FROM property WHERE owner_email = $1';
             selectemail = 'SELECT email FROM users WHERE id = $1';
             _context7.next = 4;
-            return (0, _db.query)(selectemail, [req.result.userId]);
+            return (0, _model.query)(selectemail, [req.result.userId]);
 
           case 4:
             response = _context7.sent;
             _context7.prev = 5;
             _context7.next = 8;
-            return (0, _db.query)(findAllQuery, [response.rows[0].email]);
+            return (0, _model.query)(findAllQuery, [response.rows[0].email]);
 
           case 8:
             _ref14 = _context7.sent;
@@ -498,7 +499,7 @@ function () {
 }();
 /**
    * Get A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
    * @returns {object} reflection object
    */
@@ -512,24 +513,23 @@ function () {
   var _ref15 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
   _regenerator["default"].mark(function _callee8(req, res) {
-    var token, text, _ref16, rows;
+    var text, _ref16, rows;
 
     return _regenerator["default"].wrap(function _callee8$(_context8) {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
-            token = req.body.token;
             text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,address,proof,type,created_on,image_url, images_url\n\t FROM property WHERE id = $1";
-            _context8.prev = 2;
-            _context8.next = 5;
-            return (0, _db.query)(text, [req.params.id]);
+            _context8.prev = 1;
+            _context8.next = 4;
+            return (0, _model.query)(text, [req.params.id]);
 
-          case 5:
+          case 4:
             _ref16 = _context8.sent;
             rows = _ref16.rows;
 
             if (rows[0]) {
-              _context8.next = 9;
+              _context8.next = 8;
               break;
             }
 
@@ -538,23 +538,23 @@ function () {
               error: 'That id property does not exist or has already been deleted'
             }));
 
-          case 9:
+          case 8:
             return _context8.abrupt("return", res.status(200).json({
               status: 200,
               data: rows[0]
             }));
 
-          case 12:
-            _context8.prev = 12;
-            _context8.t0 = _context8["catch"](2);
+          case 11:
+            _context8.prev = 11;
+            _context8.t0 = _context8["catch"](1);
             return _context8.abrupt("return", res.status(400).send(_context8.t0));
 
-          case 15:
+          case 14:
           case "end":
             return _context8.stop();
         }
       }
-    }, _callee8, null, [[2, 12]]);
+    }, _callee8, null, [[1, 11]]);
   }));
 
   return function getOneProperty(_x15, _x16) {
@@ -563,7 +563,7 @@ function () {
 }();
 /**
    * Get A Reflection
-   * @param {object} req 
+   * @param {object} req
    * @param {object} res
    * @returns {object} reflection object
    */
@@ -586,7 +586,7 @@ function () {
             text = "SELECT id,property_name,status,state,city,price,property_description,\n\tcontact_person_number,address,proof,type,created_on,image_url\n\t FROM property WHERE type = $1";
             _context9.prev = 1;
             _context9.next = 4;
-            return (0, _db.query)(text, [req.type]);
+            return (0, _model.query)(text, [req.type]);
 
           case 4:
             _ref18 = _context9.sent;
@@ -599,7 +599,7 @@ function () {
 
             return _context9.abrupt("return", res.status(404).json({
               status: 404,
-              error: 'invalid search query params'
+              error: 'No adverts to display in this category'
             }));
 
           case 8:
@@ -643,7 +643,7 @@ function () {
             text = "SELECT address,city,state\n\t FROM property WHERE id = $1";
             _context10.prev = 1;
             _context10.next = 4;
-            return (0, _db.query)(text, [req.params.id]);
+            return (0, _model.query)(text, [req.params.id]);
 
           case 4:
             _ref20 = _context10.sent;
@@ -684,8 +684,8 @@ function () {
 }();
 /**
   * Update A Reflection
-  * @param {object} req 
-  * @param {object} res 
+  * @param {object} req
+  * @param {object} res
   * @returns {object} updated reflection
   */
 
@@ -708,7 +708,7 @@ function () {
             updateOneQuery = "UPDATE property\n\t  SET property_name=$1,status=$2,state=$3,property_description=$4,\n\t  city=$5,price=$6,contact_person_number=$7,\n\t  address=$8,proof=$9,note=$10,\n\t  modified_on=$11, image_url = $12, images_url = $13\n\t  WHERE id=$14 returning *";
             _context11.prev = 2;
             _context11.next = 5;
-            return (0, _db.query)(findOneQuery, [parseInt(req.params.id)]);
+            return (0, _model.query)(findOneQuery, [parseInt(req.params.id)]);
 
           case 5:
             _ref22 = _context11.sent;
@@ -727,7 +727,7 @@ function () {
           case 9:
             values = [req.body.property_name || rows[0].property_name, rows[0].status, req.body.state || rows[0].state, req.body.property_description || rows[0].property_description, req.body.city || rows[0].city, req.body.price || rows[0].price, req.body.contact_person_number || rows[0].contact_person_number, req.body.contact_person_address || rows[0].address, req.body.proof || rows[0].proof, req.body.note || rows[0].note, (0, _moment["default"])(new Date()), req.Image_url || rows[0].image_url, req.gallery || rows[0].images_url, req.params.id];
             _context11.next = 12;
-            return (0, _db.query)(updateOneQuery, values);
+            return (0, _model.query)(updateOneQuery, values);
 
           case 12:
             response = _context11.sent;
@@ -759,8 +759,8 @@ function () {
 }();
 /**
    * Update A Reflection
-   * @param {object} req 
-   * @param {object} res 
+   * @param {object} req
+   * @param {object} res
    * @returns {object} updated reflection
    */
 
@@ -783,7 +783,7 @@ function () {
             updateOneQuery = "UPDATE property SET status=$1\n      WHERE id=$2 returning *";
             _context12.prev = 2;
             _context12.next = 5;
-            return (0, _db.query)(findOneQuery, [req.params.id]);
+            return (0, _model.query)(findOneQuery, [req.params.id]);
 
           case 5:
             _ref24 = _context12.sent;
@@ -802,7 +802,7 @@ function () {
           case 9:
             values = [req.body.status || rows[0].status, req.params.id];
             _context12.next = 12;
-            return (0, _db.query)(updateOneQuery, values);
+            return (0, _model.query)(updateOneQuery, values);
 
           case 12:
             response = _context12.sent;
@@ -830,9 +830,9 @@ function () {
 }();
 /**
    * Delete A Reflection
-   * @param {object} req 
-   * @param {object} res 
-   * @returns {void} return statuc code 204 
+   * @param {object} req
+   * @param {object} res
+   * @returns {void} return statuc code 204
    */
 
 
@@ -853,7 +853,7 @@ function () {
             deleteQuery = 'DELETE FROM property WHERE id=$1 returning *';
             _context13.prev = 1;
             _context13.next = 4;
-            return (0, _db.query)(deleteQuery, [req.params.id]);
+            return (0, _model.query)(deleteQuery, [req.params.id]);
 
           case 4:
             _ref26 = _context13.sent;

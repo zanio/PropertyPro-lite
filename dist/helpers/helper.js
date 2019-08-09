@@ -11,6 +11,7 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _bcrypt = _interopRequireDefault(require("bcrypt"));
 
+/* eslint-disable prefer-promise-reject-errors, radix */
 var newDate = function newDate() {
   return new Date().toLocaleString();
 };
@@ -93,7 +94,7 @@ exports.emailToken = emailToken;
 
 var generateId = function generateId() {
   var rand = Math.floor(222 + Math.random() * 65665 + 400);
-  return parseInt('220' + rand);
+  return parseInt("220".concat(rand));
 };
 
 exports.generateId = generateId;
