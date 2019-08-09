@@ -24,11 +24,11 @@ I designed the UI of PropertyPro-lite  on **figma** and you can check the url fo
 
 ### GitHub Pages link for UI Frontend
 
-[PropertyPro-lite/UI link](https://zanio.github.io/PropertyPro-lite/)
+[PropertyPro-lite/UI link](https://zanio.github.io/PropertyPro-lite/UI)
 
 **Note:** 
 * Two types of database was used in this project. The develop branch uses postgres database
-* And the non-persistence data which used javascript object model. The [bg-clean-167071582](https://zanio.github.io/PropertyPro-lite/) uses non-persistence
+* And the non-persistence data which used javascript object model. The [bg-clean-167071582](https://zanio.github.io/PropertyPro-lite/UI) uses non-persistence
 
 ### REST API Docs
 
