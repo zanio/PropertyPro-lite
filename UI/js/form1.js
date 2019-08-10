@@ -57,7 +57,7 @@ const fetchStates = async () => {
 };
 
 const fetchLga = async (state) => {
-	const endpoint = 'http://locationsng-api.herokuapp.com/api/v1/lgas';
+	const endpoint = 'https://locationsng-api.herokuapp.com/api/v1/lgas';
 	chooseLga.innerHTML = '';
 
 	try {
