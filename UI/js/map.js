@@ -2,7 +2,7 @@
 consistent-return,no-restricted-globals,no-unused-vars, no-shadow  */
 let address; let latitude; let
 	longitude;
-const AddressEndpoint = 'http://localhost:3300/api/v1/property/address/';
+const AddressEndpoint = 'https://propertpro-lite.herokuapp.com/api/v1/property/address/';
 
 
 const getOne = (url, id) => new Promise((resolve, reject) => {

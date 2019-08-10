@@ -17,7 +17,7 @@ if (
 }
 
 const signIn = (payload) => {
-	const endpoint = 'http://localhost:3300/api/v1/auth/signin';
+	const endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/auth/signin';
 	const fetchRequest = {
 		method: 'POST',
 		body: payload,

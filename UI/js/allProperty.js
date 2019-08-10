@@ -3,7 +3,7 @@ consistent-return  */
 
 const AllAds = async () => {
 	let data;
-	const endpoint = 'http://localhost:3300/api/v1/property/';
+	const endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/property/';
 	const fetchRequest = {
 		method: 'GET',
 		headers: {
