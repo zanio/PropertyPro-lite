@@ -16,8 +16,17 @@ if (
 	window.location.replace('dashboard.html');
 }
 
+const getEmail = () => {
+	const getEmailEvent = document.querySelector('#get-email');
+	getEmailEvent.addEventListener('click', () => {
+		const email = document.querySelector('[name="email"]').value;
+		localStorage.setItem('reset-email', JSON.stringify(email));
+		window.location.href = 'sendreset.html';
+	});
+};
+
 const signIn = (payload) => {
-	const endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/auth/signin';
+	const endpoint = 'http://localhost:3300/api/v1/auth/signin';
 	const fetchRequest = {
 		method: 'POST',
 		body: payload,
@@ -30,6 +39,9 @@ const signIn = (payload) => {
 			Render.hideAsyncNotification();
 			if (response.error) {
 				Render.blockStickyNotification('error', response.error);
+				const passwordRecoveryHtml = '<p class="pt-2 title-head ft-08 text-center"> Did you forgert your password ? <a id="get-email" class="blue-link -light-blue">click</a> to recover</p>';
+				Render.renderContainerClass('password-recovery', passwordRecoveryHtml);
+				getEmail();
 				return;
 			}
 			Render.blockNotification('success', 'logging in');

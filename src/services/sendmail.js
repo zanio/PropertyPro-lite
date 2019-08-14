@@ -42,7 +42,7 @@ class Mail {
 		try {
 			await transporter.sendMail(mailOptions);
 		} catch (error) {
-			console.log(error);
+		//	console.log(error);
 		}
 	}
 }

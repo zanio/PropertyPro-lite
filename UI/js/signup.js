@@ -16,7 +16,7 @@ if (
 }
 
 const createAccount = (payload) => {
-	const endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/auth/signup';
+	const endpoint = 'http://127.0.0.1:3300/api/v1/auth/signup';
 	const fetchRequest = {
 		method: 'POST',
 		body: payload,

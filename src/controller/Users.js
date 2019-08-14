@@ -253,17 +253,21 @@ const resetLink = async (req, res) => {
 		const { rows } = await query(text, [email]);
 		const data = {
 			email,
-			first_name: rows[0].first_name,
+			first_name: rows[0] ? rows[0].first_name : '',
 			link,
 		};
+		if (rows[0]) {
+			const resetmail = new Mail(verify_mail, resetPass(data));
 
-		const resetmail = new Mail(verify_mail, resetPass(data));
+			resetmail.main();
 
-		resetmail.main();
-
-		return res.status(200).json({ status: 200, data: { message: 'Check your email for a reset link' } });
+			return res.status(200).json({ status: 200, data: { message: 'Check your email for a reset link' } });
+		}
+		if (!rows[0]) {
+			return res.status(404).json({ status: 404, error: { message: 'That email is not registered on PropertyPro-lite' } });
+		}
 	} catch (error) {
-		return res.status(400).json(error);
+		return res.status(400).json({ status: 400, error });
 	}
 };
 

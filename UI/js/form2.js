@@ -27,7 +27,7 @@ if (
 }
 
 const createAd = (payload) => {
-	const endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/property';
+	const endpoint = 'http://127.0.0.1:3300/api/v1/property';
 	const getUserInfo = JSON.parse(getUser);
 	const fetchRequest = {
 		method: 'POST',

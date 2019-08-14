@@ -151,7 +151,7 @@ const user_ads = el => `
                             <button  class="btn  btn-orange btn-no-shadow no-border sm-padding mobile-width-20 mb-1 ft-08  white up mark-advert">Mark advert</button>
                             <button class="btn btn-danger btn-no-shadow no-border sm-padding mobile-width-20 ft-08 mb-1 white delete">Delete Advert</button>
                         </div>
-                    <a class=" btn text-center btn-no-shadow border-c4 text-deco -light-blue ft-08 block bg-trans mb-1" href="">Preview advert</a>
+                    <a class=" btn-md text-center btn-no-shadow border-c4 text-deco -light-blue ft-08 block bg-trans mb-1" href="">Preview advert</a>
                 </div>
                    
         </div>`;
@@ -208,10 +208,10 @@ const advertCard = el => `
                                 </span>
                             </div>
                         </div>
-                        <p class="small-text ft-08">${el.property_description}...</p>
+                        <p class="small-text ft-08 pb-1">${el.property_description}...</p>
                         
                         
-                         <a class="mt-2 mb-2 btn btn-blue block text-center text-deco white" href="single-property.html">View detail</a>
+                        <p class="text-right"> <a class="mt-1 mb-1 btn-md btn-blue text-deco white" href="single-property.html">View Advert</a></p>
                         
                     </div>
                 </div>

@@ -18,7 +18,7 @@ if (
 const fetchUserAdverts = async () => {
 	let data;
 	const getUserInfo = JSON.parse(getUser);
-	const endpoint = 'https://propertpro-lite.herokuapp.com/api/v1/property/user';
+	const endpoint = 'http://127.0.0.1:3300/api/v1/property/user';
 	const fetchRequest = {
 		method: 'GET',
 		headers: {
@@ -46,7 +46,7 @@ const fetchUserAdverts = async () => {
 const fetchDeleteAdvert = async (propertyId) => {
 	let data;
 	const getUserInfo = JSON.parse(getUser);
-	const endpoint = `https://propertpro-lite.herokuapp.com/api/v1/property/${propertyId}`;
+	const endpoint = `http://127.0.0.1:3300/api/v1/property/${propertyId}`;
 	const fetchRequest = {
 		method: 'DELETE',
 		headers: {
@@ -74,7 +74,7 @@ const fetchDeleteAdvert = async (propertyId) => {
 const fetchMarkStatus = async (propertyId, status) => {
 	let data;
 	const getUserInfo = JSON.parse(getUser);
-	const endpoint = `https://propertpro-lite.herokuapp.com/api/v1/property/${propertyId}/sold`;
+	const endpoint = `http://127.0.0.1:3300/api/v1/property/${propertyId}/sold`;
 	const fetchRequest = {
 		method: 'PATCH',
 		body: JSON.stringify(status),

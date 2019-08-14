@@ -26,7 +26,7 @@ Userrouter.delete('/auth/delete', authorization, jwtVerify, deleteUser);
 Userrouter.get('/auth/verify', verifyUserEmail);
 
 /* send reset password link to email */
-Userrouter.get('/reset/', resetLink);
+Userrouter.get('/reset', resetLink);
 
 /* verify reset password link from email  */
 Userrouter.patch('/reset/verify', resetPassword);
