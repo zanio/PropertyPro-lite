@@ -29,15 +29,15 @@ const fetchUserAdverts = async () => {
 	try {
 		const fetchAds = await fetch(endpoint, fetchRequest);
 		const response = await fetchAds.json();
-		Render.hideAsyncNotification();
+		Render.hideAsyncNotification('async-loading');
 		data = response.data;
 		if (response.error) {
 			Render.blockStickyNotification('error', response.error);
 			return;
 		}
 	} catch (err) {
-		Render.hideAsyncNotification();
-		Render.blockNotification('error', 'Internet error occured. please try again');
+		Render.hideAsyncNotification('async-loading');
+		Render.blockNotification('error', 'Internet error occured. please try again', 'notification');
 		console.log(err);
 	}
 	return data;
@@ -57,15 +57,15 @@ const fetchDeleteAdvert = async (propertyId) => {
 	try {
 		const fetchAds = await fetch(endpoint, fetchRequest);
 		const response = await fetchAds.json();
-		Render.hideAsyncNotification();
+		Render.hideAsyncNotification('async-loading');
 		data = response.data;
 		if (response.error) {
 			Render.blockStickyNotification('error', response.error);
 			return;
 		}
 	} catch (err) {
-		Render.hideAsyncNotification();
-		Render.blockNotification('Internet error occured. please try again');
+		Render.hideAsyncNotification('async-loading');
+		Render.blockNotification('Internet error occured. please try again', 'notification');
 		console.log(err);
 	}
 	return data.message;
@@ -86,15 +86,15 @@ const fetchMarkStatus = async (propertyId, status) => {
 	try {
 		const fetchAds = await fetch(endpoint, fetchRequest);
 		const response = await fetchAds.json();
-		Render.hideAsyncNotification();
+		Render.hideAsyncNotification('async-loading');
 		data = response.data;
 		if (response.error) {
 			Render.blockStickyNotification('error', response.error);
 			return;
 		}
 	} catch (err) {
-		Render.hideAsyncNotification();
-		Render.blockNotification('Internet error occured. please try again');
+		Render.hideAsyncNotification('async-loading');
+		Render.blockNotification('Internet error occured. please try again', 'notification');
 		console.log(err);
 	}
 	return data.status;
@@ -112,11 +112,11 @@ const DeleteProcess = (domElement, i) => {
 		const modalBtn = document.querySelector('#modal');
 		const cancelBtn = document.querySelector('#cancel');
 		modalBtn.addEventListener('click', async () => {
-			Render.blockAsyncNotification();
+			Render.blockAsyncNotification('async-loading');
 			const response = await fetchDeleteAdvert(get_id);
 			console.log(response);
 			Helpers.removeBackDrop();
-			Render.blockNotification('success', `${response}`);
+			Render.blockNotification('success', `${response}`, 'notification');
 			setTimeout(() => {
 				location.href = 'dashboard.html';
 			}, 3000);
@@ -135,10 +135,10 @@ const StatusEvent = (changeStatus, get_id) => {
 		const modalBtn = document.querySelector('#modal-update');
 
 		modalBtn.addEventListener('click', async () => {
-			Render.blockAsyncNotification();
+			Render.blockAsyncNotification('async-loading');
 			const response = await fetchMarkStatus(get_id, statusBody);
 			Helpers.removeBackDrop();
-			Render.blockNotification('success', `Your advert has been successful marked as ${response}`);
+			Render.blockNotification('success', `Your advert has been successful marked as ${response}`, 'notification');
 		});
 	});
 };
@@ -200,6 +200,6 @@ window.addEventListener('load', () => {
 	const name = `${getUserInfo.first_name} ${getUserInfo.last_name}`;
 	displayUserDetails.innerHTML = `
     Welcome <span  class="-light-blue">${name}</span>, Here are your recent advert.`;
-	Render.blockAsyncNotification();
+	Render.blockAsyncNotification('async-loading');
 	ProcessAdvertList();
 });

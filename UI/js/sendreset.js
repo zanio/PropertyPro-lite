@@ -31,7 +31,7 @@ const resetLink = ({ email }) => {
 	fetch(endpoint, fetchRequest)
 		.then(res => res.json())
 		.then((response) => {
-			Render.hideAsyncNotification();
+			Render.hideAsyncNotification('async-loading');
 			if (response.error) {
 				Render.blockNotification('error', response.error.message);
 				return response.error;
@@ -44,7 +44,7 @@ const resetLink = ({ email }) => {
 			// window.location.replace('dashboard.html');
 		})
 		.catch((err) => {
-			Render.hideAsyncNotification();
+			Render.hideAsyncNotification('async-loading');
 			Render.blockNotification('error', 'Internet error occured. please try again');
 			console.log(err);
 		});
@@ -54,7 +54,7 @@ ResetPassWordLink.addEventListener('click', () => {
 	const payload = {
 		email: String(retrieveFromLocalStorage('reset-email')).toLowerCase(),
 	};
-	Render.blockAsyncNotification();
+	Render.blockAsyncNotification('async-loading');
 	resetLink(payload);
 	// Helpers.removelocalStorage('reset-email');
 });

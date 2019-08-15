@@ -36,7 +36,7 @@ const signIn = (payload) => {
 	fetch(endpoint, fetchRequest)
 		.then(res => res.json())
 		.then((response) => {
-			Render.hideAsyncNotification();
+			Render.hideAsyncNotification('async-loading');
 			if (response.error) {
 				Render.blockStickyNotification('error', response.error);
 				const passwordRecoveryHtml = '<p class="pt-2 title-head ft-08 text-center"> Did you forgert your password ? <a id="get-email" class="blue-link -light-blue">click</a> to recover</p>';
@@ -44,13 +44,13 @@ const signIn = (payload) => {
 				getEmail();
 				return;
 			}
-			Render.blockNotification('success', 'logging in');
+			Render.blockNotification('success', 'logging in', 'notification');
 			localStorage.setItem('user', JSON.stringify(response.data));
 			window.location.replace('dashboard.html');
 		})
 		.catch((err) => {
-			Render.hideAsyncNotification();
-			Render.blockNotification('error', 'Internet error occured. please try again');
+			Render.hideAsyncNotification('async-loading');
+			Render.blockNotification('error', 'Internet error occured. please try again', 'notification');
 			console.log(err);
 		});
 };
@@ -92,7 +92,7 @@ signInForm.addEventListener('submit', (event) => {
 		password,
 	};
 	payload = JSON.stringify(payload);
-	Render.blockAsyncNotification();
+	Render.blockAsyncNotification('async-loading');
 	setTimeout(() => {
 		signIn(payload);
 	}, 1000);

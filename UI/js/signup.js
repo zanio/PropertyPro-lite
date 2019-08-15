@@ -26,18 +26,18 @@ const createAccount = (payload) => {
 	fetch(endpoint, fetchRequest)
 		.then(res => res.json())
 		.then((response) => {
-			Render.hideAsyncNotification();
+			Render.hideAsyncNotification('async-loading');
 			if (response.error) {
 				Render.blockStickyNotification('error', response.error);
 				return;
 			}
-			Render.blockNotification('Sign up successful, logging in');
+			Render.blockNotification('Sign up successful, logging in', 'notification');
 			localStorage.setItem('user', JSON.stringify(response.data));
 			window.location.replace('dashboard.html');
 		})
 		.catch((err) => {
-			Render.hideAsyncNotification();
-			Render.blockNotification('Internet error occured. please try again');
+			Render.hideAsyncNotification('async-loading');
+			Render.blockNotification('Internet error occured. please try again', 'notification');
 			console.log(err);
 		});
 };
@@ -114,7 +114,7 @@ signUpForm.addEventListener('submit', (event) => {
 	};
 	payload = JSON.stringify(payload);
 
-	Render.blockAsyncNotification();
+	Render.blockAsyncNotification('async-loading');
 	setTimeout(() => {
 		createAccount(payload);
 	}, 1000);

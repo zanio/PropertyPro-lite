@@ -57,9 +57,9 @@ class Render {
 	}
 
 
-	static blockNotification(type = 'normal', word) {
+	static blockNotification(type = 'normal', word, id) {
 		try {
-			const notificationContainer = document.querySelector('#notification');
+			const notificationContainer = document.querySelector(`#${id}`);
 			let Textcolor;
 			let border;
 			switch (type) {
@@ -93,9 +93,9 @@ class Render {
 		}
 	}
 
-	static blockAsyncNotification() {
+	static blockAsyncNotification(id) {
 		try {
-			const asyncNotificationContainer = document.querySelector('#async-loading');
+			const asyncNotificationContainer = document.querySelector(`#${id}`);
 			if (asyncNotificationContainer.classList.contains('hide')) {
 				asyncNotificationContainer.classList.remove('hide');
 				asyncNotificationContainer.classList.add('block');
@@ -105,10 +105,10 @@ class Render {
 		}
 	}
 
-	static hideAsyncNotification() {
+	static hideAsyncNotification(id) {
 		try {
 			const asyncNotificationContainer = document.querySelector(
-				'#async-loading',
+				`#${id}`,
 			);
 			asyncNotificationContainer.className = 'hide';
 			setTimeout(() => {

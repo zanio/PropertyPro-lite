@@ -38,7 +38,7 @@ const createAd = (payload) => {
 	fetch(endpoint, fetchRequest)
 		.then(res => res.json())
 		.then((response) => {
-			Render.hideAsyncNotification();
+			Render.hideAsyncNotification('async-loading');
 			if (response.error) {
 				Render.blockStickyNotification('error', response.error);
 				return;
@@ -46,8 +46,8 @@ const createAd = (payload) => {
 			window.location.replace('form3.html');
 		})
 		.catch((err) => {
-			Render.hideAsyncNotification();
-			Render.blockNotification('Internet error occured. please try again');
+			Render.hideAsyncNotification('async-loading');
+			Render.blockNotification('Internet error occured. please try again', 'notification');
 			console.log(err);
 		});
 };
@@ -123,7 +123,7 @@ window.addEventListener('load', () => {
 		}
 
 
-		Render.blockAsyncNotification();
+		Render.blockAsyncNotification('async-loading');
 		createAd(formdata);
 	});
 });

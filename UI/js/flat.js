@@ -13,15 +13,15 @@ const AllAdsFetch = async () => {
 	try {
 		const fetchAds = await fetch(endpoint, fetchRequest);
 		const response = await fetchAds.json();
-		Render.hideAsyncNotification();
+		Render.hideAsyncNotification('async-loading');
 		data = response.data ? response.data : { status: response.status, message: response.error };
 		if (response.error) {
 			Render.blockStickyNotification('success', response.error);
 			return data;
 		}
 	} catch (err) {
-		Render.hideAsyncNotification();
-		Render.blockNotification('error', 'Internet error occured. please try again');
+		Render.hideAsyncNotification('async-loading');
+		Render.blockNotification('error', 'Internet error occured. please try again', 'notification');
 		console.log(err);
 	}
 	return data;
@@ -38,7 +38,7 @@ const ProcessAds = async () => {
 	const data = await AllAdsFetch();
 	try {
 		if (data.message) {
-			Render.blockNotification('success', 'no advert to display');
+			Render.blockNotification('success', 'no advert to display', 'notification');
 			return;
 		}
 		if (data.length >= 1) {
@@ -47,13 +47,13 @@ const ProcessAds = async () => {
 			DisplayAllAdverts(data);
 		}
 	} catch (err) {
-		Render.blockNotification('error', err);
+		Render.blockNotification('error', err, 'notification');
 	}
 
 	// Delete button and mark property status section dashboard
 };
 
 window.addEventListener('load', () => {
-	Render.blockAsyncNotification();
+	Render.blockAsyncNotification('async-loading');
 	ProcessAds();
 });
