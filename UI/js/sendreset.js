@@ -56,5 +56,5 @@ ResetPassWordLink.addEventListener('click', () => {
 	};
 	Render.blockAsyncNotification('async-loading');
 	resetLink(payload);
-	// Helpers.removelocalStorage('reset-email');
+	Helpers.removelocalStorage('reset-email');
 });
