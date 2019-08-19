@@ -12,4 +12,3 @@ after_success: npm run coverage
 branches:
   only:
   - develop
-  - ch-database-167276606

@@ -33,19 +33,19 @@ const resetLink = ({ email }) => {
 		.then((response) => {
 			Render.hideAsyncNotification('async-loading');
 			if (response.error) {
-				Render.blockNotification('error', response.error.message);
+				Render.blockNotification('error', response.error.message, 'notification');
 				return response.error;
 			}
 			if (response.data) {
 				console.log(response.data);
-				Render.blockNotification('success', response.data.message);
+				Render.blockNotification('success', response.data.message, 'notification');
 				return response.data;
 			}
 			// window.location.replace('dashboard.html');
 		})
 		.catch((err) => {
 			Render.hideAsyncNotification('async-loading');
-			Render.blockNotification('error', 'Internet error occured. please try again');
+			Render.blockNotification('error', 'Internet error occured. please try again', 'notification');
 			console.log(err);
 		});
 };

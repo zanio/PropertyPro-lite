@@ -246,8 +246,8 @@ const resetLink = async (req, res) => {
 
 	try {
 		const token = await emailToken(rand);
-		const link = process.env.NODE_ENV === 'development' ? `http://localhost:3300/api/v1/reset/verify?id=${token}&email=${email}`
-			: `${req.protocol}://${req.get('host')}/api/v1/reset/verify?id=${token}&email=${email}`;
+		const link = process.env.NODE_ENV === 'development' ? `http://127.0.0.1:5500/form3.html?id=${token}&email=${email}`
+			: `${req.protocol}://127.0.0.1:5500/UI/reset-password.html?id=${token}&email=${email}`;
 
 		const text = 'SELECT first_name FROM users WHERE email=$1';
 		const { rows } = await query(text, [email]);
@@ -273,22 +273,27 @@ const resetLink = async (req, res) => {
 
 const resetPassword = async (req, res) => {
 	const url_parts = url.parse(req.url, true).query;
-	const response = await jwt.verify(url_parts.id, process.env.SECRET_KEY);
 	const { password } = req.body;
 	const hashPass = await hashPassword(password);
 
 	try {
+		const response = await jwt.verify(url_parts.id, process.env.SECRET_KEY);
+
 		const text = 'SELECT first_name FROM users WHERE email=$1';
 		const updateText = 'UPDATE users SET password=$1,modified_date=$2 WHERE email=$3 returning *';
 		const { rows } = await query(text, [url_parts.email]);
-		const site = process.env.NODE_ENV === 'development' ? 'http://localhost:3300' : 'https://propertpro-lite.herokuapp.com';
+
+		const site = process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:5500' : 'http://127.0.0.1:3300';
 		if ((`${req.protocol}://${req.get('host')}`) === (site) && response.code) {
 			await query(updateText, [hashPass, moment(new Date()), url_parts.email]);
 			return res.status(200).json({ status: 200, data: { user: rows[0].first_name, message: 'your password has been reset successfully' } });
 		}
 		res.status(401).json({ status: 401, error: 'This is a proctected route' });
 	} catch (error) {
-		return res.status(400).json(error);
+		if (error.message === 'jwt expired') {
+			return res.status(400).json({ status: 400, error: 'Your token has expired, please go back and request for new token' });
+		}
+		return res.status(400).json({ status: 400, error });
 	}
 };
 

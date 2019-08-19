@@ -42,7 +42,7 @@ const generateToken = id => new Promise((resolve, reject) => {
 });
 
 const emailToken = rand => new Promise((resolve, reject) => {
-	const token = jwt.sign({ code: rand }, process.env.SECRET_KEY, { expiresIn: '5m' });
+	const token = jwt.sign({ code: rand }, process.env.SECRET_KEY, { expiresIn: '1h' });
 	if (token) resolve(token);
 	if (!token) reject({ err: 'could not assign a token, make sure you provide a secret key' });
 });
