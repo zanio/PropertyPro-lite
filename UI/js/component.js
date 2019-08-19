@@ -216,3 +216,36 @@ const advertCard = el => `
                     </div>
                 </div>
 `;
+
+const flaggedads = `
+<div class="width-20 mb-2 card-bg-white flagged-ads">
+<div class="overlay-cover">
+        <div class="overlay text-center">
+            <img src="icons/caution-sign.png" alt="flagged image">
+            <p class="blue-link flag">Flagged #id-12342</p>
+        </div>
+        <img class="thumnail-res width-100" src="images/thumnail-house.png" alt="property thumnail">
+    </div>
+
+<div class="sales-card width-100">
+    <div class="flex-row align-start  space-between">
+        <div class="span-70">
+            <h3 class="title-sales">4 Bedroom Apartment <br> <p class="-light-blue ft-1">#22213461</p></h3>
+            
+        </div>
+        <div class="mb-1">
+            <h3 class="title-sales -orange small-text">N2,008,888.8</h3>
+            <span>
+                <label class="btn  btn-xm btn-light-blue-1 btn-no-shadow ft-2" for="state">Available</label>
+                
+            </span>
+        </div>
+    </div>
+    <p class="small-text ft-08">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur cursus sit amet orci eget rutrum</p>
+    
+    
+        <a class="mt-2 mb-2 btn btn-blue block text-center text-deco white" href="single-property.html">View detail</a>
+    
+</div>
+</div>
+`;
