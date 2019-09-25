@@ -51,11 +51,14 @@
 
         <section class="container  pt-3 pb-3">
             <div class="width-50 flex-row space-around center mobile-pagination">
-               <div class="pagination-circle"><img class ="pagination-img"src="icons/Arrow.png" alt="previous arrow"></div>
-               <div class="pagination-circle bg-blue"><span class ="pagination-num">1</span></div>
-               <div class="pagination-circle pagination-trans  "><span class ="pagination-num -blue">2</span></div>
-               <div class="pagination-circle pagination-trans "><span class ="pagination-num -blue">3</span></div>
-               <div class="pagination-circle pagination-trans "><img class ="pagination-img" src="icons/Arrow next.png" alt="next-arrow"></div>
+                <div class="pagination">
+                    <div class="tableList" id="listingTable"></div>
+                    <div class="pagination-block">
+                      <span class="pageButton outline-none" id="button_prev">Prev</span>
+                      <span id="page_number" class="outline-none"></span>
+                      <span class="pageButton outline-none" id="button_next">Next</span>
+                    </div>
+                  </div>   
             </div>
  
          </section>        
@@ -72,6 +75,7 @@
     <script src="js/component.js"></script>
     <script src="js/index.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/pagination.js"></script>
     <script src="js/land.js"></script>
 </body>
 </html>

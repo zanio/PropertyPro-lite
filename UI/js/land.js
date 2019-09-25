@@ -3,7 +3,7 @@ consistent-return  */
 
 const AllAdsFetch = async () => {
 	let data;
-	const endpoint = 'http://127.0.0.1:3300/api/v1/property/search?type=Land';
+	const endpoint = 'http://127.0.0.1:3300/api/v1/property';
 	const fetchRequest = {
 		method: 'GET',
 		headers: {
@@ -44,8 +44,10 @@ const ProcessAds = async () => {
 		}
 		if (data.length >= 1) {
 			data.reverse();
+			const pagination = new Pagination(data);
+        	pagination.init();
 			// Display All adverts from all category
-			DisplayAllAdverts(data);
+			// DisplayAllAdverts(data);
 		}
 	} catch (err) {
 		Render.blockNotification('error', err, 'notification');

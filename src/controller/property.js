@@ -203,10 +203,10 @@ const getAllProperty = async (req, res) => {
 	try {
 		const { rows, rowCount } = await query(findAllQuery);
 		if (rows.length > 1) {
-			return res.status(200).json({ status: 200, data: [...rows, rowCount] });
+			return res.status(200).json({ status: 200, data: [...rows], TotalItem: rowCount });
 		}
 		if (rows.length <= 1) {
-			console.log(rows)
+			console.log(rows);
 			return res.status(400).json({ status: 400, data: { message: 'No advert has been created' } });
 		}
 	} catch (error) {
@@ -228,7 +228,7 @@ const getAllPropertyOfUser = async (req, res) => {
 	const response = await query(selectemail, [req.result.userId]);
 	try {
 		const { rows, rowCount } = await query(findAllQuery, [response.rows[0].email]);
-		return res.status(200).json({ status: 200, data: [...rows, { rowCount }] });
+		return res.status(200).json({ status: 200, data: [...rows], TotalItem: rowCount });
 	} catch (error) {
 		return res.status(400).json(error);
 	}
@@ -252,6 +252,29 @@ const getOneProperty = async (req, res) => {
 			return res.status(404).json({ status: 404, error: 'That id property does not exist or has already been deleted' });
 		}
 		return res.status(200).json({ status: 200, data: rows[0] });
+	} catch (error) {
+		return res.status(400).send(error);
+	}
+};
+
+/**
+   * Get A Reflection
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} reflection object
+   */
+
+const getPageProperty = async (req, res) => {
+	const { pageSize } = req;
+	const text = `SELECT *
+	 FROM property LIMIT $1 OFFSET $2`;
+	 const offset = (req.params.id - 1) * pageSize;
+	try {
+		const { rows, rowCount } = await query(text, [pageSize, offset]);
+		if (!rows[0]) {
+			return res.status(404).json({ status: 404, error: 'No Item can be retrieved for that page' });
+		}
+		return res.status(200).json({ status: 200, TotalItem: rowCount, data: [...rows] });
 	} catch (error) {
 		return res.status(400).send(error);
 	}
@@ -389,5 +412,5 @@ const deleteProperty = async (req, res) => {
 export {
 	deleteProperty, reportProperty, getAllProperty, updatePropertyStatus, flaggedProperty,
 	getTypeProperty, getOneProperty, updateProperty, createProperty, getAllPropertyOfUser
-	, getOneFlaggedProperty, getAllFlaggedProperty, getAddress,
+	, getOneFlaggedProperty, getAllFlaggedProperty, getAddress, getPageProperty,
 };

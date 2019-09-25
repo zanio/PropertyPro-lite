@@ -3,11 +3,13 @@
 import { cpUpload } from '../config/multer';
 
 import { cloudinaryHandler } from '../config/cloudinary';
-import { authorization, idCheck, typeAdvert } from '../middlewares/auth/auth';
+import {
+ authorization, idCheck, typeAdvert, itemCountCheck,
+} from '../middlewares/auth/auth';
 import { jwtVerify } from '../middlewares/auth/jsonweb';
 import { checkPropertyEmpty, updateprice, regNumCheck } from '../middlewares/field/inputfield';
 import {
-	createProperty, getOneFlaggedProperty, getAddress,
+	createProperty, getOneFlaggedProperty, getAddress, getPageProperty,
 	getAllFlaggedProperty, reportProperty, updatePropertyStatus, getTypeProperty,
 	updateProperty, deleteProperty, getOneProperty, getAllProperty, getAllPropertyOfUser,
 } from '../controller/property';
@@ -37,6 +39,8 @@ propertyrouter.post('/property/:id/report', idCheck, authorization, jwtVerify, r
 propertyrouter.get('/property/search', typeAdvert, getTypeProperty);
 
 propertyrouter.get('/property/:id', idCheck, getOneProperty);
+
+propertyrouter.get('/property/:id/items', idCheck, itemCountCheck, getPageProperty);
 
 propertyrouter.get('/property/flagged/:id', idCheck, getOneFlaggedProperty);
 

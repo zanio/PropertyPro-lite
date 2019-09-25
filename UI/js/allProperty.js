@@ -22,7 +22,6 @@ const AllAds = async () => {
 	} catch (err) {
 		Render.hideAsyncNotification('async-loading');
 		Render.blockNotification('error', 'Internet error occured. please try again', 'notification');
-		console.log(err);
 	}
 	return data;
 };

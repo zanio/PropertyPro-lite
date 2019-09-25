@@ -292,6 +292,9 @@ https://www.figma.com/proto/fIy9zqI7fmW2oKMDHSKLimzl/PropertyPro-Lite?node-id=2%
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075);
         }
     }
+    .active-navigation{
+        background-color: red !important;
+    }
     .righteous{
         font-family:'Righteous';
         letter-spacing: 0.8px;

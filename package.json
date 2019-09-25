@@ -8,7 +8,7 @@
     "test-build": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill -r dotenv/config dist/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "babel-node docs.js",
-    "dev": "set DEBUG=http & nodemon --exec babel-node src/app.js ",
+    "start:dev": "set DEBUG=http & nodemon --exec babel-node src/app.js ",
     "clean": "rm -rf dist && mkdir dist",
     "script": "babel-node src/services/test.js",
     "build-babel": "npm run clean && babel src --out-dir dist",

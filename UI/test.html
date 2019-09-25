@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/test.css">
+    <script src="js/fetch.js"></script>
     <title>Document</title>
     
 </head>
@@ -22,35 +24,37 @@
   <script>
   // if you have any suggestion of questions, pleasse feel free to send me an email to chiholiu10@gmail.com
     "use strict";
-    const objJson = [
-          { adName: "adName 1"},
-          { adName: "adName 2"},
-          { adName: "adName 3"},
-        //   { adName: "adName 4"},
-        //   { adName: "adName 5"},
-        //   { adName: "adName 6"},
-        //   { adName: "adName 7"},
-        //   { adName: "adName 8"},
-        //   { adName: "adName 9"},
-        //   { adName: "adName 10"},
-        //   { adName: "adName 11"},
-        //   { adName: "adName 12"},
-        //   { adName: "adName 13"},
-        //   { adName: "adName 13"},
-        //   { adName: "adName 14"},
-        //   { adName: "adName 15"},
-        //   { adName: "adName 16"},
-        //   { adName: "adName 17"},
-        //   { adName: "adName 18"},
-        //   { adName: "adName 19"},
-        //   { adName: "adName 20"},
-        //   { adName: "adName 21"},
-        //   { adName: "adName 22"},
-        //   { adName: "adName 23"}
+    // const objJson = [
+    //       { adName: "adName 1"},
+    //       { adName: "adName 2"},
+    //       { adName: "adName 3"},
+    //       { adName: "adName 4"},
+    //       { adName: "adName 5"},
+    //       { adName: "adName 6"},
+    //       { adName: "adName 7"},
+    //       { adName: "adName 8"},
+    //       { adName: "adName 9"},
+    //       { adName: "adName 10"},
+    //       { adName: "adName 11"},
+    //       { adName: "adName 12"},
+    //       { adName: "adName 13"},
+    //       { adName: "adName 13"},
+    //       { adName: "adName 14"},
+    //       { adName: "adName 15"},
+    //       { adName: "adName 16"},
+    //       { adName: "adName 17"},
+    //       { adName: "adName 18"},
+    //       { adName: "adName 19"},
+    //       { adName: "adName 20"},
+    //       { adName: "adName 21"},
+    //       { adName: "adName 22"},
+    //       { adName: "adName 23"}
           
-      ];
-      window.addEventListener('load',()=>{
-        let pagination = new Pagination(objJson,8);
+    //   ];
+      window.addEventListener('load',async ()=>{
+        const res = await AllAdsFetch()
+        console.log(res)
+        const pagination = new Pagination (res);
         pagination.init();
       })
 

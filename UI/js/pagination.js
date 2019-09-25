@@ -9,7 +9,7 @@ const clickPageNumber = document.querySelectorAll('.clickPageNumber');
 class Pagination {
 	constructor(data, html) {
 		this.current_page = 1;
-		this.records_per_page = 1;
+		this.records_per_page = 2;
 		this.data = data;
 		this.init = this.caller;
 		this.html = html;
@@ -20,11 +20,24 @@ class Pagination {
 		this.pageNumbers();
 		this.clickPage();
 		this.addEventListeners();
+		this.activeClass();
 	}
 
+	activeClass() {
+		const pageNumber = document.querySelector('#page_number');
+		const { current_page } = this;
+		for (let i = 0; i < pageNumber.textContent.length; i += 1) {
+			pageNumber.childNodes[i].classList.remove('active-navigation');
+			if (this.current_page == pageNumber.childNodes[i].innerHTML) {
+				pageNumber.childNodes[i].classList.add('active-navigation');
+			}
+		}
+	}
+
+
 	changePage(page) {
-		const { data, html, records_per_page } = this;
-		const listingTable = document.querySelector('.listingTable');
+		const { data, html, records_per_page } = this;	
+		const listingTable = document.querySelector('#listingTable');
 		if (page < 1) {
 			page = 1;
 		}
@@ -36,25 +49,23 @@ class Pagination {
 
 		for (let i = (page - 1) * records_per_page; i < (page * records_per_page)
          && i < data.length; i++) {
-			listingTable.innerHTML += html(data[i]);
+			listingTable.innerHTML += data[i];
 		}
+		this.activeClass();
 	}
 
-
 	prevPage() {
-		let { current_page } = this;
-		if (current_page > 1) {
-			current_page--;
-			this.changePage(current_page);
+		if (this.current_page > 1) {
+			this.current_page--;
+			this.changePage(this.current_page);
 		}
 	}
 
 	clickPage() {
-		let { current_page } = this;
 		document.addEventListener('click', (e) => {
 			if (e.target.nodeName === 'SPAN' && e.target.classList.contains('clickPageNumber')) {
-				current_page = e.target.textContent;
-				this.changePage(current_page);
+				this.current_page = e.target.textContent;
+				this.changePage(this.current_page);
 			}
 		});
 	}
@@ -71,7 +82,8 @@ class Pagination {
 
 	numPages() {
 		const { data, records_per_page } = this;
-		return Math.ceil(data.length / records_per_page);
+		const pageCounts = Math.ceil(data.length / records_per_page);
+		return pageCounts;
 	}
 
 	pageNumbers() {
@@ -83,12 +95,9 @@ class Pagination {
 	}
 
 	nextPage() {
-		let { current_page } = this;
-
-		if (current_page < this.numPages()) {
-			current_page++;
-			console.log(current_page);
-			this.changePage(current_page);
+		if (this.current_page < this.numPages()) {
+			this.current_page++;
+			this.changePage(this.current_page);
 		}
 	}
 }

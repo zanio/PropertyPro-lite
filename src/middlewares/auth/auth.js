@@ -53,7 +53,17 @@ const typeAdvert = (req, res, next) => {
 		res.status(404).json({ status: 404, error: 'That type of advert does not exist' });
 	}
 };
+const itemCountCheck = (req, res, next) => {
+	const url_parts = url.parse(req.url, true).query;
+
+	if (url_parts.pageSize) {
+		req.pageSize = url_parts.pageSize;
+		next();
+	} else {
+		res.status(404).json({ status: 404, error: 'Please use a valid query search key' });
+	}
+};
 
 export {
-	typeAdvert, AdminCheckDb, authorization, idCheck,
+	typeAdvert, AdminCheckDb, authorization, idCheck, itemCountCheck,
 };

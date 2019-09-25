@@ -7,21 +7,23 @@ dotenv.config();
 
 
 class Mail {
-	constructor(option, content) {
-		this.subject = option.Subject;
-		this.recipient = option.Recipient;
-		this.content = content;
+	constructor(emailDetails, html) {
+		this.subject = emailDetails.Subject;
+		this.recipient = emailDetails.Recipient;
+		this.content = html;
+		this.Recipients = this.formatRecipients();
 	}
 
-
+	// When sending to multiple users;
 	formatRecipients() {
 		const array = this.recipient.split(',');
 		array.map(el => el.trim());
 		return array;
 	}
 
+
 	async main() {
-		const { subject, recipient, content } = this;
+		const { subject, recipient, html } = this;
 		// create reusable transporter object using the default SMTP transport
 		process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 		const transporter = nodemailer.createTransport({
@@ -37,7 +39,7 @@ class Mail {
 			from: `"PropertyPro-Lite" <${process.env.email}>`,
 			to: recipient,
 			subject,
-			html: content,
+			html,
 		};
 
 		try {
