@@ -4,3 +4,4 @@ coverage
 .env
 test.js
 src/services/test.js
+package-lock.json
