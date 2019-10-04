@@ -124,9 +124,23 @@ GET  | api/v1/property/<:property-id>  | View a specific property advert |
 
 **please see the [api-docs](https://propertpro-lite.herokuapp.com/api-docs/) for a full documentation**
 
-## Acknowledgements
+## Release
 
-* [Andela](https://andela.com/)
+```Version 1.0.0```
+ * Still in developement
+
+## Contributing
+
+This app is open to suggestions and contribution. To contribute follow the steps below:
+
+* Fork this project and clone locally
+* Work on the project and create a branch for each separate work
+* Ensure to test your contribution
+* Ensure to write good commit messages
+* When done push to your origin repo
+* Create a Pull request
+
+## Acknowledgements
 
 * [Google](https://google.com/)
 
