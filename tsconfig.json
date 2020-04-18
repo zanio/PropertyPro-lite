@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+      "module": "system",
+      "noImplicitAny": true,
+      "removeComments": true,
+      "preserveConstEnums": true,
+      "outDir": "./UI/js",
+      "sourceMap": true
+    },
+    "include": ["./UI/ts/*"],
+    "exclude": ["./node_modules"]
+}
