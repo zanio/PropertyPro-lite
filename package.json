@@ -39,7 +39,7 @@
   "homepage": "https://github.com/zanio/PropertyPro-lite#readme",
   "dependencies": {
     "@babel/runtime": "^7.5.4",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cloudinary": "^1.14.0",
